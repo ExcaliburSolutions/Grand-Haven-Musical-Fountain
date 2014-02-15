@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="726.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <HBox id="HBox" alignment="CENTER" layoutX="20.0" layoutY="280.0" prefHeight="141.0" prefWidth="499.0" spacing="5.0">
+      <children>
+        <Slider majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+        <Slider majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>
