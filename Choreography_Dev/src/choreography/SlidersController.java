@@ -1,4 +1,3 @@
-//git hub test
 package choreography;
 
 import javafx.beans.value.ChangeListener;
