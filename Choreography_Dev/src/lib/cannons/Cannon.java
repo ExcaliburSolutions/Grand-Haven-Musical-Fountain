@@ -18,9 +18,11 @@ public class Cannon {
 
 	/**
 	 * @param level the level to set
+	 * 
+	 * @return Whether the operation succeeded or not.
 	 */
-	public void setLevel(int level) {
-		this.level = level;
+	public int setLevel(int level) {
+		return this.level = level;
 	}
 	
 	/**

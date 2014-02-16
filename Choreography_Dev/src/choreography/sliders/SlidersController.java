@@ -1,4 +1,4 @@
-package choreography;
+package choreography.sliders;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;

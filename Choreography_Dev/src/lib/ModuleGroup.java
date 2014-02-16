@@ -16,11 +16,11 @@ public class ModuleGroup {
 //	}
 	
 	public ModuleGroup(Module ... modulesIn) {
-		if(modules.length == 4){
+		if(modulesIn.length == 4){
 			this.modules = new Module[4];
 			this.modules = modulesIn;
 			AB = "A";
-		} else if(modules.length == 3){
+		} else if(modulesIn.length == 3){
 			this.modules = new Module[3];
 			this.modules = modulesIn;
 			AB = "B";

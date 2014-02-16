@@ -3,6 +3,7 @@
  */
 package lib.cannons;
 
+import lib.cannons.IndependentCannon;
 
 /**
  * @author madridf

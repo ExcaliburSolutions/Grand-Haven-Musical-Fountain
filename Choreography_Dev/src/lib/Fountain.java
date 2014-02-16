@@ -34,7 +34,42 @@ public class Fountain {
 	private ModuleGroup B;
 	
 	public Fountain(){
-		//Initialize the Rings where r1, 1 is ring size 1, module 1
+		initCannonArrays();
+		
+		initRings();
+		
+		initMultis();
+		
+		initCandles();
+		
+		initSweeps();
+		
+		initIndependentCannons();
+		
+		module1 = new Module(1, rings[0], m1, c1, s1);
+		module2 = new Module(2, rings[1], m2, c2, s2);
+		module3 = new Module(3, rings[2], m3, c3, s3);
+		module4 = new Module(4, rings[3], m4, c4, s4);
+		module5 = new Module(5, rings[4], m5, c5, s5);
+		module6 = new Module(6, rings[5], m6, c6, s6);
+		module7 = new Module(7, rings[6], m7, c7, s7);
+		
+		A = new ModuleGroup(module1, module3, module5, module7);
+		B = new ModuleGroup(module2, module4, module6);
+	}
+
+	/**
+	 * 
+	 */
+	private void initIndependentCannons() {
+		peacock = new Peacock(0); spout = new Spout(0); bazooka = new Bazooka(0); ftCurt = new FtCurt(0); bkCurt = new BkCurt(0);
+	}
+
+	/**
+	 * 
+	 */
+	private void initCannonArrays() {
+		//Initialize the Rings where r(1,1) is ring size 1, module 1
 		rings = new Ring[][]{{r11, r21, r31, r41, r51}, //Module 1
 				{r12, r22, r32, r42, r52}, //Module 2
 				{r13, r23, r33, r43, r53}, //Module 3
@@ -46,7 +81,54 @@ public class Fountain {
 		multis = new Multi[]{m1, m2, m3, m4, m5, m6, m7};
 		candles = new Candalabra[]{c1, c2, c3, c4, c5, c6, c7};
 		sweeps = new Sweeps[]{s1, s2, s3, s4, s5, s6, s7};
-		
+	}
+
+	/**
+	 * 
+	 */
+	private void initSweeps() {
+		//Initialize the Sweeps
+		for(int s=0; s <= 6;  s++) {
+				if(s % 2 == 0) {
+					sweeps[s] = new Sweeps("B", 0);
+				} else {
+					sweeps[s] = new Sweeps("A", 0);
+				}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void initCandles() {
+		//Initialize the Candalabra
+		for(int c=0; c <= 6;  c++) {
+				if(c % 2 == 0) {
+					candles[c] = new Candalabra("B", 0);
+				} else {
+					candles[c] = new Candalabra("A", 0);
+				}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void initMultis() {
+		//Initialize the Multis
+		for(int m=0; m <= 6;  m++) {
+				if(m % 2 == 0) {
+					multis[m] = new Multi("B", 0);
+				} else {
+					multis[m] = new Multi("A", 0);
+				}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void initRings() {
 		//Initialize the Rings
 		for(int m=0; m <= 6;  m++) {
 			for(int s = 0; s <= 4; s++)
@@ -56,45 +138,6 @@ public class Fountain {
 					rings[m][s] = new Ring("A", 0, s + 1);
 				}
 		}
-		
-		//Initialize the Multis
-		for(int m=0; m <= 6;  m++) {
-				if(m % 2 == 0) {
-					multis[m] = new Multi("B", 0);
-				} else {
-					multis[m] = new Multi("A", 0);
-				}
-		}
-		
-		//Initialize the Candalabra
-		for(int c=0; c <= 6;  c++) {
-				if(c % 2 == 0) {
-					candles[c] = new Candalabra("B", 0);
-				} else {
-					candles[c] = new Candalabra("A", 0);
-				}
-		}
-		
-		//Initialize the Sweeps
-		for(int s=0; s <= 6;  s++) {
-				if(s % 2 == 0) {
-					sweeps[s] = new Sweeps("B", 0);
-				} else {
-					sweeps[s] = new Sweeps("A", 0);
-				}
-		}
-		
-		peacock = new Peacock(0); spout = new Spout(0); bazooka = new Bazooka(0); ftCurt = new FtCurt(0); bkCurt = new BkCurt(0);
-		module1 = new Module(1, r11, r21, r31, r41, r51, m1, c1, s1);
-		module2 = new Module(2, r12, r22, r32, r42, r52, m2, c2, s2);
-		module3 = new Module(3, r13, r23, r33, r43, r53, m3, c3, s3);
-		module4 = new Module(4, r14, r24, r34, r44, r54, m4, c4, s4);
-		module5 = new Module(5, r15, r25, r35, r45, r55, m5, c5, s5);
-		module6 = new Module(6, r16, r26, r36, r46, r56, m6, c6, s6);
-		module7 = new Module(7, r17, r27, r37, r47, r57, m7, c7, s7);
-		
-		A = new ModuleGroup(module1, module3, module5, module7);
-		B = new ModuleGroup(module2, module4, module6);
 	}
 
 	/**

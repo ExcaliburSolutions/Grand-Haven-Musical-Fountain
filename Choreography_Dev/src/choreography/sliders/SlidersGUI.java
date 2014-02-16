@@ -1,7 +1,7 @@
 /**
  * 
  */
-package choreography;
+package choreography.sliders;
 
 import lib.Fountain;
 import lib.Module;
@@ -39,6 +39,9 @@ public class SlidersGUI {
 	private BkCurt bkCurt;
 	private FtCurt ftCurt;
 	private Spout spout;
+	
+	//TODO instantiate all required cannons, modules, module groups.
+	//TODO Fire them off to the SliderController
 	
 	public SlidersGUI(Fountain foutain){
 		Module module1 = new Module(1 ,r11, r21, r31, r41, r51, m1, c1, s1);
