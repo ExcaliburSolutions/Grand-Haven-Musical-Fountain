@@ -12,8 +12,8 @@
       <children>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="Ring1A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="Ring1B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="Ring1A" fx:id="r1A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Ring1B" fx:id="r1B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Ring 1" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -30,8 +30,8 @@
         </GridPane>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="Ring2A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="R2B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="Ring2A" fx:id="r2A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="R2B" fx:id="r2B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Ring 2" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -48,8 +48,8 @@
         </GridPane>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="Ring3A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="Ring3B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="Ring3A" fx:id="r3A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Ring3B" fx:id="r3B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Ring 3" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -66,8 +66,8 @@
         </GridPane>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="Ring4A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="Ring4B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="Ring4A" fx:id="r4A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Ring4B" fx:id="r4B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Ring 4" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -84,8 +84,8 @@
         </GridPane>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="Ring5A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="Ring5B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="Ring5A" fx:id="r5A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Ring5B" fx:id="r5B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Ring 5" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -102,8 +102,8 @@
         </GridPane>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="MultiA" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="MultiB" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="MultiA" fx:id="mxA" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="MultiB" fx:id="mxB" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Multi" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -120,8 +120,8 @@
         </GridPane>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="CandleA" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="CandleB" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="CandleA" fx:id="candleA" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="CandleB" fx:id="candleB" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Candleabras" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -138,8 +138,8 @@
         </GridPane>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider fx:id="SweepsA" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Slider fx:id="SweepsB" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Slider id="SweepsA" fx:id="swA" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="SweepsB" fx:id="swB" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Sweeps" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
             <Label text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
@@ -160,7 +160,7 @@
       <children>
         <GridPane id="GridPane">
           <children>
-            <Slider fx:id="FtCurt" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="FtCurt" fx:id="ftC" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Label prefWidth="46.9998779296875" text="Ft. Curt" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="I" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
           </children>
@@ -175,7 +175,7 @@
         </GridPane>
         <GridPane id="GridPane">
           <children>
-            <Slider fx:id="BkCurt" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="BkCurt" fx:id="bkC" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Label text="Bk. Curt." GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="I" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
           </children>
@@ -190,7 +190,7 @@
         </GridPane>
         <GridPane id="GridPane" alignment="CENTER" gridLinesVisible="false" HBox.hgrow="SOMETIMES">
           <children>
-            <Slider fx:id="Peacock" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Peacock" fx:id="pk" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Label text="Peacock" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
             <Label text="I" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
           </children>
@@ -206,7 +206,7 @@
         <GridPane id="GridPane">
           <children>
             <Label text="Bazooka" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
-            <Slider fx:id="Bazooka" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Bazooka" fx:id="bz" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Label text="I" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
           </children>
           <columnConstraints>
@@ -220,7 +220,7 @@
         </GridPane>
         <GridPane id="GridPane">
           <children>
-            <Slider fx:id="Spout" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Spout" fx:id="sp" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Label text="Spout" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="I" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
           </children>

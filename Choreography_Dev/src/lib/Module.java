@@ -58,6 +58,10 @@ public class Module {
 		r4 = rings[3];
 		r5 = rings[4];
 	}
+	public Module() {
+		
+	}
+
 	/**
 	 * @return the number
 	 */
@@ -182,6 +186,11 @@ public class Module {
 	 */
 	protected void setCandle(Candalabra candle) {
 		this.candle = candle;
+	}
+	
+	public String toString() {
+		return number + " " + r1 + " " + r2 + " " + r3;
+		
 	}
 
 }

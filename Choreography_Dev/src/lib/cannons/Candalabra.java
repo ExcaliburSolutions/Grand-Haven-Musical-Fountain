@@ -20,4 +20,8 @@ public class Candalabra extends Cannon {
 		super(module, level);
 	}
 
+	public Candalabra(int i) {
+		super(i);
+	}
+
 }

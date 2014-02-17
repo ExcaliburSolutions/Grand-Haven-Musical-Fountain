@@ -9,6 +9,10 @@ public class Cannon {
 		this.setLevel(level);
 	}
 
+	public Cannon(int level) {
+		this.level = level;
+	}
+
 	/**
 	 * @return the level
 	 */
@@ -37,6 +41,10 @@ public class Cannon {
 	 */
 	protected void setModule(String AB) {
 		this.AB = AB;
+	}
+	
+	public String toString(){
+		return this.getClass().getSimpleName() + " " + level;
 	}
 	
 	

@@ -20,4 +20,8 @@ public class Sweeps extends Cannon {
 		super(module, level);
 	}
 
+	public Sweeps(int i) {
+		super(i);
+	}
+
 }

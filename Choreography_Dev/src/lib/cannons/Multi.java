@@ -21,4 +21,8 @@ public class Multi extends Cannon {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Multi(int i) {
+		super(i);
+	}
+
 }
