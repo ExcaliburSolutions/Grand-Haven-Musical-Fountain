@@ -1,7 +1,7 @@
 /**
  * 
  */
-package lib;
+package lib.events;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

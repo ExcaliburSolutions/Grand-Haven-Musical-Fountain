@@ -1,18 +1,12 @@
 package lib.cannons;
 
-public class Cannon {
-	protected String AB;
+public abstract class Cannon {
 	protected int level;
 	
-	public Cannon(String AB, int level) {
-		this.setModule(AB);
-		this.setLevel(level);
-	}
-
 	public Cannon(int level) {
-		this.level = level;
+            this.level = level;
 	}
-
+        
 	/**
 	 * @return the level
 	 */
@@ -29,23 +23,8 @@ public class Cannon {
 		return this.level = level;
 	}
 	
-	/**
-	 * @return the module
-	 */
-	protected String getAB() {
-		return AB;
-	}
-
-	/**
-	 * @param AB the module to set
-	 */
-	protected void setModule(String AB) {
-		this.AB = AB;
-	}
-	
+        @Override
 	public String toString(){
 		return this.getClass().getSimpleName() + " " + level;
 	}
-	
-	
 }

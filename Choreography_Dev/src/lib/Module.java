@@ -19,9 +19,9 @@ public class Module {
 	private Ring r3;
 	private Ring r4;
 	private Ring r5;
-	private Sweeps sw;
+	private Sweep sw;
 	private Multi mx;
-	private Candalabra candle;
+	private Candelabra candle;
 	
 
 	/**
@@ -35,7 +35,7 @@ public class Module {
 	 * @param candle
 	 */
 	public Module(int number, Ring r1, Ring r2, Ring r3,
-			Ring r4, Ring r5, Multi mx, Candalabra candle, Sweeps sw) {
+			Ring r4, Ring r5, Multi mx, Candelabra candle, Sweep sw) {
 		super();
 		this.number = number;
 		this.r1 = r1;
@@ -48,7 +48,7 @@ public class Module {
 		this.candle = candle;
 	}
 
-	public Module(int number, Ring[] rings, Multi m1, Candalabra c1, Sweeps s1){
+	public Module(int number, Ring[] rings, Multi m1, Candelabra c1, Sweep s1){
 		this.mx = m1;
 		this.candle = c1;
 		this.sw = s1;
@@ -58,6 +58,20 @@ public class Module {
 		r4 = rings[3];
 		r5 = rings[4];
 	}
+        
+        public Module(int number, Cannon r1, Cannon r2, Cannon r3, Cannon r4, 
+                Cannon r5, Cannon mx, Cannon c, Cannon sw){
+            this.number = number;
+		this.r1 = (Ring)r1;
+		this.r2 = (Ring)r2;
+		this.r3 = (Ring)r3;
+		this.r4 = (Ring)r4;
+		this.r5 = (Ring)r5;
+		this.sw = (Sweep)sw;
+		this.mx = (Multi)mx;
+		this.candle = (Candelabra)c;
+        }
+        
 	public Module() {
 		
 	}
@@ -149,14 +163,14 @@ public class Module {
 	/**
 	 * @return the sw
 	 */
-	public Sweeps getSw() {
+	public Sweep getSw() {
 		return sw;
 	}
 
 	/**
 	 * @param sw the sw to set
 	 */
-	protected void setSw(Sweeps sw) {
+	protected void setSw(Sweep sw) {
 		this.sw = sw;
 	}
 
@@ -177,14 +191,14 @@ public class Module {
 	/**
 	 * @return the candle
 	 */
-	public Candalabra getCandle() {
+	public Candelabra getCandle() {
 		return candle;
 	}
 
 	/**
 	 * @param candle the candle to set
 	 */
-	protected void setCandle(Candalabra candle) {
+	protected void setCandle(Candelabra candle) {
 		this.candle = candle;
 	}
 	

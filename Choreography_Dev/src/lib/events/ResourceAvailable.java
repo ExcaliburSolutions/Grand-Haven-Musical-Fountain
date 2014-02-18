@@ -1,7 +1,7 @@
 /**
  * 
  */
-package lib;
+package lib.events;
 
 /**
  * An event which describes a resource which has been made available to the eventBus.

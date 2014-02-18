@@ -1,7 +1,7 @@
 /**
  * 
  */
-package lib;
+package lib.events;
 
 /**
  * @author madridf

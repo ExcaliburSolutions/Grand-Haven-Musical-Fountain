@@ -9,18 +9,18 @@ import lib.cannons.Cannon;
  * @author madridf
  *
  */
-public class Candalabra extends Cannon {
+public class Candelabra extends Cannon {
 
 	/**
 	 * @param name
 	 * @param module
 	 * @param level
 	 */
-	public Candalabra(String module, int level) {
-		super(module, level);
+	public Candelabra(String module, int level) {
+		super(level);
 	}
 
-	public Candalabra(int i) {
+	public Candelabra(int i) {
 		super(i);
 	}
 

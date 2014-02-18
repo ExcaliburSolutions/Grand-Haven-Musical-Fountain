@@ -22,14 +22,14 @@ import java.util.Scanner;
  */
 public class FCWLib {
 	private final File fcwInfo = new File("src/lib/FCW_DEF.txt");
-	private HashMap<String, Integer> address;
-	private HashMap<String, HashSet<Integer>> addressCommand;
-	private HashMap<String, HashMap<String, Integer>> tableCommands;
+	private final HashMap<String, Integer> address;
+	private final HashMap<String, HashSet<Integer>> addressCommand;
+	private final HashMap<String, HashMap<String, Integer>> tableCommands;
 	
 	public FCWLib(){
-		address = new HashMap<String, Integer>();
-		addressCommand = new HashMap<String, HashSet<Integer>>();
-		tableCommands = new HashMap<String, HashMap<String, Integer>>();
+		address = new HashMap<>();
+		addressCommand = new HashMap<>();
+		tableCommands = new HashMap<>();
 		
 //		if(fcwInfo.exists()){
 		readFCWInfoFromFile(fcwInfo);
