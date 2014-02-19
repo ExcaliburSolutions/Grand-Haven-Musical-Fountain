@@ -9,9 +9,9 @@ import lib.cannons.Cannon;
  * @author madridf
  *
  */
-public class Multi extends Cannon {
-
-	public Multi(int i) {
+public class Sweep extends Cannon {
+    
+	public Sweep(int i) {
 		super(i);
 	}
 
