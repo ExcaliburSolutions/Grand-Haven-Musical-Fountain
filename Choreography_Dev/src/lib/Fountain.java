@@ -11,25 +11,26 @@ import lib.cannons.*;
  */
 public class Fountain {
 
+        private static Fountain instance;
 	private Peacock peacock; private Spout spout; private Bazooka bazooka; private FtCurt ftCurt; private BkCurt bkCurt;
 	private ModuleGroup A; private ModuleGroup B;
+
+    /**
+     *
+     * @return 
+     */
+    public static synchronized Fountain getInstance() {
+            if (instance == null) {
+                instance = new Fountain();
+            }
+            return instance;
+        }
 	
-	public Fountain(){
+	private Fountain(){
             A = (CannonFactory.createModuleGroup("A"));
             B = (CannonFactory.createModuleGroup("B"));
-//		Module[] modules = new Module[7];
-//		
-//		for(int n = 0; n <= 6; n++){
-//				Ring[] rings = new Ring[]{new Ring(1), new Ring(2), new Ring(3), new Ring(4), new Ring(5)}; 
-//				modules[n] = new Module(n+1, rings, new Multi(0), new Candelabra(0), new Sweep(0));
-//		}
-//		
-//		
-//		A = new ModuleGroup(modules[0], modules[2], modules[4],modules[6]);
-//		B = new ModuleGroup(modules[1], modules[3], modules[5]);
 		
-		
-		initIndependentCannons();
+            initIndependentCannons();
 	}
 
 	/**

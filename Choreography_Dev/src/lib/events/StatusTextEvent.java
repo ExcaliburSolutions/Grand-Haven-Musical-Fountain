@@ -7,14 +7,15 @@ package lib.events;
  * @author madridf
  *
  */
-public class StatusText {
+public class StatusTextEvent {
 
-	private String status;
+	private final String status;
 
 	/**
 	 * 
+     * @param status
 	 */
-	public StatusText(String status) {
+	public StatusTextEvent(String status) {
 		this.status = status;
 	}
 

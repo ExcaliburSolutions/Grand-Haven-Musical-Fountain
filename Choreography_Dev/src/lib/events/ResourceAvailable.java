@@ -9,19 +9,20 @@ package lib.events;
  * @author madridf
  *
  */
-public class ResourceAvailable {
+public class ResourceAvailable<T> {
 
-	private Object resource;
+	private T resource;
 	
-	/**
-	 * 
-	 */
-	public ResourceAvailable(Object resource) {
-		this.resource = resource;
-	}
-	
-	public Object getResource() {
-		return resource;
-	}
+    /**
+     * 
+     * @param resource
+     */
+     public ResourceAvailable(T resource) {
+           this.resource = resource;
+     }
+
+    public T getResource() {
+           return resource;
+    }
 
 }

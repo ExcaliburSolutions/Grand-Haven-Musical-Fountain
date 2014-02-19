@@ -3,6 +3,7 @@
  */
 package lib;
 
+import java.util.ArrayList;
 import lib.cannons.*;
 
 /**
@@ -25,8 +26,8 @@ public class ModuleGroup {
             } 
 	}
 
-        public CannonGroup getCannonGroup(CannonEnum e) {
-            CannonGroup cg = new CannonGroup<>();
+        public ArrayList<Cannon> getCannonGroup(CannonEnum e) {
+            ArrayList<Cannon> cg = new ArrayList<>();
             for(Module m : modules) {
                 switch(e){
                     case RING1:

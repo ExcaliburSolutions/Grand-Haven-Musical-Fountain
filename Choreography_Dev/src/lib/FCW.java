@@ -14,6 +14,12 @@ public class FCW {
     private String time;
     private int addr;
     private int data;
+    
+    public FCW(String time, int addr, int data){
+        this.time = time;
+        this.addr = addr;
+        this.data = data;
+    }
 
     /**
      * @return the time

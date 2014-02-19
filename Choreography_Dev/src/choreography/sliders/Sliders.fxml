@@ -12,7 +12,7 @@
       <children>
         <GridPane id="GridPane" HBox.hgrow="ALWAYS">
           <children>
-            <Slider id="Ring1A" fx:id="r1A" majorTickUnit="5.0" max="5.0" minorTickCount="4" onMouseReleased="#cannonSliderChangeListener" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Slider id="Ring1A" fx:id="r1A" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Slider id="Ring1B" fx:id="r1B" majorTickUnit="5.0" max="5.0" minorTickCount="4" orientation="VERTICAL" prefHeight="233.0" prefWidth="54.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Ring 1" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" />
             <Label text="A" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
