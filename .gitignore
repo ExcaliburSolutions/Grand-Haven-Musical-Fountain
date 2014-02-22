@@ -3,6 +3,10 @@
 /Playback_Dev/nbproject/private/
 *.properties
 
-*.properties
+*.xml
+
+*.mf
+
+*/.DS_Store
 
 Choreography_Dev/nbproject/project.properties
