@@ -13,3 +13,8 @@
 /TimeLineTestConcept$3.class
 /TimeLineTestConcept$4.class
 /TimeLineTestConcept.class
+/AudioWaveformCreator.class
+/AudioWaveformCreator$Capture.class
+/AudioWaveformCreator$SamplingGraph.class
+/Capture.class
+/SamplingGraph.class

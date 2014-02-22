@@ -1,13 +1,17 @@
 package SimpleJavaFXPlayer;
 
 //import Model.Music;
+import SimpleJavaFXPlayer.AudioWaveformCreator;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -15,11 +19,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
@@ -46,13 +53,18 @@ public class PlayerViewController implements Initializable {
     @FXML
     private Slider volume;
     @FXML
-    private ScrollPane timelineScrollPane;
+    private ScrollPane timelineScrollPane, waveFilePane;
     @FXML
     private ColorPicker colorPicker;
     /**/
     private MediaPlayer mediaPlayer;
     private int musicId = -1;
+    private double time, roundedTime;
     
+    public static final int H_PIXEL_SIZE = 15;
+    public static final int V_PIXEL_SIZE = 20;
+    public static final double SONG_TIME = 10;
+
     private void getAllMusic(File directory) {
         if (directory.isDirectory()) {
             File[] listFiles = directory.listFiles();
@@ -79,12 +91,43 @@ public class PlayerViewController implements Initializable {
             getAllMusic(jf.getSelectedFile());
             saveDirectory(jf.getSelectedFile().getAbsolutePath());
         }
-//        play((Music) musicList.getFocusModel().getFocusedItem());
-//        musicId = musicList.getFocusModel().getFocusedIndex();
-//        mediaPlayer.play();
-//        mediaPlayer.stop();
+
         
-        createTimeline();
+//        Image image = new Image("file:///C:/Users/Steve/Documents/GitHub/Grand-Haven-Musical-Fountain/MediaPlayer/out.png");
+//       // simple displays ImageView the image as is
+//        ImageView iv1 = new ImageView();
+//        iv1.setImage(image);
+        
+        URL url = null;
+		try {
+			url = jf.getSelectedFile().toURI().toURL();
+//			"file:///C:/Users/Steve/Desktop/01 Relections of Earth.wav"
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
+
+			time = awc.getTime();
+			DecimalFormat f = new DecimalFormat("#.0");
+        	time = 2*Double.parseDouble(f.format(time));
+		     
+			//roundedTime = Math.round((time*10)/10);
+			Image image = new Image("file:///C:/Users/Steve/Documents/GitHub/Grand-Haven-Musical-Fountain/MediaPlayer/out.png");
+			ImageView iv1 = new ImageView();
+			iv1.setImage(image);
+			waveFilePane.setContent(iv1);
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        createTimeline(time);
+
+//       	waveFilePane.setContent(iv1);
        
         
     }
@@ -135,10 +178,16 @@ public class PlayerViewController implements Initializable {
                 musicId = musicList.getFocusModel().getFocusedIndex();
             }
             if (evt.getClickCount() == 1) {
-                play((Music) musicList.getFocusModel().getFocusedItem());
-                musicId = musicList.getFocusModel().getFocusedIndex();
-                mediaPlayer.pause();
-                System.out.println(mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds());
+//                play((Music) musicList.getFocusModel().getFocusedItem());
+//                musicId = musicList.getFocusModel().getFocusedIndex();
+////                mediaPlayer.pause();
+//                
+//                System.out.println(mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds());
+//                mediaPlayer.stop();
+            	//System.out.println(roundedTime);
+            	
+            	System.out.println(time);
+            	
                 
             }
         }
@@ -153,27 +202,28 @@ public class PlayerViewController implements Initializable {
         }
     }
     
-    public void createTimeline(){
+    public void createTimeline(double tenths){
     	//double songLength = (mediaPlayer.getTotalDuration().toSeconds())*10;
     	GridPane gridpaneRec = new GridPane();
+    	int intTenths = (int) tenths;
 //    	final ColorPicker colorPicker = new ColorPicker();
 //    	
 //    	colorPicker.setLayoutX(1000);
 //        colorPicker.setLayoutY(1000);
     	
-    	final Rectangle[][] recArray = new Rectangle[101][70];
-   	 for(int i=0; i<101; i++){
-     		  gridpaneRec.getColumnConstraints().add(new ColumnConstraints(30));
-     		  if (i < 70){ //because the array is not square this needs to be here
-     			 gridpaneRec.getRowConstraints().add(new RowConstraints(30));
+    	final Rectangle[][] recArray = new Rectangle[intTenths+1][17];
+   	 for(int i=0; i<intTenths+1; i++){
+     		  gridpaneRec.getColumnConstraints().add(new ColumnConstraints(V_PIXEL_SIZE+1));
+     		  if (i < 17){ //because the array is not square this needs to be here
+     			 gridpaneRec.getRowConstraints().add(new RowConstraints(V_PIXEL_SIZE+1));
      		  }
      		  
-      	  for(int j=0; j<70; j++){
+      	  for(int j=0; j<17; j++){
       		  if (i == 0){
-      			 recArray[i][j] = new Rectangle(50,25, Color.RED);
+      			 recArray[i][j] = new Rectangle(H_PIXEL_SIZE,V_PIXEL_SIZE, Color.RED);
       			 continue;
       		  }
-      		  recArray[i][j] = new Rectangle(25,25, Color.LIGHTGREY);
+      		  recArray[i][j] = new Rectangle(H_PIXEL_SIZE,V_PIXEL_SIZE, Color.LIGHTGREY);
       		  gridpaneRec.add(recArray[i][j], i, j);
       		  //these are needed to talk to the mouse pressed events
       		  final int testI = i;
@@ -204,6 +254,7 @@ public class PlayerViewController implements Initializable {
       	  }
         }
    	 timelineScrollPane.setContent(gridpaneRec);
+   	
    	 
     }
     
