@@ -54,6 +54,8 @@ public class ModuleGroup {
                         break;
                     case SWEEP:
                         cg.add(m.getSw());
+				default:
+					break;
                 }
             }
             return cg;
