@@ -54,7 +54,7 @@ public class FCW {
 
     @Override
     public String toString() {
-        return String.format("%0$s03, %1$s03", addr, data);
+        return String.format("%1$03d%2$s%3$03d", addr, "-", data);
     }
     
     

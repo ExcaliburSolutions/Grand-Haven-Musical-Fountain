@@ -12,7 +12,7 @@ package choreography.model.cannon;
  */
 public enum CannonEnum {
     RING1, RING2, RING3, RING4, RING5, CANDELABRA, MULTI, SWEEP, FTCURT, BKCURT, 
-    BAZOOKA, PEACOCK, SPOUT
+    BAZOOKA, PEACOCK, SPOUT, BKFTCURT
 
 
 }

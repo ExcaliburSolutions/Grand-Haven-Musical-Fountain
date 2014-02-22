@@ -4,10 +4,10 @@ RING4, 2
 RING3, 3
 RING2, 4
 RING1, 5
-Sweeps, 6
-Tall, 7
-Candelabra, 8
-BkFtCurtains, 9
+SWEEP, 6
+SPOUT, 7
+CANDELABRA, 8
+BKFTCURT, 9
 Lights, 16
 Module1Lights, 17
 Module2Lights, 18
@@ -16,25 +16,25 @@ Module4Lights, 20
 Module5Lights, 21
 Module6Lights, 22
 Module7Lights, 23
-BackCurtainLights, 24
-PeacockA, 25
-PeacockB, 26
-PeacockBLegacy, 41
-PeacockAB, 27
-SweepA, 33
-SweepB, 34
-SweepLimitAB, 35
-SweepLimitA, 36
-SweepLimitB, 37
-WeddingCake, 48
-ModuleALights, 49
-ModuleBLights, 50
-ModuleAB, 51
-ModuleABLegacy, 52
-LegacyReserved, 53
-Voice, 54
-Pulse, 69
-InterchangeAB, 80
+BKCURT, 24
+PEACOCKA, 25
+PEACOCKB, 26
+PEACOCKBLEGACY, 41
+PEACOCKAB, 27
+SWEEPA, 33
+SWEEPB, 34
+SWEEPLIMITAB, 35
+SWEEPLIMITA, 36
+SWEEPLIMITB, 37
+WEDDINGCAKE, 48
+MODULEALIGHTS, 49
+MODULEBLIGHTS, 50
+MODULEAB, 51
+MODULEABLEGACY, 52
+LEGACYRESERVED, 53
+VOICE, 54
+PULSE, 69
+INTERCHANGEAB, 80
 ShiftRotate, 85
 SetTimer, 86
 Test, 97
@@ -68,11 +68,11 @@ ConnectAB, 64
 |EndTable|
 | TableB |
 Off, 0
-Height1, 1
-Height2, 2
-Height3, 3
-Height4, 4
-Height5, 5
+1, 1
+2, 2
+3, 3
+4, 4
+5, 5
 FtCurt, 16
 BkCurt, 32
 TogglePeacockBkCurt, 64
@@ -162,4 +162,3 @@ LeftLongLeftOT, 86
 HoldLeftOT, 102
 |EndTable|
 |EndCommands|
-

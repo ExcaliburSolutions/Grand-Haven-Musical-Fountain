@@ -7,9 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import choreography.model.Fountain;
-import org.bushe.swing.event.EventServiceExistsException;
-import org.bushe.swing.event.EventServiceLocator;
-import org.bushe.swing.event.ThreadSafeEventService;
 
 
 
@@ -32,11 +29,6 @@ public class Main extends Application {
         @Override
 	public void start(Stage primaryStage) {
             try {
-                System.setProperty(EventServiceLocator.SERVICE_NAME_EVENT_BUS, 
-                        ThreadSafeEventService.class.getName());
-                EventServiceLocator.setEventService(
-                        EventServiceLocator.SERVICE_NAME_SWING_EVENT_SERVICE, 
-                        new ThreadSafeEventService());
                 this.setPrimaryStage(primaryStage);
                 primaryStage.setTitle("Grand Haven Musical Fountain Choreographer");
                 fountain = Fountain.getInstance();
@@ -50,7 +42,7 @@ public class Main extends Application {
                 primaryStage.setScene(scene);
                 
                 primaryStage.show();
-            } catch (IOException | EventServiceExistsException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
