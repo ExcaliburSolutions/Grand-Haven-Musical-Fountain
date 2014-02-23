@@ -6,6 +6,7 @@
 
 package choreography.view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -97,8 +98,13 @@ public class ChoreographyController implements Initializable {
     	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
             	    Stage stage = new Stage();
-            	    Parent root = FXMLLoader.load(
-            	        DialogController.class.getResource("Dialog.fxml"));
+            	    Parent root = null;
+					try {
+						root = FXMLLoader.load(
+						DialogController.class.getResource("Dialog.fxml"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
             	    stage.setScene(new Scene(root));
             	    stage.setTitle("My modal window");
             	    stage.initModality(Modality.WINDOW_MODAL);

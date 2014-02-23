@@ -26,7 +26,31 @@ import java.util.logging.Logger;
 public final class FCWLib {
     private static FCWLib fcwLib;
     private static final Logger LOG = Logger.getLogger(FCWLib.class.getName());
-
+    private final File fcwInfo = new File("src/choreography/model/fcw/FCW_DEF.txt");
+	private HashMap<String, Integer> waterAddress;
+	private HashMap<String, Integer> lightAddress;
+	private String[] lightNames;
+	private String[] waterNames;
+	private HashMap<HashSet<Integer>, String> functionTable;
+	private HashMap<String, HashMap<String, Integer>> tableCommands;
+	
+	private FCWLib(){
+		waterAddress = new HashMap<>();
+		lightAddress = new HashMap<>();
+		functionTable = new HashMap<>();
+		tableCommands = new HashMap<>();
+		
+		readFCWInfoFromFile(fcwInfo);
+		
+		lightNames = new String[lightAddress.size()];
+		waterNames = new String[waterAddress.size()];
+		System.out.println(waterAddress);
+		System.out.println(lightAddress);
+		System.out.println(functionTable);
+		System.out.println(tableCommands);
+		System.out.println(getFCW("RING1", new String[]{"Module1", "1"}));
+	}	
+	
     /**
      * @return the fcwLib
      */
@@ -42,22 +66,9 @@ public final class FCWLib {
     public static void setFcwLib(FCWLib aFcwLib) {
         fcwLib = aFcwLib;
     }
-	private final File fcwInfo = new File("src/choreography/model/fcw/FCW_DEF.txt");
-	private final HashMap<String, Integer> address;
-	private final HashMap<HashSet<Integer>, String> functionTable;
-	private final HashMap<String, HashMap<String, Integer>> tableCommands;
 	
-	private FCWLib(){
-		address = new HashMap<>();
-		functionTable = new HashMap<>();
-		tableCommands = new HashMap<>();
-		
-		readFCWInfoFromFile(fcwInfo);
-//		System.out.println(address);
-//		System.out.println(functionTable);
-//		System.out.println(tableCommands);
-//		}
-	}
+	
+
 	
 	public void readFCWInfoFromFile(File fcwInfo){
 		try {
@@ -65,9 +76,10 @@ public final class FCWLib {
 			fileIn.useDelimiter("|");
 //			String line = "";
 //			while(fileIn.hasNextLine()){
-				fileIn.findWithinHorizon("|Addresses|", 1);
+				fileIn.findWithinHorizon("|WaterAddresses|", 1);
 				fileIn.nextLine();
-				readAddressesFromFile(fileIn);
+				readWaterAddressesFromFile(fileIn);
+				fileIn.findWithinHorizon("|LightAddresses|", 0);
 				fileIn.nextLine();
 				fileIn.findWithinHorizon("|Tables|", 0);
 				readAddressTableFromFile(fileIn);
@@ -82,14 +94,26 @@ public final class FCWLib {
 	}
 
 
-	public void readAddressesFromFile(Scanner fileIn) {
+	public void readWaterAddressesFromFile(Scanner fileIn) {
 		while(fileIn.hasNextLine()){
 			String line = fileIn.nextLine();
 			if(line.equals("|EndAddresses|")) {
 				return;
 			} else {
 				String[] tokens= line.split(", ");
-					address.put(tokens[0].trim(), new Integer(tokens[1].trim()));
+					waterAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
+			}
+		}
+	}
+	
+	public void readLightAddressesFromFile(Scanner fileIn) {
+		while(fileIn.hasNextLine()){
+			String line = fileIn.nextLine();
+			if(line.equals("|EndAddresses|")) {
+				return;
+			} else {
+				String[] tokens= line.split(", ");
+					lightAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
 			}
 		}
 	}
@@ -138,11 +162,11 @@ public final class FCWLib {
 	}
 	
 	public String[] getLightTable() {
-		throw new UnsupportedOperationException();
+		return lightNames;
 	}
 	
 	public String[] getWaterTable() {
-		throw new UnsupportedOperationException();
+		return waterNames;
 	}
 
         public FCW getFCW(String cannon, String[] actions) {
@@ -162,7 +186,18 @@ public final class FCWLib {
             return new FCW(addr, data); //get rid of this crap!
         }
 
-    private String searchFunctionTables(int addr) {
+    private int searchAddresses(String cannon) {
+			if(waterAddress.containsKey(cannon)) {
+				return searchWaterAddresses(cannon);
+			}
+			else if(lightAddress.containsKey(cannon)){
+				return searchLightAddresses(cannon);
+			}
+			else throw new IllegalArgumentException(cannon + " isn't associated with "
+					+ "a water or light address");
+		}
+
+	private String searchFunctionTables(int addr) {
         String table = null;
         for(HashSet<Integer> hs : functionTable.keySet()){
             if(hs.contains(addr)){
@@ -173,14 +208,13 @@ public final class FCWLib {
         return table;
     }
 
-    private int searchAddresses(String cannon) throws IllegalArgumentException {
-        
+    private int searchWaterAddresses(String cannon) throws IllegalArgumentException {
+        Integer addr = 0;
+		return addr = waterAddress.get(cannon); //get it!
+    }
+    
+    private int searchLightAddresses(String cannon) throws IllegalArgumentException {
         int addr = 0;
-        if(address.containsKey(cannon)){ //if we have a cannon
-            addr = address.get(cannon); //get it!
-        } else throw new IllegalArgumentException(cannon + " does not have "
-                + "an associated address in FCW_DEF.txt");
-        return addr;
-        
+        return addr = lightAddress.get(cannon); //get it!
     }
 }

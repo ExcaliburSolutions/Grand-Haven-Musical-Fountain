@@ -1,0 +1,9 @@
+audioDelay = 0.1
+peacock = 0.1
+voice = 0.1
+bazooka = 0.1
+ring = 0.1
+candelabra = 0.1
+sweep = 0.1
+ftCurt = 0.1
+bkCurt = 0.1
