@@ -136,6 +136,14 @@ public final class FCWLib {
 
             } while(fileIn.hasNextLine());
 	}
+	
+	public String[] getLightTable() {
+		throw new UnsupportedOperationException();
+	}
+	
+	public String[] getWaterTable() {
+		throw new UnsupportedOperationException();
+	}
 
         public FCW getFCW(String cannon, String[] actions) {
             
@@ -156,7 +164,7 @@ public final class FCWLib {
 
     private String searchFunctionTables(int addr) {
         String table = null;
-        for(HashSet hs : functionTable.keySet()){
+        for(HashSet<Integer> hs : functionTable.keySet()){
             if(hs.contains(addr)){
                 table = functionTable.get(hs);
                 break;

@@ -1,4 +1,5 @@
-|Addresses|
+<<<<<<< HEAD
+|WaterAddresses|
 Ring5, 001w
 Ring4, 002w
 Ring3, 003w
@@ -8,6 +9,15 @@ Sweep, 006w
 Spout, 007w
 Candelabra, 008w
 BackFrontCurtain, 009w
+SweepA, 033w
+SweepB, 034w
+SweepLimitAB, 035w
+SweepLimitA, 036w
+SweepLimitB, 037w
+WeddingCake, 048w
+Pulse, 069w
+|EndWaterAddresses|
+|LightAddresses|
 Lights, 016
 Module1Lights, 017
 Module2Lights, 018
@@ -21,24 +31,13 @@ PeacockA, 025
 PeacockB, 026
 PeacockBLegacy, 041
 PeacockAB, 027
-SweepA, 033w
-SweepB, 034w
-SweepLimitAB, 035w
-SweepLimitA, 036w
-SweepLimitB, 037w
-WeddingCake, 048w
 ModuleALights, 049
 ModuleBLights, 050
 ModuleAB, 051
 ModuleABLegacy, 052
 LegacyReserved, 053
-Voice, 054
-Pulse, 069
-InterchangeAB, 080
 ShiftRotate, 085
 SetTimer, 086
-Test, 097
-Off, 099
 FrontALed, 100
 FrontALedFadeUp, 101
 FrontALedFadeDown, 102
@@ -77,25 +76,147 @@ Module7AllLedFadeUp, 141
 Module7AllLedFadeDown, 142
 Module7AllLedStrobe, 143
 FrontLedAllLeft, 160
-
+FrontLedLeft1, 161
+FrontLedLeft2, 162
+FrontLedLeft3, 163
+FrontLedLeft4, 164
+FrontLedLeft5, 165
+FrontLedLeft6, 166
+FrontLedLeft7, 167
+FrontLedAllRight, 170
+FrontLedRight1, 171
+FrontLedRight2, 172
+FrontLedRight3, 173
+FrontLedRight4, 174
+FrontLedRight5, 175
+FrontLedRight6, 176
+FrontLedRight7, 177
+FrontBackLedAll, 180
+FrontBackLed1, 181
+FrontBackLed2, 182
+FrontBackLed3, 183
+FrontBackLed4, 184
+FrontBackLed5, 185
+FrontBackLed6, 186
+FrontBackLed7, 187
+SpoutVoiceAll, 190
+SpoutVoiceAllFadeUp, 191
+SpoutVoiceAllFadeDown, 192
+SpoitVoiceAllStrobe, 193
+SpoutVoice1, 194
+SpoutVoice2, 195
+FrontCurtainAllLed, 200
+FrontCurtainAllLedFadeUp, 201
+FrontCurtainAllLedFadeDown, 202
+FrontCurtainAllLedStrobe, 203
+BackCurtainAllLed, 205
+BackCurtainAllLedFadeUp, 206
+BackCurtainAllLedFadeDown, 207
+BackCurtainAllLedStrobe, 208
+BackLedAllLeft, 210
+BackLedLeft1, 211
+BackLedLeft2, 212
+BackLedLeft3, 213
+BackLedLeft4, 214
+BackLedLeft5, 215
+BackLedLeft6, 216
+BackLedLeft7, 217
+BackLedAllRight, 220
+BackLedRight1, 221
+BackLedRight2, 222
+BackLedRight3, 223
+BackLedRight4, 224
+BackLedRight5, 225
+BackLedRight6, 226
+BackLedRight7, 227
+PeacockAllLed, 230
+PeacockAllLedFadeUp, 231
+PeacockAllLedFadeDown, 232
+PeacockAllLedStrobe, 233
+PeacockLed1, 241
+PeacockLed2, 242
+PeacockLed3, 243
+PeacockLed4, 244
+PeacockLed5, 245
+PeacockLed6, 246
+PeacockLed7, 247
+PeacockLed8, 248
+AllLedLights, 250
+AllLedLightsFadeUp, 251
+AllLedLightsFadeDown, 252
+AllLedLightsStrobe, 253
+|EndLightAddresses|
+|WaterLightAddresses|
+Voice, 054wl
+InterchangeAB, 080wl
+Test, 097wl
+Off, 099wl
+|EndWaterLightAddresses|
+=======
+|Addresses|
+RING5, 1
+RING4, 2
+RING3, 3
+RING2, 4
+RING1, 5
+SWEEP, 6
+CENTER, 7
+CANDELABRA, 8
+BKFTCURT, 9
+Lights, 16
+Module1Lights, 17
+Module2Lights, 18
+Module3Lights, 19
+Module4Lights, 20
+Module5Lights, 21
+Module6Lights, 22
+Module7Lights, 23
+BKCURT, 24
+PEACOCKA, 25
+PEACOCKB, 26
+PEACOCKBLEGACY, 41
+PEACOCKAB, 27
+SWEEPA, 33
+SWEEPB, 34
+SWEEPLIMITAB, 35
+SWEEPLIMITA, 36
+SWEEPLIMITB, 37
+WEDDINGCAKE, 48
+MODULEALIGHTS, 49
+MODULEBLIGHTS, 50
+MODULEAB, 51
+MODULEABLEGACY, 52
+LEGACYRESERVED, 53
+VOICE, 54
+PULSE, 69
+INTERCHANGEAB, 80
+ShiftRotate, 85
+SetTimer, 86
+Test, 97
+Off, 99
 |EndAddresses|
+>>>>>>> dc697918660291c97fa6b4e0a797a00c8a258a91
 |Tables|
-TableA, 1, 2, 3, 4, 5, 6, 7, 8, 48
-TableB, 9
-TableC, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 41
-TableD, 33, 34
-TableE, 16
-TableF, 54
-TableH, 85
-TableK, 69
-TableL, 80
-TableM, 35, 36, 37
-TableZ, 97
-0, 99
+TableA, 001, 002, 003, 004, 005, 006, 007, 008, 048
+TableB, 009
+TableC, 017, 018, 019, 020, 021, 022, 023, 024, 025, 026, 041, 027, 049, 050, 051, 052, 053
+TableD, 033, 034
+TableE, 016
+TableF, 054
+TableG, 085
+TableH, 069
+TableI, 080
+TableJ, 035, 036, 037
+TableK, 100, 105, 109, 110, 115, 120, 125, 130, 135, 140, 160, 161, 162, 163, 164, 165, 166, 167, 170, 171, 172, 173, 174, 175, 176, 177, 180, 181, 182, 183, 184, 185, 186, 187, 190, 194, 195, 200, 205, 210, 211, 212, 213, 214 ,215, 216, 217, 220, 221, 222, 223, 224, 225, 226, 227, 230, 241, 242, 243, 244, 245, 246, 247, 248, 250
+TableL, 101, 102, 106, 107, 111, 112, 116, 117, 121, 122, 126, 127, 131, 132, 136, 137, 141, 142, 191, 192, 201, 202, 206, 207, 231, 232, 251, 252
+TableM, 103, 108, 113, 118, 123, 128, 133, 138, 143, 193, 203, 208, 233, 253
+TableO, 099
+TableZ, 097
+TableTime, 086
 |EndTables|
 |Commands|
 | TableA |
-0, 0
+Off, 0
 1, 1
 2, 2
 3, 3
@@ -126,17 +247,17 @@ Green, 16
 Yellow, 32
 |EndTable|
 | TableD |
-Off, 0
+OffReset, 00
 Short, 16
 Long, 32
-Largo, 1
-Adagio, 2
-Andante, 3
-Moderato, 4
-Allegreto, 5
-Allegro, 6
-Presto, 7
-PlayPause, 8
+Largo, 01
+Adagio, 02
+Andante, 03
+Moderato, 04
+Allegreto, 05
+Allegro, 06
+Presto, 07
+PlayPause, 08
 |EndTable|
 | TableE |
 Off, 0
@@ -148,30 +269,30 @@ WhiteLegacy, 8
 On, 1
 Off, 0
 |EndTable|
-| TableH |
-Stop, 0
-Right, 1
-Left, 2
+| TableG |
+Stop, 00
+Right, 01
+Left, 02
 Shift, 16
 Rotate, 32
 Interval, 64
 |EndTable|
-| TableK |
+| TableH |
 Stop, 0
 AddrSweep, 6
 JumpA, 16
 JumpB, 32
 Jump0Or1, 64
 |EndTable|
-| TableL |
-Stop, 0
-ExchangeWaterAB, 1
-ExchangeLightAB, 2
+| TableI |
+Stop, 00
+EffectWaterAB, 01
+EffectLightAB, 02
 PlaceAB, 16
 PlaceBA, 32
 RepeatInterval, 64
 |EndTable|
-| TableM |
+| TableJ |
 HoldRightOT, 0
 RightOTRightLong, 1
 RightOTRightShort, 2
@@ -184,6 +305,7 @@ RightLongRightShort, 18
 RightLongCenter, 19
 RightLongLeftShort, 20
 RightLongLeftLong, 21
+RightLongLeftOT, 22
 HoldRightShort, 34
 RightShortCenter, 35
 RightShortLeftShort, 36
@@ -199,5 +321,127 @@ LeftShortLeftOT, 70
 HoldLeftLong, 85
 LeftLongLeftOT, 86
 HoldLeftOT, 102
+SweepSpecial, 35
+|EndTable|
+| TableK |
+Off, 00
+ColorPalette1, 01
+ColorPalette2, 02
+ColorPalette3, 03
+ColorPalette4, 04
+ColorPalette5, 05
+ColorPalette6, 06
+ColorPalette7, 07
+ColorPalette8, 08
+ColorPalette9, 09
+ColorPalette10, 10
+ColorPalette11, 11
+ColorPalette12, 12
+ColorPalette13, 13
+ColorPalette14, 14
+ColorPalette15, 15
+ColorPalette16, 16
+ColorPalette17, 17
+ColorPalette18, 18
+ColorPalette19, 19
+ColorPalette20, 20
+ColorPalette21, 21
+ColorPalette22, 22
+ColorPalette23, 23
+ColorPalette24, 24
+ColorPalette25, 25
+ColorPalette26, 26
+ColorPalette27, 27
+ColorPalette28, 28
+ColorPalette29, 29
+ColorPalette30, 30
+ColorPalette31, 31
+ColorPalette32, 32
+|EndTable|
+| TableL |
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+FadeInterval10, 010
+|EndTable|
+| TableM |
+StrobeInterval1, 001
+|EndTable|
+| TableN |
+AllMaintenanceFunctionOff, 
+ActivateAllLights, 
+BeginValveCalibration, 
 |EndTable|
 |EndCommands|

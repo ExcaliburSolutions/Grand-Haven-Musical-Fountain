@@ -11,20 +11,18 @@ package choreography.view.sliders;
 
 
 
-import choreography.model.cannon.FtCurt;
-import choreography.model.cannon.Peacock;
-import choreography.model.cannon.Spout;
-import choreography.model.cannon.Bazooka;
-import choreography.model.cannon.BkCurt;
+import choreography.model.cannon.IndependentCannon;
 import choreography.model.cannon.Sweep;
 import choreography.model.cannon.Multi;
 import choreography.model.cannon.Ring;
 import choreography.model.cannon.Cannon;
 import choreography.model.cannon.Candelabra;
 import choreography.Main;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import choreography.model.cannon.CannonEnum;
@@ -110,11 +108,11 @@ public class SlidersController {
     private ArrayList<Multi> multisA, multisB;
     private ArrayList<Candelabra> candlesA, candlesB;
     private ArrayList<Sweep> sweepsA, sweepsB;
-    private Peacock peacock;
-    private Bazooka bazooka;
-    private Spout spout;
-    private BkCurt bkCurt;
-    private FtCurt ftCurt;
+    private IndependentCannon peacock;
+    private IndependentCannon bazooka;
+    private IndependentCannon spout;
+    private IndependentCannon bkCurt;
+    private IndependentCannon ftCurt;
 
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -156,15 +154,15 @@ public class SlidersController {
         spout = fountain.getSpout();
         bkCurt = fountain.getBkCurt();
         ftCurt = fountain.getFtCurt();
+        setupIndependentCannons();
     }
     
     public void setupCannonSliderChangeListener(ArrayList<? extends Cannon> list, 
             ModuleGroup aB, CannonEnum ce, Slider s){
         
         list = aB.getCannonGroup(ce);
-        CannonSliderChangeListener cs = new CannonSliderChangeListener(list, aB.toString());
+        CannonSliderChangeListener<? extends Cannon> cs = new CannonSliderChangeListener<>(list, aB.toString());
         s.valueProperty().addListener(cs);
-
     }
 
     private void setupAModule() {
@@ -206,6 +204,14 @@ public class SlidersController {
         setupCannonSliderChangeListener(candlesB, B, CannonEnum.CANDELABRA, candleB);
 
         setupCannonSliderChangeListener(sweepsB, B, CannonEnum.SWEEP, swB);
+    }
+    
+    private void setupIndependentCannons() {
+    	bz.valueProperty().addListener(new IndependentCannonSliderChangeListener(bazooka));
+    	sp.valueProperty().addListener(new IndependentCannonSliderChangeListener(spout));
+    	pk.valueProperty().addListener(new IndependentCannonSliderChangeListener(peacock));
+    	bkC.valueProperty().addListener(new IndependentCannonSliderChangeListener(bkCurt));
+    	ftC.valueProperty().addListener(new IndependentCannonSliderChangeListener(ftCurt));
     }
 
 

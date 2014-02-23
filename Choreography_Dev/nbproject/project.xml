@@ -4,12 +4,11 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>Choreography_Dev</name>
+            <explicit-platform explicit-source-supported="true"/>
             <source-roots>
                 <root id="src.dir" name="src"/>
             </source-roots>
-            <test-roots>
-                <root id="test.tests.dir"/>
-            </test-roots>
+            <test-roots/>
         </data>
     </configuration>
 </project>

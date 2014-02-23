@@ -15,12 +15,17 @@ import choreography.model.Event;
  */
 public class TimelineEvents extends ArrayList<Event>{
     
-    private static ArrayList<Event> events;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7242109851591362314L;
+	private static ArrayList<Event> events;
     
     public static synchronized ArrayList<Event> getInstance() {
         if(events == null)
             events = new ArrayList<>();
         return events;
+        
     }
     
 }

@@ -6,14 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import choreography.model.Fountain;
+import choreography.model.*;
 
 
 
 public class Main extends Application {
 	
 	private static Fountain fountain;
-	
+	private VBox root;
+	private Stage primaryStage;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -22,10 +23,7 @@ public class Main extends Application {
 	public static Fountain getFountain() {
 		return fountain;
 	}
-	private VBox root;
-	private Stage primaryStage;
 	
-
         @Override
 	public void start(Stage primaryStage) {
             try {

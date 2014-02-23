@@ -37,19 +37,26 @@ public class CannonFactory {
                 return new Candelabra(0, "CANDELABRA");
             case SWEEP:
                 return new Sweep(0, "SWEEP");
-            case FTCURT:
-                return new FtCurt(0, "FTCURT");
-            case BKCURT:
-                return new BkCurt(0, "BKCURT");
-            case BAZOOKA:
-                return new Bazooka(0, "BAZOOKA");
-            case SPOUT:
-                return new Spout(0, "SPOUT");
-            case PEACOCK:
-                return new Peacock(0, "PEACOCK");
             default:
                 throw new IllegalArgumentException("e must be a Cannon subtype");
         }
+    }
+    
+    public static IndependentCannon createIndependentCannon(CannonEnum e){
+    	switch(e) {
+		    case FTCURT:
+		        return new FtCurt(0, "FTCURT");
+		    case BKCURT:
+		        return new BkCurt(0, "BKCURT");
+		    case BAZOOKA:
+		        return new Bazooka(0, "BAZOOKA");
+		    case SPOUT:
+		        return new Spout(0, "SPOUT");
+		    case PEACOCK:
+		        return new Peacock(0, "PEACOCK");
+	        default:
+	        	throw new IllegalArgumentException("e must be an IndependentCannon");
+    	}
     }
     
     public static Module createModule(int number){
@@ -71,6 +78,5 @@ public class CannonFactory {
                 throw new IllegalArgumentException("aB must be A or B");
         }
     }
-    
     
 }
