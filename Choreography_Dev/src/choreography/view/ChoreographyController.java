@@ -8,12 +8,28 @@ package choreography.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import choreography.Main;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.Label;
+import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -78,6 +94,19 @@ public class ChoreographyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+            	    Stage stage = new Stage();
+            	    Parent root = FXMLLoader.load(
+            	        DialogController.class.getResource("Dialog.fxml"));
+            	    stage.setScene(new Scene(root));
+            	    stage.setTitle("My modal window");
+            	    stage.initModality(Modality.WINDOW_MODAL);
+            	    stage.initOwner(
+            	        ((Node)t.getSource()).getScene().getWindow() );
+            	    stage.show();
+            }
+        });
         fcwOutput.setText("Choreographer has loaded!");
         cc = this;
     }    
