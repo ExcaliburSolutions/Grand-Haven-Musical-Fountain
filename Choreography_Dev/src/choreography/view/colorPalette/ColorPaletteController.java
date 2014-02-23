@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -68,33 +67,6 @@ public class ColorPaletteController implements Initializable{
 		/**
 		 * @param args the command line arguments
 		 */
-
-		//		@Override
-		//		public void start(Stage primaryStage) {
-		//Stage primaryStage = new Stage();
-		//primaryStage.setTitle("Color Palette");
-		Group root = new Group();
-		//final Scene scene = new Scene(root, 1100, 100);
-
-		//final ColorPicker colorPicker = new ColorPicker();
-
-
-		//colorPicker.setLayoutX(834); //834 ends the color swatches 
-		//colorPicker.setLayoutY(0);
-
-		//		colorPicker.setOnMousePressed(new EventHandler<MouseEvent>() {
-		//			public void handle(MouseEvent t) {
-		//				Color c = colorPicker.getValue();
-		//				System.out.println("New Color's RGB = "+c.getRed()+" "+c.getGreen()+" "+c.getBlue());
-		//			}
-		//		});
-
-		//		GridPane gridpaneColor = new GridPane();
-		//		gridpaneColor.setPrefSize(900, 300);
-		//
-		//		gridpaneColor.setGridLinesVisible(true);
-
-		final Rectangle[] recColorArray = new Rectangle[32];
 
 		Color c0 = Color.web("FF0000"); // red
 		Color c1 = Color.web("FF1900"); // orange
@@ -402,79 +374,5 @@ public class ColorPaletteController implements Initializable{
 				}
 			}
 		});
-
-		//		for(int i=0;i<32; i++){
-		//
-		//			final int testI = i;
-		//
-		//			if (i < 16){
-		//				recColorArray[i] = new Rectangle(25,25, Color.LIGHTGREY);
-		//				recColorArray[i] = 
-		//				gridpaneColor.getColumnConstraints().add(new ColumnConstraints(26));
-		//
-		//				gridpaneColor.add(recColorArray[i], i, 0);
-		//
-		//				recColorArray[i].setOnMousePressed(new EventHandler<MouseEvent>() {
-		//					public void handle(MouseEvent me) {
-		//						setSelectedColor(recColorArray[testI].getFill());
-		//						System.out.println("Col " + (testI) );
-		//					}
-		//				});
-		//				// preset colors
-		//				if (i == 0) {
-		//					recColorArray[testI].setFill(c0);
-		//				} else if (i == 1) {
-		//					recColorArray[testI].setFill(c1);
-		//				} else if (i == 2) {
-		//					recColorArray[testI].setFill(c2);
-		//				} else if (i == 3) {
-		//					recColorArray[testI].setFill(c3);
-		//				} else if (i == 4) {
-		//					recColorArray[testI].setFill(c4);
-		//				} else if (i == 5) { 
-		//					recColorArray[testI].setFill(c5);
-		//				} else if (i == 6) { 
-		//					recColorArray[testI].setFill(c6);
-		//				} else if (i == 7) { 
-		//					recColorArray[testI].setFill(c7);
-		//				} else if (i == 8) { 
-		//					recColorArray[testI].setFill(c8);
-		//				} else if (i == 9) { 
-		//					recColorArray[testI].setFill(c9);
-		//				} else if (i == 10) { 
-		//					recColorArray[testI].setFill(c10);
-		//				} else if (i == 11) { 
-		//					recColorArray[testI].setFill(c11);
-		//				} else if (i == 12) { 
-		//					recColorArray[testI].setFill(c12);
-		//				} else if (i == 13) { 
-		//					recColorArray[testI].setFill(c13);
-		//				} else if (i == 14) { 
-		//					recColorArray[testI].setFill(c14);
-		//				} else if (i == 15) { 
-		//					recColorArray[testI].setFill(c15);
-		//				}
-		//			}
-		//			else{
-		//				recColorArray[i] = new Rectangle(25,25, Color.LIGHTGREY);
-		//				gridpaneColor.getColumnConstraints().add(new ColumnConstraints(26));
-		//
-		//				gridpaneColor.add(recColorArray[i], i, 0);
-		//				recColorArray[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
-		//					public void handle(MouseEvent me) {
-		//						if (me.getButton() == MouseButton.SECONDARY) {
-		//							recColorArray[testI].setFill(colorPicker.getValue());
-		//							System.out.println("Col " + (testI) + "Worked!!!");
-		//						} else {
-		//							setSelectedColor(recColorArray[testI].getFill());
-		//							System.out.println(recColorArray[testI].getFill());
-		//						}
-		//					}
-		//				});
-		//			}
 	}
-	//root.getChildren().addAll(gridpaneColor, colorPicker);
-	//primaryStage.setScene(scene);
-	//primaryStage.show();
 }
-//}

@@ -359,85 +359,10 @@ ColorPalette31, 31
 ColorPalette32, 32
 |EndTable|
 | TableL |
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
-FadeInterval10, 010
+FadeInterval10, 000
 |EndTable|
 | TableM |
-StrobeInterval1, 001
+StrobeInterval1, 000
 |EndTable|
 | TableN |
 AllMaintenanceFunctionOff, 
