@@ -46,7 +46,7 @@ public class AudioWaveformCreator {
     String waveformFilename;
     File file1;
     public static final int H_PIXEL_SIZE = 15;
-    public static final int V_PIXEL_SIZE = 20;
+    public static final int V_PIXEL_SIZE = 15;
     public static final double SONG_TIME = 10;
     Color imageBackgroundColor = new Color(20,20,20);
 
@@ -192,6 +192,7 @@ public class AudioWaveformCreator {
                 file1 = file;
                 System.out.println(file.getAbsolutePath());
                 ImageIO.write(bufferedImage, "png", file);
+                //ImageIO.read(file1);
                 //JOptionPane.showMessageDialog(null, 
                   //      new JLabel(new ImageIcon(fileName)));
             } catch (IOException e) {
@@ -406,11 +407,11 @@ public class AudioWaveformCreator {
 //        AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
     }
     
-    public void construct(String fileName) throws Exception{
-    	URL url = new URL("file:///C:/Users/Steve/Desktop/01 Relections of Earth.wav");
-		//("http://pscode.org/media/leftright.wav");
-    	AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
-    }
+//    public void construct(String fileName) throws Exception{
+//    	URL url = new URL("file:///C:/Users/Steve/Desktop/01 Relections of Earth.wav");
+//		//("http://pscode.org/media/leftright.wav");
+//    	AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
+//    }
 
     private void reportStatus(String msg) {
         if ((errStr = msg) != null) {
