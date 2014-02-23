@@ -1,21 +1,21 @@
 <<<<<<< HEAD
 |WaterAddresses|
-Ring5, 001w
-Ring4, 002w
-Ring3, 003w
-Ring2, 004w
-Ring1, 005w
-Sweep, 006w
-Spout, 007w
-Candelabra, 008w
-BackFrontCurtain, 009w
-SweepA, 033w
-SweepB, 034w
-SweepLimitAB, 035w
-SweepLimitA, 036w
-SweepLimitB, 037w
-WeddingCake, 048w
-Pulse, 069w
+Ring5, 001
+Ring4, 002
+Ring3, 003
+Ring2, 004
+Ring1, 005
+Sweep, 006
+Spout, 007
+Candelabra, 008
+BackFrontCurtain, 009
+SweepA, 033
+SweepB, 034
+SweepLimitAB, 035
+SweepLimitA, 036
+SweepLimitB, 037
+WeddingCake, 048
+Pulse, 069
 |EndWaterAddresses|
 |LightAddresses|
 Lights, 016
