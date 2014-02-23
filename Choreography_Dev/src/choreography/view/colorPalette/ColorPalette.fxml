@@ -40,6 +40,6 @@
     <Rectangle fx:id="color29" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
     <Rectangle fx:id="color30" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
     <Rectangle fx:id="color31" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
-    <ColorPicker id="colorPicker" editable="true" HBox.hgrow="ALWAYS" />
+    <ColorPicker fx:id = "colorPicker" id="colorPicker" editable="true" HBox.hgrow="ALWAYS" />
   </children>
 </HBox>
