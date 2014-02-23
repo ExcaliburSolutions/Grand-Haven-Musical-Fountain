@@ -29,8 +29,10 @@ public final class FCWLib {
     private final File fcwInfo = new File("src/choreography/model/fcw/FCW_DEF.txt");
 	private HashMap<String, Integer> waterAddress;
 	private HashMap<String, Integer> lightAddress;
+	private HashMap<String, Integer> functionAddress;
 	private String[] lightNames;
 	private String[] waterNames;
+	private String[] functionNames;
 	private HashMap<HashSet<Integer>, String> functionTable;
 	private HashMap<String, HashMap<String, Integer>> tableCommands;
 	
@@ -39,6 +41,7 @@ public final class FCWLib {
 		lightAddress = new HashMap<>();
 		functionTable = new HashMap<>();
 		tableCommands = new HashMap<>();
+		functionAddress = new HashMap<>();
 		
 		readFCWInfoFromFile(fcwInfo);
 		
@@ -48,7 +51,7 @@ public final class FCWLib {
 		System.out.println(lightAddress);
 		System.out.println(functionTable);
 		System.out.println(tableCommands);
-		System.out.println(getFCW("RING1", new String[]{"Module1", "1"}));
+		System.out.println(getFCW("RING1", new String[]{"ModuleA", "1"}));
 	}	
 	
     /**
@@ -67,41 +70,58 @@ public final class FCWLib {
         fcwLib = aFcwLib;
     }
 	
-	
-
-	
 	public void readFCWInfoFromFile(File fcwInfo){
 		try {
 			Scanner fileIn = new Scanner(new FileReader(fcwInfo));
 			fileIn.useDelimiter("|");
-//			String line = "";
-//			while(fileIn.hasNextLine()){
-				fileIn.findWithinHorizon("|WaterAddresses|", 1);
-				fileIn.nextLine();
-				readWaterAddressesFromFile(fileIn);
-				fileIn.findWithinHorizon("|LightAddresses|", 0);
-				fileIn.nextLine();
-				fileIn.findWithinHorizon("|Tables|", 0);
-				readAddressTableFromFile(fileIn);
-				fileIn.findWithinHorizon("|Commands|", 0);
-				fileIn.nextLine();
-				readTableCommandsFromFile(fileIn);
-//			}
-
+			
+			fileIn.findWithinHorizon("|WaterAddresses|", 0);
+			fileIn.nextLine();
+			readWaterAddressesFromFile(fileIn);
+			
+			fileIn.findWithinHorizon("|LightAddresses|", 0);
+			fileIn.nextLine();
+			readLightAddressesFromFile(fileIn);
+			
+			fileIn.findWithinHorizon("|Functions|", 0);
+			fileIn.nextLine();
+			readFunctionsFromFile(fileIn);
+			
+			fileIn.findWithinHorizon("|Tables|", 0);
+			fileIn.nextLine();
+			readAddressTableFromFile(fileIn);
+			
+			fileIn.findWithinHorizon("|Commands|", 0);
+			fileIn.nextLine();
+			readTableCommandsFromFile(fileIn);
 		} catch (FileNotFoundException e) {
 			LOG.log(Level.SEVERE, "FCW_DEF.txt Not Found!");
 		}
 	}
 
-
-	public void readWaterAddressesFromFile(Scanner fileIn) {
-		while(fileIn.hasNextLine()){
-			String line = fileIn.nextLine();
-			if(line.equals("|EndAddresses|")) {
+	private void readFunctionsFromFile(Scanner fileIn) {
+		String line = null;
+		while(fileIn.hasNextLine()) {
+			line = fileIn.nextLine();
+			if(line.equals("|EndFunctions|")) {
 				return;
 			} else {
-				String[] tokens= line.split(", ");
-					waterAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
+				String[] tokens = line.split(", ");
+				functionAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
+			}
+		}
+		
+	}
+
+	public void readWaterAddressesFromFile(Scanner fileIn) {
+		String line = null;
+		while(fileIn.hasNextLine()){ //while we aren't EOF
+			line = fileIn.nextLine(); //get the next legitmate line
+			if(line.equals("|EndWaterAddresses|")) { //If we hit end of table
+				return; //GTFO
+			} else { 
+				String[] tokens= line.split(", "); //split into components
+				waterAddress.put(tokens[0].trim(), new Integer(tokens[1].trim())); //add them
 			}
 		}
 	}
@@ -109,7 +129,7 @@ public final class FCWLib {
 	public void readLightAddressesFromFile(Scanner fileIn) {
 		while(fileIn.hasNextLine()){
 			String line = fileIn.nextLine();
-			if(line.equals("|EndAddresses|")) {
+			if(line.equals("|EndLightAddresses|")) {
 				return;
 			} else {
 				String[] tokens= line.split(", ");
@@ -120,7 +140,7 @@ public final class FCWLib {
 	
 	public void readAddressTableFromFile(Scanner fileIn) {
 		while(fileIn.hasNextLine()){
-                    String line = fileIn.nextLine();
+            String line = fileIn.nextLine();
 			if(line.equals("|EndTables|")) {
 				return;
 			} else {
@@ -135,30 +155,29 @@ public final class FCWLib {
 	}
 
 	public void readTableCommandsFromFile(Scanner fileIn) {
-		
-            do{
-                String line = fileIn.nextLine(); //pull in the first line
-                if(line.startsWith("| ")){ //if the line is a new table...
-                    HashMap<String, Integer> commands = new HashMap<>(); //create something to store them in...
-                    String[] tokens= line.split(" "); //break it into pieces
-                    String table = tokens[1].trim(); //take the table name and store it
+		while(fileIn.hasNextLine()){
+	        String line = fileIn.nextLine(); //pull in the first line
+	        if(line.startsWith("| ")){ //if the line is a new table...
+	            HashMap<String, Integer> commands = new HashMap<>(); //create something to store them in...
+	            String[] tokens= line.split(" "); //break it into pieces
+	            String table = tokens[1].trim(); //take the table name and store it
+	
+	                do { //while I have commands...
+	                   String command = fileIn.nextLine().trim(); //read the next in
+	                   if(!command.equals("|EndTable|")) {
+	                       String[] commandTokens = command.split(", "); //split into command and number
+	                       commands.put(commandTokens[0].trim(), new Integer(commandTokens[1].trim()));
+	                   } else {
+	                       tableCommands.put(table, commands);
+	                       break;
+	                   }
+	
+	               } while(fileIn.hasNextLine()); 
+	            } else if (line.equals("|EndCommands|")) {
+	                    break;
+	            }
 
-                        do { //while I have commands...
-                           String command = fileIn.nextLine().trim(); //read the next in
-                           if(!command.equals("|EndTable|")) {
-                               String[] commandTokens = command.split(", "); //split into command and number
-                               commands.put(commandTokens[0].trim(), new Integer(commandTokens[1].trim()));
-                           } else {
-                               tableCommands.put(table, commands);
-                               break;
-                           }
-
-                       } while(fileIn.hasNextLine()); 
-                    } else if (line.equals("|EndCommands|")) {
-                            break;
-                    }
-
-            } while(fileIn.hasNextLine());
+            }
 	}
 	
 	public String[] getLightTable() {
@@ -217,4 +236,32 @@ public final class FCWLib {
         int addr = 0;
         return addr = lightAddress.get(cannon); //get it!
     }
+
+	/**
+	 * @return the functionAddress
+	 */
+	public HashMap<String, Integer> getFunctionAddress() {
+		return functionAddress;
+	}
+
+	/**
+	 * @param functionAddress the functionAddress to set
+	 */
+	public void setFunctionAddress(HashMap<String, Integer> functionAddress) {
+		this.functionAddress = functionAddress;
+	}
+
+	/**
+	 * @return the functionNames
+	 */
+	public String[] getFunctionNames() {
+		return functionNames;
+	}
+
+	/**
+	 * @param functionNames the functionNames to set
+	 */
+	public void setFunctionNames(String[] functionNames) {
+		this.functionNames = functionNames;
+	}
 }
