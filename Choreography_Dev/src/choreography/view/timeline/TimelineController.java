@@ -122,4 +122,8 @@ public class TimelineController implements Initializable {
 //	 scrollpane.setPrefSize(600, 250);
 	 timelineScrollPane.setContent(gridpaneRec);
 	}
+	
+	public ScrollPane getScrollPane(){
+		return timelineScrollPane;
+	}
 }
