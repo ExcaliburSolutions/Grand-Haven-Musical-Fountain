@@ -42,7 +42,6 @@
         </Button>
         <Button mnemonicParsing="false" onAction="#pauseSong" text="Pause" HBox.margin="$x2" />
         <Button mnemonicParsing="false" onAction="#stopSong" text="Stop" HBox.margin="$x2" />
-        <ColorPicker fx:id="colorPicker" editable="true" HBox.margin="$x2" />
         <!--                 <Button mnemonicParsing="false" onAction="#nextSong" text="&gt;&gt;" /> -->
       </children>
       <VBox.margin>
@@ -52,7 +51,6 @@
     <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="951.0">
       <children>
         <Label id="progress" fx:id="songProgress" alignment="CENTER" contentDisplay="CENTER" font="$x3" maxWidth="1.7976931348623157E308" prefWidth="80.0" text="0s" textAlignment="CENTER" />
-        <Slider id="time" majorTickUnit="0.5" max="100.0" minorTickCount="4" prefHeight="27.0" prefWidth="875.0" showTickLabels="false" showTickMarks="false" HBox.hgrow="ALWAYS" />
       </children>
     </HBox>
   </children>
