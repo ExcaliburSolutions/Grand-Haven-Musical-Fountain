@@ -5,7 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
+
 import choreography.view.colorPalette.ColorPaletteController;
+import choreography.view.music.MusicPaneController;
 //import SimpleJavaFXPlayer.ColumnConstraints;
 //import SimpleJavaFXPlayer.EventHandler;
 //import SimpleJavaFXPlayer.MouseEvent;
@@ -30,6 +32,15 @@ import javafx.scene.shape.Rectangle;
  * @author elementsking
  */
 public class TimelineController implements Initializable {
+	
+	private static TimelineController instance;
+	
+	public static TimelineController getInstance() {
+		if(instance == null)
+			return instance;
+		return instance;
+	}
+	
     @FXML
     private GridPane labelGridpane;
     @FXML
@@ -38,7 +49,7 @@ public class TimelineController implements Initializable {
     private ScrollPane timelineScrollPane;
     @FXML
     private ListView<?> timelineListView;
-
+    private int time;
     /**
      * Initializes the controller class.
      * @param url
@@ -47,24 +58,31 @@ public class TimelineController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        GridPane gridpaneRec = new GridPane();
-
-        final ColorPaletteController color = ColorPaletteController.getInstance();
+        setGridPane();
+        instance = this;
+    }
+	/**
+	 * 
+	 */
+	public void setGridPane() {
+		GridPane gridpaneRec = new GridPane();
+        
+        time = MusicPaneController.SONG_TIME;
     
 	gridpaneRec.setGridLinesVisible(true);
 
-	final Rectangle[][] recArray = new Rectangle[101][17];
-	 for(int i=0; i<101; i++){
+	final Rectangle[][] recArray = new Rectangle[time][17];
+	 for(int i=0; i<time; i++){
   		  gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
   		  if (i < 17){ //because the array is not square this needs to be here
   			 gridpaneRec.getRowConstraints().add(new RowConstraints(26));
   		  }
   		  
    	  for(int j=0; j<17; j++){
-   		  if (i == 0){
-   			 recArray[i][j] = new Rectangle(50,25, Color.RED);
-   			 continue;
-   		  }
+//   		  if (i == 0){
+//   			 recArray[i][j] = new Rectangle(50,25, Color.RED);
+//   			 continue;
+//   		  }
    		  recArray[i][j] = new Rectangle(25,25, Color.LIGHTGREY);
    		  gridpaneRec.add(recArray[i][j], i, j);
    		  //these are needed to talk to the mouse pressed events
@@ -101,6 +119,5 @@ public class TimelineController implements Initializable {
     
 //	 scrollpane.setPrefSize(600, 250);
 	 timelineScrollPane.setContent(gridpaneRec);
-	 
-    }
+	}
 }

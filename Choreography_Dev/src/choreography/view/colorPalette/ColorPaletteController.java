@@ -93,7 +93,9 @@ public class ColorPaletteController implements Initializable{
 		Color c13 = Color.web("0096EF"); // cyan
 		Color c14 = Color.web("000000"); // black/Off
 		Color c15 = Color.web("FFFFFF"); // white/On
-
+		
+		selectedColor = c0;
+		
 		color0.setFill(c0);
 		color0.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
@@ -383,5 +385,6 @@ public class ColorPaletteController implements Initializable{
 				}
 			}
 		});
+		cpc = this;
 	}
 }

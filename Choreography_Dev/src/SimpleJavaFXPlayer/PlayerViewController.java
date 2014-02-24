@@ -189,27 +189,27 @@ public class PlayerViewController implements Initializable {
         
     }
     
-    protected void updateValues() {
-        if (songProgress != null && timeSlider != null && volume != null) {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    Duration currentTime = mediaPlayer.getCurrentTime();
-                    songProgress.setText(f.format(currentTime));
-                    timeSlider.setDisable(duration.isUnknown());
-                    if (!timeSlider.isDisabled()
-                            && duration.greaterThan(Duration.ZERO)
-                            && !timeSlider.isValueChanging()) {
-                        timeSlider.setValue(currentTime.divide(duration).toMillis()
-                                * 100.0);
-                    }
-                    if (!volume.isValueChanging()) {
-                        volume.setValue((int) Math.round(mediaPlayer.getVolume()
-                                * 100));
-                    }
-                }
-            });
-        }
-    }
+//    protected void updateValues() {
+//        if (songProgress != null && timeSlider != null && volume != null) {
+//            Platform.runLater(new Runnable() {
+//                public void run() {
+//                    Duration currentTime = mediaPlayer.getCurrentTime();
+//                    songProgress.setText(f.format(currentTime));
+//                    timeSlider.setDisable(duration.isUnknown());
+//                    if (!timeSlider.isDisabled()
+//                            && duration.greaterThan(Duration.ZERO)
+//                            && !timeSlider.isValueChanging()) {
+//                        timeSlider.setValue(currentTime.divide(duration).toMillis()
+//                                * 100.0);
+//                    }
+//                    if (!volume.isValueChanging()) {
+//                        volume.setValue((int) Math.round(mediaPlayer.getVolume()
+//                                * 100));
+//                    }
+//                }
+//            });
+//        }
+//    }
     
     public void play(Music music) {
         String source = new File(music2.getDirectoryFile()).toURI().toString();

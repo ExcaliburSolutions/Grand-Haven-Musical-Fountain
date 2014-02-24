@@ -58,7 +58,7 @@ public class AudioWaveformCreator {
                 long milliseconds = (long)((audioInputStream.getFrameLength() * 1000) / audioInputStream.getFormat().getFrameRate());
                 duration = milliseconds / 1000.0;
                 tenths = roundNum(duration);
-                System.out.println(duration + " seconds");
+                //System.out.println(duration + " seconds");
                 samplingGraph = new SamplingGraph();
                 samplingGraph.createWaveForm(null);                
             } catch (Exception ex) { 
@@ -190,12 +190,12 @@ public class AudioWaveformCreator {
                 // Save as PNG
                 File file = new File(fileName);
                 file1 = file;
-                System.out.println(file.getAbsolutePath());
-                ImageIO.write(bufferedImage, "png", file);
+                //System.out.println(file.getAbsolutePath());
+                //ImageIO.write(bufferedImage, "png", file);
                 //ImageIO.read(file1);
                 //JOptionPane.showMessageDialog(null, 
                   //      new JLabel(new ImageIcon(fileName)));
-            } catch (IOException e) {
+            } catch (Exception e) {
             }
         }
 
