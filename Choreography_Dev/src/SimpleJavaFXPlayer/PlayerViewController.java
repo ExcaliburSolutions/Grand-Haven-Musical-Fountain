@@ -115,36 +115,36 @@ public class PlayerViewController implements Initializable {
     		music2.setDirectoryFile(file2.getAbsolutePath());
     	}
     	
-//        URL url = null;
-//		try {
-//			url = file2.toURI().toURL();
-//			
-//		} catch (MalformedURLException ec) {
-//			ec.printStackTrace();
-//		}
+        URL url = null;
+		try {
+			url = file2.toURI().toURL();
+			
+		} catch (MalformedURLException ec) {
+			ec.printStackTrace();
+		}
 		
-//        try {
-//			AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
-//
-//			time = awc.getTime();
-//			DecimalFormat f = new DecimalFormat("#.0");
-//			roundedTime = Double.parseDouble(f.format(time));
-//        	time = 2*Double.parseDouble(f.format(time));
-//        	File fq = new File(awc.getImage().getAbsolutePath());
-//        	System.out.println(fq.getAbsolutePath());
-//        	//Image image = new Image(fq.getCanonicalPath());
-//			Image image = new Image("file:///C:/Users/Steve/Documents/GitHub/Grand-Haven-Musical-Fountain/MediaPlayer/out.png");
-//			ImageView iv1 = new ImageView();
-//			iv1.setImage(image);
-//			waveFilePane.setContent(iv1);
-//			songProgress.setText(roundedTime + "s");
-//			
-//		} catch (Exception ex) {
-//			
-//			ex.printStackTrace();
-//		}
-//        
-//        createTimeline(time);
+        try {
+			AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
+
+			time = awc.getTime();
+			DecimalFormat f = new DecimalFormat("#.0");
+			roundedTime = Double.parseDouble(f.format(time));
+        	time = 2*Double.parseDouble(f.format(time));
+        	File fq = new File(awc.getImage().getAbsolutePath());
+        	System.out.println(fq.getAbsolutePath());
+        	//Image image = new Image(fq.getCanonicalPath());
+			Image image = new Image("file:///C:/Users/Steve/Documents/GitHub/Grand-Haven-Musical-Fountain/MediaPlayer/out.png");
+			ImageView iv1 = new ImageView();
+			iv1.setImage(image);
+			waveFilePane.setContent(iv1);
+			songProgress.setText(roundedTime + "s");
+			
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+		}
+        
+        createTimeline(time);
         //notFirst = true;
         
         String source = new File(music2.getDirectoryFile()).toURI().toString();

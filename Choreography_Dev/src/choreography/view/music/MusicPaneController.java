@@ -6,10 +6,13 @@
 package choreography.view.music;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
+import choreography.view.timeline.TimelineController;
+import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -20,6 +23,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -40,7 +45,8 @@ public class MusicPaneController {
     
     public static final int H_PIXEL_SIZE = 15;
     public static final int V_PIXEL_SIZE = 15;
-    public static final double SONG_TIME = 10;
+    //public static final double SONG_TIME = 10;
+    public static int SONG_TIME = 0;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -123,6 +129,8 @@ public class MusicPaneController {
     	mediaPlayer = new MediaPlayer(media);
     	mediaPlayer.setVolume(volume.getValue());
     	songName.setText(music2.getName());
+//    	duration = mediaPlayer.getMedia().getDuration();
+//    	System.out.println(duration);
     	updateProgress(); 
     	
     	
@@ -135,8 +143,44 @@ public class MusicPaneController {
         });
     	
     	
-    	mediaPlayer.play();	
+//    	mediaPlayer.play();
+//    	mediaPlayer.stop();
+//    	duration = mediaPlayer.getMedia().getDuration();
+//    	System.out.println(duration.toSeconds());
+    	
     //}
+    	
+    	URL url = null;
+		try {
+			url = file2.toURI().toURL();
+			
+		} catch (MalformedURLException ec) {
+			ec.printStackTrace();
+		}
+		
+        try {
+			AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
+
+			time = awc.getTime();
+			DecimalFormat f = new DecimalFormat("#.0");
+			roundedTime = Double.parseDouble(f.format(time));
+        	time = 2*Double.parseDouble(f.format(time));
+        	SONG_TIME = (int) time;
+        	TimelineController.getInstance().setGridPane();
+//        	File fq = new File(awc.getImage().getAbsolutePath());
+//        	System.out.println(fq.getAbsolutePath());
+//        	//Image image = new Image(fq.getCanonicalPath());
+//			Image image = new Image("file:///C:/Users/Steve/Documents/GitHub/Grand-Haven-Musical-Fountain/MediaPlayer/out.png");
+//			ImageView iv1 = new ImageView();
+//			iv1.setImage(image);
+//			waveFilePane.setContent(iv1);
+//			songProgress.setText(roundedTime + "s");
+			
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+		}
+        System.out.println(roundedTime);
     }
     
     
