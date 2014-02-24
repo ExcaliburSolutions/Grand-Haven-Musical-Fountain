@@ -27,12 +27,13 @@ import javafx.util.Callback;
 
 public class JavaFXDnDApplication extends Application
 {
+	private final File fcwInfo = new File("/Users/vankuikn/Grand-Haven-Musical-Fountain/Choreography_Dev/src/choreography/model/fcw/FCW_DEF.txt");
+	
+	private static final ListView<Addresses> playersListView = new ListView<Addresses>();
 
-	private static final ListView<Player> playersListView = new ListView<Player>();
+	private static final ObservableList<Addresses> playersList = FXCollections.observableArrayList();
 
-	private static final ObservableList<Player> playersList = FXCollections.observableArrayList();
-
-	private static final ListView<Player> teamListView = new ListView<Player>();
+	private static final ListView<Addresses> teamListView = new ListView<Addresses>();
 
 	private static final GridPane rootPane = new GridPane();
 
@@ -44,7 +45,7 @@ public class JavaFXDnDApplication extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
-		primaryStage.setTitle("Drag and Drop Application");
+		primaryStage.setTitle("Drag over channels desired");
 
 		initializeComponents();
 
@@ -132,9 +133,9 @@ public class JavaFXDnDApplication extends Application
 
 				String player = dragEvent.getDragboard().getString();
 
-				teamListView.getItems().addAll(new Player(player));
+				teamListView.getItems().addAll(new Addresses(player));
 
-				playersList.remove(new Player(player));
+				playersList.remove(new Addresses(player));
 
 				dragEvent.setDropCompleted(true);
 			}
@@ -160,12 +161,13 @@ public class JavaFXDnDApplication extends Application
 
 	private void populateData()
 	{
-		playersList.addAll(
-				new Player("Adam"), new Player("Alex"), new Player("Alfred"), new Player("Albert"),
-				new Player("Brenda"), new Player("Connie"), new Player("Derek"), new Player("Donny"),
-				new Player("Lynne"), new Player("Myrtle"), new Player("Rose"), new Player("Rudolph"),
-				new Player("Tony"), new Player("Trudy"), new Player("Williams"), new Player("Zach")
-				);
+		ArrayList<String> info = new ArrayList<String>();
+		info = readFile(fcwInfo);
+		
+		for (int i=0; i < 300; i++){
+//			playersList.add(i,info.get(i));
+		}
+//		playersList.add(readFile(fcwInfo));
 
 		playersListView.setItems(playersList);
 	}
@@ -177,7 +179,7 @@ public class JavaFXDnDApplication extends Application
 		initializeListView(teamListView);
 	}
 
-	private void initializeListView(ListView<Player> listView)
+	private void initializeListView(ListView<Addresses> listView)
 	{
 		listView.setPrefSize(250, 290);
 		listView.setEditable(false);
@@ -185,18 +187,18 @@ public class JavaFXDnDApplication extends Application
 		listView.setCellFactory(new StringListCellFactory());
 	}
 
-	class StringListCellFactory implements Callback<ListView<Player>, ListCell<Player>>
+	class StringListCellFactory implements Callback<ListView<Addresses>, ListCell<Addresses>>
 	{
 		@Override
-		public ListCell<Player> call(ListView<Player> playerListView)
+		public ListCell<Addresses> call(ListView<Addresses> playerListView)
 		{
 			return new StringListCell();
 		}
 
-		class StringListCell extends ListCell<Player>
+		class StringListCell extends ListCell<Addresses>
 		{
 			@Override
-			protected void updateItem(Player player, boolean b)
+			protected void updateItem(Addresses player, boolean b)
 			{
 				super.updateItem(player, b);
 
@@ -217,12 +219,12 @@ public class JavaFXDnDApplication extends Application
 		try {
 
 			scanner = new Scanner(new FileReader(file));
-			scanner.findWithinHorizon("|LIGHTADDRESSES|", 1);
+			scanner.findWithinHorizon("|LightAddresses|", 1);
 			boolean n;
 			while (n = scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				stringBuffer.append(line);
-				if(line.equals("|ENDLIGHTADDRESSES|")) {
+				if(line.equals("|EndLightAddresses|")) {
 					return output;
 				} else {
 					String[] tokens= line.split(", ");
