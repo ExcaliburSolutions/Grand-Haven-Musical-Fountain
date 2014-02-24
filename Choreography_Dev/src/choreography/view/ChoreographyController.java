@@ -13,24 +13,32 @@ import java.util.ResourceBundle;
 import choreography.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -97,6 +105,7 @@ public class ChoreographyController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
+<<<<<<< HEAD
             	    Stage stage = new Stage();
             	    Parent root = null;
 					try {
@@ -112,6 +121,33 @@ public class ChoreographyController implements Initializable {
             	    stage.initOwner(
             	        ((Node)t.getSource()).getScene().getWindow() );
             	    stage.show();
+=======
+            	final Stage dialogStage = new Stage();
+            	Parent root = new GridPane();
+            	Label message = new Label("Are you sure you want to quit?");
+            	Button yes = new Button("Yes");
+            	yes.addEventHandler(new EventType<MouseEvent>(), 
+            			new EventHandler<MouseEvent>(){
+					@Override
+					public void handle(MouseEvent event) {
+						System.exit(0);					
+					}
+            	});
+            	Button no = new Button("No");
+            	no.addEventHandler(new EventType<MouseEvent>(), 
+            			new EventHandler<MouseEvent>(){
+					@Override
+					public void handle(MouseEvent event) {
+						dialogStage.close();				
+					}
+            	});
+            	GridPane.setConstraints(message, 0, 1);
+            	GridPane.setConstraints(yes, 1, 2);
+            	GridPane.setConstraints(no, 2, 2);
+            	dialogStage.initModality(Modality.WINDOW_MODAL);
+            	dialogStage.setScene(new Scene(root));
+            	dialogStage.showAndWait();
+>>>>>>> 48e2111cbcfba5fbe1e53da7c857552c41b3055b
             }
         });
         fcwOutput.setText("Choreographer has loaded!");
