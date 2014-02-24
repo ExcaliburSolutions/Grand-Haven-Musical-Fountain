@@ -15,6 +15,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class ColorPaletteController implements Initializable{
+    
+    private static ColorPaletteController cpc;
+
+    public static ColorPaletteController getInstance() {
+        if(cpc == null)
+            cpc = new ColorPaletteController();
+        return cpc;
+    }
 
 	@FXML public HBox colorPalette;
 	@FXML ColorPicker colorPicker;
