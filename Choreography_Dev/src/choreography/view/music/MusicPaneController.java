@@ -23,8 +23,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -114,11 +112,10 @@ public class MusicPaneController {
     	}
     	
     	FileChooser fc = new FileChooser();
-    	File direct = new File("C:\\Users\\Steve\\Desktop");
+    	File direct = new File(System.getProperty("user.home"));
     	fc.setInitialDirectory(direct);
     	File file2 = fc.showOpenDialog(null);
     	music2 = new Music();
-    	//System.out.println(file2.getAbsolutePath());
     	if (file2 != null){
     		getAllMusic(file2);
     		music2.setDirectoryFile(file2.getAbsolutePath());
@@ -129,27 +126,15 @@ public class MusicPaneController {
     	mediaPlayer = new MediaPlayer(media);
     	mediaPlayer.setVolume(volume.getValue());
     	songName.setText(music2.getName());
-//    	duration = mediaPlayer.getMedia().getDuration();
-//    	System.out.println(duration);
     	updateProgress(); 
     	
     	
     	mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 updateProgress();
-                //Duration d = mediaPlayer.getCurrentTime();
-//                timeSlider.setValue(mediaPlayer.getCurrentTime().toSeconds()/duration.toSeconds());
             }
         });
-    	
-    	
-//    	mediaPlayer.play();
-//    	mediaPlayer.stop();
-//    	duration = mediaPlayer.getMedia().getDuration();
-//    	System.out.println(duration.toSeconds());
-    	
-    //}
-    	
+
     	URL url = null;
 		try {
 			url = file2.toURI().toURL();
@@ -167,14 +152,6 @@ public class MusicPaneController {
         	time = 2*Double.parseDouble(f.format(time));
         	SONG_TIME = (int) time;
         	TimelineController.getInstance().setGridPane();
-//        	File fq = new File(awc.getImage().getAbsolutePath());
-//        	System.out.println(fq.getAbsolutePath());
-//        	//Image image = new Image(fq.getCanonicalPath());
-//			Image image = new Image("file:///C:/Users/Steve/Documents/GitHub/Grand-Haven-Musical-Fountain/MediaPlayer/out.png");
-//			ImageView iv1 = new ImageView();
-//			iv1.setImage(image);
-//			waveFilePane.setContent(iv1);
-//			songProgress.setText(roundedTime + "s");
 			
 		} catch (Exception ex) {
 			
