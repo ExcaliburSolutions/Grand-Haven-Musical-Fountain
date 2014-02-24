@@ -171,6 +171,7 @@ public class MusicPaneController {
                 public void changed(ObservableValue<? extends Duration> ov, Duration t, Duration t1) {
                     songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
                     duration = mediaPlayer.getMedia().getDuration();
+                    TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     //timeSlider.setValue(mediaPlayer.getCurrentTime().toSeconds()/roundedTime);
                 }
             };

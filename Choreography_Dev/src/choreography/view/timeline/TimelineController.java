@@ -2,6 +2,8 @@
 package choreography.view.timeline;
 
 import java.net.URL;
+import javax.swing.*;
+import javax.swing.event;
 import java.util.ResourceBundle;
 
 
@@ -119,5 +121,9 @@ public class TimelineController implements Initializable {
     
 //	 scrollpane.setPrefSize(600, 250);
 	 timelineScrollPane.setContent(gridpaneRec);
+	}
+	
+	public ScrollPane getScrollPane(){
+		return timelineScrollPane;
 	}
 }
