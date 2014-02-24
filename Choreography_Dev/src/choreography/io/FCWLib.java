@@ -1,8 +1,9 @@
 /**
  * 
  */
-package choreography.model.fcw;
+package choreography.io;
 
+import choreography.model.fcw.FCW;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

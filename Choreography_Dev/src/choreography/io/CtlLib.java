@@ -1,4 +1,4 @@
-package choreography.model.fcw;
+package choreography.io;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import choreography.model.Event;
+import choreography.model.fcw.FCW;
 
 public class CtlLib {
 
