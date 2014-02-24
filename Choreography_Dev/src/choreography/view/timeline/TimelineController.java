@@ -48,8 +48,6 @@ public class TimelineController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         GridPane gridpaneRec = new GridPane();
-
-        final ColorPaletteController color = ColorPaletteController.getInstance();
     
 	gridpaneRec.setGridLinesVisible(true);
 

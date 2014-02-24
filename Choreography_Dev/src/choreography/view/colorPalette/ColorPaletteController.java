@@ -383,5 +383,6 @@ public class ColorPaletteController implements Initializable{
 				}
 			}
 		});
+		cpc = this;
 	}
 }
