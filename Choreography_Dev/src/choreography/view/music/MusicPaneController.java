@@ -5,17 +5,42 @@
 
 package choreography.view.music;
 
+import java.io.File;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+
+import SimpleJavaFXPlayer.Music;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 public class MusicPaneController {
+	
+	private static MusicPaneController instance;
+	
+	private MediaPlayer mediaPlayer;
+    private double time, roundedTime;
+    private Duration duration;
+    Music music2;
+    private boolean notFirst = false;
+	final DecimalFormat f = new DecimalFormat("#.0");
+
+    
+    public static final int H_PIXEL_SIZE = 15;
+    public static final int V_PIXEL_SIZE = 15;
+    public static final double SONG_TIME = 10;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -38,23 +63,102 @@ public class MusicPaneController {
     @FXML // fx:id="volume"
     private Slider volume; // Value injected by FXMLLoader
 
+    public static MusicPaneController getInstance() {
+    	if(instance == null)
+    		instance = new MusicPaneController();
+    	return instance;
+    }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
     void pauseSong(ActionEvent event) {
-        // handle the event here
+    	mediaPlayer.pause();
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
     void playSong(ActionEvent event) {
-        // handle the event here
+    	try{
+    		mediaPlayer.play();
+    	}
+    	catch (Exception e){
+    		
+    	}
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
     void stopSong(ActionEvent event) {
-        // handle the event here
+    	mediaPlayer.stop();
+    }
+    
+    private void getAllMusic(File fileChosen) {
+
+        if (fileChosen.getName().toLowerCase().endsWith(".mp3") || fileChosen.getName().toLowerCase().endsWith(".wav")) {
+            
+            music2.setName(fileChosen.getName());
+            music2.setDirectoryFile(fileChosen.getAbsolutePath());
+            songName.setText(music2.getName());
+        }
+}
+    
+    public void selectMusic() {
+    	if (notFirst){
+    		mediaPlayer.dispose();    		
+    	}
+    	
+    	FileChooser fc = new FileChooser();
+    	File direct = new File("C:\\Users\\Steve\\Desktop");
+    	fc.setInitialDirectory(direct);
+    	File file2 = fc.showOpenDialog(null);
+    	music2 = new Music();
+    	//System.out.println(file2.getAbsolutePath());
+    	if (file2 != null){
+    		getAllMusic(file2);
+    		music2.setDirectoryFile(file2.getAbsolutePath());
+    	}
+    	
+    	String source = new File(music2.getDirectoryFile()).toURI().toString();
+    	Media media = new Media(source);
+    	mediaPlayer = new MediaPlayer(media);
+    	mediaPlayer.setVolume(volume.getValue());
+    	songName.setText(music2.getName());
+    	updateProgress(); 
+    	
+    	
+    	mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
+            public void invalidated(Observable ov) {
+                updateProgress();
+                //Duration d = mediaPlayer.getCurrentTime();
+//                timeSlider.setValue(mediaPlayer.getCurrentTime().toSeconds()/duration.toSeconds());
+            }
+        });
+    	
+    	
+    	mediaPlayer.play();	
+    //}
+    }
+    
+    
+    public void updateProgress() {
+    	final DecimalFormat f = new DecimalFormat("#.0");
+        
+        try {
+            //songProgress.setText(time + "s");
+            ChangeListener<Duration> changeListener = new ChangeListener<Duration>() {
+                @Override
+                public void changed(ObservableValue<? extends Duration> ov, Duration t, Duration t1) {
+                    songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
+                    duration = mediaPlayer.getMedia().getDuration();
+                    //timeSlider.setValue(mediaPlayer.getCurrentTime().toSeconds()/roundedTime);
+                }
+            };
+            mediaPlayer.currentTimeProperty().addListener(changeListener);
+            
+        } catch (Exception e) {
+            System.out.println("Error updating song progress " + e);
+        }
+        
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -66,7 +170,7 @@ public class MusicPaneController {
         assert volume != null : "fx:id=\"volume\" was not injected: check your FXML file 'MusicPane.fxml'.";
 
         // Initialize your logic here: all @FXML variables will have been injected
-
+        instance = this;
     }
 
 }

@@ -9,6 +9,7 @@ package choreography.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import choreography.view.music.MusicPaneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -89,6 +90,17 @@ public class ChoreographyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	
+    	openWizardMenuItem.setOnAction(new EventHandler<ActionEvent> (){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				MusicPaneController.getInstance().selectMusic();
+				
+			}
+    		
+    	});
+    	
     	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
