@@ -104,17 +104,23 @@
         </AnchorPane>
       </bottom>
       <center>
-        <fx:include source="timeline/Timeline.fxml">
-          <padding>
-            <Insets left="10.0" right="10.0" fx:id="x1" />
-          </padding>
-          <BorderPane.margin>
-            <Insets />
-          </BorderPane.margin>
-        </fx:include>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <fx:include source="sliders/Sliders.fxml" fillHeight="true">
+              <padding>
+                <Insets left="10.0" right="10.0" fx:id="x1" />
+              </padding>
+            </fx:include>
+            <fx:include source="timeline/Timeline.fxml" padding="$x1" VBox.vgrow="ALWAYS">
+              <VBox.margin>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="10.0" />
+              </VBox.margin>
+            </fx:include>
+          </children>
+        </VBox>
       </center>
       <top>
-        <fx:include source="sliders/Sliders.fxml" fillHeight="true" padding="$x1" />
+        <fx:include source="MusicPane.fxml" />
       </top>
     </BorderPane>
   </children>
