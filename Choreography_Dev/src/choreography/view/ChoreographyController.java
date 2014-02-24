@@ -6,39 +6,26 @@
 
 package choreography.view;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import choreography.Main;
+import choreography.view.music.MusicPaneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.Label;
-import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -103,7 +90,19 @@ public class ChoreographyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	
+    	openWizardMenuItem.setOnAction(new EventHandler<ActionEvent> (){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				MusicPaneController.getInstance().selectMusic();
+				
+			}
+    		
+    	});
+    	
     	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
             public void handle(ActionEvent t) {
             	final Stage dialogStage = new Stage();
             	Parent root = new GridPane();

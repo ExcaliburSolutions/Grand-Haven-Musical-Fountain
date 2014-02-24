@@ -13,32 +13,16 @@ import choreography.view.colorPalette.ColorPaletteController;
 //import SimpleJavaFXPlayer.RowConstraints;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
-
-
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -57,16 +41,13 @@ public class TimelineController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-    GridPane gridpaneRec = new GridPane();
-//	GridPane gridpaneMods = new GridPane();
-//	ScrollPane scrollpane = new ScrollPane();
-//    final ColorPicker colorPicker = new ColorPicker();
-
-    final ColorPaletteController color = new ColorPaletteController();
+        GridPane gridpaneRec = new GridPane();
     
 	gridpaneRec.setGridLinesVisible(true);
 
@@ -89,13 +70,16 @@ public class TimelineController implements Initializable {
    		  final int testJ = j;
    		  
    		recArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
+                             @Override
    			  public void handle(MouseEvent me) {
    	        System.out.println("Col " + (testI) + " Row " + (testJ+1));
-   	     recArray[testI][testJ].setFill(color.getSelectedColor());
+   	     recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+                     .getSelectedColor());
    	    }
    	});
    		
    		recArray[i][j].setOnDragDetected(new EventHandler<MouseEvent>() {
+                           @Override
  			  public void handle(MouseEvent me) {
  				  //starts the drag event
  				 recArray[testI][testJ].startFullDrag();
@@ -104,8 +88,10 @@ public class TimelineController implements Initializable {
  	});
    		//continues and ends the drag event
    		recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>() {
+                          @Override
 			  public void handle(MouseEvent me) {
-				  recArray[testI][testJ].setFill(color.getSelectedColor());
+				  recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+                     .getSelectedColor());
 	    }
    	});
    	  }
