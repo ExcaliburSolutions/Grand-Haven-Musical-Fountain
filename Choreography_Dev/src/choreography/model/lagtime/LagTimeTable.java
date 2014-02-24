@@ -1,7 +1,9 @@
 /**
  * 
  */
-package choreography.model.fcw;
+package choreography.model.lagtime;
+
+import java.util.HashMap;
 
 /**
  * @author elementsking
@@ -10,11 +12,12 @@ package choreography.model.fcw;
 public class LagTimeTable {
 	private static LagTimeTable instance;
 	private final int closeValve = 0;
-	private double level1;
-	private double level2;
-	private double level3;
-	private double level4;
-	private double level5;
+	private final double level1 = .2;
+	private final double level2 = .4;
+	private final double level3 = .6;
+	private final double level4 = .8;
+	private final double level5 = 1.0;
+	private HashMap<String, Integer> delays;
 	private double audioDelay, peacockDelay, voiceDelay, bazookaDelay,
 	ringDelay, candelabraDelay, sweepDelay, ftCurtDelay, bkCurtDelay;
 	
@@ -22,6 +25,10 @@ public class LagTimeTable {
 		if (instance == null)
 			instance = new LagTimeTable();
 		return instance;
+	}
+	
+	private LagTimeTable() {
+		delays = new HashMap<>();
 	}
 	
 	public void setLagTimes(double audioDelay, double peacockDelay,
@@ -37,6 +44,14 @@ public class LagTimeTable {
 		this.sweepDelay = sweepDelay;
 		this.ftCurtDelay = ftCurtDelay;
 		this.bkCurtDelay = bkCurtdelay;
+	}
+	
+	public void setLagTimes(double[] delayTimes) {
+//		int index = 0;
+//		String[] labels = 
+//		for(Double d : delayTimes) {
+//			delays.
+//		}
 	}
 
 	/**
@@ -142,11 +157,5 @@ public class LagTimeTable {
 	 */
 	public synchronized double getBkCurtDelay() {
 		return bkCurtDelay;
-	}
-
-	public void setLagTimes(double[] delayTimes) {
-		for(Double d : delayTimes) {
-			
-		}
 	}
 }

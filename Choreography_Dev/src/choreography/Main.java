@@ -14,7 +14,7 @@ public class Main extends Application {
 	
 	private static Fountain fountain;
 	private VBox root;
-	private Stage primaryStage;
+	private static Stage primaryStage;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -28,6 +28,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
         try {
             this.setPrimaryStage(primaryStage);
+            Main.primaryStage = primaryStage;
             primaryStage.setTitle("Grand Haven Musical Fountain Choreographer");
             fountain = Fountain.getInstance();
 //                        EventBus.publish(new ResourceAvailable<Fountain>(fountain));
@@ -48,14 +49,14 @@ public class Main extends Application {
 	/**
      * @return the primaryStage
      */
-    	public Stage getPrimaryStage() {
-            return primaryStage;
-        }
+	public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
 	/**
      * @param primaryStage the primaryStage to set
      */
     public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+        Main.primaryStage = primaryStage;
     }
 }

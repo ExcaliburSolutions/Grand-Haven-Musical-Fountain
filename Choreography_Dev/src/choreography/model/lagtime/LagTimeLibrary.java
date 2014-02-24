@@ -1,7 +1,7 @@
 /**
  * 
  */
-package choreography.model.fcw;
+package choreography.model.lagtime;
 
 import java.io.File;
 import java.io.FileNotFoundException;
