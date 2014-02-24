@@ -31,6 +31,7 @@ public class LagTimeTable {
 	
 	public void setLagTimes(HashMap<String, Double> delayTimes) {
             this.delays = delayTimes;
+            System.out.println(delays);
 	}
 
 	/**
