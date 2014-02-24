@@ -120,7 +120,7 @@
         </VBox>
       </center>
       <top>
-        <fx:include source="MusicPane.fxml" />
+        <fx:include source="music/MusicPane.fxml" />
       </top>
     </BorderPane>
   </children>

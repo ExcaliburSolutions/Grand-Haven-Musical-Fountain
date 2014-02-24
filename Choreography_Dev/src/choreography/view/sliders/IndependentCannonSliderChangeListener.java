@@ -7,7 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import choreography.model.cannon.Cannon;
 import choreography.model.cannon.IndependentCannon;
-import choreography.model.fcw.FCWLib;
+import choreography.io.FCWLib;
 import choreography.view.ChoreographyController;
 
 /**

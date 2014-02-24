@@ -66,7 +66,7 @@ public class MusicPaneController {
         assert volume != null : "fx:id=\"volume\" was not injected: check your FXML file 'MusicPane.fxml'.";
 
         // Initialize your logic here: all @FXML variables will have been injected
-
+        
     }
 
 }
