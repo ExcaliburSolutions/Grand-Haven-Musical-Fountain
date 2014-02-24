@@ -1,9 +1,9 @@
 package application;
 
-public class Player {
+public class Addresses {
 	private String name;
 
-	public Player(String name) {
+	public Addresses(String name) {
 		this.name = name;
 	}
 
@@ -23,7 +23,7 @@ public class Player {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		Player player = (Player) o;
+		Addresses player = (Addresses) o;
 
 		if (name != null ? !name.equals(player.name) : player.name != null) return false;
 
