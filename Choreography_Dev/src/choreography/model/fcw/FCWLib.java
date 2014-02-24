@@ -8,8 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,8 +30,8 @@ public final class FCWLib {
 	private HashMap<String, Integer> waterAddress;
 	private HashMap<String, Integer> lightAddress;
 	private HashMap<String, Integer> functionAddress;
-	private String[] lightNames;
-	private String[] waterNames;
+	private Set<String> lightNames;
+	private Set<String> waterNames;
 	private String[] functionNames;
 	private HashMap<HashSet<Integer>, String> functionTable;
 	private HashMap<String, HashMap<String, Integer>> tableCommands;
@@ -45,13 +45,10 @@ public final class FCWLib {
 		
 		readFCWInfoFromFile(fcwInfo);
 		
-		lightNames = new String[lightAddress.size()];
-		waterNames = new String[waterAddress.size()];
-		System.out.println(waterAddress);
-		System.out.println(lightAddress);
-		System.out.println(functionTable);
-		System.out.println(tableCommands);
-		System.out.println(getFCW("RING1", new String[]{"ModuleA", "1"}));
+		lightNames = new HashSet<String>();
+		waterNames = new HashSet<String>();
+		lightNames = lightAddress.keySet();
+		waterNames = waterAddress.keySet();
 	}	
 	
     /**
@@ -180,11 +177,11 @@ public final class FCWLib {
             }
 	}
 	
-	public String[] getLightTable() {
+	public Set<String> getLightTable() {
 		return lightNames;
 	}
 	
-	public String[] getWaterTable() {
+	public Set<String> getWaterTable() {
 		return waterNames;
 	}
 
@@ -198,6 +195,7 @@ public final class FCWLib {
             table = searchFunctionTables(addr);
             
             for (String action : actions) {
+            	action = action.toUpperCase();
                 int value = tableCommands.get(table).get(action);
                 data += value;
             }
@@ -228,13 +226,11 @@ public final class FCWLib {
     }
 
     private int searchWaterAddresses(String cannon) throws IllegalArgumentException {
-        Integer addr = 0;
-		return addr = waterAddress.get(cannon); //get it!
+		return waterAddress.get(cannon); //get it!
     }
     
     private int searchLightAddresses(String cannon) throws IllegalArgumentException {
-        int addr = 0;
-        return addr = lightAddress.get(cannon); //get it!
+        return lightAddress.get(cannon); //get it!
     }
 
 	/**

@@ -4,6 +4,7 @@
 <?import java.util.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
@@ -14,37 +15,81 @@
       <menus>
         <Menu mnemonicParsing="false" text="File" fx:id="fileMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" fx:id="newItemMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Open…" fx:id="openWizardMenuItem" />
+            <MenuItem mnemonicParsing="false" text="New" fx:id="newItemMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Open…" fx:id="openWizardMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
             <Menu mnemonicParsing="false" text="Open Recent" fx:id="openRecentMenuItemItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" fx:id="closeMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Save" fx:id="saveMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Save As…" fx:id="saveAsMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Revert" fx:id="revertMenuItem" />
+            <MenuItem mnemonicParsing="false" text="Save" fx:id="saveMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Save As…" fx:id="saveAsMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" fx:id="preferencesMenuItem" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" fx:id="preferencesMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="COMMA" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" fx:id="quitMenuItem" />
+            <MenuItem mnemonicParsing="false" text="Quit" fx:id="quitMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit" fx:id="editMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" fx:id="undoMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Redo" fx:id="redoMenuItem" />
+            <MenuItem mnemonicParsing="false" text="Undo" fx:id="undoMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Redo" fx:id="redoMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" fx:id="cutMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Copy" fx:id="copyMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Paste" fx:id="pasteMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Delete" fx:id="deleteMenuItem" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" fx:id="selectAllMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" fx:id="unselectAllMenuItem" />
+            <MenuItem mnemonicParsing="false" text="Cut" fx:id="cutMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Copy" fx:id="copyMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Paste" fx:id="pasteMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Delete" fx:id="deleteMenuItem">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help" fx:id="helpMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" fx:id="aboutMenuItem" />
+            <MenuItem mnemonicParsing="false" text="About" fx:id="aboutMenuItem" />
           </items>
         </Menu>
       </menus>

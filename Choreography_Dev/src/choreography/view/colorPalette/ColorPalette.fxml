@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.*?>
 
-<HBox alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.colorPalette.ColorPaletteController">
+<HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" spacing="2.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.colorPalette.ColorPaletteController">
   <children>
     <Rectangle fx:id="color0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
     <Rectangle fx:id="color1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
@@ -40,6 +41,9 @@
     <Rectangle fx:id="color29" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
     <Rectangle fx:id="color30" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
     <Rectangle fx:id="color31" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
-    <ColorPicker fx:id = "colorPicker" id="colorPicker" editable="true" HBox.hgrow="ALWAYS" />
+    <ColorPicker fx:id="colorPicker" editable="true" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
   </children>
+  <padding>
+    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+  </padding>
 </HBox>

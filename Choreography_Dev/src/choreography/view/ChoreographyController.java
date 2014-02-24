@@ -31,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -101,7 +102,7 @@ public class ChoreographyController implements Initializable {
             	    Parent root = null;
 					try {
 						root = FXMLLoader.load(
-						DialogController.class.getResource("Dialog.fxml"));
+						DialogController.class.getResource("QuitDialog.fxml"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -109,7 +110,7 @@ public class ChoreographyController implements Initializable {
             	    stage.setTitle("My modal window");
             	    stage.initModality(Modality.WINDOW_MODAL);
             	    stage.initOwner(
-            	        ((Node)t.getSource()).getScene().getWindow() );
+            	        ((Window) t.getSource()).getScene().getWindow() );
             	    stage.show();
             }
         });

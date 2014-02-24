@@ -143,4 +143,10 @@ public class LagTimeTable {
 	public synchronized double getBkCurtDelay() {
 		return bkCurtDelay;
 	}
+
+	public void setLagTimes(double[] delayTimes) {
+		for(Double d : delayTimes) {
+			
+		}
+	}
 }

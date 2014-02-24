@@ -24,6 +24,12 @@ public class LagTimeLibrary {
 	}
 	
 	private LagTimeLibrary() {
+		double audioDelay = 0, peacockDelay = 0, voiceDelay = 0, bazookaDelay = 0,
+		ringDelay = 0, candelabraDelay = 0, sweepDelay = 0, ftCurtDelay = 0, 
+		bkCurtDelay = 0;
+		
+		double[] delayTimes = new double[9];
+		
 		lagTimeInstance = LagTimeTable.getInstance();
 		Scanner fileIn = null;
 		try {
@@ -32,10 +38,12 @@ public class LagTimeLibrary {
 			e.printStackTrace();
 		}
 		
+		int index = 0;
 		while(fileIn.hasNext()) {
-			double audioDelay, peacockDelay, voiceDelay, bazookaDelay,
-			ringDelay, candelabraDelay, sweepDelay, ftCurtDelay, bkCurtDelay;
-			
+			String line = fileIn.nextLine();
+			String[] tokens = line.split("=");
+			delayTimes[index] = Double.parseDouble(tokens[1]);
 		}
+		lagTimeInstance.setLagTimes(delayTimes);
 	}
 }
