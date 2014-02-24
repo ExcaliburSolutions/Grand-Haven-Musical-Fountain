@@ -27,6 +27,6 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <ScrollPane content="$null" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+    <ScrollPane id="time" fx:id="timelineScrollPane" content="$null" fitToHeight="true" fitToWidth="true" pannable="false" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
   </children>
 </HBox>

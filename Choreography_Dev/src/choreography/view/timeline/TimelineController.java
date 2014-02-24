@@ -75,8 +75,8 @@ public class TimelineController implements Initializable {
                              @Override
    			  public void handle(MouseEvent me) {
    	        System.out.println("Col " + (testI) + " Row " + (testJ+1));
-//   	     recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
-//                     .getSelectedColor());
+   	     recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+                     .getSelectedColor());
    	    }
    	});
    		
@@ -92,8 +92,8 @@ public class TimelineController implements Initializable {
    		recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>() {
                           @Override
 			  public void handle(MouseEvent me) {
-//				  recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
-//                     .getSelectedColor());
+				  recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+                     .getSelectedColor());
 	    }
    	});
    	  }
