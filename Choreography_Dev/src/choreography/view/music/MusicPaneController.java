@@ -161,6 +161,7 @@ public class MusicPaneController {
 			ex.printStackTrace();
 		}
         System.out.println(roundedTime);
+        notFirst = true;
     }
     
     
