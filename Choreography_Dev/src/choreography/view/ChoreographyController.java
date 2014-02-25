@@ -6,26 +6,23 @@
 
 package choreography.view;
 
+import choreography.io.CtlLib;
+import choreography.model.Event;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import choreography.view.music.MusicPaneController;
+import java.io.File;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -35,6 +32,8 @@ import javafx.stage.Stage;
 public class ChoreographyController implements Initializable {
     
     private static ChoreographyController cc;
+    
+    private ArrayList<Event> events;
     
     @FXML
     private VBox csGUI;
@@ -93,44 +92,39 @@ public class ChoreographyController implements Initializable {
     	
     	openWizardMenuItem.setOnAction(new EventHandler<ActionEvent> (){
 
-			@Override
-			public void handle(ActionEvent arg0) {
-				MusicPaneController.getInstance().selectMusic();
-				
-			}
+            @Override
+            public void handle(ActionEvent arg0) {
+                    MusicPaneController.getInstance().selectMusic();
+
+            }
     		
     	});
     	
     	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-            	final Stage dialogStage = new Stage();
-            	Parent root = new GridPane();
-            	Label message = new Label("Are you sure you want to quit?");
-            	Button yes = new Button("Yes");
-            	yes.addEventHandler(new EventType<MouseEvent>(), 
-            			new EventHandler<MouseEvent>(){
-					@Override
-					public void handle(MouseEvent event) {
-						System.exit(0);					
-					}
-            	});
-            	Button no = new Button("No");
-            	no.addEventHandler(new EventType<MouseEvent>(), 
-            			new EventHandler<MouseEvent>(){
-					@Override
-					public void handle(MouseEvent event) {
-						dialogStage.close();				
-					}
-            	});
-            	GridPane.setConstraints(message, 0, 1);
-            	GridPane.setConstraints(yes, 1, 2);
-            	GridPane.setConstraints(no, 2, 2);
-            	dialogStage.initModality(Modality.WINDOW_MODAL);
-            	dialogStage.setScene(new Scene(root));
-            	dialogStage.showAndWait();
+            	
             }
         });
+        
+        saveMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent t) {
+                    FileChooser fc = new FileChooser();
+                    fc.setInitialDirectory(new File(System.getProperty("user.home")));
+                    File saveLocation = fc.showOpenDialog(null);
+                    CtlLib saver = new CtlLib();
+                    
+                    StringBuilder fcwOut = new StringBuilder();
+                    
+                    for(Event e : events) {
+                        fcwOut.append(e);
+                    }
+                    
+                    saver.saveFile(saveLocation, fcwOut.toString());
+                }
+            });
+        
         fcwOutput.setText("Choreographer has loaded!");
         cc = this;
     }    

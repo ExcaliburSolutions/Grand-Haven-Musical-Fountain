@@ -112,8 +112,7 @@ public class MusicPaneController {
     	}
     	
     	FileChooser fc = new FileChooser();
-    	File direct = new File(System.getProperty("user.home"));
-    	fc.setInitialDirectory(direct);
+    	fc.setInitialDirectory(new File(System.getProperty("user.home")));
     	File file2 = fc.showOpenDialog(null);
     	music2 = new Music();
     	if (file2 != null){
