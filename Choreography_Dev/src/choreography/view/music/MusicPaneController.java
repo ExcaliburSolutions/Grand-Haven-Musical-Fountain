@@ -200,6 +200,7 @@ public class MusicPaneController {
         instance = this;
         
         timeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
             public void invalidated(Observable ov) {
                 if (timeSlider.isValueChanging()) {
                     // multiply duration by percentage calculated by slider position
