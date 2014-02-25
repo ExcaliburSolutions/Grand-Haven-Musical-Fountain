@@ -1,9 +1,13 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -34,7 +38,7 @@ public class ColorPalette extends Application {
 
 		final ColorPicker colorPicker = new ColorPicker();
 
-		colorPicker.setLayoutX(834); //834 ends the color swatches 
+		colorPicker.setLayoutX(834); //834 ends the color boxes
 		colorPicker.setLayoutY(0);
 
 		colorPicker.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -44,12 +48,12 @@ public class ColorPalette extends Application {
 			}
 		});
 
-		GridPane gridpaneColor = new GridPane();
+		final GridPane gridpaneColor = new GridPane();
 		gridpaneColor.setPrefSize(900, 300);
 
 		gridpaneColor.setGridLinesVisible(true);
 
-		final Rectangle[] recColorArray = new Rectangle[32];
+		final List<Rectangle> recColorArray = new ArrayList<Rectangle>();
 
 		Color c0 = Color.web("FF0000"); // red
 		Color c1 = Color.web("FF1900"); // orange
@@ -73,75 +77,87 @@ public class ColorPalette extends Application {
 			final int testI = i;
 
 			if (i < 16){
-				recColorArray[i] = new Rectangle(25,25, Color.LIGHTGREY);
+				recColorArray.add(new Rectangle(25,25, Color.LIGHTGREY));
 				gridpaneColor.getColumnConstraints().add(new ColumnConstraints(26));
 
-				gridpaneColor.add(recColorArray[i], i, 0);
+				gridpaneColor.add(recColorArray.get(i), i, 0);
 
-				recColorArray[i].setOnMousePressed(new EventHandler<MouseEvent>() {
+				recColorArray.get(i).setOnMousePressed(new EventHandler<MouseEvent>() {
+
 					public void handle(MouseEvent me) {
-						selectedColor = recColorArray[testI].getFill();
+						selectedColor = recColorArray.get(testI).getFill();
 						System.out.println("Col " + (testI) );
 					}
 				});
 				// preset colors
 				if (i == 0) {
-					recColorArray[testI].setFill(c0);
+					recColorArray.get(testI).setFill(c0);
 				} else if (i == 1) {
-					recColorArray[testI].setFill(c1);
+					recColorArray.get(testI).setFill(c1);
 				} else if (i == 2) {
-					recColorArray[testI].setFill(c2);
+					recColorArray.get(testI).setFill(c2);
 				} else if (i == 3) {
-					recColorArray[testI].setFill(c3);
+					recColorArray.get(testI).setFill(c3);
 				} else if (i == 4) {
-					recColorArray[testI].setFill(c4);
+					recColorArray.get(testI).setFill(c4);
 				} else if (i == 5) { 
-					recColorArray[testI].setFill(c5);
+					recColorArray.get(testI).setFill(c5);
 				} else if (i == 6) { 
-					recColorArray[testI].setFill(c6);
+					recColorArray.get(testI).setFill(c6);
 				} else if (i == 7) { 
-					recColorArray[testI].setFill(c7);
+					recColorArray.get(testI).setFill(c7);
 				} else if (i == 8) { 
-					recColorArray[testI].setFill(c8);
+					recColorArray.get(testI).setFill(c8);
 				} else if (i == 9) { 
-					recColorArray[testI].setFill(c9);
+					recColorArray.get(testI).setFill(c9);
 				} else if (i == 10) { 
-					recColorArray[testI].setFill(c10);
+					recColorArray.get(testI).setFill(c10);
 				} else if (i == 11) { 
-					recColorArray[testI].setFill(c11);
+					recColorArray.get(testI).setFill(c11);
 				} else if (i == 12) { 
-					recColorArray[testI].setFill(c12);
+					recColorArray.get(testI).setFill(c12);
 				} else if (i == 13) { 
-					recColorArray[testI].setFill(c13);
+					recColorArray.get(testI).setFill(c13);
 				} else if (i == 14) { 
-					recColorArray[testI].setFill(c14);
+					recColorArray.get(testI).setFill(c14);
 				} else if (i == 15) { 
-					recColorArray[testI].setFill(c15);
+					recColorArray.get(testI).setFill(c15);
 				}
 			}
-			else{
-				recColorArray[i] = new Rectangle(25,25, Color.LIGHTGREY);
+		}
+		
+		final Button addCustomColor = new Button("Add Custom Color");
+		final int c = 16;
+			//else{
+		//gridpaneColor.add(addCustomColor,c,1);
+		addCustomColor.setLayoutX(836);
+		addCustomColor.setLayoutY(20);
+		addCustomColor.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				
+				gridpaneColor.getChildren().remove(c);
+				recColorArray.add(new Rectangle(25,25, Color.LIGHTGRAY));
 				gridpaneColor.getColumnConstraints().add(new ColumnConstraints(26));
+				gridpaneColor.add(recColorArray.get(c), c, 0);
 
-				gridpaneColor.add(recColorArray[i], i, 0);
-				recColorArray[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
+				(recColorArray.get(c)).setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent me) {
 						if (me.getButton() == MouseButton.SECONDARY) {
-							recColorArray[testI].setFill(colorPicker.getValue());
-							System.out.println("Col " + (testI) + "Worked!!!");
+							recColorArray.get(c).setFill(colorPicker.getValue());
+							System.out.println("Col " + (c) + "Worked!!!");
 						} else {
-							System.out.println(recColorArray[testI].getFill());
+							System.out.println(recColorArray.get(c).getFill());
 						}
 					}
 				});
-
+				//gridpaneColor.add(addCustomColor,c,1);
 			}
+		});
 
-
-		}
-
-
-		root.getChildren().addAll(gridpaneColor, colorPicker);
+			//}
+		//}
+		root.getChildren().addAll(gridpaneColor, colorPicker, addCustomColor);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}}
+	}
+}
