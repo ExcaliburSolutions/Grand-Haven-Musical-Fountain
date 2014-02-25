@@ -1,7 +1,5 @@
-package application;
+package customChannel;
 
-import application.JavaFXDnDApplication.StringListCellFactory;
-import application.JavaFXDnDApplication.StringListCellFactory.StringListCell;
 import choreography.io.FCWLib;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -48,6 +46,7 @@ public class CustomChannel extends Application{
 	private void initalizeListeners() {
 		moduleListView.setOnDragDetected(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent event){
+				
 				Dragboard dragBoard = moduleListView.startDragAndDrop(TransferMode.MOVE);
 				ClipboardContent content = new ClipboardContent();
 				content.putString(moduleListView.getSelectionModel().getSelectedItem()); // may be an issue here the original had .getName from the addresses class
@@ -85,7 +84,6 @@ public class CustomChannel extends Application{
 				selectedListView.getItems().addAll(module);
 				moduleList.remove(module);
 				dragEvent.setDropCompleted(true);
-				
 			}
 		});
 	}
