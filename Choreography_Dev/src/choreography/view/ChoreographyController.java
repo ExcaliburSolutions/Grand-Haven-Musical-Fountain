@@ -95,7 +95,7 @@ public class ChoreographyController implements Initializable {
             @Override
             public void handle(ActionEvent arg0) {
                     MusicPaneController.getInstance().selectMusic();
-
+                    
             }
     		
     	});
