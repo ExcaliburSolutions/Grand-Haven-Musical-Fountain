@@ -65,7 +65,7 @@ public class MusicPaneController {
     private Label songProgress; // Value injected by FXMLLoader
 
     @FXML // fx:id="volume"
-    private Slider volume; // Value injected by FXMLLoader
+    private Slider volume, timeSlider; // Value injected by FXMLLoader
 
     public static MusicPaneController getInstance() {
     	if(instance == null)
@@ -105,6 +105,10 @@ public class MusicPaneController {
             songName.setText(music2.getName());
         }
 }
+    
+    public MediaPlayer getMediaPlayer(){
+    	return mediaPlayer;
+    }
     
     public void selectMusic() {
     	if (notFirst){
@@ -172,7 +176,7 @@ public class MusicPaneController {
                     songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
                     duration = mediaPlayer.getMedia().getDuration();
                     TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-                    //timeSlider.setValue(mediaPlayer.getCurrentTime().toSeconds()/roundedTime);
+                    timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                 }
             };
             mediaPlayer.currentTimeProperty().addListener(changeListener);
@@ -182,6 +186,8 @@ public class MusicPaneController {
         }
         
     }
+    
+    
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -193,6 +199,16 @@ public class MusicPaneController {
 
         // Initialize your logic here: all @FXML variables will have been injected
         instance = this;
+        
+        timeSlider.valueProperty().addListener(new InvalidationListener() {
+            public void invalidated(Observable ov) {
+                if (timeSlider.isValueChanging()) {
+                    // multiply duration by percentage calculated by slider position
+                    mediaPlayer.seek(duration.multiply(timeSlider.getValue() / 100.0));
+                }
+            }
+        });
+        
     }
 
 }

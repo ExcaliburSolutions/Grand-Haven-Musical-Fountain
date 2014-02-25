@@ -2,9 +2,14 @@
 package choreography.view.timeline;
 
 import java.net.URL;
+
 import javax.swing.*;
-import javax.swing.event;
+
+//import javax.swing.event;
 import java.util.ResourceBundle;
+
+
+
 
 
 
@@ -18,6 +23,8 @@ import choreography.view.music.MusicPaneController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -27,6 +34,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import java.awt.MouseInfo;
 
 /**
  * FXML Controller class
@@ -62,6 +71,19 @@ public class TimelineController implements Initializable {
         
         setGridPane();
         instance = this;
+        
+//        timelineScrollPane.hvalueProperty().addListener(new ChangeListener<Number>() {
+//            public void changed(ObservableValue<? extends Number> ov,
+//                    Number old_val, Number new_val) {
+//                //System.out.println(volume.getValue());
+//                //mediaPlayer.setVolume(volume.getValue());
+//            	//System.out.println("works");
+//            	timelineScrollPane.setHvalue((Double) new_val);
+//            	Duration duration = new Duration((timelineScrollPane.getHvalue()/100)*(MusicPaneController.getInstance().getMediaPlayer().getTotalDuration().toSeconds()));
+//            	MusicPaneController.getInstance().getMediaPlayer().seek(duration);
+//            }
+//        }); 
+        
     }
 	/**
 	 * 
