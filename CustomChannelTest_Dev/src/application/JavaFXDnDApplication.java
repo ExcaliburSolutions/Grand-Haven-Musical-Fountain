@@ -1,14 +1,5 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,13 +18,12 @@ import javafx.util.Callback;
 
 public class JavaFXDnDApplication extends Application
 {
-	private final File fcwInfo = new File("/Users/vankuikn/Grand-Haven-Musical-Fountain/Choreography_Dev/src/choreography/model/fcw/FCW_DEF.txt");
-	
-	private static final ListView<Addresses> playersListView = new ListView<Addresses>();
 
-	private static final ObservableList<Addresses> playersList = FXCollections.observableArrayList();
+	private static final ListView<Player> playersListView = new ListView<Player>();
 
-	private static final ListView<Addresses> teamListView = new ListView<Addresses>();
+	private static final ObservableList<Player> playersList = FXCollections.observableArrayList();
+
+	private static final ListView<Player> teamListView = new ListView<Player>();
 
 	private static final GridPane rootPane = new GridPane();
 
@@ -45,7 +35,7 @@ public class JavaFXDnDApplication extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
-		primaryStage.setTitle("Drag over channels desired");
+		primaryStage.setTitle("Drag and Drop Application");
 
 		initializeComponents();
 
@@ -133,9 +123,9 @@ public class JavaFXDnDApplication extends Application
 
 				String player = dragEvent.getDragboard().getString();
 
-				teamListView.getItems().addAll(new Addresses(player));
+				teamListView.getItems().addAll(new Player(player));
 
-				playersList.remove(new Addresses(player));
+				playersList.remove(new Player(player));
 
 				dragEvent.setDropCompleted(true);
 			}
@@ -161,13 +151,12 @@ public class JavaFXDnDApplication extends Application
 
 	private void populateData()
 	{
-		ArrayList<String> info = new ArrayList<String>();
-		info = readFile(fcwInfo);
-		
-		for (int i=0; i < 300; i++){
-//			playersList.add(i,info.get(i));
-		}
-//		playersList.add(readFile(fcwInfo));
+		playersList.addAll(
+				new Player("Adam"), new Player("Alex"), new Player("Alfred"), new Player("Albert"),
+				new Player("Brenda"), new Player("Connie"), new Player("Derek"), new Player("Donny"),
+				new Player("Lynne"), new Player("Myrtle"), new Player("Rose"), new Player("Rudolph"),
+				new Player("Tony"), new Player("Trudy"), new Player("Williams"), new Player("Zach")
+				);
 
 		playersListView.setItems(playersList);
 	}
@@ -179,7 +168,7 @@ public class JavaFXDnDApplication extends Application
 		initializeListView(teamListView);
 	}
 
-	private void initializeListView(ListView<Addresses> listView)
+	private void initializeListView(ListView<Player> listView)
 	{
 		listView.setPrefSize(250, 290);
 		listView.setEditable(false);
@@ -187,18 +176,18 @@ public class JavaFXDnDApplication extends Application
 		listView.setCellFactory(new StringListCellFactory());
 	}
 
-	class StringListCellFactory implements Callback<ListView<Addresses>, ListCell<Addresses>>
+	class StringListCellFactory implements Callback<ListView<Player>, ListCell<Player>>
 	{
 		@Override
-		public ListCell<Addresses> call(ListView<Addresses> playerListView)
+		public ListCell<Player> call(ListView<Player> playerListView)
 		{
 			return new StringListCell();
 		}
 
-		class StringListCell extends ListCell<Addresses>
+		class StringListCell extends ListCell<Player>
 		{
 			@Override
-			protected void updateItem(Addresses player, boolean b)
+			protected void updateItem(Player player, boolean b)
 			{
 				super.updateItem(player, b);
 
@@ -208,40 +197,5 @@ public class JavaFXDnDApplication extends Application
 				}
 			}
 		}
-	}
-	
-	private ArrayList<String> readFile(File file){
-		ArrayList<String> output = new ArrayList<String>();
-
-		StringBuilder stringBuffer = new StringBuilder();
-		Scanner scanner = null;
-
-		try {
-
-			scanner = new Scanner(new FileReader(file));
-			scanner.findWithinHorizon("|LightAddresses|", 1);
-			boolean n;
-			while (n = scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				stringBuffer.append(line);
-				if(line.equals("|EndLightAddresses|")) {
-					return output;
-				} else {
-					String[] tokens= line.split(", ");
-					output.add(tokens[0].trim());
-				}
-//				stringBuffer.append(System.getProperty("line.separator"));
-//				output.add(stringBuffer.toString());
-			}
-
-		} catch (FileNotFoundException ex) {
-			Logger.getLogger(JavaFXDnDApplication.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (IOException ex) {
-			Logger.getLogger(JavaFXDnDApplication.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			scanner.close();
-		}
-		System.out.println(stringBuffer.toString());
-		return output;
 	}
 }

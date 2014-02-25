@@ -1,9 +1,10 @@
 package application;
-
-public class Addresses {
+public class Player
+{
 	private String name;
 
-	public Addresses(String name) {
+	public Player(String name)
+	{
 		this.name = name;
 	}
 
@@ -23,7 +24,7 @@ public class Addresses {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		Addresses player = (Addresses) o;
+		Player player = (Player) o;
 
 		if (name != null ? !name.equals(player.name) : player.name != null) return false;
 
