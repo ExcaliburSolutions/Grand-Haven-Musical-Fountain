@@ -19,6 +19,10 @@ import javafx.stage.Stage;
 
 
 
+/**
+ * @author vankuikn
+ * Unused
+ */
 public class ColorPalette extends Application {
 	public Paint selectedColor;
 

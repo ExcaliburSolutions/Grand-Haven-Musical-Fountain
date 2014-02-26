@@ -14,19 +14,31 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * @author vankuikn
+ * Controls the colorPalette
+ */
 public class ColorPaletteController implements Initializable{
-    
-    private static ColorPaletteController cpc;
 
-    public static ColorPaletteController getInstance() {
-        if(cpc == null)
-            cpc = new ColorPaletteController();
-        return cpc;
-    }
+	private static ColorPaletteController cpc;
 
+	/**
+	 * @return cpc the current colorPalette
+	 * Returns the colorPalette that has been fully built. 
+	 */
+	public static ColorPaletteController getInstance() {
+		if(cpc == null)
+			cpc = new ColorPaletteController();
+		return cpc;
+	}
+
+	// HBox used to hold the colorPalette
 	@FXML public HBox colorPalette;
+	// Color picker used for the custom colors. 
 	@FXML ColorPicker colorPicker;
+	// HBox used to hold the colorPalette
 	@FXML HBox colorPaletteHbox;
+	// Color 0-15 are default colors that have been pre-defined
 	@FXML Rectangle color0;
 	@FXML Rectangle color1;
 	@FXML Rectangle color2;
@@ -43,6 +55,7 @@ public class ColorPaletteController implements Initializable{
 	@FXML Rectangle color13;
 	@FXML Rectangle color14;
 	@FXML Rectangle color15;
+	// Color 16-31 are custom colors that are picked by the user.
 	@FXML Rectangle color16;
 	@FXML Rectangle color17;
 	@FXML Rectangle color18;
@@ -60,18 +73,31 @@ public class ColorPaletteController implements Initializable{
 	@FXML Rectangle color30;
 	@FXML Rectangle color31;
 
+	// The current instance of the selected color
 	public Paint selectedColor;
 
+	/**
+	 * @return selectedColor current instance of the selected color
+	 * Returns the current instance of the selected color.
+	 */
 	public Paint getSelectedColor() {
 		return selectedColor;
 	}
 
+	/**
+	 * @param c The passes color that has been selected
+	 * Sets the global variable selectedColor to the color that has been chosen
+	 */
 	private void setSelectedColor(Paint c) {
 		selectedColor = c;
 	}
+
+	/**
+	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+	 * Initializes the colorPalette. 
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 
 		/**
 		 * @param args the command line arguments
@@ -93,105 +119,123 @@ public class ColorPaletteController implements Initializable{
 		Color c13 = Color.web("0096EF"); // cyan
 		Color c14 = Color.web("000000"); // black/Off
 		Color c15 = Color.web("FFFFFF"); // white/On
-		
+
+		// sets the selected color to the a default to avoid errors. 
 		selectedColor = c0;
-		
+
+		// Sets the first color to red and creates the event handler
 		color0.setFill(c0);
 		color0.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color0.getFill());
 			}
 		});
+		// Sets the second color to orange and creates the event handler
 		color1.setFill(c1);
 		color1.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color1.getFill());
 			}
 		});
+		// Sets the third color to yellow and creates the event handler
 		color2.setFill(c2);
 		color2.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color2.getFill());
 			}
 		});
+		// Sets the third color to green and creates the event handler
 		color3.setFill(c3);
 		color3.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color3.getFill());
 			}
 		});
+		// Sets the third color to blue and creates the event handler
 		color4.setFill(c4);
 		color4.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color4.getFill());
 			}
 		});
+		// Sets the third color to violet and creates the event handler
 		color5.setFill(c5);
 		color5.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color5.getFill());
 			}
 		});
+		// Sets the third color to lightRed and creates the event handler
 		color6.setFill(c6);
 		color6.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color6.getFill());
 			}
 		});
+		// Sets the third color to lightOrange and creates the event handler
 		color7.setFill(c7);
 		color7.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color7.getFill());
 			}
 		});
+		// Sets the third color to lightYellow and creates the event handler
 		color8.setFill(c8);
 		color8.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color8.getFill());
 			}
 		});
+		// Sets the third color to lightGreen and creates the event handler
 		color9.setFill(c9);
 		color9.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color9.getFill());
 			}
 		});
+		// Sets the third color to lightBlue and creates the event handler
 		color10.setFill(c10);
 		color10.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color10.getFill());
 			}
 		});
+		// Sets the third color to lightViolet and creates the envent handler
 		color11.setFill(c11);
 		color11.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color11.getFill());
 			}
 		});
+		// Sets the third color to magenta and creates the event handler
 		color12.setFill(c12);
 		color12.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color12.getFill());
 			}
 		});
+		// Sets the third color to cyan and creates the event handler
 		color13.setFill(c13);
 		color13.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color13.getFill());
 			}
 		});
+		// Sets the third color to black (off) and creates the event handler
 		color14.setFill(c14);
 		color14.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color14.getFill());
 			}
 		});
+		// Sets the third color to white (on) and creates the event handler
 		color15.setFill(c15);
 		color15.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				setSelectedColor(color15.getFill());
 			}
 		});
+		// sets the first custom color visible and hides the rest
 		color16.setVisible(true);
 		color17.setVisible(false);
 		color18.setVisible(false);
@@ -209,6 +253,7 @@ public class ColorPaletteController implements Initializable{
 		color30.setVisible(false);
 		color31.setVisible(false);
 
+		// Sets all the custom colors to a default white
 		color16.setFill(c15);
 		color17.setFill(c15);
 		color18.setFill(c15);
@@ -226,10 +271,12 @@ public class ColorPaletteController implements Initializable{
 		color30.setFill(c15);
 		color31.setFill(c15);
 
+		// Creates the event handler for the custom color squares. 
 		color16.setOnMousePressed(new EventHandler <MouseEvent>() {
 			public void handle(MouseEvent me) {
 				if (me.getButton() == MouseButton.SECONDARY) {
 					color16.setFill(colorPicker.getValue());
+					// Sets the next custom color square to visible 
 					color17.setVisible(true);
 				} else {
 					setSelectedColor(color16.getFill());
