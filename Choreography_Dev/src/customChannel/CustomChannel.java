@@ -1,11 +1,14 @@
 package customChannel;
 
+import java.sql.Array;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -37,6 +40,9 @@ public class CustomChannel extends Application{
 	
 	// Holds the ListViews 
 	private static final GridPane rootPane = new GridPane();
+	
+	// Finish button
+	private Button finish = new Button("Finish");
 
 	/**
 	 * @param args
@@ -135,6 +141,26 @@ public class CustomChannel extends Application{
 				dragEvent.setDropCompleted(true);
 			}
 		});
+		
+		finish.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				// @todo need to add handler in timeline to add selectedModules and exit the application
+				getSelected();
+				try {
+					stop();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	private Object getSelected() {
+		Object[] selectedArray;
+		selectedArray = selectedListView.getItems().toArray();
+		return selectedArray;
 	}
 	
 	/**
@@ -155,6 +181,7 @@ public class CustomChannel extends Application{
 		rootPane.add(moduleListView, 0, 1);
 		rootPane.add(selectedModules, 1, 0);
 		rootPane.add(selectedListView, 1, 1);
+		rootPane.add(finish, 1, 2);
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 package choreography.view.colorPalette;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
@@ -90,6 +91,83 @@ public class ColorPaletteController implements Initializable{
 	 */
 	private void setSelectedColor(Paint c) {
 		selectedColor = c;
+	}
+	
+	/**
+	 * @return savedColorPalette is an array that contains all of the colors 
+	 * currently defined in the color palette. 
+	 */
+	public Object saveColorPalette () {
+		ArrayList<Color> savedColorPalette = new ArrayList<Color>();
+		for (int i = 0 ; i < 32 ; i++){
+			if (i == 0) {
+				savedColorPalette.add((Color) color0.getFill());
+			} else if (i == 1) { 
+				savedColorPalette.add((Color) color1.getFill());
+			} else if (i == 2) { 
+				savedColorPalette.add((Color) color2.getFill());
+			} else if (i == 3) {
+				savedColorPalette.add((Color) color3.getFill());
+			} else if (i == 4) {
+				savedColorPalette.add((Color) color4.getFill());
+			} else if (i == 5) {
+				savedColorPalette.add((Color) color5.getFill());
+			} else if (i == 6) {
+				savedColorPalette.add((Color) color6.getFill());
+			} else if (i == 7) {
+				savedColorPalette.add((Color) color7.getFill());
+			} else if (i == 8) {
+				savedColorPalette.add((Color) color8.getFill());
+			} else if (i == 9) {
+				savedColorPalette.add((Color) color9.getFill());
+			} else if (i == 10) {
+				savedColorPalette.add((Color) color10.getFill());
+			} else if (i == 11) {
+				savedColorPalette.add((Color) color11.getFill());
+			} else if (i == 12) {
+				savedColorPalette.add((Color) color12.getFill());
+			} else if (i == 13) {
+				savedColorPalette.add((Color) color13.getFill());
+			} else if (i == 14) {
+				savedColorPalette.add((Color) color14.getFill());
+			} else if (i == 15) {
+				savedColorPalette.add((Color) color15.getFill());
+			} else if (i == 16) {
+				savedColorPalette.add((Color) color16.getFill());
+			} else if (i == 17) {
+				savedColorPalette.add((Color) color17.getFill());
+			} else if (i == 18) {
+				savedColorPalette.add((Color) color18.getFill());
+			} else if (i == 19) {
+				savedColorPalette.add((Color) color19.getFill());
+			} else if (i == 20) {
+				savedColorPalette.add((Color) color20.getFill());
+			} else if (i == 21) {
+				savedColorPalette.add((Color) color21.getFill());
+			} else if (i == 22) {
+				savedColorPalette.add((Color) color22.getFill());
+			} else if (i == 23) {
+				savedColorPalette.add((Color) color23.getFill());
+			} else if (i == 24) {
+				savedColorPalette.add((Color) color24.getFill());
+			} else if (i == 25) {
+				savedColorPalette.add((Color) color25.getFill());
+			} else if (i == 26) {
+				savedColorPalette.add((Color) color26.getFill());
+			} else if (i == 27) {
+				savedColorPalette.add((Color) color27.getFill());
+			} else if (i == 28) {
+				savedColorPalette.add((Color) color28.getFill());
+			} else if (i == 29) {
+				savedColorPalette.add((Color) color29.getFill());
+			} else if (i == 30) {
+				savedColorPalette.add((Color) color30.getFill());
+			} else if (i == 31) {
+				savedColorPalette.add((Color) color31.getFill());
+			}
+		}
+		
+		return null;
 	}
 
 	/**
