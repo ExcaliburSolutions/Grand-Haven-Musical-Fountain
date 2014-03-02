@@ -49,7 +49,7 @@ public class TimelineController implements Initializable {
 	}
 	
     @FXML
-    private GridPane labelGridpane;
+    private GridPane timelineLabelPane;
     @FXML
     private Label timelineLabel;
     @FXML
@@ -65,7 +65,8 @@ public class TimelineController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        setGridPane();
+        setTimelineGridPane();
+        setLableGridPane();
         instance = this;
         
 //        timelineScrollPane.hvalueProperty().addListener(new ChangeListener<Number>() {
@@ -81,10 +82,21 @@ public class TimelineController implements Initializable {
 //        }); 
         
     }
+    
+    public void setLableGridPane(){
+//    	labelGridpane.setGridLinesVisible(true);
+    	final Label[] labelArray = new Label[18];
+    	
+    	for(int i=0; i<17;i++){
+// 			 labelGridpane.getRowConstraints().add(new RowConstraints(26));
+ 			 labelArray[i] = new Label(""+i);
+ 			 timelineLabelPane.add(labelArray[i], 0, i);
+    	}
+    }
 	/**
 	 * 
 	 */
-	public void setGridPane() {
+	public void setTimelineGridPane() {
 		GridPane gridpaneRec = new GridPane();
         
         time = MusicPaneController.SONG_TIME;

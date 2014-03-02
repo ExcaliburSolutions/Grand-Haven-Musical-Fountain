@@ -154,7 +154,8 @@ public class MusicPaneController {
 			roundedTime = Double.parseDouble(f.format(time));
         	time = 2*Double.parseDouble(f.format(time));
         	SONG_TIME = (int) time;
-        	TimelineController.getInstance().setGridPane();
+        	TimelineController.getInstance().setTimelineGridPane();
+        	TimelineController.getInstance().setLableGridPane();
 			
 		} catch (Exception ex) {
 			
