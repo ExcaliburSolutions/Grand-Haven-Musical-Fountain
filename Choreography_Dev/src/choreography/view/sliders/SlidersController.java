@@ -8,9 +8,6 @@ package choreography.view.sliders;
  * Sample Skeleton for "Sliders.fxml" Controller Class
  * You can copy and paste this code into your favorite IDE
  **/
-
-
-
 import choreography.model.cannon.IndependentCannon;
 import choreography.model.cannon.Sweep;
 import choreography.model.cannon.Multi;

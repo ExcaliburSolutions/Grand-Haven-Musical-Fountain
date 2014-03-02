@@ -5,7 +5,6 @@ package choreography.view.sliders;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import choreography.model.cannon.Cannon;
 import choreography.model.cannon.IndependentCannon;
 import choreography.io.FCWLib;
 import choreography.view.ChoreographyController;
@@ -32,7 +31,7 @@ public class IndependentCannonSliderChangeListener implements ChangeListener<Num
 			Number newValue) {
         int level = newValue.intValue();
             cannon.setLevel(level);
-        String[] actions = new String[]{Integer.toString(level)};
+        String[] actions = new String[]{Integer.toString(level), name};
         ChoreographyController.getInstance().setfcwOutput(
                 FCWLib.getInstance().getFCW(name.toString(), actions).toString());
 

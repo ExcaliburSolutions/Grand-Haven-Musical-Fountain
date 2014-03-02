@@ -32,10 +32,14 @@ public class Event{
 
         @Override
         public String toString() {
-            double seconds = startTime / 10;
-            double minutes = seconds / 60;
-            String secondsPoint = new DecimalFormat("##.#").format(minutes % 60);
-            System.out.println(minutes + ":" + secondsPoint + commands);
-            return minutes + ":" + secondsPoint + commands;
+//            double tenthseconds = startTime / 10;
+            int minutes = (int) (startTime / 60);
+            StringBuilder commandsOutput = new StringBuilder();
+            for(FCW f: commands){
+                commandsOutput.append(" ").append(f);
+            }
+            String eventString = new DecimalFormat("00").format(minutes) + ":" 
+                    + new DecimalFormat("00.0").format(startTime/10) + commandsOutput;
+            return eventString;
         }
 }

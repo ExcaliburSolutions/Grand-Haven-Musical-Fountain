@@ -12,54 +12,54 @@ import java.util.ArrayList;
  *
  */
 public class ModuleGroup {
-	String AB;
-	Module[] modules;
-	
-	public ModuleGroup(Module ... modulesIn) {
-            if(modulesIn.length == 4){
-                    this.modules = new Module[4];
-                    this.modules = modulesIn;
-                    AB = "A";
-            } else if(modulesIn.length == 3){
-                    this.modules = new Module[3];
-                    this.modules = modulesIn;
-                    AB = "B";
-            } 
-	}
+    String AB;
+    Module[] modules;
 
-        public ArrayList<Cannon> getCannonGroup(CannonEnum e) {
-            ArrayList<Cannon> cg = new ArrayList<>();
-            for(Module m : modules) {
-                switch(e){
-                    case RING1:
-                        cg.add(m.getR1());
+    public ModuleGroup(Module ... modulesIn) {
+        if(modulesIn.length == 4){
+                this.modules = new Module[4];
+                this.modules = modulesIn;
+                AB = "A";
+        } else if(modulesIn.length == 3){
+                this.modules = new Module[3];
+                this.modules = modulesIn;
+                AB = "B";
+        } 
+    }
+
+    public ArrayList<Cannon> getCannonGroup(CannonEnum e) {
+        ArrayList<Cannon> cg = new ArrayList<>();
+        for(Module m : modules) {
+            switch(e){
+                case RING1:
+                    cg.add(m.getR1());
+                    break;
+                case RING2:
+                    cg.add(m.getR2());
+                    break;
+                case RING3:
+                    cg.add(m.getR3());
+                    break;
+                case RING4:
+                    cg.add(m.getR4());
+                    break;
+                case RING5:
+                    cg.add(m.getR5());
+                    break;
+                case MULTI:
+                    cg.add(m.getMx());
+                    break;
+                case CANDELABRA:
+                    cg.add(m.getCandle());
+                    break;
+                case SWEEP:
+                    cg.add(m.getSw());
+                        default:
                         break;
-                    case RING2:
-                        cg.add(m.getR2());
-                        break;
-                    case RING3:
-                        cg.add(m.getR3());
-                        break;
-                    case RING4:
-                        cg.add(m.getR4());
-                        break;
-                    case RING5:
-                        cg.add(m.getR5());
-                        break;
-                    case MULTI:
-                        cg.add(m.getMx());
-                        break;
-                    case CANDELABRA:
-                        cg.add(m.getCandle());
-                        break;
-                    case SWEEP:
-                        cg.add(m.getSw());
-				default:
-					break;
-                }
             }
-            return cg;
         }
+        return cg;
+    }
         
 	/**
 	 * @return the aB
