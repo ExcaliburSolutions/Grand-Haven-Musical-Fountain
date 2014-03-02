@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 
 /**
  * @author elementsking
@@ -17,10 +19,10 @@ import java.util.logging.Logger;
  */
 public class LagTimeLibrary {
 	private static LagTimeLibrary instance;
-	private static LagTimeTable lagTimeInstance;
+	private LagTimeTable lagTimeInstance;
 	private final File lagTimeDef = new File("LagTimeDef.txt");
 	
-	public LagTimeLibrary getInstance() {
+	public static LagTimeLibrary getInstance() {
 		if(instance == null) {
                     try {
                         instance = new LagTimeLibrary();
@@ -30,22 +32,33 @@ public class LagTimeLibrary {
 		}
 		return instance;
 	}
+        
+        public LagTimeTable getLagTimes() {
+            return lagTimeInstance;
+        }
 	
 	private LagTimeLibrary() throws FileNotFoundException {
 		lagTimeInstance = LagTimeTable.getInstance();
-		Scanner fileIn = null;
-		try {
-                    fileIn = new Scanner(lagTimeDef);
+		try (Scanner fileIn = new Scanner(lagTimeDef)){
+                    HashMap<String, Double> delayTimes = new HashMap<>();
+                    while(fileIn.hasNext()) {
+                            String line = fileIn.nextLine();
+                            String[] tokens = line.split("=");
+                            delayTimes.put(tokens[0], Double.parseDouble(tokens[1]));
+                    }
+		lagTimeInstance.setLagTimes(delayTimes);
 		} catch (FileNotFoundException e) {
                     throw new FileNotFoundException("Cannot find lagTimeDef file");
-		}
+		} catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Your LagTimeDef.txt file may be corrupted.");
+                }
 		
-		HashMap<String, Double> delayTimes = new HashMap<>();
-		while(fileIn.hasNext()) {
-			String line = fileIn.nextLine();
-			String[] tokens = line.split("=");
-			delayTimes.put(tokens[0], Double.parseDouble(tokens[1]));
-		}
-		lagTimeInstance.setLagTimes(delayTimes);
+		
 	}
+
+    public void saveLagTimes(String[] dataTable) {
+        for(Object object: dataTable) {
+            
+        }
+    }
 }

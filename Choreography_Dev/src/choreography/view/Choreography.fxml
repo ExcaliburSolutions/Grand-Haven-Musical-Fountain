@@ -21,11 +21,12 @@
                 <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
               </accelerator>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Open…" fx:id="openWizardMenuItem">
+            <MenuItem mnemonicParsing="false" text="Open Music..." fx:id="openMusicMenuItem">
               <accelerator>
                 <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
               </accelerator>
             </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Open CTL..." fx:id="openCTLMenuItem" />
             <Menu mnemonicParsing="false" text="Open Recent" fx:id="openRecentMenuItemItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" fx:id="closeMenuItem" />
@@ -55,6 +56,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Edit" fx:id="editMenu">
           <items>
+            <MenuItem mnemonicParsing="false" onAction="#openLagTimeDialog" text="Set Lag Times" fx:id="setLagTimesMenuItem" />
             <MenuItem mnemonicParsing="false" text="Undo" fx:id="undoMenuItem">
               <accelerator>
                 <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -101,7 +103,7 @@
           <children>
             <Label fx:id="fcwOutput" alignment="CENTER" text="FCW Output" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="14.0" />
             <fx:include source="colorPalette/ColorPalette.fxml" layoutY="0.0" prefHeight="34.0" prefWidth="800.0" AnchorPane.rightAnchor="0.0" />
-            <ChoiceBox fx:id="scaleChooser" layoutX="107.0" layoutY="7.0">
+            <ChoiceBox fx:id="scaleChooser" layoutX="147.0" layoutY="7.0">
               <items>
                 <FXCollections fx:factory="observableArrayList">
                   <String fx:value="Item 1" />

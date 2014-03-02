@@ -28,6 +28,10 @@ public class LagTimeTable {
 	private LagTimeTable() {
 		delays = new HashMap<>();
 	}
+        
+        public HashMap<String, Double> getDelays() {
+            return delays;
+        }
 	
 	public void setLagTimes(HashMap<String, Double> delayTimes) {
             this.delays = delayTimes;
