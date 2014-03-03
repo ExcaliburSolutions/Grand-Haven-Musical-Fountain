@@ -12,9 +12,7 @@ import choreography.model.cannon.IndependentCannon;
 public class BkCurt extends IndependentCannon {
 
 	/**
-	 * @param name
-	 * @param AB
-	 * @param level
+     * @param level
 	 */
 	public BkCurt(int level) {
 		super(level);

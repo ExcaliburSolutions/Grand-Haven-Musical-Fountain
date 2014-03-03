@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,6 +71,10 @@ public final class FCWLib {
         fcwLib = aFcwLib;
     }
 	
+    /**
+     *
+     * @param fcwInfo
+     */
     public synchronized void readFCWInfoFromFile(File fcwInfo){
             try {
                     Scanner fileIn = new Scanner(new FileReader(fcwInfo));
@@ -116,6 +118,10 @@ public final class FCWLib {
 
     }
 
+    /**
+     *
+     * @param fileIn
+     */
     public synchronized void readWaterAddressesFromFile(Scanner fileIn) {
             String line = null;
             while(fileIn.hasNextLine()){ //while we aren't EOF
@@ -129,6 +135,10 @@ public final class FCWLib {
             }
     }
 
+    /**
+     *
+     * @param fileIn
+     */
     public synchronized void readLightAddressesFromFile(Scanner fileIn) {
             while(fileIn.hasNextLine()){
                     String line = fileIn.nextLine();
@@ -141,6 +151,10 @@ public final class FCWLib {
             }
     }
 
+    /**
+     *
+     * @param fileIn
+     */
     public synchronized void readAddressTableFromFile(Scanner fileIn) {
             while(fileIn.hasNextLine()){
         String line = fileIn.nextLine();
@@ -157,6 +171,10 @@ public final class FCWLib {
             }
     }
 
+    /**
+     *
+     * @param fileIn
+     */
     public synchronized void readTableCommandsFromFile(Scanner fileIn) {
             while(fileIn.hasNextLine()){
             String line = fileIn.nextLine(); //pull in the first line
@@ -183,10 +201,18 @@ public final class FCWLib {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public synchronized String[] getLightTable() {
             return lightNames;
     }
 
+    /**
+     *
+     * @return
+     */
     public synchronized String[] getWaterTable() {
             return waterNames;
     }
@@ -264,6 +290,11 @@ public final class FCWLib {
         return bits;
     }
     
+    /**
+     *
+     * @param f
+     * @return
+     */
     public synchronized String[] reverseLookup(FCW f){
         String table = searchFunctionTables(f.getAddr());
         ArrayList<Integer> flags = new ArrayList<>();
@@ -271,7 +302,6 @@ public final class FCWLib {
         int data = f.getData();
         Integer[] values = new Integer[]{256, 128, 64, 32, 16, 8};
         setFlags(values, data, flags);
-        
         
         for(Entry<String, Integer> entry: tableCommands.get(table).entrySet()) {
             for(Integer i : flags) {
@@ -288,7 +318,8 @@ public final class FCWLib {
                 data -= value;
                 flags.add(value);
             }
-        }
+        } if(data <= 5)
+            flags.add(data);
     }
 
 	/**

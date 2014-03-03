@@ -191,7 +191,7 @@ public class Fountain {
 	}
 
 	/**
-	 * @param module1 the module1 to set
+     * @param module2
 	 */
 	public void setModule2(Module module2) {
 		B.getModules()[0] = module2;

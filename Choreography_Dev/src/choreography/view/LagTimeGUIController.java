@@ -7,13 +7,15 @@
 package choreography.view;
 
 import choreography.io.LagTimeLibrary;
-import choreography.model.lagtime.LagTimeTable;
+import choreography.model.lagtime.LagTime;
+import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -32,15 +35,21 @@ import javafx.stage.Stage;
  */
 public class LagTimeGUIController implements Initializable {
     @FXML
-    private TableView<?> lagTimeTable;
+    private TableView<LagTime> lagTimeTable;
     @FXML
-    private TableColumn<String, String> delayName;
+    private TableColumn<LagTime, String> delayName;
     @FXML
-    private TableColumn<String, Double> delayTime;
+    private TableColumn<LagTime, Double> delayTime;
     @FXML
     private Button cancelButton;
     @FXML
     private Button okButton;
+    @FXML
+    private Button addButton;
+    @FXML
+    private TextField addDelayName;
+    @FXML
+    private TextField addDelayTime;
     private Stage dialogStage;
 
     /**
@@ -51,21 +60,25 @@ public class LagTimeGUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        LagTimeTable ltt = LagTimeLibrary.getInstance().getLagTimes();
-        SimpleListProperty<Entry> slp = new SimpleListProperty<>();
-        slp.addAll(ltt.getDelays().entrySet());
+        List<LagTime> ltt = LagTimeLibrary.getInstance().getLagTimes();
+        ObservableList<LagTime> lagTimeList = FXCollections.observableArrayList(ltt);
         
         delayName.setCellValueFactory(
-            new PropertyValueFactory<String,String>("delayName"));
+            new PropertyValueFactory<LagTime,String>("delayName"));
         delayTime.setCellValueFactory(
-            new PropertyValueFactory<String,Double>("delayTime"));
+            new PropertyValueFactory<LagTime,Double>("delayTime"));
+        
+        lagTimeTable.setItems(lagTimeList);
         
         okButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent t) {
-                HashMap<String, Double> delayTable = new HashMap();
-                
+                try {
+                    saveLagTimes(t);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(LagTimeGUIController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -76,22 +89,46 @@ public class LagTimeGUIController implements Initializable {
                 cancel(t);
             }
         });
+        
+        addButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                lagTimeTable.getItems().add(new LagTime(
+                    addDelayName.getText(),
+                    Double.parseDouble(addDelayTime.getText())
+                ));
+                addDelayName.clear();
+                addDelayTime.clear();
+            }
+        });
+        
     }    
 
     @FXML
     private void cancel(ActionEvent event) {
+        dialogStage.close();
     }
 
     @FXML
-    private void saveLagTimes(ActionEvent event) {
+    private void saveLagTimes(ActionEvent event) throws FileNotFoundException{
+        ArrayList<LagTime> lagTimes = new ArrayList<>();
+        ObservableList<LagTime> tableTimes = lagTimeTable.getItems();
+        for(LagTime lt: tableTimes) {
+            lagTimes.add(lt);
+        }
+        LagTimeLibrary.getInstance().saveLagTimes(lagTimes);
+        dialogStage.close();
     }
     
+    /**
+     *
+     * @param dialog
+     */
     public void setDialogStage(Stage dialog) {
         this.dialogStage = dialog;
     }
 
-    void setDelays(LagTimeTable lagTimes) {
-        
+    void setDelays(ArrayList<LagTime> lagTimes) {
+        //TODO convert LagTime into table rows and columns...
     }
     
 }

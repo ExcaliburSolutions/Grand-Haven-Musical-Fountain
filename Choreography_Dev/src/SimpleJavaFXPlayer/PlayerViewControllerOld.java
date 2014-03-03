@@ -116,7 +116,6 @@ public class PlayerViewControllerOld implements Initializable {
 			url = file2.toURI().toURL();
 //			"file:///C:/Users/Steve/Desktop/01 Relections of Earth.wav"
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         try {
@@ -134,7 +133,6 @@ public class PlayerViewControllerOld implements Initializable {
 			
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         

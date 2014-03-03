@@ -26,7 +26,13 @@ public class IndependentCannonSliderChangeListener implements ChangeListener<Num
 		name = cannon.getName();
 	}
 
-	@Override
+    /**
+     *
+     * @param observable
+     * @param oldValue
+     * @param newValue
+     */
+    @Override
 	public void changed(ObservableValue<? extends Number> observable, Number oldValue,
 			Number newValue) {
         int level = newValue.intValue();

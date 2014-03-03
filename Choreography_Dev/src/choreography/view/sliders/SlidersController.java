@@ -26,7 +26,10 @@ import choreography.model.cannon.CannonEnum;
 import choreography.model.Fountain;
 import choreography.model.ModuleGroup;
 
-
+/**
+ *
+ * @author elementsking
+ */
 public class SlidersController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -154,6 +157,13 @@ public class SlidersController {
         setupIndependentCannons();
     }
     
+    /**
+     *
+     * @param list
+     * @param aB
+     * @param ce
+     * @param s
+     */
     public void setupCannonSliderChangeListener(ArrayList<? extends Cannon> list, 
             ModuleGroup aB, CannonEnum ce, Slider s){
         

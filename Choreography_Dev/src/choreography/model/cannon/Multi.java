@@ -11,6 +11,10 @@ import choreography.model.cannon.Cannon;
  */
 public class Multi extends Cannon {
 
+    /**
+     *
+     * @param level
+     */
     public Multi(int level) {
         super(level);
     }

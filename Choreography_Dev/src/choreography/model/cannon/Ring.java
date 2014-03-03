@@ -12,7 +12,6 @@ public class Ring extends Cannon {
 	final int size;
 	
 	/**
-	 * @param module
 	 * @param level
 	 * @param size
 	 */
@@ -20,13 +19,22 @@ public class Ring extends Cannon {
 		super(level);
 		this.size = size;
 	}
-        
-        public Ring(int size, String name) {
+
+    /**
+     *
+     * @param size
+     * @param name
+     */
+    public Ring(int size, String name) {
             super(0 ,name);
             this.size = size;
         }
-        
-	public Ring(int size) {
+
+    /**
+     *
+     * @param size
+     */
+    public Ring(int size) {
 		super(0);
 		this.size = size;
 	}
@@ -37,8 +45,12 @@ public class Ring extends Cannon {
 	public int getSize() {
 		return size;
 	}
-	
-	public String toString() {
+
+    /**
+     *
+     * @return
+     */
+    public String toString() {
 		return this.getClass() + " size: " + size+ " level: " + level;
 	}
 }

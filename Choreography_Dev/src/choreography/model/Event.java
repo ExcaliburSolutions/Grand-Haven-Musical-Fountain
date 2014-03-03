@@ -4,33 +4,81 @@ import choreography.model.fcw.FCW;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author elementsking
+ */
 public class Event{
-	protected int startTime;
-	protected ArrayList<FCW> commands;
-	
-	public Event(int startTime, ArrayList<FCW> commands){
+
+    /**
+     *
+     */
+    protected int startTime;
+
+    /**
+     *
+     */
+    protected ArrayList<FCW> commands;
+
+    /**
+     *
+     * @param startTime
+     * @param commands
+     */
+    public Event(int startTime, ArrayList<FCW> commands){
 		this.setStartTime(startTime);
 		this.setCommands(commands);
 	}
-	
-	public double getStartTime() {
+
+    /**
+     *
+     * @return
+     */
+    public int getStartTime() {
 		return startTime;
 	}
 
-	public ArrayList<FCW> getCommands() {
+    /**
+     *
+     * @param delayTime
+     */
+    public void transformStartTime(double delayTime) {
+            startTime += convertToTenthSeconds(delayTime);
+        }
+        
+        private int convertToTenthSeconds(double inputSeconds) {
+            return (int) (inputSeconds * 10);
+        }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<FCW> getCommands() {
 		return commands;
 	}
 
-	public void setCommands(ArrayList<FCW> commands) {
+    /**
+     *
+     * @param commands
+     */
+    public void setCommands(ArrayList<FCW> commands) {
 		this.commands = commands;
 	}
 
-	
-	public void setStartTime(int startTime) {
+    /**
+     *
+     * @param startTime
+     */
+    public void setStartTime(int startTime) {
 		this.startTime = startTime;
 	}
 
-        @Override
+    /**
+     *
+     * @return
+     */
+    @Override
         public String toString() {
 //            double tenthseconds = startTime / 10;
             int minutes = (int) (startTime / 60);

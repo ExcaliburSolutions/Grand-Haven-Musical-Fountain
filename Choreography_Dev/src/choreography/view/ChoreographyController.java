@@ -96,7 +96,8 @@ public class ChoreographyController implements Initializable {
     private MenuItem aboutMenuItem;
     @FXML
     private MenuItem setLagTimesMenuItem;
-
+    private File saveLocation;
+    private boolean isSaved;
     /**
      * Initializes the controller class.
      * @param url
@@ -133,19 +134,22 @@ public class ChoreographyController implements Initializable {
         });
         
         saveMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                
                 @Override
                 public void handle(ActionEvent t) {
-                    FileChooser fc = new FileChooser();
-                    fc.setInitialDirectory(new File(System.getProperty("user.home")));
-                    File saveLocation = fc.showSaveDialog(null);
-                    
-                    StringBuilder fcwOut = new StringBuilder();
-                    
-                    for(Event e : events) {
-                        fcwOut.append(e);
+                    if(isSaved) {
+                        buildFcwOutputAndSave();
+                    } else {
+                        saveLocation  = selectSaveLocation();
                     }
-                    
-                    CtlLib.getInstance().saveFile(saveLocation, fcwOut.toString());
+                }
+            });
+        
+        saveAsMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent t) {
+                    saveLocation  = selectSaveLocation();
+                    buildFcwOutputAndSave();
                 }
             });
         
@@ -153,7 +157,7 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void handle(ActionEvent t) {
-                    
+                    openLagTimeDialog();
                 }
             });
         
@@ -161,14 +165,30 @@ public class ChoreographyController implements Initializable {
         fcwOutput.setText("Choreographer has loaded!");
         cc = this;
     }
+
+    private void buildFcwOutputAndSave() {
+        CtlLib.getInstance().saveFile(saveLocation, events);
+    }
+
+    private File selectSaveLocation() {
+        FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File(System.getProperty("user.home")));
+        saveLocation = fc.showSaveDialog(null);
+        isSaved = true;
+        return saveLocation;
+    }
     
+    /**
+     *
+     * @return
+     */
     public boolean openLagTimeDialog() {
         try {
             // Load the fxml file and create a new stage for the popup
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/LagTimeGUI.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
+            dialogStage.setTitle("Edit Lag Times");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(Main.getPrimaryStage());
             Scene scene = new Scene(page);
@@ -190,23 +210,42 @@ public class ChoreographyController implements Initializable {
             }
     }
     
+    /**
+     *
+     * @param s
+     */
     public void setfcwOutput(String s) {
         fcwOutput.setText(s);
     }
     
+    /**
+     *
+     * @return
+     */
     public static ChoreographyController getInstance() {
         return cc;
     }
 
+    /**
+     *
+     * @param parseCTL
+     */
     public void setEventTimeline(ArrayList<Event> parseCTL) {
         events.addAll(parseCTL);
         rePaint();
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Event> getEventTimeline() {
         return events;
     }
 
+    /**
+     *
+     */
     public void rePaint() {
         for(Event e : events) {
             for(FCW f : e.getCommands()){

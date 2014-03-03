@@ -29,22 +29,36 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+/**
+ *
+ * @author elementsking
+ */
 public class MusicPaneController {
 	
-	private static MusicPaneController instance;
-	
-	private MediaPlayer mediaPlayer;
+    private static MusicPaneController instance;
+
+    private MediaPlayer mediaPlayer;
     private double time, roundedTime;
     private Duration duration;
     Music music2;
     private boolean notFirst = false;
-	final DecimalFormat f = new DecimalFormat("#.0");
+    final DecimalFormat f = new DecimalFormat("#.0");
 
-    
+    /**
+     *
+     */
     public static final int H_PIXEL_SIZE = 15;
+
+    /**
+     *
+     */
     public static final int V_PIXEL_SIZE = 15;
     //public static final double SONG_TIME = 10;
-    public static int SONG_TIME = 0;
+
+    /**
+     *
+     */
+        public static int SONG_TIME = 0;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -67,6 +81,10 @@ public class MusicPaneController {
     @FXML // fx:id="volume"
     private Slider volume, timeSlider; // Value injected by FXMLLoader
 
+    /**
+     *
+     * @return
+     */
     public static MusicPaneController getInstance() {
     	if(instance == null)
     		instance = new MusicPaneController();
@@ -106,10 +124,17 @@ public class MusicPaneController {
         }
 }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getMediaPlayer(){
     	return mediaPlayer;
     }
     
+    /**
+     *
+     */
     public void selectMusic() {
     	if (notFirst){
     		mediaPlayer.dispose();    		
@@ -117,6 +142,8 @@ public class MusicPaneController {
     	
     	FileChooser fc = new FileChooser();
     	fc.setInitialDirectory(new File(System.getProperty("user.home")));
+        fc.getExtensionFilters().setAll(new FileChooser.ExtensionFilter(
+                "Music Files", "*.wav", "*.flac"));
     	File file2 = fc.showOpenDialog(null);
     	music2 = new Music();
     	if (file2 != null){
@@ -164,8 +191,10 @@ public class MusicPaneController {
         System.out.println(roundedTime);
         notFirst = true;
     }
-    
-    
+
+    /**
+     *
+     */
     public void updateProgress() {
     	final DecimalFormat f = new DecimalFormat("#.0");
         

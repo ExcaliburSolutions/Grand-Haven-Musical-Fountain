@@ -34,6 +34,7 @@ public class Module {
 	 * @param r2
 	 * @param r3
 	 * @param r4
+     * @param r5
 	 * @param sw
 	 * @param mx
 	 * @param candle
@@ -52,7 +53,15 @@ public class Module {
 		this.candle = candle;
 	}
 
-	public Module(int number, Ring[] rings, Multi m1, Candelabra c1, Sweep s1){
+    /**
+     *
+     * @param number
+     * @param rings
+     * @param m1
+     * @param c1
+     * @param s1
+     */
+    public Module(int number, Ring[] rings, Multi m1, Candelabra c1, Sweep s1){
 		this.mx = m1;
 		this.candle = c1;
 		this.sw = s1;
@@ -62,8 +71,20 @@ public class Module {
 		r4 = rings[3];
 		r5 = rings[4];
 	}
-        
-        public Module(int number, Cannon r1, Cannon r2, Cannon r3, Cannon r4, 
+
+    /**
+     *
+     * @param number
+     * @param r1
+     * @param r2
+     * @param r3
+     * @param r4
+     * @param r5
+     * @param mx
+     * @param c
+     * @param sw
+     */
+    public Module(int number, Cannon r1, Cannon r2, Cannon r3, Cannon r4, 
                 Cannon r5, Cannon mx, Cannon c, Cannon sw){
             this.number = number;
 		this.r1 = (Ring)r1;
@@ -75,8 +96,11 @@ public class Module {
 		this.mx = (Multi)mx;
 		this.candle = (Candelabra)c;
         }
-        
-	public Module() {
+
+    /**
+     *
+     */
+    public Module() {
 		
 	}
 
@@ -158,7 +182,7 @@ public class Module {
 	}
 
 	/**
-	 * @param r4 the r4 to set
+     * @param r5
 	 */
 	protected void setR5(Ring r5) {
 		this.r5 = r5;
@@ -205,8 +229,12 @@ public class Module {
 	protected void setCandle(Candelabra candle) {
 		this.candle = candle;
 	}
-	
-	public String toString() {
+
+    /**
+     *
+     * @return
+     */
+    public String toString() {
 		return number + " " + r1 + " " + r2 + " " + r3;
 		
 	}

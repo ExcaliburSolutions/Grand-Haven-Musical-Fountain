@@ -41,8 +41,12 @@ import java.awt.MouseInfo;
 public class TimelineController implements Initializable {
 	
 	private static TimelineController instance;
-	
-	public static TimelineController getInstance() {
+
+    /**
+     *
+     * @return
+     */
+    public static TimelineController getInstance() {
 		if(instance == null)
 			return instance;
 		return instance;
@@ -152,8 +156,12 @@ public class TimelineController implements Initializable {
 //	 scrollpane.setPrefSize(600, 250);
 	 timelineScrollPane.setContent(gridpaneRec);
 	}
-	
-	public ScrollPane getScrollPane(){
+
+    /**
+     *
+     * @return
+     */
+    public ScrollPane getScrollPane(){
 		return timelineScrollPane;
 	}
 }

@@ -8,23 +8,37 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import choreography.model.*;
 
-
-
+/**
+ *
+ * @author elementsking
+ */
 public class Main extends Application {
 	
 	private static Fountain fountain;
 	private VBox root;
 	private static Stage primaryStage;
-	
-	public static void main(String[] args) {
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
 		launch(args);
 	}
 
-	public static Fountain getFountain() {
+    /**
+     *
+     * @return
+     */
+    public static Fountain getFountain() {
 		return fountain;
 	}
-	
-        @Override
+
+    /**
+     *
+     * @param primaryStage
+     */
+    @Override
 	public void start(Stage primaryStage) {
         try {
             this.setPrimaryStage(primaryStage);

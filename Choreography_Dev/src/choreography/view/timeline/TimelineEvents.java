@@ -21,6 +21,10 @@ public class TimelineEvents extends ArrayList<Event>{
 	private static final long serialVersionUID = 7242109851591362314L;
 	private static ArrayList<Event> events;
     
+    /**
+     *
+     * @return
+     */
     public static synchronized ArrayList<Event> getInstance() {
         if(events == null)
             events = new ArrayList<>();

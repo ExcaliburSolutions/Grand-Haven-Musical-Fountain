@@ -34,7 +34,11 @@ public class ColorPaletteController implements Initializable{
 	}
 
 	// HBox used to hold the colorPalette
-	@FXML public HBox colorPalette;
+
+    /**
+     *
+     */
+    	@FXML public HBox colorPalette;
 	// Color picker used for the custom colors. 
 	@FXML ColorPicker colorPicker;
 	// HBox used to hold the colorPalette
@@ -75,7 +79,11 @@ public class ColorPaletteController implements Initializable{
 	@FXML Rectangle color31;
 
 	// The current instance of the selected color
-	public Paint selectedColor;
+
+    /**
+     *
+     */
+    	public Paint selectedColor;
 
 	/**
 	 * @return selectedColor current instance of the selected color
@@ -171,6 +179,8 @@ public class ColorPaletteController implements Initializable{
 	}
 
 	/**
+     * @param arg0
+     * @param arg1
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 * Initializes the colorPalette. 
 	 */

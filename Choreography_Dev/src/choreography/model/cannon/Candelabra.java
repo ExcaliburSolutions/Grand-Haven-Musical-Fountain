@@ -19,6 +19,10 @@ public class Candelabra extends Cannon {
             super(level, name);
     }
 
+    /**
+     *
+     * @param i
+     */
     public Candelabra(int i) {
             super(i);
     }

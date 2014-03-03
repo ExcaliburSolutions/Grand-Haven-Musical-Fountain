@@ -8,8 +8,12 @@ package choreography.model.cannon;
  *
  */
 public class Sweep extends Cannon {
-    
-	public Sweep(int level) {
+
+    /**
+     *
+     * @param level
+     */
+    public Sweep(int level) {
 		super(level);
 	}
 

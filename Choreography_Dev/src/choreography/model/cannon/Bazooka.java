@@ -12,9 +12,7 @@ import choreography.model.cannon.IndependentCannon;
 public class Bazooka extends IndependentCannon {
 
 	/**
-	 * @param name
-	 * @param AB
-	 * @param level
+     * @param level
 	 */
 	public Bazooka(int level) {
 		super(level);

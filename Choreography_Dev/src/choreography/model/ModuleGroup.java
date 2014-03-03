@@ -15,6 +15,10 @@ public class ModuleGroup {
     String AB;
     Module[] modules;
 
+    /**
+     *
+     * @param modulesIn
+     */
     public ModuleGroup(Module ... modulesIn) {
         if(modulesIn.length == 4){
                 this.modules = new Module[4];
@@ -27,6 +31,11 @@ public class ModuleGroup {
         } 
     }
 
+    /**
+     *
+     * @param e
+     * @return
+     */
     public ArrayList<Cannon> getCannonGroup(CannonEnum e) {
         ArrayList<Cannon> cg = new ArrayList<>();
         for(Module m : modules) {
@@ -88,7 +97,12 @@ public class ModuleGroup {
 	protected void setModules(Module[] modules) {
 		this.modules = modules;
 	}
-        @Override
+
+    /**
+     *
+     * @return
+     */
+    @Override
         public String toString() {
             if(AB.equals("A")){
                 return "ModuleA";

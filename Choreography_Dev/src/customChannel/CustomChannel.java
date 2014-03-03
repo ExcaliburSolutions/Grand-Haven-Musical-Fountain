@@ -53,6 +53,7 @@ public class CustomChannel extends Application{
 	}
 
 	/**
+     * @param primaryStage
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
 	@Override
@@ -145,12 +146,11 @@ public class CustomChannel extends Application{
 		finish.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				// @todo need to add handler in timeline to add selectedModules and exit the application
+				// @todo need to add handler in timeline to add selectedModules and exit the dialog
 				getSelected();
 				try {
 					stop();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

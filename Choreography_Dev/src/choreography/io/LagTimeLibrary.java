@@ -3,62 +3,116 @@
  */
 package choreography.io;
 
+import choreography.model.fcw.FCW;
+import choreography.model.lagtime.LagTime;
 import choreography.model.lagtime.LagTimeTable;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 
 /**
  * @author elementsking
  *
  */
 public class LagTimeLibrary {
-	private static LagTimeLibrary instance;
-	private LagTimeTable lagTimeInstance;
-	private final File lagTimeDef = new File("LagTimeDef.txt");
-	
-	public static LagTimeLibrary getInstance() {
-		if(instance == null) {
-                    try {
-                        instance = new LagTimeLibrary();
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(LagTimeLibrary.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-		}
-		return instance;
-	}
-        
-        public LagTimeTable getLagTimes() {
-            return lagTimeInstance;
-        }
-	
-	private LagTimeLibrary() throws FileNotFoundException {
-		lagTimeInstance = LagTimeTable.getInstance();
-		try (Scanner fileIn = new Scanner(lagTimeDef)){
-                    HashMap<String, Double> delayTimes = new HashMap<>();
-                    while(fileIn.hasNext()) {
-                            String line = fileIn.nextLine();
-                            String[] tokens = line.split("=");
-                            delayTimes.put(tokens[0], Double.parseDouble(tokens[1]));
-                    }
-		lagTimeInstance.setLagTimes(delayTimes);
-		} catch (FileNotFoundException e) {
-                    throw new FileNotFoundException("Cannot find lagTimeDef file");
-		} catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Your LagTimeDef.txt file may be corrupted.");
-                }
-		
-		
-	}
+    private static LagTimeLibrary instance;
+    private final LagTimeTable lagTimeTableInstance;
+    private final File lagTimeDef = new File("src/choreography/model/lagtime/LagTimeDef.txt");
 
-    public void saveLagTimes(String[] dataTable) {
-        for(Object object: dataTable) {
+    /**
+     *
+     * @return
+     */
+    public static LagTimeLibrary getInstance() {
+            if(instance == null) {
+                try {
+                    instance = new LagTimeLibrary();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(LagTimeLibrary.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return instance;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public LagTimeTable getLagTimeTable() {
+        return lagTimeTableInstance;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<LagTime> getLagTimes() {
+        return lagTimeTableInstance.getDelays();
+    }
+
+    private LagTimeLibrary() throws FileNotFoundException {
+        lagTimeTableInstance = LagTimeTable.getInstance();
+        loadTimesFromFile();
+    }
+
+    private void loadTimesFromFile() throws IllegalArgumentException, FileNotFoundException {
+        try (Scanner fileIn = new Scanner(lagTimeDef)){
+            ArrayList<LagTime> delayTimes = new ArrayList<>();
+            while(fileIn.hasNext()) {
+                String line = fileIn.nextLine();
+                String[] tokens = line.split("=");
+                LagTime lt = new LagTime(tokens[0].trim(), Double.parseDouble(tokens[1].trim()));
+                delayTimes.add(lt);
+            }
+            lagTimeTableInstance.setLagTimes(delayTimes);
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("Cannot find lagTimeDef file");
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Your LagTimeDef.txt file "
+                    + "may be corrupted. Please see the manual to find "
+                    + "directons to fix it");
+            //TODO insert instructions to fix corrupt LagTimeDef into manual
+        }
+    }
+
+    /**
+     *
+     * @param f
+     * @return
+     */
+    public double getLagTime(FCW f) {
+       return lagTimeTableInstance.getLagTime(f);
+   }
+    
+    /**
+     *
+     * @param dataTable
+     * @throws IllegalArgumentException
+     * @throws FileNotFoundException
+     */
+    public void saveLagTimes(ArrayList<LagTime> dataTable) throws IllegalArgumentException, FileNotFoundException {
+        try(FileWriter fileOut = new FileWriter(lagTimeDef)) {
+            Collections.sort(dataTable, new Comparator<LagTime>() {
+
+                @Override
+                public int compare(LagTime t, LagTime t1) {
+                    return t.getDelayName().compareTo(t1.getDelayName());
+                }
+            });
+            for(LagTime lt: dataTable) {
+                fileOut.write(lt.getDelayName() + " = " + lt.getDelayTime() + "\n");
+            }
+            
+        } catch(IOException e){
             
         }
+        loadTimesFromFile();
     }
 }

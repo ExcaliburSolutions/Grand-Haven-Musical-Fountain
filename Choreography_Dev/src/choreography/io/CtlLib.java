@@ -11,11 +11,20 @@ import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ *
+ * @author elementsking
+ */
 public class CtlLib {
     
     private static CtlLib instance;
     
+    /**
+     *
+     * @return
+     */
     public static synchronized CtlLib getInstance() {
         if(instance == null)
             instance = new CtlLib();
@@ -26,14 +35,23 @@ public class CtlLib {
 
     }
 
+    /**
+     *
+     */
     public synchronized void openCtl() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open CTL File");
         fc.setInitialFileName(System.getProperty("user.home"));
+        fc.getExtensionFilters().add(new ExtensionFilter("CTL Files", "*.ctl"));
         File ctlFile = fc.showOpenDialog(null);
         ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(ctlFile)));
     }
 
+    /**
+     *
+     * @param file
+     * @return
+     */
     public synchronized String readFile(File file){
         StringBuilder stringBuffer = new StringBuilder();
 
@@ -52,6 +70,11 @@ public class CtlLib {
         return stringBuffer.toString();
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     */
     public synchronized ArrayList<Event> parseCTL(String input){
         //Split file into tokens of lines
         String[] lines = input.split(System.getProperty("line.separator"));
@@ -87,14 +110,15 @@ public class CtlLib {
         return events;
     }
 
-    public synchronized void saveFile(File file, String content){
+    /**
+     *
+     * @param file
+     * @param content
+     */
+    public synchronized void saveFile(File file, ArrayList<Event> content){
 
-        try {
-            FileWriter fileWriter = null;
-
-            fileWriter = new FileWriter(file);
-            fileWriter.write(content);
-            fileWriter.close();
+        try (FileWriter fileWriter = new FileWriter(file)){
+            //TODO Write a CTL postdating and writing algorithm...
         } catch (IOException ex) {
         }
 

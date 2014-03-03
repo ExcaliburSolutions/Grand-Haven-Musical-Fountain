@@ -18,7 +18,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-
+/**
+ *
+ * @author elementsking
+ */
 public class DialogController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -77,6 +80,10 @@ public class DialogController {
 		});
     }
     
+    /**
+     *
+     * @param message
+     */
     public void setMessage(String message) {
     	messageLabel.setText(message);
 	}

@@ -15,10 +15,18 @@ import choreography.model.ModuleGroup;
  */
 public class CannonFactory {
     
+    /**
+     *
+     */
     public CannonFactory() {
        
     }
     
+    /**
+     *
+     * @param e
+     * @return
+     */
     public static Cannon createCannon(CannonEnum e) {
         switch(e) {
             case RING1:
@@ -42,6 +50,11 @@ public class CannonFactory {
         }
     }
     
+    /**
+     *
+     * @param e
+     * @return
+     */
     public static IndependentCannon createIndependentCannon(CannonEnum e){
     	switch(e) {
 		    case FTCURT:
@@ -59,6 +72,11 @@ public class CannonFactory {
     	}
     }
     
+    /**
+     *
+     * @param number
+     * @return
+     */
     public static Module createModule(int number){
         return new Module(number, createCannon(CannonEnum.RING1), 
                 createCannon(CannonEnum.RING2), createCannon(CannonEnum.RING3), 
@@ -67,6 +85,11 @@ public class CannonFactory {
                 createCannon(CannonEnum.SWEEP));
     }
     
+    /**
+     *
+     * @param aB
+     * @return
+     */
     public static ModuleGroup createModuleGroup(String aB) {
         switch(aB){
             case "A":

@@ -16,6 +16,11 @@ public class Peacock extends IndependentCannon {
             super(level);
     }
 
+    /**
+     *
+     * @param level
+     * @param name
+     */
     public Peacock(int level, String name){
         super(level, name);
     }

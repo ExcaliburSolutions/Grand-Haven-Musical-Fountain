@@ -3,7 +3,10 @@
  */
 package choreography.model.lagtime;
 
-import java.util.HashMap;
+import choreography.io.FCWLib;
+import choreography.model.cannon.CannonEnum;
+import choreography.model.fcw.FCW;
+import java.util.ArrayList;
 
 /**
  * @author elementsking
@@ -17,23 +20,35 @@ public class LagTimeTable {
 	private final double level3 = .6;
 	private final double level4 = .8;
 	private final double level5 = 1.0;
-	private HashMap<String, Double> delays;
-	
-	public static LagTimeTable getInstance() {
+	private ArrayList<LagTime> delays;
+
+    /**
+     *
+     * @return
+     */
+    public static LagTimeTable getInstance() {
 		if (instance == null)
 			instance = new LagTimeTable();
 		return instance;
 	}
 	
 	private LagTimeTable() {
-		delays = new HashMap<>();
+		delays = new ArrayList<>();
 	}
-        
-        public HashMap<String, Double> getDelays() {
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<LagTime> getDelays() {
             return delays;
         }
-	
-	public void setLagTimes(HashMap<String, Double> delayTimes) {
+
+    /**
+     *
+     * @param delayTimes
+     */
+    public void setLagTimes(ArrayList<LagTime> delayTimes) {
             this.delays = delayTimes;
             System.out.println(delays);
 	}
@@ -79,4 +94,33 @@ public class LagTimeTable {
 	public synchronized double getLevel5() {
 		return level5;
 	}
+
+    /**
+     *
+     * @param f
+     * @return
+     */
+    public synchronized double getLagTime(FCW f) {
+            String[] actions = FCWLib.getInstance().reverseLookup(f);
+            double lagTime = 0.0;
+            for(String action: actions) {
+                for(CannonEnum ce : CannonEnum.values()) {
+                    if(action.contains(ce.toString())) {
+                        for(LagTime lt: delays) {
+                            if(lt.getDelayName().equalsIgnoreCase(action)) {
+                                lagTime = lt.getDelayTime();
+                            }
+                        }
+                    }
+                }
+                switch(action) {
+                    case "1": lagTime *= level1; break;
+                    case "2": lagTime *= level2; break;
+                    case "3": lagTime *= level3; break;
+                    case "4": lagTime *= level4; break;
+                    case "5": lagTime *= level5; break;
+                }
+            }
+            return lagTime;
+        }
 }

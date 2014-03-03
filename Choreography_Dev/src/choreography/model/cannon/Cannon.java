@@ -1,14 +1,35 @@
 package choreography.model.cannon;
 
+/**
+ *
+ * @author elementsking
+ */
 public abstract class Cannon {
-	protected int level;
-        protected String name;
-	
-	public Cannon(int level) {
+
+    /**
+     *
+     */
+    protected int level;
+
+    /**
+     *
+     */
+    protected String name;
+
+    /**
+     *
+     * @param level
+     */
+    public Cannon(int level) {
             this.level = level;
 	}
-        
-        public Cannon(int level, String name) {
+
+    /**
+     *
+     * @param level
+     * @param name
+     */
+    public Cannon(int level, String name) {
             this.level = level;
             this.name = name;
         }
@@ -28,8 +49,12 @@ public abstract class Cannon {
 	public int setLevel(int level) {
 		return this.level = level;
 	}
-	
-        @Override
+
+    /**
+     *
+     * @return
+     */
+    @Override
 	public String toString(){
 		return this.getClass().getSimpleName() + " " + level;
 	}

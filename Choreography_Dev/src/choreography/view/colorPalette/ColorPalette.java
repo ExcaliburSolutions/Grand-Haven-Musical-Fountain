@@ -24,7 +24,11 @@ import javafx.stage.Stage;
  * Unused
  */
 public class ColorPalette extends Application {
-	public Paint selectedColor;
+
+    /**
+     *
+     */
+    public Paint selectedColor;
 
 	/**
 	 * @param args the command line arguments
@@ -33,7 +37,11 @@ public class ColorPalette extends Application {
 		Application.launch(args);
 	}
 
-	@Override
+    /**
+     *
+     * @param primaryStage
+     */
+    @Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Color Palette");
 		Group root = new Group();

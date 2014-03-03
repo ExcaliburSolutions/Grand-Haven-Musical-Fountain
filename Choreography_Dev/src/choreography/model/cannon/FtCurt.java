@@ -12,9 +12,7 @@ import choreography.model.cannon.IndependentCannon;
 public class FtCurt extends IndependentCannon {
 
 	/**
-	 * @param name
-	 * @param AB
-	 * @param level
+     * @param level
 	 */
 	public FtCurt(int level) {
 		super(level);
