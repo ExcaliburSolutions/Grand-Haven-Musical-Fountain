@@ -19,8 +19,6 @@ import choreography.view.music.MusicPaneController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -30,8 +28,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
-import java.awt.MouseInfo;
 
 /**
  * FXML Controller class
@@ -40,7 +36,7 @@ import java.awt.MouseInfo;
  */
 public class TimelineController implements Initializable {
 	
-	private static TimelineController instance;
+    private static TimelineController instance;
 
     /**
      *
@@ -70,7 +66,7 @@ public class TimelineController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         setTimelineGridPane();
-        setLableGridPane();
+        setLabelGridPane();
         instance = this;
         
 //        timelineScrollPane.hvalueProperty().addListener(new ChangeListener<Number>() {
@@ -87,34 +83,35 @@ public class TimelineController implements Initializable {
         
     }
     
-    public void setLableGridPane(){
+    public void setLabelGridPane(){
 //    	labelGridpane.setGridLinesVisible(true);
     	final Label[] labelArray = new Label[18];
     	
     	for(int i=0; i<17;i++){
-// 			 labelGridpane.getRowConstraints().add(new RowConstraints(26));
- 			 labelArray[i] = new Label(""+i);
- 			 timelineLabelPane.add(labelArray[i], 0, i);
+//            labelGridpane.getRowConstraints().add(new RowConstraints(26));
+            labelArray[i] = new Label(""+i);
+            timelineLabelPane.add(labelArray[i], 0, i);
     	}
     }
-	/**
-	 * 
-	 */
-	public void setTimelineGridPane() {
-		GridPane gridpaneRec = new GridPane();
+    
+    /**
+     * 
+     */
+    public void setTimelineGridPane() {
+        GridPane gridpaneRec = new GridPane();
         
         time = MusicPaneController.SONG_TIME;
     
 	gridpaneRec.setGridLinesVisible(true);
 
 	final Rectangle[][] recArray = new Rectangle[time][17];
-	 for(int i=0; i<time; i++){
-  		  gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
-  		  if (i < 17){ //because the array is not square this needs to be here
-  			 gridpaneRec.getRowConstraints().add(new RowConstraints(26));
-  		  }
+        for(int i=0; i<time; i++){
+            gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
+            if (i < 17){ //because the array is not square this needs to be here
+                   gridpaneRec.getRowConstraints().add(new RowConstraints(26));
+            }
   		  
-   	  for(int j=0; j<17; j++){
+        for(int j=0; j<17; j++){
 //   		  if (i == 0){
 //   			 recArray[i][j] = new Rectangle(50,25, Color.RED);
 //   			 continue;
@@ -142,12 +139,12 @@ public class TimelineController implements Initializable {
  	    }
  			  
  	});
-   		//continues and ends the drag event
-   		recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>() {
-                          @Override
-			  public void handle(MouseEvent me) {
-				  recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
-                     .getSelectedColor());
+        //continues and ends the drag event
+        recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                    recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+                    .getSelectedColor());
 	    }
    	});
    	  }

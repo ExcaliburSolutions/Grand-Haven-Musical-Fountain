@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="487.0" prefWidth="289.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.LagTimeGUIController">
   <children>
-    <TableView id="LagTimeTable" fx:id="lagTimeTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="261.0" tableMenuButtonVisible="false">
+    <TableView id="LagTimeTable" fx:id="lagTimeTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="261.0" tableMenuButtonVisible="true">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="101.0" text="Delay Name" fx:id="delayName" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="96.0" text="Delay Time" fx:id="delayTime" />

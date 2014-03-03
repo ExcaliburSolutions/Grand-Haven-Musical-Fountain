@@ -22,11 +22,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -62,11 +66,58 @@ public class LagTimeGUIController implements Initializable {
         
         List<LagTime> ltt = LagTimeLibrary.getInstance().getLagTimes();
         ObservableList<LagTime> lagTimeList = FXCollections.observableArrayList(ltt);
+        lagTimeTable.setEditable(true); delayName.setEditable(true);
+        delayTime.setEditable(true);
+        
+        Callback<TableColumn<LagTime,String>, TableCell<LagTime,String>> cellFactory =
+             new Callback<TableColumn<LagTime,String>, TableCell<LagTime,String>>() {
+                 public TableCell call(TableColumn p) {
+                    return new EditingCell();
+                 }
+             };
         
         delayName.setCellValueFactory(
             new PropertyValueFactory<LagTime,String>("delayName"));
+        delayName.setCellFactory(cellFactory);
+        delayName.setOnEditCommit(
+             new EventHandler<CellEditEvent<LagTime, String>>() {
+                @Override
+                public void handle(CellEditEvent<LagTime, String> t) {
+                    ((LagTime) t.getTableView().getItems().get(
+                    t.getTablePosition().getRow())
+                    ).setDelayName(t.getNewValue());
+                }
+            }
+)       ;
+        
+        
         delayTime.setCellValueFactory(
             new PropertyValueFactory<LagTime,Double>("delayTime"));
+        TextFieldTableCell<LagTime, Double> doubleField = new TextFieldTableCell<>();
+        doubleField.setConverter(new NumberStringConverter());
+        delayTime.setOnEditCommit(new EventHandler<CellEditEvent<LagTime, Double>>() {
+
+            @Override
+            public void handle(CellEditEvent<LagTime, Double> t) {
+                ((LagTime) t.getTableView().getItems().get(t.getTablePosition()
+                        .getRow())).setDelayTime(t.getNewValue());
+            }
+        });
+        delayTime.setCellFactory(new Callback<TableColumn<LagTime,Double>, TableCell<LagTime,Double>>() {
+                 public TableCell call(TableColumn p) {
+                    return new EditingCell();
+                 }
+             }
+        );
+        delayTime.setOnEditCommit(
+             new EventHandler<CellEditEvent<LagTime, Double>>() {
+                @Override
+                public void handle(CellEditEvent<LagTime, Double> t) {
+                    ((LagTime) t.getTableView().getItems().get(
+                    t.getTablePosition().getRow())).setDelayTime(t.getNewValue());
+                }
+            }
+)       ;
         
         lagTimeTable.setItems(lagTimeList);
         
