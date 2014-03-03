@@ -149,8 +149,8 @@ public class TimelineController implements Initializable {
    	});
    	  }
      }
+        //tesdfsdha; dnjasbnd jasndj bsnadkj asnda 
     
-//	 scrollpane.setPrefSize(600, 250);
 	 timelineScrollPane.setContent(gridpaneRec);
 	}
 
