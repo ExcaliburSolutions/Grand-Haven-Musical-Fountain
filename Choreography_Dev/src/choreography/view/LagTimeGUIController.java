@@ -71,6 +71,7 @@ public class LagTimeGUIController implements Initializable {
         
         Callback<TableColumn<LagTime,String>, TableCell<LagTime,String>> cellFactory =
              new Callback<TableColumn<LagTime,String>, TableCell<LagTime,String>>() {
+                 @Override
                  public TableCell call(TableColumn p) {
                     return new EditingCell();
                  }
@@ -93,22 +94,17 @@ public class LagTimeGUIController implements Initializable {
         
         delayTime.setCellValueFactory(
             new PropertyValueFactory<LagTime,Double>("delayTime"));
-        TextFieldTableCell<LagTime, Double> doubleField = new TextFieldTableCell<>();
-        doubleField.setConverter(new NumberStringConverter());
-        delayTime.setOnEditCommit(new EventHandler<CellEditEvent<LagTime, Double>>() {
-
-            @Override
-            public void handle(CellEditEvent<LagTime, Double> t) {
-                ((LagTime) t.getTableView().getItems().get(t.getTablePosition()
-                        .getRow())).setDelayTime(t.getNewValue());
-            }
-        });
-        delayTime.setCellFactory(new Callback<TableColumn<LagTime,Double>, TableCell<LagTime,Double>>() {
+        ;
+        
+        Callback<TableColumn<LagTime,Double>, TableCell<LagTime,Double>> doubleCellFactory =
+             new Callback<TableColumn<LagTime,Double>, TableCell<LagTime,Double>>() {
+                 @Override
                  public TableCell call(TableColumn p) {
-                    return new EditingCell();
+                    return new DoubleEditingCell();
                  }
-             }
-        );
+             };
+        
+        delayTime.setCellFactory(doubleCellFactory);
         delayTime.setOnEditCommit(
              new EventHandler<CellEditEvent<LagTime, Double>>() {
                 @Override
