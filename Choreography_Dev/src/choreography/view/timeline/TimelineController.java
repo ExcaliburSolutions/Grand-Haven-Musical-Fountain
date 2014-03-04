@@ -4,19 +4,12 @@ package choreography.view.timeline;
 import choreography.model.fcw.FCW;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-
-
-
-
-
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -50,11 +43,8 @@ public class TimelineController implements Initializable {
     @FXML
     private GridPane timelineLabelPane;
     @FXML
-    private Label timelineLabel;
-    @FXML
     private ScrollPane timelineScrollPane;
-    @FXML
-    private ListView<?> timelineListView;
+    //NonFXML
     private int time;
     private HashMap<Integer, ArrayList<FCW>> timeline;
     
@@ -90,7 +80,7 @@ public class TimelineController implements Initializable {
     	final Label[] labelArray = new Label[18];
     	
     	for(int i=0; i<17;i++){
-//            labelGridpane.getRowConstraints().add(new RowConstraints(26));
+            timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
             labelArray[i] = new Label(""+i);
             timelineLabelPane.add(labelArray[i], 0, i);
     	}

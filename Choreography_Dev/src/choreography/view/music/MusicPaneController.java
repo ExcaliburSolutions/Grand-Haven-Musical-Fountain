@@ -101,7 +101,7 @@ public class MusicPaneController {
     @FXML
     void playSong(ActionEvent event) {
     	try{
-    		mediaPlayer.play();
+            mediaPlayer.play();
     	}
     	catch (Exception e){
     		
@@ -156,10 +156,13 @@ public class MusicPaneController {
     	mediaPlayer = new MediaPlayer(media);
     	mediaPlayer.setVolume(volume.getValue());
     	songName.setText(music2.getName());
+        mediaPlayer.play();
+        mediaPlayer.pause();
     	updateProgress(); 
     	
     	
     	mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
+            @Override
             public void invalidated(Observable ov) {
                 updateProgress();
             }
@@ -239,7 +242,6 @@ public class MusicPaneController {
                 }
             }
         });
-        
     }
 
 }
