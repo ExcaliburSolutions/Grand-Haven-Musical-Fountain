@@ -1,13 +1,18 @@
 
 package choreography.view.timeline;
 
+import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.event.EventHandler;
@@ -19,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -76,12 +82,18 @@ public class TimelineController implements Initializable {
     }
     
     public void setLabelGridPane(){
-//    	labelGridpane.setGridLinesVisible(true);
+    	final String[] labelNames = new String[]{"Module 1", "Module 2", "Module 3", "Module 4", "Module 5",
+"Module 6", "Module 7", "A Modules", "B Modules", "Front Curtain", "Back Curtain", "Peacock", "Voice", "ALL LEDs", "", "","","",""};
+    	
+//    	timelineLabelPane.setGridLinesVisible(false);
+    	
     	final Label[] labelArray = new Label[18];
+    	for(int i=0; i<16;i++){
+        timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
+    	}
     	
     	for(int i=0; i<17;i++){
-            timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
-            labelArray[i] = new Label(""+i);
+            labelArray[i] = new Label(labelNames[i]);
             timelineLabelPane.add(labelArray[i], 0, i);
     	}
     }
@@ -145,7 +157,6 @@ public class TimelineController implements Initializable {
    	});
    	  }
      }
-        //tesdfsdha; dnjasbnd jasndj bsnadkj asnda 
     
 	 timelineScrollPane.setContent(gridpaneRec);
 	}

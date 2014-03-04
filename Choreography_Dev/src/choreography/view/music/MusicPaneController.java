@@ -185,7 +185,7 @@ public class MusicPaneController {
         	time = 2*Double.parseDouble(f.format(time));
         	SONG_TIME = (int) time;
         	TimelineController.getInstance().setTimelineGridPane();
-        	TimelineController.getInstance().setLabelGridPane();
+//        	TimelineController.getInstance().setLabelGridPane();
 			
 		} catch (Exception ex) {
 			
