@@ -8,58 +8,75 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox id="csGUI" fx:id="musicPane" prefHeight="100.0" prefWidth="1190.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.music.MusicPaneController">
+<VBox id="csGUI" fx:id="musicPane" prefHeight="139.0" prefWidth="1190.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.music.MusicPaneController">
   <children>
-    <HBox alignment="CENTER_LEFT" fillHeight="false" maxWidth="1.7976931348623157E308" minHeight="24.0" prefHeight="24.0" prefWidth="350.0">
+    <VBox id="VBox" alignment="CENTER" spacing="2.0">
       <children>
-        <Label fx:id="songName" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="270.0" text="No Music Selected" textAlignment="LEFT" HBox.hgrow="ALWAYS">
+        <ScrollPane fx:id="waterTimeline" content="$null" hmax="100.0" minHeight="-Infinity" prefHeight="49.0" prefWidth="1190.0" />
+        <ScrollPane fx:id="timeLabel" content="$null" hmax="100.0" minHeight="29.0" prefHeight="29.0" prefWidth="1190.0" />
+      </children>
+      <padding>
+        <Insets fx:id="x1" />
+      </padding>
+      <VBox.margin>
+        <Insets bottom="2.0" fx:id="x4" />
+      </VBox.margin>
+    </VBox>
+    <HBox prefHeight="29.0" prefWidth="1190.0" spacing="0.0">
+      <children>
+        <!--                 <Button mnemonicParsing="false" onAction="#previousSong" text="&lt;&lt;" /> -->
+        <Button disable="false" mnemonicParsing="false" onAction="#playSong" text="Play">
           <font>
-            <Font name="System Bold Italic" size="20.0" />
+            <Font size="10.0" fx:id="x3" />
+          </font>
+          <HBox.margin>
+            <Insets left="2.0" right="2.0" top="2.0" fx:id="x2" />
+          </HBox.margin>
+        </Button>
+        <Button font="$x3" mnemonicParsing="false" onAction="#pauseSong" text="Pause" HBox.margin="$x2" />
+        <Button font="$x3" mnemonicParsing="false" onAction="#stopSong" text="Stop" HBox.margin="$x2" />
+        <Slider id="time" fx:id="timeSlider" majorTickUnit="0.5" max="100.0" minorTickCount="4" prefHeight="19.0" prefWidth="1051.0" showTickLabels="false" showTickMarks="false">
+          <HBox.margin>
+            <Insets left="10.0" />
+          </HBox.margin>
+        </Slider>
+      </children>
+      <padding>
+        <Insets fx:id="x1" />
+      </padding>
+    </HBox>
+    <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="16.0" prefHeight="16.0" prefWidth="1190.0" VBox.vgrow="NEVER">
+      <children>
+        <Label fx:id="songName" alignment="CENTER" maxWidth="-1.0" prefWidth="149.0" text="No Music Selected" textAlignment="LEFT" HBox.hgrow="ALWAYS">
+          <font>
+            <Font name="System Bold Italic" size="12.0" />
           </font>
           <HBox.margin>
             <Insets fx:id="x1" />
           </HBox.margin>
         </Label>
-      </children>
-    </HBox>
-    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="350.0" VBox.vgrow="NEVER">
-      <children>
-        <Label maxWidth="-Infinity" text="Volume" HBox.hgrow="ALWAYS" HBox.margin="$x1">
+        <Label fx:id="songProgress" alignment="CENTER_LEFT" contentDisplay="LEFT" labelFor="$songProgress" text="songProgress" HBox.hgrow="SOMETIMES" HBox.margin="$x1" />
+        <Label maxWidth="-Infinity" text="Volume" HBox.hgrow="ALWAYS">
           <font>
-            <Font name="System Bold" size="20.0" fx:id="x3" />
+            <Font name="System Bold" size="12.0" />
           </font>
+          <HBox.margin>
+            <Insets left="30.0" />
+          </HBox.margin>
         </Label>
         <Slider fx:id="volume" max="1.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" orientation="HORIZONTAL" prefHeight="56.0" prefWidth="73.0" value="1.0" HBox.hgrow="NEVER">
           <HBox.margin>
             <Insets left="4.0" top="4.0" />
           </HBox.margin>
         </Slider>
-        <!--                 <Button mnemonicParsing="false" onAction="#previousSong" text="&lt;&lt;" /> -->
-        <Button mnemonicParsing="false" onAction="#playSong" text="Play">
-          <HBox.margin>
-            <Insets left="2.0" right="2.0" fx:id="x2" />
-          </HBox.margin>
-        </Button>
-        <Button mnemonicParsing="false" onAction="#pauseSong" text="Pause" HBox.margin="$x2" />
-        <Button mnemonicParsing="false" onAction="#stopSong" text="Stop" HBox.margin="$x2" />
         <!--                 <Button mnemonicParsing="false" onAction="#nextSong" text="&gt;&gt;" /> -->
       </children>
+      <padding>
+        <Insets bottom="6.0" />
+      </padding>
       <VBox.margin>
-        <Insets top="5.0" />
+        <Insets fx:id="x1" />
       </VBox.margin>
     </HBox>
-    <GridPane id="GridPane">
-      <children>
-        <Slider id="time" fx:id="timeSlider" majorTickUnit="0.5" max="100.0" minorTickCount="4" prefHeight="27.0" prefWidth="875.0" showTickLabels="false" showTickMarks="false" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Label fx:id="songProgress" labelFor="$songProgress" text="songProgress" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-      </children>
-      <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
-      </columnConstraints>
-      <rowConstraints>
-        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
-      </rowConstraints>
-    </GridPane>
   </children>
 </VBox>

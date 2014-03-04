@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -80,6 +81,9 @@ public class MusicPaneController {
 
     @FXML // fx:id="volume"
     private Slider volume, timeSlider; // Value injected by FXMLLoader
+    
+    @FXML
+    private ScrollPane waterTimeline, timeLabel;
 
     /**
      *
@@ -130,6 +134,14 @@ public class MusicPaneController {
      */
     public MediaPlayer getMediaPlayer(){
     	return mediaPlayer;
+    }
+    
+    public ScrollPane getWaterPane(){
+    	return waterTimeline;
+    }
+    
+    public ScrollPane getLabelPane(){
+    	return timeLabel;
     }
     
     /**
@@ -185,6 +197,7 @@ public class MusicPaneController {
         	time = 2*Double.parseDouble(f.format(time));
         	SONG_TIME = (int) time;
         	TimelineController.getInstance().setTimelineGridPane();
+        	TimelineController.getInstance().setWaterGridPane();
 //        	TimelineController.getInstance().setLabelGridPane();
 			
 		} catch (Exception ex) {
@@ -210,6 +223,8 @@ public class MusicPaneController {
                     duration = mediaPlayer.getMedia().getDuration();
                     TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+                    timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+                    waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                 }
             };
             mediaPlayer.currentTimeProperty().addListener(changeListener);

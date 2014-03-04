@@ -16,6 +16,7 @@ import java.util.HashMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.event.EventHandler;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -52,6 +53,7 @@ public class TimelineController implements Initializable {
     private ScrollPane timelineScrollPane;
     //NonFXML
     private int time;
+    private NumberAxis numLine;
     private HashMap<Integer, ArrayList<FCW>> timeline;
     
     
@@ -65,6 +67,7 @@ public class TimelineController implements Initializable {
         
         setTimelineGridPane();
         setLabelGridPane();
+        //setWaterGridPane();
         instance = this;
         
 //        timelineScrollPane.hvalueProperty().addListener(new ChangeListener<Number>() {
@@ -160,6 +163,69 @@ public class TimelineController implements Initializable {
     
 	 timelineScrollPane.setContent(gridpaneRec);
 	}
+    
+    
+    public void setWaterGridPane() {
+		GridPane gridpaneRec = new GridPane();
+		//NumberAxis valueAxis = new NumberAxis();
+        
+        time = MusicPaneController.SONG_TIME;
+        numLine = new NumberAxis((double)0,(double) time, 1);
+    
+	gridpaneRec.setGridLinesVisible(true);
+
+	final Rectangle[][] recArray = new Rectangle[time][1];
+	 for(int i=0; i<time; i++){
+  		  gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
+  		  if (i < 1){ //because the array is not square this needs to be here
+  			 gridpaneRec.getRowConstraints().add(new RowConstraints(26));
+  		  }
+  		  
+//   	  for(int j=0; j<1; j++){
+////   		  if (i == 0){
+////   			 recArray[i][j] = new Rectangle(50,25, Color.RED);
+////   			 continue;
+////   		  }
+//   		  recArray[i][j] = new Rectangle(25,25, Color.LIGHTGREY);
+//   		  gridpaneRec.add(recArray[i][j], i, j);
+//   		  //these are needed to talk to the mouse pressed events
+//   		  final int testI = i;
+//   		  final int testJ = j;
+//   		  
+//   		recArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
+//                             @Override
+//   			  public void handle(MouseEvent me) {
+//   	        System.out.println("Col " + (testI) + " Row " + (testJ+1));
+//   	     recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+//                     .getSelectedColor());
+//   	    }
+//   	});
+//   		
+//   		recArray[i][j].setOnDragDetected(new EventHandler<MouseEvent>() {
+//                           @Override
+// 			  public void handle(MouseEvent me) {
+// 				  //starts the drag event
+// 				 recArray[testI][testJ].startFullDrag();
+// 	    }
+// 			  
+// 	});
+//   		//continues and ends the drag event
+//   		recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>() {
+//                          @Override
+//			  public void handle(MouseEvent me) {
+//				  recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+//                     .getSelectedColor());
+//	    }
+//   	});
+//   	  }
+     }
+//    ValueAxis axis = new ValueAxis();
+	 
+//	 scrollpane.setPrefSize(600, 250);
+	 MusicPaneController.getInstance().getWaterPane().setContent(gridpaneRec);
+	 MusicPaneController.getInstance().getLabelPane().setContent(numLine);
+	}
+    
 
     /**
      *
