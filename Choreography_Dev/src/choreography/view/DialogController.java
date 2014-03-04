@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -37,7 +38,7 @@ public class DialogController {
     private HBox actionParent; // Value injected by FXMLLoader
 
     @FXML // fx:id="cancelButton"
-    private Button cancelButton; // Value injected by FXMLLoader
+    private Button noButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="detailsLabel"
     private Label detailsLabel; // Value injected by FXMLLoader
@@ -46,38 +47,40 @@ public class DialogController {
     private Label messageLabel; // Value injected by FXMLLoader
 
     @FXML // fx:id="okButton"
-    private Button okButton; // Value injected by FXMLLoader
+    private Button yesButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="okParent"
     private HBox okParent; // Value injected by FXMLLoader
+    
+    @FXML
+    private Stage dialogStage;
 
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert actionButton != null : "fx:id=\"actionButton\" was not injected: check your FXML file 'Untitled 1'.";
         assert actionParent != null : "fx:id=\"actionParent\" was not injected: check your FXML file 'Untitled 1'.";
-        assert cancelButton != null : "fx:id=\"cancelButton\" was not injected: check your FXML file 'Untitled 1'.";
+        assert noButton != null : "fx:id=\"cancelButton\" was not injected: check your FXML file 'Untitled 1'.";
         assert detailsLabel != null : "fx:id=\"detailsLabel\" was not injected: check your FXML file 'Untitled 1'.";
         assert messageLabel != null : "fx:id=\"messageLabel\" was not injected: check your FXML file 'Untitled 1'.";
-        assert okButton != null : "fx:id=\"okButton\" was not injected: check your FXML file 'Untitled 1'.";
+        assert yesButton != null : "fx:id=\"okButton\" was not injected: check your FXML file 'Untitled 1'.";
         assert okParent != null : "fx:id=\"okParent\" was not injected: check your FXML file 'Untitled 1'.";
 
         // Initialize your logic here: all @FXML variables will have been injected
-        okButton.setOnAction(new EventHandler<ActionEvent>() {
+        yesButton.setOnAction(new EventHandler<ActionEvent>() {
 			
-			@Override
-			public void handle(ActionEvent event) {
-				System.out.println(0);
-				
-			}
-		});
+            @Override
+            public void handle(ActionEvent event) {
+                System.exit(0);
+            }
+        });
         
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				
-			}
-		});
+        noButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialogStage.close();
+            }
+        });
     }
     
     /**
@@ -87,7 +90,10 @@ public class DialogController {
     public void setMessage(String message) {
     	messageLabel.setText(message);
 	}
-
+    
+    public void setDialogStage(Stage s) {
+        this.dialogStage = s;
+    }
     
 
 }

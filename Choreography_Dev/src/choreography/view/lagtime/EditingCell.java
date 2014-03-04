@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package choreography.view;
+package choreography.view.lagtime;
 
 import choreography.model.lagtime.LagTime;
 import javafx.beans.value.ChangeListener;

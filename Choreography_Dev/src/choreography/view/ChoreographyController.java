@@ -6,6 +6,7 @@
 
 package choreography.view;
 
+import choreography.view.lagtime.LagTimeGUIController;
 import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.FCWLib;
@@ -30,6 +31,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -129,7 +132,29 @@ public class ChoreographyController implements Initializable {
     	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-            	
+            	try {
+                    // Load the fxml file and create a new stage for the popup
+                    FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/Dialog.fxml"));
+                    Pane page = (Pane) loader.load();
+                    Stage dialogStage = new Stage();
+                    dialogStage.setTitle("Quit?");
+                    dialogStage.initModality(Modality.WINDOW_MODAL);
+                    dialogStage.initOwner(Main.getPrimaryStage());
+                    Scene scene = new Scene(page);
+                    dialogStage.setScene(scene);
+
+                    // Set the lagtimes into the controller
+                    DialogController controller = loader.getController();
+                    controller.setDialogStage(dialogStage);
+                    controller.setMessage("Are you sure you want to Quit?");
+
+                    // Show the dialog and wait until the user closes it
+                    dialogStage.showAndWait();
+
+                } catch (IOException e) {
+                    // Exception gets thrown if the fxml file could not be loaded
+                    e.printStackTrace();
+                }
             }
         });
         
@@ -185,8 +210,8 @@ public class ChoreographyController implements Initializable {
     public boolean openLagTimeDialog() {
         try {
             // Load the fxml file and create a new stage for the popup
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/LagTimeGUI.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/lagtime/LagTimeGUI.fxml"));
+            GridPane page = (GridPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Lag Times");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -194,7 +219,7 @@ public class ChoreographyController implements Initializable {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller
+            // Set the lagtimes into the controller
             LagTimeGUIController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setDelays(LagTimeLibrary.getInstance().getLagTimes());

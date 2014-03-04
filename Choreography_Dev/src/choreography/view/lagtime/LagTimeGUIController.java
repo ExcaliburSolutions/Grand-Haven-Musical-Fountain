@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package choreography.view;
+package choreography.view.lagtime;
 
 import choreography.io.LagTimeLibrary;
 import choreography.model.lagtime.LagTime;
@@ -28,7 +28,6 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -174,7 +173,7 @@ public class LagTimeGUIController implements Initializable {
         this.dialogStage = dialog;
     }
 
-    void setDelays(ArrayList<LagTime> lagTimes) {
+    public void setDelays(ArrayList<LagTime> lagTimes) {
         //TODO convert LagTime into table rows and columns...
     }
     

@@ -1,6 +1,7 @@
 
 package choreography.view.timeline;
 
+import choreography.model.fcw.FCW;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,11 +12,8 @@ import java.util.ResourceBundle;
 
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
-//import SimpleJavaFXPlayer.ColumnConstraints;
-//import SimpleJavaFXPlayer.EventHandler;
-//import SimpleJavaFXPlayer.MouseEvent;
-//import SimpleJavaFXPlayer.Rectangle;
-//import SimpleJavaFXPlayer.RowConstraints;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -58,6 +56,9 @@ public class TimelineController implements Initializable {
     @FXML
     private ListView<?> timelineListView;
     private int time;
+    private HashMap<Integer, ArrayList<FCW>> timeline;
+    
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -165,5 +166,9 @@ public class TimelineController implements Initializable {
      */
     public ScrollPane getScrollPane(){
 		return timelineScrollPane;
-	}
+    }
+    
+    public HashMap<Integer, ArrayList<FCW>> getTimeline() {
+        return timeline;
+    }
 }
