@@ -36,6 +36,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class TimelineController implements Initializable {
 	
+	int startRow = 0;
     private static TimelineController instance;
 
     /**
@@ -126,6 +127,7 @@ public class TimelineController implements Initializable {
                              @Override
    			  public void handle(MouseEvent me) {
    	        System.out.println("Col " + (testI) + " Row " + (testJ+1));
+   	        startRow = testJ;
    	     recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
                      .getSelectedColor());
    	    }
@@ -143,8 +145,11 @@ public class TimelineController implements Initializable {
         recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                    recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+            	if(startRow == testJ){
+            		recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
                     .getSelectedColor());
+            	}
+                    
 	    }
    	});
    	  }
