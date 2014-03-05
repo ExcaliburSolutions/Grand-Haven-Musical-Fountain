@@ -26,7 +26,7 @@ import choreography.io.FCWLib;
 
 /**
  * @author Nick Van Kuiken
- * Allows user to add the different individual channels to choreography timeline
+ * @version Allows user to add the different individual channels to choreography timeline
  */
 public class CustomChannel extends Application{
 	// Used to show the user the available modules that can be selected.
@@ -157,9 +157,9 @@ public class CustomChannel extends Application{
 		});
 	}
 	
-	private Object getSelected() {
-		Object[] selectedArray;
-		selectedArray = selectedListView.getItems().toArray();
+	public static Array[] getSelected() {
+		Array[] selectedArray;
+		selectedArray = (Array[]) selectedListView.getItems().toArray();
 		return selectedArray;
 	}
 	

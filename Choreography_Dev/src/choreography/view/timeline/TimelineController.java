@@ -4,6 +4,7 @@ import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 
 import java.net.URL;
+import java.sql.Array;
 import java.util.ResourceBundle;
 
 import choreography.view.colorPalette.ColorPaletteController;
@@ -134,6 +135,8 @@ public class TimelineController implements Initializable {
 						CustomChannel newChannel = new CustomChannel();
 //						newChannel.start(primaryStage);
 						System.out.println("WOWOWOWOWOWOW");
+						//Array[] customChannel = (Array[]) CustomChannel.getSelected();
+						
 					}
 				});
 			}
