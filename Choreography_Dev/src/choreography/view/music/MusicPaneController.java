@@ -14,6 +14,10 @@ import java.util.ResourceBundle;
 import choreography.view.timeline.TimelineController;
 import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
+import choreography.view.ChoreographyController;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -126,7 +130,7 @@ public class MusicPaneController {
             playButton.setText("Pause");
     	}
     	catch (Exception e){
-    		
+            ChoreographyController.getInstance().setfcwOutput("Error playing music...");
     	}
     	}
     	
@@ -141,6 +145,8 @@ public class MusicPaneController {
     @FXML
     void stopSong(ActionEvent event) {
     	mediaPlayer.stop();
+        playButton.setText("Play");
+        timeSlider.setValue(0.0);
     }
     
     private void getAllMusic(File fileChosen) {
@@ -195,15 +201,15 @@ public class MusicPaneController {
     	songName.setText(music2.getName());
         mediaPlayer.play();
         mediaPlayer.pause();
-    	updateProgress(); 
+    	updateProgressTimer(); 
     	
     	
-    	mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable ov) {
-                updateProgress();
-            }
-        });
+//    	mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
+//            @Override
+//            public void invalidated(Observable ov) {
+//                updateProgress();
+//            }
+//        });
 
     	URL url = null;
 		try {
@@ -241,33 +247,36 @@ public class MusicPaneController {
      *
      */
     public void updateProgress() {
-    	final DecimalFormat f = new DecimalFormat("#.0");
         
-        try {
-            //songProgress.setText(time + "s");
-            ChangeListener<Duration> changeListener = new ChangeListener<Duration>() {
-                @Override
-                public void changed(ObservableValue<? extends Duration> ov, Duration t, Duration t1) {
+                final DecimalFormat f = new DecimalFormat("0.0");
+                try {
+                    //songProgress.setText(time + "s");
 //                    songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
                     songProgress.setText( f.format(mediaPlayer.getCurrentTime().toSeconds()) + "/"+ f.format(mediaPlayer.getTotalDuration().toSeconds()));
-                	duration = mediaPlayer.getMedia().getDuration();
+                        duration = mediaPlayer.getMedia().getDuration();
                     TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     timeLabel.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-
+                } catch (Exception e) {
+                    System.out.println("Error updating song progress " + e);
                 }
-            };
-            mediaPlayer.currentTimeProperty().addListener(changeListener);
-            
-        } catch (Exception e) {
-            System.out.println("Error updating song progress " + e);
-        }
-        
+
     }
     
-    
+    public void updateProgressTimer() {
+        Timer progressTimer = new Timer("progressTimer", true);
+        progressTimer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    updateProgress();
+                });
+            }
+        }, 0l, 125l);
+    }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {

@@ -1,25 +1,18 @@
 
 package choreography.view.timeline;
 
-import choreography.io.FCWLib;
+import javafx.fxml.Initializable;
 import choreography.model.fcw.FCW;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
-
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.scene.chart.NumberAxis;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -28,8 +21,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -49,8 +40,8 @@ public class TimelineController implements Initializable {
 		if(instance == null)
 			return instance;
 		return instance;
-	}
-	
+    }
+    
     @FXML
     private GridPane timelineLabelPane;
     @FXML
