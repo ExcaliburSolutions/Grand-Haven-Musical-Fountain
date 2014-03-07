@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="csGUI" prefHeight="400.0" prefWidth="1190.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.ChoreographyController">
+<VBox fx:id="csGUI" prefHeight="400.0" prefWidth="1190.0" spacing="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.ChoreographyController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -97,9 +97,20 @@
         </Menu>
       </menus>
     </MenuBar>
-    <BorderPane prefHeight="376.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
-      <bottom>
-        <AnchorPane prefHeight="34.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+    <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="SOMETIMES">
+      <children>
+        <fx:include source="sliders/Sliders.fxml" fillHeight="true" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" VBox.vgrow="NEVER">
+          <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+          </padding>
+        </fx:include>
+        <fx:include source="music/MusicPane.fxml" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" VBox.vgrow="NEVER" />
+        <fx:include source="timeline/Timeline.fxml" gridLinesVisible="false" maxWidth="-1.0" minWidth="-Infinity" prefHeight="300.0" prefWidth="1190.0">
+          <padding>
+            <Insets left="5.0" right="5.0" />
+          </padding>
+        </fx:include>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="1190.0">
           <children>
             <Label fx:id="fcwOutput" alignment="CENTER" text="FCW Output" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="14.0" />
             <fx:include source="colorPalette/ColorPalette.fxml" layoutY="0.0" prefHeight="34.0" prefWidth="800.0" AnchorPane.rightAnchor="0.0" />
@@ -113,27 +124,11 @@
               </items>
             </ChoiceBox>
           </children>
+          <padding>
+            <Insets bottom="5.0" />
+          </padding>
         </AnchorPane>
-      </bottom>
-      <center>
-        <VBox prefHeight="200.0" prefWidth="100.0">
-          <children>
-            <fx:include source="sliders/Sliders.fxml" fillHeight="true">
-              <padding>
-                <Insets left="10.0" right="10.0" fx:id="x1" />
-              </padding>
-            </fx:include>
-            <fx:include source="timeline/Timeline.fxml" padding="$x1" VBox.vgrow="ALWAYS">
-              <VBox.margin>
-                <Insets bottom="2.0" left="2.0" right="2.0" top="10.0" />
-              </VBox.margin>
-            </fx:include>
-          </children>
-        </VBox>
-      </center>
-      <top>
-        <fx:include source="music/MusicPane.fxml" />
-      </top>
-    </BorderPane>
+      </children>
+    </VBox>
   </children>
 </VBox>

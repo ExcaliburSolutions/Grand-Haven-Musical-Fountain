@@ -166,7 +166,7 @@ public class MusicPaneController {
     	String source = new File(music2.getDirectoryFile()).toURI().toString();
     	Media media = new Media(source);
     	mediaPlayer = new MediaPlayer(media);
-    	mediaPlayer.setVolume(volume.getValue());
+    	//mediaPlayer.setVolume(volume.getValue());
     	songName.setText(music2.getName());
         mediaPlayer.play();
         mediaPlayer.pause();
@@ -243,7 +243,7 @@ public class MusicPaneController {
         assert musicPane != null : "fx:id=\"musicPane\" was not injected: check your FXML file 'MusicPane.fxml'.";
         assert songName != null : "fx:id=\"songName\" was not injected: check your FXML file 'MusicPane.fxml'.";
         assert songProgress != null : "fx:id=\"songProgress\" was not injected: check your FXML file 'MusicPane.fxml'.";
-        assert volume != null : "fx:id=\"volume\" was not injected: check your FXML file 'MusicPane.fxml'.";
+        //assert volume != null : "fx:id=\"volume\" was not injected: check your FXML file 'MusicPane.fxml'.";
 
         // Initialize your logic here: all @FXML variables will have been injected
         instance = this;
