@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<GridPane fx:id="timelineLabelPane" alignment="CENTER_LEFT" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" prefHeight="442.0" prefWidth="411.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.timeline.TimelineController">
+<GridPane fx:id="timelineLabelPane" alignment="CENTER_LEFT" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" prefHeight="76.0" prefWidth="411.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.timeline.TimelineController">
   <children>
     <ScrollPane id="time" fx:id="timelineScrollPane" content="$null" fitToHeight="true" fitToWidth="true" hmax="100.0" pannable="false" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" />
   </children>

@@ -297,6 +297,9 @@ public final class FCWLib {
      */
     public synchronized String[] reverseLookup(FCW f){
         String table = searchFunctionTables(f.getAddr());
+        if(table.equals("TableTime")) {
+            return new String[]{Integer.toString(f.getData())};
+        }
         ArrayList<Integer> flags = new ArrayList<>();
         ArrayList<String> actions = new ArrayList<>();
         int data = f.getData();

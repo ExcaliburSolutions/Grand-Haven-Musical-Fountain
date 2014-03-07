@@ -6,21 +6,20 @@
 
 package choreography.view;
 
-import choreography.view.lagtime.LagTimeGUIController;
 import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.FCWLib;
 import choreography.io.LagTimeLibrary;
 import choreography.model.Event;
 import choreography.model.fcw.FCW;
-import java.net.URL;
-import java.util.ResourceBundle;
-
+import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
-import choreography.view.timeline.TimelineController;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,7 +29,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -47,7 +45,7 @@ public class ChoreographyController implements Initializable {
     
     private static ChoreographyController cc;
     
-    private ArrayList<Event> events;
+    private HashMap<Integer, ArrayList<FCW>> events;
     
     @FXML
     private VBox csGUI;
@@ -186,7 +184,7 @@ public class ChoreographyController implements Initializable {
                 }
             });
         
-        events = new ArrayList<>();
+        events = new HashMap<>();
         fcwOutput.setText("Choreographer has loaded!");
         cc = this;
     }
@@ -255,8 +253,8 @@ public class ChoreographyController implements Initializable {
      *
      * @param parseCTL
      */
-    public void setEventTimeline(ArrayList<Event> parseCTL) {
-        events.addAll(parseCTL);
+    public void setEventTimeline(HashMap<Integer, ArrayList<FCW>> parseCTL) {
+        events.putAll(parseCTL);
         rePaint();
     }
     
@@ -264,7 +262,7 @@ public class ChoreographyController implements Initializable {
      *
      * @return
      */
-    public ArrayList<Event> getEventTimeline() {
+    public HashMap<Integer, ArrayList<FCW>> getEventTimeline() {
         return events;
     }
 
@@ -272,13 +270,11 @@ public class ChoreographyController implements Initializable {
      *
      */
     public void rePaint() {
-        for(Event e : events) {
-            for(FCW f : e.getCommands()){
-                FCWLib.getInstance().reverseLookup(f);
-                //TODO Send event to Timeline Controller to setup 
-//                TimelineController.getInstance()
-            }
-        }
+        events.keySet().stream().forEach((i) -> {
+            events.get(i).stream().forEach((f) -> {
+                String[] actions = FCWLib.getInstance().reverseLookup(f);
+            });
+        });
     }
     
 }

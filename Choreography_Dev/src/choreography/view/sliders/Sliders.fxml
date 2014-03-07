@@ -236,5 +236,6 @@
       </children>
     </HBox>
     <HBox prefHeight="100.0" prefWidth="200.0" />
+    <fx:include source="../specialOperations/Specialoperations.fxml" />
   </children>
 </HBox>

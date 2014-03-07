@@ -1,15 +1,15 @@
 package choreography.io;
 
+import choreography.model.Event;
+import choreography.model.fcw.FCW;
+import choreography.view.ChoreographyController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import choreography.model.Event;
-import choreography.model.fcw.FCW;
-import choreography.view.ChoreographyController;
+import java.util.HashMap;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -75,11 +75,11 @@ public class CtlLib {
      * @param input
      * @return
      */
-    public synchronized ArrayList<Event> parseCTL(String input){
+    public synchronized HashMap<Integer, ArrayList<FCW>> parseCTL(String input){
         //Split file into tokens of lines
         String[] lines = input.split(System.getProperty("line.separator"));
         //Create an Event[] to hold all events
-        ArrayList<Event> events = new ArrayList<>();
+        HashMap<Integer, ArrayList<FCW>> events = new HashMap<>();
         // For each line,
         for(String line : lines){
             //Get the time signature
@@ -103,8 +103,12 @@ public class CtlLib {
                 fcw = new FCW(Integer.parseInt(tokens[0]), 
                     Integer.parseInt(tokens[1]));
                 fcws.add(fcw);
+                if(events.containsKey(totalTimeinTenthSecs)){
+                    events.get(totalTimeinTenthSecs).add(fcw);
+                } else events.put(totalTimeinTenthSecs, fcws);
             }
-            events.add(new Event(totalTimeinTenthSecs, fcws));
+            
+            
         }
         System.out.println(events);
         return events;
@@ -115,10 +119,10 @@ public class CtlLib {
      * @param file
      * @param content
      */
-    public synchronized void saveFile(File file, ArrayList<Event> content){
+    public synchronized void saveFile(File file, HashMap<Integer, ArrayList<FCW>> content){
 
         try (FileWriter fileWriter = new FileWriter(file)){
-            //TODO Write a CTL postdating and writing algorithm...
+            
         } catch (IOException ex) {
         }
 
