@@ -206,10 +206,12 @@ public class MusicPaneController {
         	SONG_TIME = (int) time;
         	TimelineController.getInstance().setTimelineGridPane();
         	TimelineController.getInstance().setWaterGridPane();
-        	labelAxis.setMaxWidth(time*26);
+        	labelAxis.setMinWidth(time*26.5);
         	labelAxis.setUpperBound(roundedTime);
+        	labelAxis.setVisible(true);
+        	labelChart.setVisible(true);
 //        	TimelineController.getInstance().setLabelGridPane();
-			
+			songProgress.setText(f.format(roundedTime));
 		} catch (Exception ex) {
 			
 			ex.printStackTrace();

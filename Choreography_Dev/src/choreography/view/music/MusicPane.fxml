@@ -42,14 +42,14 @@
                 <Insets top="5.0" fx:id="x5" />
               </HBox.margin>
             </Label>
-            <ScrollPane fx:id="timeLabel" hmax="100.0" minHeight="29.0" prefHeight="29.0" prefViewportHeight="29.0" prefViewportWidth="1082.0" prefWidth="1190.0" vbarPolicy="NEVER">
+            <ScrollPane fx:id="timeLabel" hbarPolicy="NEVER" hmax="100.0" minHeight="29.0" prefHeight="29.0" prefViewportHeight="29.0" prefViewportWidth="1082.0" prefWidth="1190.0" vbarPolicy="NEVER">
               <content>
-                <LineChart fx:id="labelChart" animated="false" legendVisible="false" minHeight="25.0" prefHeight="11.0" prefWidth="2001.0">
+                <LineChart fx:id="labelChart" alternativeColumnFillVisible="false" alternativeRowFillVisible="true" animated="false" horizontalGridLinesVisible="true" legendVisible="false" minHeight="25.0" prefHeight="11.0" prefWidth="15828.0" verticalZeroLineVisible="false" visible="false">
                   <xAxis>
-                    <NumberAxis fx:id="labelAxis" animated="false" autoRanging="false" maxWidth="-Infinity" minWidth="-Infinity" minorTickCount="4" minorTickLength="2.0" minorTickVisible="true" prefHeight="18.0" prefWidth="1963.9999000000025" side="BOTTOM" tickLabelGap="2.0" tickLength="5.0" tickMarkVisible="true" tickUnit="10.0" upperBound="2000.0" />
+                    <NumberAxis fx:id="labelAxis" animated="false" autoRanging="false" disable="false" forceZeroInRange="true" maxWidth="-Infinity" minWidth="-Infinity" minorTickCount="4" minorTickLength="3.0" minorTickVisible="true" prefHeight="10.0" prefWidth="-1.0" side="BOTTOM" tickLabelGap="2.0" tickLength="5.0" tickMarkVisible="true" tickUnit="1.0" translateX="-5.0" upperBound="304.0" visible="false" />
                   </xAxis>
                   <yAxis>
-                    <NumberAxis animated="false" autoRanging="false" minorTickCount="0" minorTickLength="0.0" prefHeight="29.0" side="TOP" tickLabelGap="0.0" tickLength="0.0" tickMarkVisible="false" tickUnit="0.0" upperBound="0.0" />
+                    <NumberAxis animated="false" autoRanging="false" minorTickCount="0" minorTickLength="0.0" prefHeight="29.0" side="TOP" tickLabelGap="0.0" tickLength="0.0" tickMarkVisible="false" tickUnit="0.0" translateX="0.0" upperBound="0.0" />
                   </yAxis>
                   <padding>
                     <Insets fx:id="x1" />

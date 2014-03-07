@@ -8,7 +8,7 @@
 
 <GridPane id="timelineLabelPane" alignment="TOP_LEFT" gridLinesVisible="false" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" prefHeight="300.0" prefWidth="1190.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.timeline.TimelineController">
   <children>
-    <ScrollPane fx:id="labelScrollPane" content="$null" fitToHeight="false" fitToWidth="false" hbarPolicy="NEVER" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefViewportHeight="300.0" prefViewportWidth="100.0" prefWidth="100.0" vbarPolicy="NEVER" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+    <ScrollPane fx:id="labelScrollPane" content="$null" fitToHeight="false" fitToWidth="false" hbarPolicy="NEVER" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefViewportHeight="300.0" prefViewportWidth="100.0" prefWidth="100.0" vbarPolicy="NEVER" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
     <ScrollPane id="time" fx:id="timelineScrollPane" content="$null" fitToHeight="false" fitToWidth="false" hbarPolicy="NEVER" hmax="100.0" minHeight="-Infinity" minWidth="-Infinity" pannable="false" prefHeight="300.0" prefViewportHeight="300.0" prefViewportWidth="1080.0" prefWidth="1080.0" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
   </children>
   <columnConstraints>
