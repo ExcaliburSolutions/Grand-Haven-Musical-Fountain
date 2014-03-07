@@ -53,7 +53,7 @@ public class TimelineController implements Initializable {
     private ScrollPane timelineScrollPane, labelScrollPane;
     //NonFXML
     private int time;
-    private NumberAxis numLine;
+    //private NumberAxis numLine;
     private HashMap<Integer, ArrayList<FCW>> timeline;
     
     
@@ -173,7 +173,7 @@ public class TimelineController implements Initializable {
 		//NumberAxis valueAxis = new NumberAxis();
         
         time = MusicPaneController.SONG_TIME;
-        numLine = new NumberAxis((double)0,(double) time, 1);
+        //numLine = new NumberAxis((double)0,(double) time, 1);
     
 	gridpaneRec.setGridLinesVisible(true);
 
@@ -226,7 +226,7 @@ public class TimelineController implements Initializable {
 	 
 //	 scrollpane.setPrefSize(600, 250);
 	 MusicPaneController.getInstance().getWaterPane().setContent(gridpaneRec);
-	 MusicPaneController.getInstance().getLabelPane().setContent(numLine);
+	 //MusicPaneController.getInstance().getLabelPane().setContent(numLine);
 	}
     
 
