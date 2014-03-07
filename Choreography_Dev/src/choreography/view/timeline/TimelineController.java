@@ -15,6 +15,9 @@ import java.util.HashMap;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
@@ -26,6 +29,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -90,17 +94,30 @@ public class TimelineController implements Initializable {
 "Module 6", "Module 7", "A Modules", "B Modules", "Front Curtain", "Back Curtain", "Peacock", "Voice", "ALL LEDs"};
     	
     	timelineLabelPane.setGridLinesVisible(true);
+    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
     	
     	final Label[] labelArray = new Label[14];
     	for(int i=0; i<14;i++){
         timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
     	}
-    	timelineLabelPane.getColumnConstraints().add(new ColumnConstraints(100));
+    	timelineLabelPane.getColumnConstraints().add(new ColumnConstraints(98));
     	
     	for(int i=0; i<14;i++){
             labelArray[i] = new Label(labelNames[i]);
             timelineLabelPane.add(labelArray[i], 0, i);
     	}
+    	 timelineScrollPane.vvalueProperty().addListener(new ChangeListener(){
+    	        @Override public void changed(ObservableValue o,Object oldVal, 
+    	                 Object newVal){
+    	             labelScrollPane.setVvalue(timelineScrollPane.getVvalue());
+    	        }
+    	      });
+    	 labelScrollPane.vvalueProperty().addListener(new ChangeListener(){
+ 	        @Override public void changed(ObservableValue o,Object oldVal, 
+ 	                 Object newVal){
+ 	        	timelineScrollPane.setVvalue(labelScrollPane.getVvalue());
+ 	        }
+ 	      });
     	labelScrollPane.setContent(timelineLabelPane);
     }
     
@@ -114,14 +131,14 @@ public class TimelineController implements Initializable {
     
 	gridpaneRec.setGridLinesVisible(true);
 
-	final Rectangle[][] recArray = new Rectangle[time][17];
+	final Rectangle[][] recArray = new Rectangle[time][14];
         for(int i=0; i<time; i++){
             gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
-            if (i < 17){ //because the array is not square this needs to be here
+            if (i < 14){ //because the array is not square this needs to be here
                    gridpaneRec.getRowConstraints().add(new RowConstraints(26));
             }
   		  
-        for(int j=0; j<17; j++){
+        for(int j=0; j<14; j++){
 //   		  if (i == 0){
 //   			 recArray[i][j] = new Rectangle(50,25, Color.RED);
 //   			 continue;

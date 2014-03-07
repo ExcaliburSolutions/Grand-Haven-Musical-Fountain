@@ -16,12 +16,14 @@ import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -29,6 +31,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
@@ -92,6 +95,9 @@ public class MusicPaneController {
     
     @FXML
     private NumberAxis labelAxis;
+    
+    @FXML
+    private Button playButton;
 
     /**
      *
@@ -112,11 +118,22 @@ public class MusicPaneController {
     // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
     void playSong(ActionEvent event) {
+    	if (mediaPlayer.statusProperty().getValue()==Status.PAUSED || 
+    			mediaPlayer.statusProperty().getValue()==Status.STOPPED ||
+    			mediaPlayer.statusProperty().getValue()==Status.READY){
     	try{
             mediaPlayer.play();
+            playButton.setText("Pause");
     	}
     	catch (Exception e){
     		
+    	}
+    	}
+    	
+    	if (mediaPlayer.statusProperty().getValue()==Status.PLAYING){
+    		mediaPlayer.pause();
+            playButton.setText("Play");
+
     	}
     }
 
@@ -211,7 +228,7 @@ public class MusicPaneController {
         	labelAxis.setVisible(true);
         	labelChart.setVisible(true);
 //        	TimelineController.getInstance().setLabelGridPane();
-			songProgress.setText(f.format(roundedTime));
+			songProgress.setText("0/"+roundedTime);
 		} catch (Exception ex) {
 			
 			ex.printStackTrace();
@@ -231,8 +248,9 @@ public class MusicPaneController {
             ChangeListener<Duration> changeListener = new ChangeListener<Duration>() {
                 @Override
                 public void changed(ObservableValue<? extends Duration> ov, Duration t, Duration t1) {
-                    songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
-                    duration = mediaPlayer.getMedia().getDuration();
+//                    songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
+                    songProgress.setText( f.format(mediaPlayer.getCurrentTime().toSeconds()) + "/"+ f.format(mediaPlayer.getTotalDuration().toSeconds()));
+                	duration = mediaPlayer.getMedia().getDuration();
                     TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
                     timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
@@ -267,7 +285,10 @@ public class MusicPaneController {
             public void invalidated(Observable ov) {
                 if (timeSlider.isValueChanging()) {
                     // multiply duration by percentage calculated by slider position
+                	mediaPlayer.pause();
+                	playButton.setText("Play");
                     mediaPlayer.seek(duration.multiply(timeSlider.getValue() / 100.0));
+                    //mediaPlayer.play();
                 }
             }
         });
