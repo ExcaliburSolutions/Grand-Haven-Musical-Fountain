@@ -85,13 +85,13 @@ public class CtlLib {
             //Get the time signature
             String totalTime = line.substring(0, 7);
             //Get the minutes
-            int minutes = (Integer.parseInt(totalTime.substring(0, 1)));
+            int minutes = (Integer.parseInt(totalTime.substring(0, 2)));
             //get the seconds
             int seconds = Integer.parseInt(totalTime.substring(3, 5));
             //get the tenths
             int tenths = Integer.parseInt(totalTime.substring(6, 7));
             //find the total time in seconds
-            int totalTimeinTenthSecs = tenths + seconds * 10 + (minutes * 60);
+            int totalTimeinTenthSecs = (minutes * 60) + (seconds * 10) + tenths;
             //get the commands section on the line
             String commands = line.substring(7, line.length());
             //break the commands into tokens
@@ -102,15 +102,11 @@ public class CtlLib {
                 String[] tokens = command.split("-");
                 fcw = new FCW(Integer.parseInt(tokens[0]), 
                     Integer.parseInt(tokens[1]));
-                fcws.add(fcw);
-                if(events.containsKey(totalTimeinTenthSecs)){
-                    events.get(totalTimeinTenthSecs).add(fcw);
-                } else events.put(totalTimeinTenthSecs, fcws);
+                fcws.add(fcw);       
             }
-            
+            events.put(totalTimeinTenthSecs, fcws);
             
         }
-        System.out.println(events);
         return events;
     }
 

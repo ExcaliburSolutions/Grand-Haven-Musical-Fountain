@@ -101,7 +101,7 @@ public class LagTimeTable {
      * @return
      */
     public synchronized double getLagTime(FCW f) {
-            String[] actions = FCWLib.getInstance().reverseLookup(f);
+            String[] actions = FCWLib.getInstance().reverseLookupData(f);
             double lagTime = 0.0;
             for(String action: actions) {
                 for(CannonEnum ce : CannonEnum.values()) {

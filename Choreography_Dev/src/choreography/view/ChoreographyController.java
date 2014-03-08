@@ -10,10 +10,10 @@ import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.FCWLib;
 import choreography.io.LagTimeLibrary;
-import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
+import choreography.view.timeline.TimelineController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -255,7 +255,7 @@ public class ChoreographyController implements Initializable {
      */
     public void setEventTimeline(HashMap<Integer, ArrayList<FCW>> parseCTL) {
         events.putAll(parseCTL);
-        rePaint();
+        TimelineController.getInstance().rePaint();
     }
     
     /**
@@ -264,17 +264,6 @@ public class ChoreographyController implements Initializable {
      */
     public HashMap<Integer, ArrayList<FCW>> getEventTimeline() {
         return events;
-    }
-
-    /**
-     *
-     */
-    public void rePaint() {
-        events.keySet().stream().forEach((i) -> {
-            events.get(i).stream().forEach((f) -> {
-                String[] actions = FCWLib.getInstance().reverseLookup(f);
-            });
-        });
     }
     
 }

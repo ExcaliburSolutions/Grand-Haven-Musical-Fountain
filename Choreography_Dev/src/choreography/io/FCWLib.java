@@ -41,18 +41,18 @@ public final class FCWLib {
     private HashMap<String, HashMap<String, Integer>> tableCommands;
 
     private FCWLib(){
-            waterAddress = new HashMap<>();
-            lightAddress = new HashMap<>();
-            functionTables = new HashMap<>();
-            tableCommands = new HashMap<>();
-            functionAddress = new HashMap<>();
-            lightNames = new String[1];
-            waterNames = new String[1];
+        waterAddress = new HashMap<>();
+        lightAddress = new HashMap<>();
+        functionTables = new HashMap<>();
+        tableCommands = new HashMap<>();
+        functionAddress = new HashMap<>();
+        lightNames = new String[1];
+        waterNames = new String[1];
 
-            readFCWInfoFromFile(fcwInfo);
+        readFCWInfoFromFile(fcwInfo);
 
-            lightNames = lightAddress.keySet().toArray(lightNames);
-            waterNames = waterAddress.keySet().toArray(waterNames);
+        lightNames = lightAddress.keySet().toArray(lightNames);
+        waterNames = waterAddress.keySet().toArray(waterNames);
     }	
 	
     /**
@@ -76,45 +76,45 @@ public final class FCWLib {
      * @param fcwInfo
      */
     public synchronized void readFCWInfoFromFile(File fcwInfo){
-            try {
-                    Scanner fileIn = new Scanner(new FileReader(fcwInfo));
-                    fileIn.useDelimiter("|");
+        try {
+            Scanner fileIn = new Scanner(new FileReader(fcwInfo));
+            fileIn.useDelimiter("|");
 
-                    fileIn.findWithinHorizon("|WaterAddresses|", 0);
-                    fileIn.nextLine();
-                    readWaterAddressesFromFile(fileIn);
+            fileIn.findWithinHorizon("|WaterAddresses|", 0);
+            fileIn.nextLine();
+            readWaterAddressesFromFile(fileIn);
 
-                    fileIn.findWithinHorizon("|LightAddresses|", 0);
-                    fileIn.nextLine();
-                    readLightAddressesFromFile(fileIn);
+            fileIn.findWithinHorizon("|LightAddresses|", 0);
+            fileIn.nextLine();
+            readLightAddressesFromFile(fileIn);
 
-                    fileIn.findWithinHorizon("|Functions|", 0);
-                    fileIn.nextLine();
-                    readFunctionsFromFile(fileIn);
+            fileIn.findWithinHorizon("|Functions|", 0);
+            fileIn.nextLine();
+            readFunctionsFromFile(fileIn);
 
-                    fileIn.findWithinHorizon("|Tables|", 0);
-                    fileIn.nextLine();
-                    readAddressTableFromFile(fileIn);
+            fileIn.findWithinHorizon("|Tables|", 0);
+            fileIn.nextLine();
+            readAddressTableFromFile(fileIn);
 
-                    fileIn.findWithinHorizon("|Commands|", 0);
-                    fileIn.nextLine();
-                    readTableCommandsFromFile(fileIn);
-            } catch (FileNotFoundException e) {
-                    LOG.log(Level.SEVERE, "FCW_DEF.txt Not Found!");
-            }
+            fileIn.findWithinHorizon("|Commands|", 0);
+            fileIn.nextLine();
+            readTableCommandsFromFile(fileIn);
+        } catch (FileNotFoundException e) {
+            LOG.log(Level.SEVERE, "FCW_DEF.txt Not Found!");
+        }
     }
 
     private synchronized void readFunctionsFromFile(Scanner fileIn) {
-            String line = null;
-            while(fileIn.hasNextLine()) {
-                    line = fileIn.nextLine();
-                    if(line.equals("|EndFunctions|")) {
-                            return;
-                    } else {
-                            String[] tokens = line.split(", ");
-                            functionAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
-                    }
+        String line = null;
+        while(fileIn.hasNextLine()) {
+            line = fileIn.nextLine();
+            if(line.equals("|EndFunctions|")) {
+                    return;
+            } else {
+                    String[] tokens = line.split(", ");
+                    functionAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
             }
+        }
 
     }
 
@@ -123,16 +123,16 @@ public final class FCWLib {
      * @param fileIn
      */
     public synchronized void readWaterAddressesFromFile(Scanner fileIn) {
-            String line = null;
-            while(fileIn.hasNextLine()){ //while we aren't EOF
-                    line = fileIn.nextLine(); //get the next legitmate line
-                    if(line.equals("|EndWaterAddresses|")) { //If we hit end of table
-                            return; //GTFO
-                    } else { 
-                            String[] tokens= line.split(", "); //split into components
-                            waterAddress.put(tokens[0].trim(), new Integer(tokens[1].trim())); //add them
-                    }
+        String line = null;
+        while(fileIn.hasNextLine()){ //while we aren't EOF
+            line = fileIn.nextLine(); //get the next legitmate line
+            if(line.equals("|EndWaterAddresses|")) { //If we hit end of table
+                    return; //GTFO
+            } else { 
+                    String[] tokens= line.split(", "); //split into components
+                    waterAddress.put(tokens[0].trim(), new Integer(tokens[1].trim())); //add them
             }
+        }
     }
 
     /**
@@ -140,15 +140,15 @@ public final class FCWLib {
      * @param fileIn
      */
     public synchronized void readLightAddressesFromFile(Scanner fileIn) {
-            while(fileIn.hasNextLine()){
-                    String line = fileIn.nextLine();
-                    if(line.equals("|EndLightAddresses|")) {
-                            return;
-                    } else {
-                            String[] tokens= line.split(", ");
-                                    lightAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
-                    }
+        while(fileIn.hasNextLine()){
+            String line = fileIn.nextLine();
+            if(line.equals("|EndLightAddresses|")) {
+                    return;
+            } else {
+                    String[] tokens= line.split(", ");
+                            lightAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
             }
+        }
     }
 
     /**
@@ -156,19 +156,19 @@ public final class FCWLib {
      * @param fileIn
      */
     public synchronized void readAddressTableFromFile(Scanner fileIn) {
-            while(fileIn.hasNextLine()){
-        String line = fileIn.nextLine();
-                    if(line.equals("|EndTables|")) {
-                            return;
-                    } else {
-                            String[] tokens= line.split(", ");
-                            HashSet<Integer> addresses = new HashSet<>();
-                            for(int i = 1; i < tokens.length; i++) {
-                                    addresses.add(new Integer(tokens[i]));
-                            }
-                            functionTables.put(addresses, tokens[0].trim());
-                    }
+        while(fileIn.hasNextLine()){
+            String line = fileIn.nextLine();
+            if(line.equals("|EndTables|")) {
+                return;
+            } else {
+                String[] tokens= line.split(", ");
+                HashSet<Integer> addresses = new HashSet<>();
+                for(int i = 1; i < tokens.length; i++) {
+                        addresses.add(new Integer(tokens[i]));
+                }
+                functionTables.put(addresses, tokens[0].trim());
             }
+        }
     }
 
     /**
@@ -277,17 +277,14 @@ public final class FCWLib {
         return lightAddress.get(cannon); //get it!
     }
     
-    private BitSet convert(int n) {
-        BitSet bits = new BitSet(8);
-        int power = 0;
-        while (n != 0) {
-            if ((n & 1) != 0) {
-                bits.set(1 << power);
+    public synchronized String reverseLookupAddress(FCW f) {
+        String name = null;
+        for(Entry entry: functionAddress.entrySet()) {
+            if((Integer)entry.getValue() == f.getAddr()) {
+                name = (String)entry.getKey();
             }
-            ++power;
-            n >>>= 1;
         }
-        return bits;
+        return name;
     }
     
     /**
@@ -295,7 +292,7 @@ public final class FCWLib {
      * @param f
      * @return
      */
-    public synchronized String[] reverseLookup(FCW f){
+    public synchronized String[] reverseLookupData(FCW f){
         String table = searchFunctionTables(f.getAddr());
         if(table.equals("TableTime")) {
             return new String[]{Integer.toString(f.getData())};
