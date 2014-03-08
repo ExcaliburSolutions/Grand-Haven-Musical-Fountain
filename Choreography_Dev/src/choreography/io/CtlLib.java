@@ -3,13 +3,22 @@ package choreography.io;
 import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -44,7 +53,8 @@ public class CtlLib {
         fc.setInitialFileName(System.getProperty("user.home"));
         fc.getExtensionFilters().add(new ExtensionFilter("CTL Files", "*.ctl"));
         File ctlFile = fc.showOpenDialog(null);
-        ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(ctlFile)));
+        //had to cast to hashmap to get it to work, likely will have to change in the future
+        ChoreographyController.getInstance().setEventTimeline((HashMap<Integer, ArrayList<FCW>>) parseCTL(readFile(ctlFile)));
     }
 
     /**
@@ -75,7 +85,7 @@ public class CtlLib {
      * @param input
      * @return
      */
-    public synchronized HashMap<Integer, ArrayList<FCW>> parseCTL(String input){
+    public synchronized Map<Integer, ArrayList<FCW>> parseCTL(String input){
         //Split file into tokens of lines
         String[] lines = input.split(System.getProperty("line.separator"));
         //Create an Event[] to hold all events
@@ -91,7 +101,7 @@ public class CtlLib {
             //get the tenths
             int tenths = Integer.parseInt(totalTime.substring(6, 7));
             //find the total time in seconds
-            int totalTimeinTenthSecs = (minutes * 60) + (seconds * 10) + tenths;
+            int totalTimeinTenthSecs = (minutes * 600) + (seconds * 10) + tenths;
             //get the commands section on the line
             String commands = line.substring(7, line.length());
             //break the commands into tokens
@@ -107,7 +117,9 @@ public class CtlLib {
             events.put(totalTimeinTenthSecs, fcws);
             
         }
-        return events;
+        Map<Integer, ArrayList<FCW>> map = new TreeMap<Integer,ArrayList<FCW>>(events);
+        System.out.println(map.toString());
+        return map;
     }
 
     /**
