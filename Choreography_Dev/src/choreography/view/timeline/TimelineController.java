@@ -56,7 +56,9 @@ public class TimelineController implements Initializable {
     private SortedMap<Integer, ArrayList<FCW>> lightTimeline;
     int startRow = 0;
     final int rowNumber = 14;
-    
+    GridPane gridpaneLight;
+    GridPane gridpaneWater;
+    Rectangle[] waterRecArray;
     /**
      * Initializes the controller class.
      * @param url
@@ -162,18 +164,18 @@ public class TimelineController implements Initializable {
      * 
      */
     public void setTimelineGridPane() {
-        GridPane gridpaneRec = new GridPane();
+        gridpaneLight = new GridPane();
 
         time = MusicPaneController.SONG_TIME;
 
-        gridpaneRec.setGridLinesVisible(true);
+        gridpaneLight.setGridLinesVisible(true);
 
-        final Rectangle[][] recArray = new Rectangle[time][rowNumber];
+        final Rectangle[][] lightRecArray = new Rectangle[time][rowNumber];
         for (int i = 0; i < time; i++) {
-            gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
+            gridpaneLight.getColumnConstraints().add(new ColumnConstraints(26));
             if (i < rowNumber) { // because the array is not square this needs to be
                                             // here
-                    gridpaneRec.getRowConstraints().add(new RowConstraints(26));
+                    gridpaneLight.getRowConstraints().add(new RowConstraints(26));
             }
 
             for (int j = 0; j < rowNumber; j++) {
@@ -181,29 +183,29 @@ public class TimelineController implements Initializable {
                 // recArray[i][j] = new Rectangle(50,25, Color.RED);
                 // continue;
                 // }
-                recArray[i][j] = new Rectangle(25, 25, Color.LIGHTGREY);
-                gridpaneRec.add(recArray[i][j], i, j);
+                lightRecArray[i][j] = new Rectangle(25, 25, Color.LIGHTGREY);
+                gridpaneLight.add(lightRecArray[i][j], i, j);
                 // these are needed to talk to the mouse pressed events
                 final int testI = i;
                 final int testJ = j;
 
-                recArray[i][j].setOnMousePressed((MouseEvent me) -> {
+                lightRecArray[i][j].setOnMousePressed((MouseEvent me) -> {
                     System.out.println("Col " + (testI) + " Row "
                             + (testJ + 1));
                     startRow = testJ;
-                    recArray[testI][testJ]
+                    lightRecArray[testI][testJ]
                             .setFill(ColorPaletteController
                                     .getInstance()
                                     .getSelectedColor());
                 });
 
-                recArray[i][j].setOnDragDetected((MouseEvent me) -> {
-                    recArray[testI][testJ].startFullDrag();
+                lightRecArray[i][j].setOnDragDetected((MouseEvent me) -> {
+                    lightRecArray[testI][testJ].startFullDrag();
                 });
                 // continues and ends the drag event
-                recArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
+                lightRecArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
                     if (startRow == testJ) {
-                        recArray[testI][testJ]
+                        lightRecArray[testI][testJ]
                                 .setFill(ColorPaletteController
                                         .getInstance()
                                         .getSelectedColor());
@@ -212,31 +214,39 @@ public class TimelineController implements Initializable {
             }
         }
 
-        timelineScrollPane.setContent(gridpaneRec);
+        timelineScrollPane.setContent(gridpaneLight);
     }
 
     public void setWaterGridPane() {
-        GridPane gridpaneRec = new GridPane();
+        gridpaneWater = new GridPane();
         // NumberAxis valueAxis = new NumberAxis();
 
         time = MusicPaneController.SONG_TIME;
         numLine = new NumberAxis((double) 0, (double) time, 1);
 
-        gridpaneRec.setGridLinesVisible(true);
+        gridpaneWater.setGridLinesVisible(true);
 
-        final Rectangle[][] recArray = new Rectangle[time][1];
+        waterRecArray = new Rectangle[time];
         for (int i = 0; i < time; i++) {
-                gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
+        	 final int testI = i;
+                gridpaneWater.getColumnConstraints().add(new ColumnConstraints(26));
                 if (i < 1) { // because the array is not square this needs to be
-                                                // here
-                        gridpaneRec.getRowConstraints().add(new RowConstraints(26));
+                                              // here
+                        gridpaneWater.getRowConstraints().add(new RowConstraints(26));
                 }
+                
+                waterRecArray[i] = new Rectangle(25, 25, Color.LIGHTGREY);
+                gridpaneWater.add(waterRecArray[i], i, 0);
+                
+                waterRecArray[i].setOnMousePressed((MouseEvent me) -> {
+                    System.out.println("Col " + (testI));
+                });
         }
         // ValueAxis axis = new ValueAxis();
 
         // scrollpane.setPrefSize(600, 250);
         MusicPaneController.getInstance().getWaterPane()
-                        .setContent(gridpaneRec);
+                        .setContent(gridpaneWater);
         MusicPaneController.getInstance().getLabelPane().setContent(numLine);
     }
 
@@ -282,6 +292,7 @@ public class TimelineController implements Initializable {
         }
         System.out.println("Water timeline: " + waterTimeline);
         System.out.println("Light timeline: " + lightTimeline);
+        rePaint();
     }
     
     /**
@@ -292,6 +303,22 @@ public class TimelineController implements Initializable {
             for(FCW f: waterTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
+                int tenthOfSec = i % 10;
+                int secondsOnly = i /10;
+                //simple rounding to the half second for testing purposes
+                if(tenthOfSec < 5){
+                	tenthOfSec = 0;
+                }
+                else{
+                	tenthOfSec = 5;
+                }
+                
+                double newTime = secondsOnly + (tenthOfSec / 10);
+                int colAtTime = (int) (newTime *2);
+                if(colAtTime != 0){
+                	colAtTime = colAtTime - 1;
+                }
+                waterRecArray[colAtTime].setFill(Color.BLACK);
                 //TODO paint water timeline with info
             }
         }
