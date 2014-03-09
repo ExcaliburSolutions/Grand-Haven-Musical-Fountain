@@ -1,6 +1,5 @@
 package choreography.view.timeline;
 
-import choreography.io.CtlLib;
 import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteController;
@@ -22,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import org.controlsfx.control.PopOver;
 
 /**
  * FXML Controller class
@@ -197,45 +197,6 @@ public class TimelineController implements Initializable {
                                             // here
                     gridpaneRec.getRowConstraints().add(new RowConstraints(26));
             }
-
-            // for(int j=0; j<1; j++){
-            // // if (i == 0){
-            // // recArray[i][j] = new Rectangle(50,25, Color.RED);
-            // // continue;
-            // // }
-            // recArray[i][j] = new Rectangle(25,25, Color.LIGHTGREY);
-            // gridpaneRec.add(recArray[i][j], i, j);
-            // //these are needed to talk to the mouse pressed events
-            // final int testI = i;
-            // final int testJ = j;
-            //
-            // recArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
-            // @Override
-            // public void handle(MouseEvent me) {
-            // System.out.println("Col " + (testI) + " Row " + (testJ+1));
-            // recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
-            // .getSelectedColor());
-            // }
-            // });
-            //
-            // recArray[i][j].setOnDragDetected(new EventHandler<MouseEvent>() {
-            // @Override
-            // public void handle(MouseEvent me) {
-            // //starts the drag event
-            // recArray[testI][testJ].startFullDrag();
-            // }
-            //
-            // });
-            // //continues and ends the drag event
-            // recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>()
-            // {
-            // @Override
-            // public void handle(MouseEvent me) {
-            // recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
-            // .getSelectedColor());
-            // }
-            // });
-            // }
     }
     // ValueAxis axis = new ValueAxis();
 
@@ -264,7 +225,7 @@ public class TimelineController implements Initializable {
         this.timeline = timeline;
         for(Integer i: timeline.keySet()) {
             for(FCW f: timeline.get(i)) {
-                if(FCWLib.getInstance().reverseIsWater(f)) {
+                if(f.getIsWater()) {
                     if(waterTimeline.containsKey(i))
                         waterTimeline.get(i).add(f);
                     else {
@@ -293,12 +254,60 @@ public class TimelineController implements Initializable {
      *
      */
     public void rePaint() {
-        for(Integer i: timeline.keySet()){
-            for(FCW f: timeline.get(i)) {
+        for(Integer i: waterTimeline.keySet()){
+            for(FCW f: waterTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
-                
+                //TODO paint water timeline with info
+            }
+        }
+        for(Integer i: lightTimeline.keySet()) {
+            for(FCW f: lightTimeline.get(i)) {
+                String name = FCWLib.getInstance().reverseLookupAddress(f);
+                String[] actions = FCWLib.getInstance().reverseLookupData(f);
+                //TODO paint light timeline with info
             }
         }
     }
 }
+
+///**             
+// * for(int j=0; j<1; j++){
+// * // if (i == 0){
+// * // recArray[i][j] = new Rectangle(50,25, Color.RED);
+// * // continue;
+// * // }
+// * recArray[i][j] = new Rectangle(25,25, Color.LIGHTGREY);
+// * gridpaneRec.add(recArray[i][j], i, j);
+// * //these are needed to talk to the mouse pressed events
+// * final int testI = i;
+// * final int testJ = j;
+// * 
+// * recArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
+// * @Override
+// public void handle(MouseEvent me) {
+// System.out.println("Col " + (testI) + " Row " + (testJ+1));
+// recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+// .getSelectedColor());
+// }
+// });
+//
+// recArray[i][j].setOnDragDetected(new EventHandler<MouseEvent>() {
+// @Override
+// public void handle(MouseEvent me) {
+// //starts the drag event
+// recArray[testI][testJ].startFullDrag();
+// }
+//
+// });
+// //continues and ends the drag event
+// recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>()
+// {
+// @Override
+// public void handle(MouseEvent me) {
+// recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
+// .getSelectedColor());
+// }
+// });
+// } 
+// **/

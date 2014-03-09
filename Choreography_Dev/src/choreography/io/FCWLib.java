@@ -291,7 +291,9 @@ public final class FCWLib {
     }
     
     public boolean reverseIsWater(FCW f) {
-        return waterAddress.containsValue(f.getAddr());
+        boolean result = waterAddress.containsValue(f.getAddr());
+        f.setIsWater(result);
+        return result;
     }
     
     /**

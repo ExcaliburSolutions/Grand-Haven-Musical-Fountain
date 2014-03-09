@@ -6,6 +6,8 @@
 
 package choreography.model.fcw;
 
+import choreography.io.FCWLib;
+
 /**
  *
  * @author elementsking
@@ -13,6 +15,7 @@ package choreography.model.fcw;
 public class FCW {
     private int addr;
     private int data;
+    private boolean isWater;
 
     /**
      *
@@ -22,6 +25,7 @@ public class FCW {
     public FCW(int addr, int data){
         this.addr = addr;
         this.data = data;
+        FCWLib.getInstance().reverseIsWater(this);
     }
 
     /**
@@ -61,5 +65,11 @@ public class FCW {
         return String.format("%1$03d%2$s%3$03d", addr, "-", data);
     }
     
+    public synchronized void setIsWater(boolean b) {
+        this.isWater = b;
+    }
     
+    public synchronized boolean getIsWater() {
+        return isWater;
+    }
 }
