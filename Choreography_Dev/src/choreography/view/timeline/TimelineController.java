@@ -59,6 +59,7 @@ public class TimelineController implements Initializable {
     GridPane gridpaneLight;
     GridPane gridpaneWater;
     Rectangle[] waterRecArray;
+    Rectangle[][] lightRecArray;
     /**
      * Initializes the controller class.
      * @param url
@@ -79,10 +80,10 @@ public class TimelineController implements Initializable {
 
     public void setLabelGridPane() {
         // 57 lines long
-        final String[] labelNames = new String[] {"Custom Channel", "Module 1", "Module 2",
+        final String[] labelNames = new String[] {"Module 1", "Module 2",
                         "Module 3", "Module 4", "Module 5", "Module 6", "Module 7",
                         "A Modules", "B Modules", "Front Curtain", "Back Curtain",
-                        "Peacock", "Voice", "ALL LEDs", "L1-A Mod 1 Front Left",
+                        "Peacock", "Voice", "ALL LEDs","Custom Channel", "L1-A Mod 1 Front Left",
                         "L2-A Mod 1 Front Right", "L6-A Mod 2 Front Left",
                         "L7-A Mod 2 Front Right", "L11-A Mod 3 Front Left",
                         "L12-A Mod 3 Front Right", "L19-A Mod 4 Front Left",
@@ -106,7 +107,7 @@ public class TimelineController implements Initializable {
 
         // need to be changed to 57 for full length, no scroll pane so takes up
         // whole screen,
-        //the first custom channel is hter only for testing!!!!!!!!
+        //TODO the first custom channel is there only for testing!!!!!!!!
         final Label[] labelArray = new Label[57];
         for (int i = 0; i < 13; i++) {
             timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
@@ -170,7 +171,7 @@ public class TimelineController implements Initializable {
 
         gridpaneLight.setGridLinesVisible(true);
 
-        final Rectangle[][] lightRecArray = new Rectangle[time][rowNumber];
+        lightRecArray = new Rectangle[time][rowNumber];
         for (int i = 0; i < time; i++) {
             gridpaneLight.getColumnConstraints().add(new ColumnConstraints(26));
             if (i < rowNumber) { // because the array is not square this needs to be
@@ -305,7 +306,8 @@ public class TimelineController implements Initializable {
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
                 int tenthOfSec = i % 10;
                 int secondsOnly = i /10;
-                //simple rounding to the half second for testing purposes
+                //simple rounding to the half second for testing purposes, rounds everything down
+                //needs work, not 100% accurate
                 if(tenthOfSec < 5){
                 	tenthOfSec = 0;
                 }
@@ -319,7 +321,7 @@ public class TimelineController implements Initializable {
                 	colAtTime = colAtTime - 1;
                 }
                 waterRecArray[colAtTime].setFill(Color.BLACK);
-                //TODO paint water timeline with info
+                //TODO mouse over rectangle information
             }
         }
         for(Integer i: lightTimeline.keySet()) {
@@ -327,8 +329,72 @@ public class TimelineController implements Initializable {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
                 //TODO paint light timeline with info
+                int tenthOfSec = i % 10;
+                int secondsOnly = i /10;
+                //simple rounding to the half second for testing purposes, rounds everything down
+                //needs work, not 100% accurate
+                if(tenthOfSec < 5){
+                	tenthOfSec = 0;
+                }
+                else{
+                	tenthOfSec = 5;
+                }
+                
+                double newTime = secondsOnly + (tenthOfSec / 10);
+                int colAtTime = (int) (newTime *2);
+                if(colAtTime != 0){
+                	colAtTime = colAtTime - 1;
+                }
+                int rowAtTime = lightRowLookup(name);
+                lightRecArray[colAtTime][rowAtTime].setFill(Color.BLACK);
             }
         }
+    }
+    
+    private int lightRowLookup(String name){
+    	if(name.equals("MODULE1LIGHTS")){
+    		return 0;
+    	}
+    	if(name.equals("MODULE2LIGHTS")){
+    		return 1;
+    	}
+    	if(name.equals("MODULE3LIGHTS")){
+    		return 2;
+    	}
+    	if(name.equals("MODULE4LIGHTS")){
+    		return 3;
+    	}
+    	if(name.equals("MODULE5LIGHTS")){
+    		return 4;
+    	}
+    	if(name.equals("MODULE6LIGHTS")){
+    		return 5;
+    	}
+    	if(name.equals("MODULE7LIGHTS")){
+    		return 6;
+    	}
+    	if(name.equals("MODULEALIGHTS")){
+    		return 7;
+    	}
+    	if(name.equals("MODULEBLIGHTS")){
+    		return 8;
+    	}
+    	if(name.equals("FRONTALLLED")){//not sure if this is front curtain
+    		return 9;
+    	}
+    	if(name.equals("BACKCURTAINLIGHTS")){
+    		return 10;
+    	}
+    	if(name.equals("PEACOCKAB")){//not sure if this is the correct peacock
+    		return 11;
+    	}
+    	if(name.equals("SPOUTVOICEALL")){
+    		return 12;
+    	}
+    	if(name.equals("ALLLEDLIGHTS")){
+    		return 13;
+    	}
+    	return 0;
     }
 }
 
