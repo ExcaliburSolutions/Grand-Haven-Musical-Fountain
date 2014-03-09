@@ -1,24 +1,15 @@
 package choreography.io;
 
-import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeMap;
-
+import java.util.SortedMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -54,7 +45,7 @@ public class CtlLib {
         fc.getExtensionFilters().add(new ExtensionFilter("CTL Files", "*.ctl"));
         File ctlFile = fc.showOpenDialog(null);
         //had to cast to hashmap to get it to work, likely will have to change in the future
-        ChoreographyController.getInstance().setEventTimeline((HashMap<Integer, ArrayList<FCW>>) parseCTL(readFile(ctlFile)));
+        ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(ctlFile)));
     }
 
     /**
@@ -85,11 +76,11 @@ public class CtlLib {
      * @param input
      * @return
      */
-    public synchronized Map<Integer, ArrayList<FCW>> parseCTL(String input){
+    public synchronized SortedMap<Integer, ArrayList<FCW>> parseCTL(String input){
         //Split file into tokens of lines
         String[] lines = input.split(System.getProperty("line.separator"));
         //Create an Event[] to hold all events
-        HashMap<Integer, ArrayList<FCW>> events = new HashMap<>();
+        SortedMap<Integer, ArrayList<FCW>> events = new ConcurrentSkipListMap<>();
         // For each line,
         for(String line : lines){
             //Get the time signature
@@ -117,9 +108,8 @@ public class CtlLib {
             events.put(totalTimeinTenthSecs, fcws);
             
         }
-        Map<Integer, ArrayList<FCW>> map = new TreeMap<Integer,ArrayList<FCW>>(events);
-        System.out.println(map.toString());
-        return map;
+        System.out.println(events.toString());
+        return events;
     }
 
     /**
@@ -127,10 +117,16 @@ public class CtlLib {
      * @param file
      * @param content
      */
-    public synchronized void saveFile(File file, HashMap<Integer, ArrayList<FCW>> content){
+    public synchronized void saveFile(File file, SortedMap<Integer, ArrayList<FCW>> content){
 
         try (FileWriter fileWriter = new FileWriter(file)){
-            
+            for(Integer i: content.keySet()) {
+                fileWriter.write(i);
+                for(FCW f: content.get(i)) {
+                    fileWriter.write(f.toString());
+                }
+                fileWriter.write("\n");
+            }
         } catch (IOException ex) {
         }
 

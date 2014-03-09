@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -278,13 +277,21 @@ public final class FCWLib {
     }
     
     public synchronized String reverseLookupAddress(FCW f) {
-        String name = null;
-        for(Entry entry: functionAddress.entrySet()) {
+        for(Entry entry: waterAddress.entrySet()) {
             if((Integer)entry.getValue() == f.getAddr()) {
-                name = (String)entry.getKey();
+                return (String)entry.getKey();
             }
         }
-        return name;
+        for(Entry entry: lightAddress.entrySet()) {
+            if((Integer)entry.getValue() == f.getAddr()) {
+                return (String)entry.getKey();
+            }
+        }
+        return null;
+    }
+    
+    public boolean reverseIsWater(FCW f) {
+        return waterAddress.containsValue(f.getAddr());
     }
     
     /**

@@ -8,7 +8,6 @@ package choreography.view;
 
 import choreography.Main;
 import choreography.io.CtlLib;
-import choreography.io.FCWLib;
 import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
 import choreography.view.lagtime.LagTimeGUIController;
@@ -18,8 +17,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.SortedMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,7 +45,7 @@ public class ChoreographyController implements Initializable {
     
     private static ChoreographyController cc;
     
-    private HashMap<Integer, ArrayList<FCW>> events;
+    private ConcurrentSkipListMap<Integer, ArrayList<FCW>> events;
     
     @FXML
     private VBox csGUI;
@@ -150,8 +150,6 @@ public class ChoreographyController implements Initializable {
                     dialogStage.showAndWait();
 
                 } catch (IOException e) {
-                    // Exception gets thrown if the fxml file could not be loaded
-                    e.printStackTrace();
                 }
             }
         });
@@ -184,7 +182,7 @@ public class ChoreographyController implements Initializable {
                 }
             });
         
-        events = new HashMap<>();
+        events = new ConcurrentSkipListMap<>();
         fcwOutput.setText("Choreographer has loaded!");
         cc = this;
     }
@@ -227,8 +225,6 @@ public class ChoreographyController implements Initializable {
             return true;
 
             } catch (IOException e) {
-              // Exception gets thrown if the fxml file could not be loaded
-              e.printStackTrace();
               return false;
             }
     }
@@ -250,19 +246,19 @@ public class ChoreographyController implements Initializable {
     }
 
     /**
-     *
-     * @param parseCTL
+     * Sets the 
+     * @param parsedCTL
      */
-    public void setEventTimeline(HashMap<Integer, ArrayList<FCW>> parseCTL) {
-        events.putAll(parseCTL);
-        TimelineController.getInstance().rePaint();
+    public void setEventTimeline(SortedMap<Integer, ArrayList<FCW>> parsedCTL) {
+        events.putAll(parsedCTL);
+        TimelineController.getInstance().setTimeline(parsedCTL);
     }
     
     /**
-     *
+     * Returns the event Timeline
      * @return
      */
-    public HashMap<Integer, ArrayList<FCW>> getEventTimeline() {
+    public SortedMap<Integer, ArrayList<FCW>> getEventTimeline() {
         return events;
     }
     

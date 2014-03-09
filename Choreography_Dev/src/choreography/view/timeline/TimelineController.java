@@ -1,18 +1,16 @@
 package choreography.view.timeline;
 
+import choreography.io.CtlLib;
 import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import customChannel.CustomChannel;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.SortedMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.NumberAxis;
@@ -33,95 +31,100 @@ import javafx.scene.shape.Rectangle;
 public class TimelineController implements Initializable {
 
 	
-	private static TimelineController instance;
+    private static TimelineController instance;
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static TimelineController getInstance() {
-		if (instance == null)
-			return instance;
-		return instance;
-	}
+    /**
+     * 
+     * @return
+     */
+    public static TimelineController getInstance() {
+        if (instance == null)
+            instance = new TimelineController();
+        return instance;
+    }
 
-	@FXML
-	private GridPane timelineLabelPane;
-	@FXML
-	private ScrollPane timelineScrollPane;
-	// NonFXML
-	private int time;
-	private NumberAxis numLine;
-	private HashMap<Integer, ArrayList<FCW>> timeline;
-	int startRow = 0;
-	final int rowNumber = 14;
+    @FXML
+    private GridPane timelineLabelPane;
+    @FXML
+    private ScrollPane timelineScrollPane;
+    // NonFXML
+    private int time;
+    private NumberAxis numLine;
+    private SortedMap<Integer, ArrayList<FCW>> timeline;
+    private SortedMap<Integer, ArrayList<FCW>> waterTimeline;
+    private SortedMap<Integer, ArrayList<FCW>> lightTimeline;
+    int startRow = 0;
+    final int rowNumber = 14;
 
-	/**
-	 * Initializes the controller class.
-	 * 
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+    /**
+     * Initializes the controller class.
+     * 
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
 
-		setTimelineGridPane();
-		setLabelGridPane();
-		// setWaterGridPane();
-		instance = this;
+        setTimelineGridPane();
+        setLabelGridPane();
+        // setWaterGridPane();
+        timeline = new ConcurrentSkipListMap<>();
+        waterTimeline = new ConcurrentSkipListMap<>();
+        lightTimeline = new ConcurrentSkipListMap<>();
+        instance = this;
 
-	}
+    }
 
-	public void setLabelGridPane() {
-		// 57 lines long
-		final String[] labelNames = new String[] {"Custom Channel", "Module 1", "Module 2",
-				"Module 3", "Module 4", "Module 5", "Module 6", "Module 7",
-				"A Modules", "B Modules", "Front Curtain", "Back Curtain",
-				"Peacock", "Voice", "ALL LEDs", "L1-A Mod 1 Front Left",
-				"L2-A Mod 1 Front Right", "L6-A Mod 2 Front Left",
-				"L7-A Mod 2 Front Right", "L11-A Mod 3 Front Left",
-				"L12-A Mod 3 Front Right", "L19-A Mod 4 Front Left",
-				"L16-A Mod 4 Front Left Center", "L18-A Mod Front Center",
-				"L17-A Mod 4 Front Right Center", "L20-A Mod 4 Front Right",
-				"L21-A Mod 5 Front Left", "L22-A Mod 5 Front Right",
-				"L26-A Mod 6 Front Left", "L27-A Mod 6 Front Right",
-				"L31-A Mod 7 Front Left", "L32-A Mod 7 Front Right",
-				"L4-A Mod 1 Back Left", "L3-A Mod 1 Back Center",
-				"L5-A Mod 1 Back Right", "L9-A Mod 2 Back Left",
-				"L8-A Mod 2 Back Center", "L10-A Mod 2 Back Right",
-				"L14-A Mod 3 Back Left", "L13-A Mod 3 Back Center",
-				"L15-A Mod 3 Back Right", "L37-Peacock 1, Left",
-				"L38-Peacock 2, Left Center", "L39-Peacock 3, Right Center",
-				"L40-Peacock 4- Right", "L24-A Mod 5 Back Left",
-				"L23-A Mod 5 Back Center", "L25-A Mod 5 Back Right",
-				"L29-A Mod 6 Back Left", "L28-A Mod 6 Back Center",
-				"L30-A Mod 6 Back Right", "L34-A Mod 7 Back Left",
-				"L33-A Mod 7 Back Center", "L35-A Mod 7 Back Right",
-				"L36-Voice 1", "Space for Voice 2", "Custom Channel" };
+    public void setLabelGridPane() {
+            // 57 lines long
+            final String[] labelNames = new String[] {"Custom Channel", "Module 1", "Module 2",
+                            "Module 3", "Module 4", "Module 5", "Module 6", "Module 7",
+                            "A Modules", "B Modules", "Front Curtain", "Back Curtain",
+                            "Peacock", "Voice", "ALL LEDs", "L1-A Mod 1 Front Left",
+                            "L2-A Mod 1 Front Right", "L6-A Mod 2 Front Left",
+                            "L7-A Mod 2 Front Right", "L11-A Mod 3 Front Left",
+                            "L12-A Mod 3 Front Right", "L19-A Mod 4 Front Left",
+                            "L16-A Mod 4 Front Left Center", "L18-A Mod Front Center",
+                            "L17-A Mod 4 Front Right Center", "L20-A Mod 4 Front Right",
+                            "L21-A Mod 5 Front Left", "L22-A Mod 5 Front Right",
+                            "L26-A Mod 6 Front Left", "L27-A Mod 6 Front Right",
+                            "L31-A Mod 7 Front Left", "L32-A Mod 7 Front Right",
+                            "L4-A Mod 1 Back Left", "L3-A Mod 1 Back Center",
+                            "L5-A Mod 1 Back Right", "L9-A Mod 2 Back Left",
+                            "L8-A Mod 2 Back Center", "L10-A Mod 2 Back Right",
+                            "L14-A Mod 3 Back Left", "L13-A Mod 3 Back Center",
+                            "L15-A Mod 3 Back Right", "L37-Peacock 1, Left",
+                            "L38-Peacock 2, Left Center", "L39-Peacock 3, Right Center",
+                            "L40-Peacock 4- Right", "L24-A Mod 5 Back Left",
+                            "L23-A Mod 5 Back Center", "L25-A Mod 5 Back Right",
+                            "L29-A Mod 6 Back Left", "L28-A Mod 6 Back Center",
+                            "L30-A Mod 6 Back Right", "L34-A Mod 7 Back Left",
+                            "L33-A Mod 7 Back Center", "L35-A Mod 7 Back Right",
+                            "L36-Voice 1", "Space for Voice 2", "Custom Channel" };
 
-		// need to be changed to 57 for full length, no scroll pane so takes up
-		// whole screen,
-		//the first custom channel is hter only for testing!!!!!!!!
-		final Label[] labelArray = new Label[57];
-		for (int i = 0; i < 13; i++) {
-                    timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
-		}
+            // need to be changed to 57 for full length, no scroll pane so takes up
+            // whole screen,
+            //the first custom channel is hter only for testing!!!!!!!!
+            final Label[] labelArray = new Label[57];
+            for (int i = 0; i < 13; i++) {
+                timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
+            }
 
-		for (int i = 0; i < 14; i++) {
-                    labelArray[i] = new Label(labelNames[i]);
-                    timelineLabelPane.add(labelArray[i], 0, i);
+            for (int i = 0; i < 14; i++) {
+                labelArray[i] = new Label(labelNames[i]);
+                timelineLabelPane.add(labelArray[i], 0, i);
 
-                    if (labelNames[i].equals("Custom Channel")) {
-                        labelArray[i].setOnMousePressed((MouseEvent me) -> {
-                            CustomChannel newChannel = new CustomChannel();
+                if (labelNames[i].equals("Custom Channel")) {
+                    labelArray[i].setOnMousePressed((MouseEvent me) -> {
+                        CustomChannel newChannel = new CustomChannel();
 //						newChannel.start(primaryStage);
-                            System.out.println("WOWOWOWOWOWOW");
-                        });
-                    }
-		}
-	}
+                        System.out.println("WOWOWOWOWOWOW");
+                    });
+                }
+            }
+    }
 
-	/**
+    /**
      * 
      */
     public void setTimelineGridPane() {
@@ -250,15 +253,40 @@ public class TimelineController implements Initializable {
             return timelineScrollPane;
     }
 
-    public HashMap<Integer, ArrayList<FCW>> getTimeline() {
+    public SortedMap<Integer, ArrayList<FCW>> getTimeline() {
             return timeline;
     }
 
     /**
      * @param timeline the timeline to set
      */
-    public void setTimeline(HashMap<Integer, ArrayList<FCW>> timeline) {
+    public void setTimeline(SortedMap<Integer, ArrayList<FCW>> timeline) {
         this.timeline = timeline;
+        for(Integer i: timeline.keySet()) {
+            for(FCW f: timeline.get(i)) {
+                if(FCWLib.getInstance().reverseIsWater(f)) {
+                    if(waterTimeline.containsKey(i))
+                        waterTimeline.get(i).add(f);
+                    else {
+                        ArrayList<FCW> newList = new ArrayList<>();
+                        newList.add(f);
+                        waterTimeline.put(i, newList);
+                    }
+                }
+                else {
+                    if(lightTimeline.containsKey(i))
+                        lightTimeline.get(i).add(f);
+                    else {
+                        ArrayList<FCW> newList = new ArrayList<>();
+                        newList.add(f);
+                        lightTimeline.put(i, newList);
+                    }
+                        
+                }
+            }
+        }
+        System.out.println("Water timeline: " + waterTimeline);
+        System.out.println("Light timeline: " + lightTimeline);
     }
     
     /**
