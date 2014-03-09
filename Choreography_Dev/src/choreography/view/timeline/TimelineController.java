@@ -6,11 +6,13 @@ import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
 import customChannel.CustomChannel;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -304,6 +307,10 @@ public class TimelineController implements Initializable {
             for(FCW f: waterTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
+                String actionList = "";
+                for(String s: actions){
+                	actionList = actionList + s + System.getProperty("line.separator");
+                }
                 int tenthOfSec = i % 10;
                 int secondsOnly = i /10;
                 //simple rounding to the half second for testing purposes, rounds everything down
@@ -321,14 +328,17 @@ public class TimelineController implements Initializable {
                 	colAtTime = colAtTime - 1;
                 }
                 waterRecArray[colAtTime].setFill(Color.BLACK);
-                //TODO mouse over rectangle information
+                Tooltip t = new Tooltip(actionList);
+                Tooltip.install(waterRecArray[colAtTime], t);
+                //TODO make mouse over info better
+                //TODO update sliders
             }
         }
         for(Integer i: lightTimeline.keySet()) {
             for(FCW f: lightTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
-                //TODO paint light timeline with info
+                //TODO paint light timeline proper color
                 int tenthOfSec = i % 10;
                 int secondsOnly = i /10;
                 //simple rounding to the half second for testing purposes, rounds everything down
