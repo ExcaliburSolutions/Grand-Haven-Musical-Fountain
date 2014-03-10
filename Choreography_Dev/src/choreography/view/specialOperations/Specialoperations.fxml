@@ -3,27 +3,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?scenebuilder-stylesheet ../application.css?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="261.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="choreography.view.specialOperations.SpecialoperationsController">
-  <children>
-    <Accordion layoutX="14.0" layoutY="14.0" prefHeight="379.0" prefWidth="233.0">
-      <panes>
-        <TitledPane fx:id="sweepControlsPane" animated="true" text="Sweep Controls">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              <children>
-                <Slider layoutX="14.0" layoutY="22.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="16.0" prefWidth="200.0" showTickMarks="true" snapToTicks="true" />
-                <Slider layoutX="14.0" layoutY="58.0" prefHeight="16.0" prefWidth="200.0" /><Label layoutX="14.353271484375" layoutY="38.0" />
-              </children>
-            </AnchorPane>
-          </content>
-        </TitledPane>
-        <TitledPane animated="true" text="untitled">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </TitledPane>
-      </panes>
-    </Accordion>
-  </children>
-</AnchorPane>
+<Accordion prefHeight="200.0" prefWidth="233.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.specialOperations.SpecialoperationsController">
+  <panes>
+    <TitledPane fx:id="sweepControlsPane" animated="true" text="Sweep Controls">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <children>
+            <Label layoutX="14.353271484375" layoutY="38.0" />
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
+    <TitledPane animated="true" prefHeight="259.0" prefWidth="233.0" text="untitled">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </TitledPane>
+  </panes>
+</Accordion>

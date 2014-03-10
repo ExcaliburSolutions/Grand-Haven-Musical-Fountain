@@ -174,7 +174,7 @@ public class LagTimeGUIController implements Initializable {
     }
 
     public void setDelays(ArrayList<LagTime> lagTimes) {
-        //TODO convert LagTime into table rows and columns...
+        //convert LagTime into table rows and columns...
     }
     
 }

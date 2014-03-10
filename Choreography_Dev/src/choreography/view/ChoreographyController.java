@@ -10,6 +10,7 @@ import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
+import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.timeline.TimelineController;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,6 +37,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialog.Actions;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  * FXML Controller class
@@ -70,7 +76,7 @@ public class ChoreographyController implements Initializable {
     @FXML
     private MenuItem revertMenuItem;
     @FXML
-    private MenuItem preferencesMenuItem;
+    private MenuItem advancedCheckMenuItem;
     @FXML
     private MenuItem quitMenuItem;
     @FXML
@@ -113,6 +119,7 @@ public class ChoreographyController implements Initializable {
             public void handle(ActionEvent arg0) {
                 MusicPaneController.getInstance().selectMusic();
                 cc.setfcwOutput("Music has loaded!");
+                openCTLMenuItem.disableProperty().set(true);
             }
     		
     	});
@@ -126,30 +133,36 @@ public class ChoreographyController implements Initializable {
                 }
             
         });
+        
+        advancedCheckMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    ColorPaletteController.getInstance().setAdvancedFunction(true);
+                }
+            });
     	
     	quitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-            	try {
-                    // Load the fxml file and create a new stage for the popup
-                    FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/Dialog.fxml"));
-                    Pane page = (Pane) loader.load();
-                    Stage dialogStage = new Stage();
-                    dialogStage.setTitle("Quit?");
-                    dialogStage.initModality(Modality.WINDOW_MODAL);
-                    dialogStage.initOwner(Main.getPrimaryStage());
-                    Scene scene = new Scene(page);
-                    dialogStage.setScene(scene);
-
-                    // Set the lagtimes into the controller
-                    DialogController controller = loader.getController();
-                    controller.setDialogStage(dialogStage);
-                    controller.setMessage("Are you sure you want to Quit?");
-
-                    // Show the dialog and wait until the user closes it
-                    dialogStage.showAndWait();
-
-                } catch (IOException e) {
+                Action result = Dialogs.create()
+                        .title("Quit?")
+                        .masthead("")
+                        .message( "Are you sure you want to quit?")
+                        .showConfirm();
+                if(result != Actions.YES) {
+                    System.out.println(result);
+                } else {
+                    if(isSaved) {
+                        Platform.exit();
+                    }
+                    Action saveResult = Dialogs.create().title("Save?")
+                            .masthead("You haven't saved before exiting.")
+                            .message("Would you like to save before quiting?")
+                            .showConfirm();
+                    if(result != Actions.YES) {
+                        saveAsMenuItem.getOnAction().handle(t);
+                    }
                 }
             }
         });
@@ -161,7 +174,7 @@ public class ChoreographyController implements Initializable {
                     if(isSaved) {
                         buildFcwOutputAndSave();
                     } else {
-                        saveLocation  = selectSaveLocation();
+                        saveAsMenuItem.getOnAction().handle(t);
                     }
                 }
             });
@@ -171,6 +184,7 @@ public class ChoreographyController implements Initializable {
                 public void handle(ActionEvent t) {
                     saveLocation  = selectSaveLocation();
                     buildFcwOutputAndSave();
+                    
                 }
             });
         
@@ -178,7 +192,7 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void handle(ActionEvent t) {
-                    openLagTimeDialog();
+//                    openLagTimeDialog();
                 }
             });
         
@@ -188,7 +202,8 @@ public class ChoreographyController implements Initializable {
     }
 
     private void buildFcwOutputAndSave() {
-        CtlLib.getInstance().saveFile(saveLocation, events);
+        isSaved = CtlLib.getInstance().saveFile(saveLocation,
+                TimelineController.getInstance().getTimeline());
     }
 
     private File selectSaveLocation() {

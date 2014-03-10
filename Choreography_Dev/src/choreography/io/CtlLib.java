@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -44,7 +45,6 @@ public class CtlLib {
         fc.setInitialFileName(System.getProperty("user.home"));
         fc.getExtensionFilters().add(new ExtensionFilter("CTL Files", "*.ctl"));
         File ctlFile = fc.showOpenDialog(null);
-        //had to cast to hashmap to get it to work, likely will have to change in the future
         ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(ctlFile)));
     }
 
@@ -58,7 +58,7 @@ public class CtlLib {
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
 
-            String text;
+            String text = null;
             while ((text = bufferedReader.readLine()) != null) {
                 stringBuffer.append(text);
                 stringBuffer.append(System.getProperty("line.separator"));
@@ -116,19 +116,29 @@ public class CtlLib {
      *
      * @param file
      * @param content
+     * @return 
      */
-    public synchronized void saveFile(File file, SortedMap<Integer, ArrayList<FCW>> content){
-
-        try (FileWriter fileWriter = new FileWriter(file)){
-            for(Integer i: content.keySet()) {
-                fileWriter.write(i);
-                for(FCW f: content.get(i)) {
-                    fileWriter.write(f.toString());
-                }
-                fileWriter.write("\n");
-            }
-        } catch (IOException ex) {
+    public synchronized boolean saveFile(File file, SortedMap<Integer, ArrayList<FCW>> content){
+//
+//        try (FileWriter fileWriter = new FileWriter(file)){
+//            for(Integer i: content.keySet()){
+//                StringBuilder commandsOutput = new StringBuilder();
+//                int minutes = (int) (i / 60);
+//                for(FCW f: content.get(i)) {
+//                    commandsOutput.append(" ").append(f);
+//                String eventString = new DecimalFormat("00").format(minutes) + ":" 
+//                        + new DecimalFormat("00.0").format(i/10) + commandsOutput;
+//                    fileWriter.write(i.toString());
+//                    for(FCW f: content.get(i)) {
+//                        fileWriter.write(f.toString() + " ");
+//                    }
+//                    fileWriter.write("\n");
+//                }
+//            }
+//            return true;
+//        } catch (IOException ex) {
+            return false;
         }
-
-    }
+        
+    
 }

@@ -52,7 +52,7 @@ public class MusicPaneController {
     private Duration duration;
     Music music2;
     private boolean notFirst = false;
-    final DecimalFormat f = new DecimalFormat("#.0");
+    final DecimalFormat f = new DecimalFormat("0.0");
 
     /**
      *
@@ -98,10 +98,12 @@ public class MusicPaneController {
     private LineChart labelChart;
     
     @FXML
-    private NumberAxis labelAxis;
+    private NumberAxis labelAxis, numberLine;
     
     @FXML
     private Button playButton;
+    
+    
 
     /**
      *
@@ -150,14 +152,10 @@ public class MusicPaneController {
     }
     
     private void getAllMusic(File fileChosen) {
-
-        if (fileChosen.getName().toLowerCase().endsWith(".mp3") || fileChosen.getName().toLowerCase().endsWith(".wav")) {
-            
-            music2.setName(fileChosen.getName());
-            music2.setDirectoryFile(fileChosen.getAbsolutePath());
-            songName.setText(music2.getName());
-        }
-}
+        music2.setName(fileChosen.getName());
+        music2.setDirectoryFile(fileChosen.getAbsolutePath());
+        songName.setText(music2.getName());
+    }
     
     /**
      *
@@ -212,34 +210,32 @@ public class MusicPaneController {
 //        });
 
     	URL url = null;
-		try {
-			url = file2.toURI().toURL();
-			
-		} catch (MalformedURLException ec) {
-			ec.printStackTrace();
-		}
+        try {
+                url = file2.toURI().toURL();
+
+        } catch (MalformedURLException ec) {
+                ec.printStackTrace();
+        }
 		
         try {
-			AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
+            AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
 
-			time = awc.getTime();
-			DecimalFormat f = new DecimalFormat("#.0");
-			roundedTime = Double.parseDouble(f.format(time));
-        	time = 2*Double.parseDouble(f.format(time));
-        	SONG_TIME = (int) time;
-        	TimelineController.getInstance().setTimelineGridPane();
-        	TimelineController.getInstance().setWaterGridPane();
-        	labelAxis.setMinWidth(time*26.5);
-        	labelAxis.setUpperBound(roundedTime);
-        	labelAxis.setVisible(true);
-        	labelChart.setVisible(true);
-//        	TimelineController.getInstance().setLabelGridPane();
-			songProgress.setText("0/"+roundedTime);
-		} catch (Exception ex) {
-			
-			ex.printStackTrace();
-		}
-        System.out.println(roundedTime);
+            time = awc.getTime();
+            DecimalFormat f = new DecimalFormat("#.0");
+            roundedTime = Double.parseDouble(f.format(time));
+            time = 2*Double.parseDouble(f.format(time));
+            SONG_TIME = (int) time;
+            TimelineController.getInstance().setTimelineGridPane();
+            TimelineController.getInstance().setWaterGridPane();
+            numberLine.setMinWidth(time*26);
+            numberLine.setPrefWidth(time*26);
+            numberLine.setUpperBound(roundedTime);
+            numberLine.setVisible(true);
+            songProgress.setText("0/"+roundedTime);
+        } catch (Exception ex) {
+
+                ex.printStackTrace();
+        }
         notFirst = true;
     }
 
@@ -247,21 +243,21 @@ public class MusicPaneController {
      *
      */
     public void updateProgress() {
-        
-                final DecimalFormat f = new DecimalFormat("0.0");
-                try {
-                    //songProgress.setText(time + "s");
+        final DecimalFormat f = new DecimalFormat("0.0");
+        try {
+            //songProgress.setText(time + "s");
 //                    songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
-                    songProgress.setText( f.format(mediaPlayer.getCurrentTime().toSeconds()) + "/"+ f.format(mediaPlayer.getTotalDuration().toSeconds()));
-                        duration = mediaPlayer.getMedia().getDuration();
-                    TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-                    timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-                    timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-                    waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-                    timeLabel.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-                } catch (Exception e) {
-                    System.out.println("Error updating song progress " + e);
-                }
+            songProgress.setText( f.format(mediaPlayer.getCurrentTime().toSeconds()) + "/"+ f.format(mediaPlayer.getTotalDuration().toSeconds()));
+                duration = mediaPlayer.getMedia().getDuration();
+            TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+            timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+            timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+            waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+            timeLabel.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+            
+        } catch (Exception e) {
+            System.out.println("Error updating song progress " + e);
+        }
 
     }
     
