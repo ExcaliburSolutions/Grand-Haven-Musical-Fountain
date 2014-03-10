@@ -44,6 +44,8 @@ import javafx.util.Duration;
  * @author elementsking
  */
 public class MusicPaneController {
+    
+    private int timeFactor;
 	
     private static MusicPaneController instance;
 
@@ -68,7 +70,7 @@ public class MusicPaneController {
     /**
      *
      */
-        public static int SONG_TIME = 0;
+    public static int SONG_TIME = 0;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -113,6 +115,10 @@ public class MusicPaneController {
     	if(instance == null)
     		instance = new MusicPaneController();
     	return instance;
+    }
+
+    public MusicPaneController() {
+        this.timeFactor = 10;
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
@@ -221,9 +227,9 @@ public class MusicPaneController {
             AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
 
             time = awc.getTime();
-            DecimalFormat f = new DecimalFormat("#.0");
+            DecimalFormat f = new DecimalFormat("0.0");
             roundedTime = Double.parseDouble(f.format(time));
-            time = 2*Double.parseDouble(f.format(time));
+            time = getTimeFactor() * Double.parseDouble(f.format(time));
             SONG_TIME = (int) time;
             TimelineController.getInstance().setTimelineGridPane();
             TimelineController.getInstance().setWaterGridPane();
@@ -297,6 +303,20 @@ public class MusicPaneController {
                 }
             }
         });
+    }
+
+    /**
+     * @return the timeFactor
+     */
+    public int getTimeFactor() {
+        return timeFactor;
+    }
+
+    /**
+     * @param timeFactor the timeFactor to set
+     */
+    public void setTimeFactor(int timeFactor) {
+        this.timeFactor = timeFactor;
     }
 
 }

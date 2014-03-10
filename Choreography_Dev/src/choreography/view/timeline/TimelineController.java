@@ -4,6 +4,7 @@ package choreography.view.timeline;
 import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteController;
+import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.music.MusicPaneController;
 import customChannel.CustomChannel;
 
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -26,6 +26,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -36,6 +37,7 @@ import javafx.scene.shape.Rectangle;
 public class TimelineController implements Initializable {
 	
     private static TimelineController instance;
+    private ColorPaletteEnum[] colorEnumArray = ColorPaletteEnum.values();
 
     /**
      * 
@@ -125,7 +127,7 @@ public class TimelineController implements Initializable {
             "Front Curtain", "Back Curtain", "Peacock", "Voice", "ALL LEDs"};
     	
     	timelineLabelPane.setGridLinesVisible(true);
-    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
+//    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
     	
     	final Label[] labelArray = new Label[14];
     	for(int i=0; i<14;i++){
@@ -304,17 +306,17 @@ public class TimelineController implements Initializable {
                 }
                 int tenthOfSec = i % 10;
                 int secondsOnly = i /10;
-                //simple rounding to the half second for testing purposes, rounds everything down
-                //needs work, not 100% accurate
-                if(tenthOfSec < 5){
-                	tenthOfSec = 0;
-                }
-                else{
-                	tenthOfSec = 5;
-                }
-                
+//                //simple rounding to the half second for testing purposes, rounds everything down
+//                //needs work, not 100% accurate
+//                if(tenthOfSec < 5){
+//                	tenthOfSec = 0;
+//                }
+//                else{
+//                	tenthOfSec = 5;
+//                }
+//                
                 double newTime = secondsOnly + (tenthOfSec / 10);
-                int colAtTime = (int) (newTime *2);
+                int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
                 	colAtTime = colAtTime - 1;
                 }
@@ -330,24 +332,28 @@ public class TimelineController implements Initializable {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
                 //TODO paint light timeline proper color
+                
+                String color = actions[0];
+                Paint paint = Color.web(ColorPaletteEnum.valueOf(color).getColor());
+                
                 int tenthOfSec = i % 10;
                 int secondsOnly = i /10;
                 //simple rounding to the half second for testing purposes, rounds everything down
                 //needs work, not 100% accurate
-                if(tenthOfSec < 5){
-                	tenthOfSec = 0;
-                }
-                else{
-                	tenthOfSec = 5;
-                }
+//                if(tenthOfSec < 5){
+//                	tenthOfSec = 0;
+//                }
+//                else{
+//                	tenthOfSec = 5;
+//                }
                 
                 double newTime = secondsOnly + (tenthOfSec / 10);
-                int colAtTime = (int) (newTime *2);
+                int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
                 	colAtTime = colAtTime - 1;
                 }
                 int rowAtTime = lightRowLookup(name);
-                lightRecArray[colAtTime][rowAtTime].setFill(Color.BLACK);
+                lightRecArray[colAtTime][rowAtTime].setFill(paint);
             }
         }
     }

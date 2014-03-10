@@ -124,7 +124,7 @@
             <URL value="@application.css" />
           </stylesheets>
         </fx:include>
-        <GridPane id="GridPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" VBox.vgrow="NEVER">
+        <GridPane id="GridPane" fx:id="progressIndicator" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" VBox.vgrow="NEVER">
           <children>
             <Label fx:id="fcwOutput" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="18.0" text="FCW Output" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <GridPane.margin>

@@ -31,6 +31,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -103,6 +105,9 @@ public class ChoreographyController implements Initializable {
     private MenuItem aboutMenuItem;
     @FXML
     private MenuItem setLagTimesMenuItem;
+//    @FXML
+//    private ProgressIndicator progressIndicator;
+    
     private File saveLocation;
     private boolean isSaved;
     /**
@@ -112,13 +117,15 @@ public class ChoreographyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+//        progressIndicator = new ProgressIndicator();
     	
     	openMusicMenuItem.setOnAction(new EventHandler<ActionEvent> (){
 
             @Override
             public void handle(ActionEvent arg0) {
+//                progressIndicator.setProgress(-1);
                 MusicPaneController.getInstance().selectMusic();
-                cc.setfcwOutput("Music has loaded!");
+//                progressIndicator.setProgress(1);
                 openCTLMenuItem.setDisable(false);
             }
     		
@@ -160,7 +167,7 @@ public class ChoreographyController implements Initializable {
                             .masthead("You haven't saved before exiting.")
                             .message("Would you like to save before quiting?")
                             .showConfirm();
-                    if(result != Actions.YES) {
+                    if(saveResult != Actions.YES) {
                         saveAsMenuItem.getOnAction().handle(t);
                     }
                 }

@@ -57,7 +57,7 @@ public class CtlLib {
         StringBuilder stringBuffer = new StringBuilder();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
-
+            bufferedReader.readLine();
             String text = null;
             while ((text = bufferedReader.readLine()) != null) {
                 stringBuffer.append(text);

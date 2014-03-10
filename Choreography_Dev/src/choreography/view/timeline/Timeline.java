@@ -13,7 +13,7 @@ import choreography.model.Event;
  *
  * @author elementsking
  */
-public class TimelineEvents extends ArrayList<Event>{
+public class Timeline extends ArrayList<Event>{
     
     /**
 	 * 

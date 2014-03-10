@@ -93,7 +93,7 @@ public class ColorPaletteController implements Initializable{
 	public Paint getSelectedColor() {
 		return selectedColor;
 	}
-
+        
 	/**
 	 * @param c The passes color that has been selected
 	 * Sets the global variable selectedColor to the color that has been chosen
@@ -192,22 +192,22 @@ public class ColorPaletteController implements Initializable{
              * @param args the command line arguments
              */
 
-            Color c0 = Color.web("FF0000"); // red
-            Color c1 = Color.web("FF1900"); // orange
-            Color c2 = Color.web("FFC800"); // yellow
-            Color c3 = Color.web("00F000"); // green
-            Color c4 = Color.web("0000FF"); // blue
-            Color c5 = Color.web("3B11FF"); // violet
-            Color c6 = Color.web("FF0037"); // lightRed
-            Color c7 = Color.web("FF3205"); // lightOrange
-            Color c8 = Color.web("FFFF08"); // lightYellow
-            Color c9 = Color.web("3BFF00"); // lightGreen
-            Color c10 = Color.web("00FFFF"); // lightBlue
-            Color c11 = Color.web("9646FF"); // lightViolet
-            Color c12 = Color.web("D100C5"); // magenta
-            Color c13 = Color.web("0096EF"); // cyan
-            Color c14 = Color.web("000000"); // black/Off
-            Color c15 = Color.web("FFFFFF"); // white/On
+            Color c0 = Color.web(ColorPaletteEnum.RED.getColor()); // red
+            Color c1 = Color.web(ColorPaletteEnum.ORANGE.getColor()); // orange
+            Color c2 = Color.web(ColorPaletteEnum.YELLOW.getColor()); // yellow
+            Color c3 = Color.web(ColorPaletteEnum.GREEN.getColor()); // green
+            Color c4 = Color.web(ColorPaletteEnum.BLUE.getColor()); // blue
+            Color c5 = Color.web(ColorPaletteEnum.VIOLET.getColor()); // violet
+            Color c6 = Color.web(ColorPaletteEnum.LIGHTRED.getColor()); // lightRed
+            Color c7 = Color.web(ColorPaletteEnum.LIGHTORANGE.getColor()); // lightOrange
+            Color c8 = Color.web(ColorPaletteEnum.LIGHTYELLOW.getColor()); // lightYellow
+            Color c9 = Color.web(ColorPaletteEnum.LIGHTGREEN.getColor()); // lightGreen
+            Color c10 = Color.web(ColorPaletteEnum.LIGHTBLUE.getColor()); // lightBlue
+            Color c11 = Color.web(ColorPaletteEnum.LIGHTVIOLET.getColor()); // lightViolet
+            Color c12 = Color.web(ColorPaletteEnum.MAGENTA.getColor()); // magenta
+            Color c13 = Color.web(ColorPaletteEnum.CYAN.getColor()); // cyan
+            Color c14 = Color.web(ColorPaletteEnum.OFF.getColor()); // black/Off
+            Color c15 = Color.web(ColorPaletteEnum.WHITE.getColor()); // white/On
 
             // sets the selected color to the a default to avoid errors. 
             selectedColor = c0;

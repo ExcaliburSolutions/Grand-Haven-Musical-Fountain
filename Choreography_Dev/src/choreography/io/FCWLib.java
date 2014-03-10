@@ -309,7 +309,7 @@ public final class FCWLib {
         ArrayList<Integer> flags = new ArrayList<>();
         ArrayList<String> actions = new ArrayList<>();
         int data = f.getData();
-        Integer[] values = new Integer[]{256, 128, 64, 32, 16, 8};
+        Integer[] values = new Integer[]{256, 128, 64, 32, 16, 8, 4, 2, 1};
         setFlags(values, data, flags);
         
         for(Entry<String, Integer> entry: tableCommands.get(table).entrySet()) {
