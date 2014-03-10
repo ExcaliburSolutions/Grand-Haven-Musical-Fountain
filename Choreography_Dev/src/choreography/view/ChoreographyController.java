@@ -13,6 +13,7 @@ import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
+import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import java.io.File;
 import java.io.IOException;
@@ -210,7 +211,7 @@ public class ChoreographyController implements Initializable {
 
     private void buildFcwOutputAndSave() {
         isSaved = CtlLib.getInstance().saveFile(saveLocation,
-                TimelineController.getInstance().getTimeline());
+                Timeline.getInstance().getTimeline());
     }
 
     private File selectSaveLocation() {
@@ -273,7 +274,7 @@ public class ChoreographyController implements Initializable {
      */
     public void setEventTimeline(SortedMap<Integer, ArrayList<FCW>> parsedCTL) {
         events.putAll(parsedCTL);
-        TimelineController.getInstance().setTimeline(parsedCTL);
+        Timeline.getInstance().setTimeline(parsedCTL);
     }
     
     /**

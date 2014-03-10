@@ -56,9 +56,7 @@ public class TimelineController implements Initializable {
     // NonFXML
     private int time;
     private NumberAxis numLine;
-    private SortedMap<Integer, ArrayList<FCW>> timeline;
-    private SortedMap<Integer, ArrayList<FCW>> waterTimeline;
-    private SortedMap<Integer, ArrayList<FCW>> lightTimeline;
+
     int startRow = 0;
     final int rowNumber = 14;
     GridPane gridpaneLight;
@@ -76,9 +74,6 @@ public class TimelineController implements Initializable {
         setTimelineGridPane();
         setLabelGridPane();
         // setWaterGridPane();
-        timeline = new ConcurrentSkipListMap<>();
-        waterTimeline = new ConcurrentSkipListMap<>();
-        lightTimeline = new ConcurrentSkipListMap<>();
         instance = this;
 
     }
@@ -254,48 +249,13 @@ public class TimelineController implements Initializable {
     public ScrollPane getScrollPane() {
             return timelineScrollPane;
     }
-
-    public SortedMap<Integer, ArrayList<FCW>> getTimeline() {
-            return timeline;
-    }
-
-    /**
-     * @param timeline the timeline to set
-     */
-    public void setTimeline(SortedMap<Integer, ArrayList<FCW>> timeline) {
-        this.timeline = timeline;
-        for(Integer i: timeline.keySet()) {
-            for(FCW f: timeline.get(i)) {
-                if(f.getIsWater()) {
-                    if(waterTimeline.containsKey(i))
-                        waterTimeline.get(i).add(f);
-                    else {
-                        ArrayList<FCW> newList = new ArrayList<>();
-                        newList.add(f);
-                        waterTimeline.put(i, newList);
-                    }
-                }
-                else {
-                    if(lightTimeline.containsKey(i))
-                        lightTimeline.get(i).add(f);
-                    else {
-                        ArrayList<FCW> newList = new ArrayList<>();
-                        newList.add(f);
-                        lightTimeline.put(i, newList);
-                    }
-                        
-                }
-            }
-        }
-        System.out.println("Water timeline: " + waterTimeline);
-        System.out.println("Light timeline: " + lightTimeline);
-        rePaint();
-    }
     
     /**
      *
      */
     public void rePaint() {
+        SortedMap<Integer, ArrayList<FCW>> waterTimeline = Timeline.getInstance().getWaterTimeline();
+        SortedMap<Integer, ArrayList<FCW>> lightTimeline = Timeline.getInstance().getLightTimeline();
         for(Integer i: waterTimeline.keySet()){
             for(FCW f: waterTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
@@ -305,16 +265,7 @@ public class TimelineController implements Initializable {
                 	actionList = actionList + s + System.getProperty("line.separator");
                 }
                 int tenthOfSec = i % 10;
-                int secondsOnly = i /10;
-//                //simple rounding to the half second for testing purposes, rounds everything down
-//                //needs work, not 100% accurate
-//                if(tenthOfSec < 5){
-//                	tenthOfSec = 0;
-//                }
-//                else{
-//                	tenthOfSec = 5;
-//                }
-//                
+                int secondsOnly = i /10;              
                 double newTime = secondsOnly + (tenthOfSec / 10);
                 int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
@@ -338,15 +289,6 @@ public class TimelineController implements Initializable {
                 
                 int tenthOfSec = i % 10;
                 int secondsOnly = i /10;
-                //simple rounding to the half second for testing purposes, rounds everything down
-                //needs work, not 100% accurate
-//                if(tenthOfSec < 5){
-//                	tenthOfSec = 0;
-//                }
-//                else{
-//                	tenthOfSec = 5;
-//                }
-                
                 double newTime = secondsOnly + (tenthOfSec / 10);
                 int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
