@@ -119,7 +119,7 @@ public class ChoreographyController implements Initializable {
             public void handle(ActionEvent arg0) {
                 MusicPaneController.getInstance().selectMusic();
                 cc.setfcwOutput("Music has loaded!");
-                openCTLMenuItem.disableProperty().set(true);
+                openCTLMenuItem.setDisable(false);
             }
     		
     	});

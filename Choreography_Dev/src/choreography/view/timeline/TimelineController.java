@@ -6,11 +6,13 @@ import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
 import customChannel.CustomChannel;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -56,7 +59,10 @@ public class TimelineController implements Initializable {
     private SortedMap<Integer, ArrayList<FCW>> lightTimeline;
     int startRow = 0;
     final int rowNumber = 14;
-    
+    GridPane gridpaneLight;
+    GridPane gridpaneWater;
+    Rectangle[] waterRecArray;
+    Rectangle[][] lightRecArray;
     /**
      * Initializes the controller class.
      * @param url
@@ -111,18 +117,6 @@ public class TimelineController implements Initializable {
 //        }
 //
 //        for (int i = 0; i < 14; i++) {
-//            labelArray[i] = new Label(labelNames[i]);
-//            timelineLabelPane.add(labelArray[i], 0, i);
-//
-//            if (labelNames[i].equals("Custom Channel")) {
-//                labelArray[i].setOnMousePressed((MouseEvent me) -> {
-//                    CustomChannel newChannel = new CustomChannel();
-////						newChannel.start(primaryStage);
-//                    System.out.println("WOWOWOWOWOWOW");
-//                });
-//            }
-//        }
-//    }
     
     public void setLabelGridPane(){
     	timelineLabelPane = new GridPane();
@@ -165,18 +159,18 @@ public class TimelineController implements Initializable {
      * 
      */
     public void setTimelineGridPane() {
-        GridPane gridpaneRec = new GridPane();
+        gridpaneLight = new GridPane();
 
         time = MusicPaneController.SONG_TIME;
 
 //        gridpaneRec.setGridLinesVisible(true);
 
-        final Rectangle[][] recArray = new Rectangle[time][rowNumber];
+        lightRecArray = new Rectangle[time][rowNumber];
         for (int i = 0; i < time; i++) {
-            gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
+            gridpaneLight.getColumnConstraints().add(new ColumnConstraints(26));
             if (i < rowNumber) { // because the array is not square this needs to be
                                             // here
-                    gridpaneRec.getRowConstraints().add(new RowConstraints(26));
+                    gridpaneLight.getRowConstraints().add(new RowConstraints(26));
             }
 
             for (int j = 0; j < rowNumber; j++) {
@@ -184,29 +178,29 @@ public class TimelineController implements Initializable {
                 // recArray[i][j] = new Rectangle(50,25, Color.RED);
                 // continue;
                 // }
-                recArray[i][j] = new Rectangle(26, 26, Color.LIGHTGREY);
-                gridpaneRec.add(recArray[i][j], i, j);
+                lightRecArray[i][j] = new Rectangle(26, 26, Color.LIGHTGREY);
+                gridpaneLight.add(lightRecArray[i][j], i, j);
                 // these are needed to talk to the mouse pressed events
                 final int testI = i;
                 final int testJ = j;
 
-                recArray[i][j].setOnMousePressed((MouseEvent me) -> {
+                lightRecArray[i][j].setOnMousePressed((MouseEvent me) -> {
 //                    System.out.println("Col " + (testI) + " Row "
 //                            + (testJ + 1));
                     startRow = testJ;
-                    recArray[testI][testJ]
+                    lightRecArray[testI][testJ]
                             .setFill(ColorPaletteController
                                     .getInstance()
                                     .getSelectedColor());
                 });
 
-                recArray[i][j].setOnDragDetected((MouseEvent me) -> {
-                    recArray[testI][testJ].startFullDrag();
+                lightRecArray[i][j].setOnDragDetected((MouseEvent me) -> {
+                    lightRecArray[testI][testJ].startFullDrag();
                 });
                 // continues and ends the drag event
-                recArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
+                lightRecArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
                     if (startRow == testJ) {
-                        recArray[testI][testJ]
+                        lightRecArray[testI][testJ]
                                 .setFill(ColorPaletteController
                                         .getInstance()
                                         .getSelectedColor());
@@ -215,11 +209,11 @@ public class TimelineController implements Initializable {
             }
         }
 
-        timelineScrollPane.setContent(gridpaneRec);
+        timelineScrollPane.setContent(gridpaneLight);
     }
 
     public void setWaterGridPane() {
-        GridPane gridpaneRec = new GridPane();
+        gridpaneWater = new GridPane();
         // NumberAxis valueAxis = new NumberAxis();
 
         time = MusicPaneController.SONG_TIME;
@@ -227,19 +221,27 @@ public class TimelineController implements Initializable {
 
 //        gridpaneRec.setGridLinesVisible(true);
 
-        final Rectangle[][] recArray = new Rectangle[time][1];
+        waterRecArray = new Rectangle[time];
         for (int i = 0; i < time; i++) {
-                gridpaneRec.getColumnConstraints().add(new ColumnConstraints(26));
+        	 final int testI = i;
+                gridpaneWater.getColumnConstraints().add(new ColumnConstraints(26));
                 if (i < 1) { // because the array is not square this needs to be
-                                                // here
-                        gridpaneRec.getRowConstraints().add(new RowConstraints(26));
+                                              // here
+                        gridpaneWater.getRowConstraints().add(new RowConstraints(26));
                 }
+                
+                waterRecArray[i] = new Rectangle(25, 25, Color.LIGHTGREY);
+                gridpaneWater.add(waterRecArray[i], i, 0);
+                
+                waterRecArray[i].setOnMousePressed((MouseEvent me) -> {
+                    System.out.println("Col " + (testI));
+                });
         }
         // ValueAxis axis = new ValueAxis();
 
         // scrollpane.setPrefSize(600, 250);
         MusicPaneController.getInstance().getWaterPane()
-                        .setContent(gridpaneRec);
+                        .setContent(gridpaneWater);
 //        MusicPaneController.getInstance().getLabelPane().setContent(numLine);
     }
 
@@ -285,6 +287,7 @@ public class TimelineController implements Initializable {
         }
         System.out.println("Water timeline: " + waterTimeline);
         System.out.println("Light timeline: " + lightTimeline);
+        rePaint();
     }
     
     /**
@@ -295,16 +298,104 @@ public class TimelineController implements Initializable {
             for(FCW f: waterTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
-                //TODO paint water timeline with info
+                String actionList = "";
+                for(String s: actions){
+                	actionList = actionList + s + System.getProperty("line.separator");
+                }
+                int tenthOfSec = i % 10;
+                int secondsOnly = i /10;
+                //simple rounding to the half second for testing purposes, rounds everything down
+                //needs work, not 100% accurate
+                if(tenthOfSec < 5){
+                	tenthOfSec = 0;
+                }
+                else{
+                	tenthOfSec = 5;
+                }
+                
+                double newTime = secondsOnly + (tenthOfSec / 10);
+                int colAtTime = (int) (newTime *2);
+                if(colAtTime != 0){
+                	colAtTime = colAtTime - 1;
+                }
+                waterRecArray[colAtTime].setFill(Color.BLACK);
+                Tooltip t = new Tooltip(actionList);
+                Tooltip.install(waterRecArray[colAtTime], t);
+                //TODO make mouse over info better
+                //TODO update sliders
             }
         }
         for(Integer i: lightTimeline.keySet()) {
             for(FCW f: lightTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
-                //TODO paint light timeline with info
+                //TODO paint light timeline proper color
+                int tenthOfSec = i % 10;
+                int secondsOnly = i /10;
+                //simple rounding to the half second for testing purposes, rounds everything down
+                //needs work, not 100% accurate
+                if(tenthOfSec < 5){
+                	tenthOfSec = 0;
+                }
+                else{
+                	tenthOfSec = 5;
+                }
+                
+                double newTime = secondsOnly + (tenthOfSec / 10);
+                int colAtTime = (int) (newTime *2);
+                if(colAtTime != 0){
+                	colAtTime = colAtTime - 1;
+                }
+                int rowAtTime = lightRowLookup(name);
+                lightRecArray[colAtTime][rowAtTime].setFill(Color.BLACK);
             }
         }
+    }
+    
+    private int lightRowLookup(String name){
+    	if(name.equals("MODULE1LIGHTS")){
+    		return 0;
+    	}
+    	if(name.equals("MODULE2LIGHTS")){
+    		return 1;
+    	}
+    	if(name.equals("MODULE3LIGHTS")){
+    		return 2;
+    	}
+    	if(name.equals("MODULE4LIGHTS")){
+    		return 3;
+    	}
+    	if(name.equals("MODULE5LIGHTS")){
+    		return 4;
+    	}
+    	if(name.equals("MODULE6LIGHTS")){
+    		return 5;
+    	}
+    	if(name.equals("MODULE7LIGHTS")){
+    		return 6;
+    	}
+    	if(name.equals("MODULEALIGHTS")){
+    		return 7;
+    	}
+    	if(name.equals("MODULEBLIGHTS")){
+    		return 8;
+    	}
+    	if(name.equals("FRONTALLLED")){//not sure if this is front curtain
+    		return 9;
+    	}
+    	if(name.equals("BACKCURTAINLIGHTS")){
+    		return 10;
+    	}
+    	if(name.equals("PEACOCKAB")){//not sure if this is the correct peacock
+    		return 11;
+    	}
+    	if(name.equals("SPOUTVOICEALL")){
+    		return 12;
+    	}
+    	if(name.equals("ALLLEDLIGHTS")){
+    		return 13;
+    	}
+    	return 0;
     }
 }
 
