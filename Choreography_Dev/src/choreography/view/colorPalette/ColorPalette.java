@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 
 /**
- * @author vankuikn
+ * @author Nick Van Kuiken
  * Unused
  */
 public class ColorPalette extends Application {

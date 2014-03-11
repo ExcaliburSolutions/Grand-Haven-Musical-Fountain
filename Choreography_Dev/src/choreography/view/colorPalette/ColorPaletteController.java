@@ -16,7 +16,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
- * @author vankuikn
+ * @author Nick Van Kuiken
+ * @author Frank Madrid
  * Controls the colorPalette
  */
 public class ColorPaletteController implements Initializable{
@@ -35,11 +36,7 @@ public class ColorPaletteController implements Initializable{
 	}
 
 	// HBox used to hold the colorPalette
-
-    /**
-     *
-     */
-    	@FXML public HBox colorPalette;
+    @FXML public HBox colorPalette;
 	// Color picker used for the custom colors. 
 	@FXML ColorPicker colorPicker;
 	// HBox used to hold the colorPalette
