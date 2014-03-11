@@ -6,26 +6,34 @@
 
 package choreography.view.timeline;
 
-import java.util.ArrayList;
 import choreography.model.Event;
 import choreography.model.fcw.FCW;
+import choreography.view.colorPalette.ColorPaletteEnum;
+import choreography.view.music.MusicPaneController;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.logging.Logger;
 
-/**
- *
- * @author elementsking
- */
+
 public class Timeline extends ArrayList<Event>{
     
     /**
     * 
     */
-   private static final long serialVersionUID = 7242109851591362314L;
+   private static final long serialVersionUID = 7_242_109_851_591_362_314L;
    private static Timeline instance;
+   private int time;
+   private int numChannels;
    private SortedMap<Integer, ArrayList<FCW>> timeline;
    private SortedMap<Integer, ArrayList<FCW>> waterTimeline;
    private SortedMap<Integer, ArrayList<FCW>> lightTimeline;
+   private HashMap<Integer, SortedMap<Integer, Integer>> lightFCWColorMap;
+    private static final Logger LOG = Logger.getLogger(Timeline.class.getName());
    
     
     /**
@@ -33,8 +41,9 @@ public class Timeline extends ArrayList<Event>{
      * @return
      */
     public static synchronized Timeline getInstance() {
-        if(instance == null)
+        if(instance == null) {
             instance = new Timeline();
+        }
         return instance;
         
     }
@@ -43,6 +52,9 @@ public class Timeline extends ArrayList<Event>{
         timeline = new ConcurrentSkipListMap<>();
         waterTimeline = new ConcurrentSkipListMap<>();
         lightTimeline = new ConcurrentSkipListMap<>();
+        time = (int)(MusicPaneController.getInstance().getTime() * 10); //tenths of a second
+        numChannels = TimelineController.getInstance().lightRecArray.length;
+        lightFCWColorMap = new LinkedHashMap<>();
     }
     
     /**
@@ -50,31 +62,28 @@ public class Timeline extends ArrayList<Event>{
      */
     public void setTimeline(SortedMap<Integer, ArrayList<FCW>> timeline) {
         this.timeline = timeline;
-        for(Integer i: timeline.keySet()) {
-            for(FCW f: timeline.get(i)) {
-                if(f.getIsWater()) {
-                    if(getWaterTimeline().containsKey(i))
-                        getWaterTimeline().get(i).add(f);
-                    else {
+        timeline.keySet().stream().forEach((i) -> {
+            timeline.get(i).stream().forEach((f) -> {
+                if (f.getIsWater()) {
+                    if (waterTimeline.containsKey(i)) {
+                        waterTimeline.get(i).add(f);
+                    } else {
                         ArrayList<FCW> newList = new ArrayList<>();
                         newList.add(f);
-                        getWaterTimeline().put(i, newList);
+                        waterTimeline.put(i, newList);
                     }
-                }
-                else {
-                    if(getLightTimeline().containsKey(i))
-                        getLightTimeline().get(i).add(f);
-                    else {
+                } else {
+                    if (lightTimeline.containsKey(i)) {
+                        lightTimeline.get(i).add(f);
+                    } else {
                         ArrayList<FCW> newList = new ArrayList<>();
                         newList.add(f);
-                        getLightTimeline().put(i, newList);
+                        lightTimeline.put(i, newList);
                     }
-                        
                 }
-            }
-        }
-        System.out.println("Water timeline: " + getWaterTimeline());
-        System.out.println("Light timeline: " + getLightTimeline());
+            });
+        });
+        populateLightFcwArray();
         TimelineController.getInstance().rePaint();
     }
 
@@ -82,6 +91,8 @@ public class Timeline extends ArrayList<Event>{
      * @return the timeline
      */
     public SortedMap<Integer, ArrayList<FCW>> getTimeline() {
+        collapseLightArray();
+        collapseLightAndWaterMaps();
         return timeline;
     }
 
@@ -96,7 +107,116 @@ public class Timeline extends ArrayList<Event>{
      * @return the lightTimeline
      */
     public SortedMap<Integer, ArrayList<FCW>> getLightTimeline() {
+        collapseLightArray();
         return lightTimeline;
     }
+    
+    /**
+     *
+     * @param pointInTime
+     * @param f
+     */
+    public void setWaterFcwAtPoint(int pointInTime, FCW f) {
+        waterTimeline.get(pointInTime).add(f);
+    }
+    
+    /**
+     *
+     * @param start
+     * @param end
+     * @param f
+     */
+    public void setLightFcwWithRange(int start, int end, FCW f) {
+        int row = f.getAddr();
+        int color = f.getData();
+        for(int i = start; i < end; i++) {
+            lightFCWColorMap.get(row).put(i, color);
+        }
+    }
+    
+    /**
+     *
+     */
+    public void collapseLightArray() {
+        lightTimeline.clear();
+        for(int i = 0; i < MusicPaneController.getInstance().getTime() * 10; i++) {
+            ArrayList<FCW> fcws = new ArrayList<>(5);
+            for(int chAddr = 0; chAddr < numChannels; chAddr++) {
+                //TODO double check algo
+                fcws.add(new FCW(chAddr, lightFCWColorMap.get(chAddr).get(i)));
+            }
+            lightTimeline.put(i, fcws);
+        }
+    }
+
+    private void collapseLightAndWaterMaps() {
+        
+        insertTimelineIterator(waterTimeline);
+        insertTimelineIterator(lightTimeline);
+        
+    }
+
+    private void insertTimelineIterator(SortedMap<Integer, ArrayList<FCW>> srcTimeline) {
+        srcTimeline.keySet().stream().forEach((i) -> {
+            srcTimeline.get(i).stream().forEach((f) -> {
+                insertIntoTimeline(timeline, i, f);
+            });
+        });
+    }
+    private void insertIntoTimeline(SortedMap<Integer, ArrayList<FCW>> srcTimeline, Integer i, FCW f) {
+        if(srcTimeline.containsKey(i)) {
+            srcTimeline.get(i).add(f);
+        }
+        else {
+            ArrayList<FCW> newFcw = new ArrayList(1);
+            newFcw.add(f);
+            srcTimeline.put(i, newFcw);
+        }
+    }
+    private void populateLightFcwArray() {
+        //TODO populate LightFcwArray with LightTimeline data
+        
+        //Decompose LightTimeline into Channels
+        for(Integer i: lightTimeline.keySet()) {
+            for(FCW f: lightTimeline.get(i)) {
+                //For each channel,
+                if(!lightFCWColorMap.containsKey(f.getAddr())) {
+                    SortedMap<Integer, Integer> fcwComponents = new ConcurrentSkipListMap<>();
+                    
+                    recursiveTailMapSearch(f.getAddr(), 0);
+                    
+                    
+                    lightFCWColorMap.put(i, fcwComponents);
+                }
+            }
+        }
+        
+           
+            
+            //use setLightWithRange(start, end, color) to fill information
+            //
+    }
+//TODO Fix this broken piece...
+    private void recursiveTailMapSearch(int target, int index) {
+        Iterator<Entry<Integer, ArrayList<FCW>>> it = lightTimeline.tailMap(index).entrySet().iterator();
+        int start = it.next().getKey();
+        int end = 0;
+        while(it.hasNext()){
+            Entry<Integer, ArrayList<FCW>> entry = it.next();
+            for(FCW f: entry.getValue()) {
+                if(f.getAddr() == target && f.getData() == 0) {
+                    end = entry.getKey();
+                    System.out.println("Start:" + start + " End:" + end + " FCW:" + f);
+                    setLightFcwWithRange(start, end, f);
+                }
+                recursiveTailMapSearch(target, end);
+            }
+            
+        }
+        return;
+    }
+
+    
+    
     
 }

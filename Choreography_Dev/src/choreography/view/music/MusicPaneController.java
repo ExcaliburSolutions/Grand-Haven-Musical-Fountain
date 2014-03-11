@@ -226,15 +226,15 @@ public class MusicPaneController {
         try {
             AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
 
-            time = awc.getTime();
+            setTime(awc.getTime());
             DecimalFormat f = new DecimalFormat("0.0");
-            roundedTime = Double.parseDouble(f.format(time));
-            time = getTimeFactor() * Double.parseDouble(f.format(time));
-            SONG_TIME = (int) time;
+            roundedTime = Double.parseDouble(f.format(getTime()));
+            setTime(getTimeFactor() * Double.parseDouble(f.format(getTime())));
+            SONG_TIME = (int) getTime();
             TimelineController.getInstance().setTimelineGridPane();
             TimelineController.getInstance().setWaterGridPane();
-            numberLine.setMinWidth(time*26);
-            numberLine.setPrefWidth(time*26);
+            numberLine.setMinWidth(getTime()*26);
+            numberLine.setPrefWidth(getTime()*26);
             numberLine.setUpperBound(roundedTime);
             numberLine.setVisible(true);
             songProgress.setText("0/"+roundedTime);
@@ -319,4 +319,14 @@ public class MusicPaneController {
         this.timeFactor = timeFactor;
     }
 
+    /**
+     * @return the time
+     */
+    public double getTime() {
+        return time;
+    }
+
+    public void setTime(double time) {
+        this.time = time;
+    }
 }

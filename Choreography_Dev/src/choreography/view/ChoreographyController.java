@@ -164,12 +164,14 @@ public class ChoreographyController implements Initializable {
                     if(isSaved) {
                         Platform.exit();
                     }
-                    Action saveResult = Dialogs.create().title("Save?")
-                            .masthead("You haven't saved before exiting.")
-                            .message("Would you like to save before quiting?")
-                            .showConfirm();
-                    if(saveResult != Actions.YES) {
-                        saveAsMenuItem.getOnAction().handle(t);
+                    else {
+                        Action saveResult = Dialogs.create().title("Save?")
+                                .masthead("You haven't saved before exiting.")
+                                .message("Would you like to save before quiting?")
+                                .showConfirm();
+                        if(saveResult == Actions.YES) {
+                            saveAsMenuItem.getOnAction().handle(t);
+                        }
                     }
                 }
             }
@@ -206,6 +208,7 @@ public class ChoreographyController implements Initializable {
         
         events = new ConcurrentSkipListMap<>();
         fcwOutput.setText("Choreographer has loaded!");
+        openCTLMenuItem.setDisable(true);
         cc = this;
     }
 
