@@ -76,19 +76,22 @@ public class ColorPaletteController implements Initializable{
 	@FXML Rectangle color30;
 	@FXML Rectangle color31;
 
+        Color[] colors;
+        Rectangle[] rectangles;
 	// The current instance of the selected color
 
     /**
      *
      */
-    	public Paint selectedColor;
+    	private Paint selectedColor;
+        private int selectedColorIndex;
 
 	/**
 	 * @return selectedColor current instance of the selected color
 	 * Returns the current instance of the selected color.
 	 */
 	public Paint getSelectedColor() {
-		return selectedColor;
+            return selectedColor;
 	}
         
 	/**
@@ -98,6 +101,10 @@ public class ColorPaletteController implements Initializable{
 	private void setSelectedColor(Paint c) {
 		selectedColor = c;
 	}
+        
+        public void setSelectedColorIndex(int c) {
+            this.selectedColorIndex = c;
+        }
 	
 	/**
 	 * @return savedColorPalette is an array that contains all of the colors 
@@ -188,7 +195,10 @@ public class ColorPaletteController implements Initializable{
             /**
              * @param args the command line arguments
              */
-
+            
+            rectangles = new Rectangle[32];
+            colors = new Color[32];
+            
             Color c0 = Color.web(ColorPaletteEnum.RED.getColor()); // red
             Color c1 = Color.web(ColorPaletteEnum.ORANGE.getColor()); // orange
             Color c2 = Color.web(ColorPaletteEnum.YELLOW.getColor()); // yellow
@@ -210,6 +220,19 @@ public class ColorPaletteController implements Initializable{
             selectedColor = c0;
 
             // Sets the first color to red and creates the event handler
+            for(int index = 0; index < 32; index++) {
+                rectangles[index].setFill(colors[index]);
+                color0.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent me) {
+                            setSelectedColor(color0.getFill());
+                            setSelectedColorIndex(index);
+                    }
+
+                    private void setSelectedColorIndex(int index) {
+                        ColorPaletteController.getInstance().selectedColorIndex = index;
+                    }
+                });
+            }
             color0.setFill(c0);
             color0.setOnMousePressed(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent me) {

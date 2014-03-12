@@ -172,6 +172,9 @@ public class ChoreographyController implements Initializable {
                         if(saveResult == Actions.YES) {
                             saveAsMenuItem.getOnAction().handle(t);
                         }
+                        else if(saveResult == Actions.NO) {
+                            Platform.exit();
+                        }
                     }
                 }
             }

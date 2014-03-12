@@ -6,15 +6,14 @@ import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.music.MusicPaneController;
-import customChannel.CustomChannel;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
-import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.NumberAxis;
@@ -181,14 +180,17 @@ public class TimelineController implements Initializable {
                 final int testI = i;
                 final int testJ = j;
 
-                lightRecArray[i][j].setOnMousePressed((MouseEvent me) -> {
-//                    System.out.println("Col " + (testI) + " Row "
-//                            + (testJ + 1));
-                    startRow = testJ;
-                    lightRecArray[testI][testJ]
-                            .setFill(ColorPaletteController
-                                    .getInstance()
-                                    .getSelectedColor());
+                lightRecArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
+
+                    public void handle(MouseEvent me) {
+                        startRow = testJ;
+                        lightRecArray[testI][testJ]
+                                .setFill(ColorPaletteController
+                                        .getInstance()
+                                        .getSelectedColor());
+                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW( testI,
+                                ColorPaletteController.getInstance().getSelectedColorIndex()));
+                    }
                 });
 
                 lightRecArray[i][j].setOnDragDetected((MouseEvent me) -> {
@@ -271,7 +273,7 @@ public class TimelineController implements Initializable {
                 if(colAtTime != 0){
                 	colAtTime = colAtTime - 1;
                 }
-                waterRecArray[colAtTime].setFill(Color.BLACK);
+                waterRecArray[colAtTime].setFill(Color.ALICEBLUE);
                 Tooltip t = new Tooltip(actionList);
                 Tooltip.install(waterRecArray[colAtTime], t);
                 //TODO make mouse over info better

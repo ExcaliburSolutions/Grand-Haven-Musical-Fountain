@@ -54,7 +54,7 @@ public class Timeline extends ArrayList<Event>{
         lightTimeline = new ConcurrentSkipListMap<>();
         time = (int)(MusicPaneController.getInstance().getTime() * 10); //tenths of a second
         numChannels = TimelineController.getInstance().lightRecArray.length;
-        lightFCWColorMap = new LinkedHashMap<>();
+        lightFCWColorMap = new LinkedHashMap<>(numChannels);
     }
     
     /**
@@ -65,25 +65,13 @@ public class Timeline extends ArrayList<Event>{
         timeline.keySet().stream().forEach((i) -> {
             timeline.get(i).stream().forEach((f) -> {
                 if (f.getIsWater()) {
-                    if (waterTimeline.containsKey(i)) {
-                        waterTimeline.get(i).add(f);
-                    } else {
-                        ArrayList<FCW> newList = new ArrayList<>();
-                        newList.add(f);
-                        waterTimeline.put(i, newList);
-                    }
+                    insertIntoTimeline(waterTimeline, i, f);
                 } else {
-                    if (lightTimeline.containsKey(i)) {
-                        lightTimeline.get(i).add(f);
-                    } else {
-                        ArrayList<FCW> newList = new ArrayList<>();
-                        newList.add(f);
-                        lightTimeline.put(i, newList);
-                    }
+                    
                 }
             });
         });
-        populateLightFcwArray();
+//        populateLightFcwArray();
         TimelineController.getInstance().rePaint();
     }
 
@@ -91,8 +79,8 @@ public class Timeline extends ArrayList<Event>{
      * @return the timeline
      */
     public SortedMap<Integer, ArrayList<FCW>> getTimeline() {
-        collapseLightArray();
-        collapseLightAndWaterMaps();
+//        collapseLightArray();
+//        collapseLightAndWaterMaps();
         return timeline;
     }
 
@@ -107,7 +95,7 @@ public class Timeline extends ArrayList<Event>{
      * @return the lightTimeline
      */
     public SortedMap<Integer, ArrayList<FCW>> getLightTimeline() {
-        collapseLightArray();
+//        collapseLightArray();
         return lightTimeline;
     }
     
@@ -134,35 +122,39 @@ public class Timeline extends ArrayList<Event>{
         }
     }
     
-    /**
-     *
-     */
-    public void collapseLightArray() {
-        lightTimeline.clear();
-        for(int i = 0; i < MusicPaneController.getInstance().getTime() * 10; i++) {
-            ArrayList<FCW> fcws = new ArrayList<>(5);
-            for(int chAddr = 0; chAddr < numChannels; chAddr++) {
-                //TODO double check algo
-                fcws.add(new FCW(chAddr, lightFCWColorMap.get(chAddr).get(i)));
-            }
-            lightTimeline.put(i, fcws);
-        }
-    }
-
-    private void collapseLightAndWaterMaps() {
-        
-        insertTimelineIterator(waterTimeline);
-        insertTimelineIterator(lightTimeline);
+    public void setLightFcwAtPoint(int point, FCW f) {
         
     }
+    
+//    /**
+//     *
+//     */
+//    public void collapseLightArray() {
+//        lightTimeline.clear();
+//        for(int i = 0; i < MusicPaneController.getInstance().getTime() * 10; i++) {
+//            ArrayList<FCW> fcws = new ArrayList<>(5);
+//            for(int chAddr = 0; chAddr < numChannels; chAddr++) {
+//                //TODO double check algo
+//                fcws.add(new FCW(chAddr, lightFCWColorMap.get(chAddr).get(i)));
+//            }
+//            lightTimeline.put(i, fcws);
+//        }
+//    }
 
-    private void insertTimelineIterator(SortedMap<Integer, ArrayList<FCW>> srcTimeline) {
-        srcTimeline.keySet().stream().forEach((i) -> {
-            srcTimeline.get(i).stream().forEach((f) -> {
-                insertIntoTimeline(timeline, i, f);
-            });
-        });
-    }
+//    private void collapseLightAndWaterMaps() {
+//        
+//        insertTimelineIterator(waterTimeline);
+//        insertTimelineIterator(lightTimeline);
+//        
+//    }
+
+//    private void insertTimelineIterator(SortedMap<Integer, ArrayList<FCW>> srcTimeline) {
+//        srcTimeline.keySet().stream().forEach((i) -> {
+//            srcTimeline.get(i).stream().forEach((f) -> {
+//                insertIntoTimeline(timeline, i, f);
+//            });
+//        });
+//    }
     private void insertIntoTimeline(SortedMap<Integer, ArrayList<FCW>> srcTimeline, Integer i, FCW f) {
         if(srcTimeline.containsKey(i)) {
             srcTimeline.get(i).add(f);
@@ -173,50 +165,25 @@ public class Timeline extends ArrayList<Event>{
             srcTimeline.put(i, newFcw);
         }
     }
-    private void populateLightFcwArray() {
-        //TODO populate LightFcwArray with LightTimeline data
-        
-        //Decompose LightTimeline into Channels
-        for(Integer i: lightTimeline.keySet()) {
-            for(FCW f: lightTimeline.get(i)) {
-                //For each channel,
-                if(!lightFCWColorMap.containsKey(f.getAddr())) {
-                    SortedMap<Integer, Integer> fcwComponents = new ConcurrentSkipListMap<>();
-                    
-                    recursiveTailMapSearch(f.getAddr(), 0);
-                    
-                    
-                    lightFCWColorMap.put(i, fcwComponents);
-                }
-            }
-        }
-        
-           
-            
-            //use setLightWithRange(start, end, color) to fill information
-            //
-    }
-//TODO Fix this broken piece...
-    private void recursiveTailMapSearch(int target, int index) {
-        Iterator<Entry<Integer, ArrayList<FCW>>> it = lightTimeline.tailMap(index).entrySet().iterator();
-        int start = it.next().getKey();
-        int end = 0;
-        while(it.hasNext()){
-            Entry<Integer, ArrayList<FCW>> entry = it.next();
-            for(FCW f: entry.getValue()) {
-                if(f.getAddr() == target && f.getData() == 0) {
-                    end = entry.getKey();
-                    System.out.println("Start:" + start + " End:" + end + " FCW:" + f);
-                    setLightFcwWithRange(start, end, f);
-                }
-                recursiveTailMapSearch(target, end);
-            }
-            
-        }
-        return;
-    }
-
-    
-    
-    
+//    private void populateLightFcwArray() {
+//        //TODO populate LightFcwArray with LightTimeline data
+//        
+//        //Decompose LightTimeline into Channels
+//        for(Integer i: timeline.keySet()) {
+//            for(FCW f: timeline.get(i)) {
+//                //For each channel,
+//                if(!f.getIsWater()) {
+//                    int start = i;
+//                    int target = f.getAddr();
+//                    Iterator<Entry<Integer, ArrayList<FCW>>> it = timeline.tailMap(i).entrySet().iterator();
+//                    while(it.hasNext())
+//                }
+//            }
+//        }
+//        
+//           
+//            
+//            //use setLightWithRange(start, end, color) to fill information
+//            //
+//    }
 }
