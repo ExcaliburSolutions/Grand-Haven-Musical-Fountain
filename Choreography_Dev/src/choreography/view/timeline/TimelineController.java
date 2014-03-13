@@ -5,6 +5,7 @@ import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
+import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 
 import java.net.URL;
@@ -182,14 +183,15 @@ public class TimelineController implements Initializable {
 
                 lightRecArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
 
+                    @Override
                     public void handle(MouseEvent me) {
                         startRow = testJ;
                         lightRecArray[testI][testJ]
                                 .setFill(ColorPaletteController
                                         .getInstance()
                                         .getSelectedColor());
-                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW( testI,
-                                ColorPaletteController.getInstance().getSelectedColorIndex()));
+//                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
+//                                ColorPaletteController.getInstance().getModel().getSelectedIndex()));
                     }
                 });
 
@@ -262,26 +264,27 @@ public class TimelineController implements Initializable {
             for(FCW f: waterTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
-                String actionList = "";
+                StringBuilder actionList = new StringBuilder();
                 for(String s: actions){
-                	actionList = actionList + s + System.getProperty("line.separator");
+                	actionList.append(s);
                 }
                 int tenthOfSec = i % 10;
-                int secondsOnly = i /10;              
-                double newTime = secondsOnly + (tenthOfSec / 10);
+                int secondsOnly = i /10; 
+                double tenths = (double) tenthOfSec;
+                double newTime = secondsOnly + (tenths / 10);
                 int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
                 	colAtTime = colAtTime - 1;
                 }
                 waterRecArray[colAtTime].setFill(Color.ALICEBLUE);
-                Tooltip t = new Tooltip(actionList);
+                Tooltip t = new Tooltip(actionList.toString());
                 Tooltip.install(waterRecArray[colAtTime], t);
                 //TODO make mouse over info better
                 //TODO update sliders
             }
         }
-        for(Integer i: lightTimeline.keySet()) {
-            for(FCW f: lightTimeline.get(i)) {
+        lightTimeline.keySet().stream().forEach((i) -> {
+            lightTimeline.get(i).stream().forEach((f) -> {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
                 //TODO paint light timeline proper color
@@ -290,16 +293,17 @@ public class TimelineController implements Initializable {
                 Paint paint = Color.web(ColorPaletteEnum.valueOf(color).getColor());
                 
                 int tenthOfSec = i % 10;
-                int secondsOnly = i /10;
-                double newTime = secondsOnly + (tenthOfSec / 10);
+                int secondsOnly = i /10; 
+                double tenths = (double) tenthOfSec;
+                double newTime = secondsOnly + (tenths / 10);
                 int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
-                	colAtTime = colAtTime - 1;
+                    colAtTime = colAtTime - 1;
                 }
                 int rowAtTime = lightRowLookup(name);
                 lightRecArray[colAtTime][rowAtTime].setFill(paint);
-            }
-        }
+            });
+        });
     }
     
     private int lightRowLookup(String name){

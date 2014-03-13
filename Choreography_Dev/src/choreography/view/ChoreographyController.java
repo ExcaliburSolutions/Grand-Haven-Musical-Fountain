@@ -146,7 +146,7 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void handle(ActionEvent event) {
-                    ColorPaletteController.getInstance().setAdvancedFunction(true);
+//                    ColorPaletteController.getInstance().setAdvancedFunction(true);
                 }
             });
     	
