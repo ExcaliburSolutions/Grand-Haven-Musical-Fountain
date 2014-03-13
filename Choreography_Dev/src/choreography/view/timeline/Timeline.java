@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package src.choreography.view.timeline;
+package choreography.view.timeline;
 
 import choreography.model.Event;
 import choreography.model.fcw.FCW;
