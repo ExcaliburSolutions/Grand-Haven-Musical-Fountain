@@ -15,8 +15,10 @@ import choreography.view.timeline.TimelineController;
 import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import choreography.view.ChoreographyController;
+
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -25,6 +27,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
@@ -36,6 +40,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
@@ -52,6 +58,7 @@ public class MusicPaneController {
     private MediaPlayer mediaPlayer;
     private double time, roundedTime;
     private Duration duration;
+    private Canvas canvas2 = new Canvas(1190,200);
     Music music2;
     private boolean notFirst = false;
     final DecimalFormat f = new DecimalFormat("0.0");
@@ -206,6 +213,10 @@ public class MusicPaneController {
         mediaPlayer.play();
         mediaPlayer.pause();
     	updateProgressTimer(); 
+    	Canvas canvas = new Canvas(1190, 200);
+//        GraphicsContext gc = canvas.getGraphicsContext2D();
+//        drawShapes(gc);
+        ChoreographyController.getInstance().getPane().getChildren().add(canvas2);
     	
     	
 //    	mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
@@ -244,6 +255,14 @@ public class MusicPaneController {
         }
         notFirst = true;
     }
+    
+    private void drawShapes(GraphicsContext gc) {
+        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLUE);
+        gc.setLineWidth(5);
+        gc.strokeLine(10, 180, 40, 30);
+        gc.strokeLine(30, 180, 60, 30);
+    }
 
     /**
      *
@@ -260,7 +279,12 @@ public class MusicPaneController {
             timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeLabel.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-            
+            if (mediaPlayer.getCurrentTime().toSeconds()%2 == 1){
+            	GraphicsContext gc = canvas2.getGraphicsContext2D();
+            	gc.setStroke(Color.BLUE);
+                gc.setLineWidth(5);
+                gc.strokeLine(mediaPlayer.getCurrentTime().toSeconds(), 180, 40, 30);
+            }
         } catch (Exception e) {
             System.out.println("Error updating song progress " + e);
         }

@@ -315,7 +315,8 @@ public class TimelineController implements Initializable {
 //                	tenthOfSec = 5;
 //                }
 //                
-                double newTime = secondsOnly + (tenthOfSec / 10);
+                double tenth = (double) tenthOfSec;
+                double newTime = secondsOnly + (tenth / 10);
                 int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
                 	colAtTime = colAtTime - 1;
@@ -346,8 +347,8 @@ public class TimelineController implements Initializable {
 //                else{
 //                	tenthOfSec = 5;
 //                }
-                
-                double newTime = secondsOnly + (tenthOfSec / 10);
+                double tenth = (double) tenthOfSec;
+                double newTime = secondsOnly + (tenth / 10);
                 int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
                 if(colAtTime != 0){
                 	colAtTime = colAtTime - 1;

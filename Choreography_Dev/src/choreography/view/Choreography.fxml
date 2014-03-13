@@ -97,7 +97,7 @@
         <URL value="@application.css" />
       </stylesheets>
     </MenuBar>
-    <Pane maxHeight="-1.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="SOMETIMES" />
+    <Pane fx:id="simPane" maxHeight="-1.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="SOMETIMES" />
     <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
       <children>
         <fx:include source="sliders/Sliders.fxml" fillHeight="true" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" VBox.vgrow="SOMETIMES">

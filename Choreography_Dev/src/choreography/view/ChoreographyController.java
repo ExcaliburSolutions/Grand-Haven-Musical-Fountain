@@ -105,6 +105,8 @@ public class ChoreographyController implements Initializable {
     private MenuItem aboutMenuItem;
     @FXML
     private MenuItem setLagTimesMenuItem;
+    @FXML
+    private Pane simPane;
 //    @FXML
 //    private ProgressIndicator progressIndicator;
     
@@ -265,6 +267,10 @@ public class ChoreographyController implements Initializable {
      */
     public static ChoreographyController getInstance() {
         return cc;
+    }
+    
+    public Pane getPane(){
+    	return simPane;
     }
 
     /**

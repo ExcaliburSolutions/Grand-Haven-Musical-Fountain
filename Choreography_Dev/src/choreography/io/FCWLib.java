@@ -303,13 +303,20 @@ public final class FCWLib {
      */
     public synchronized String[] reverseLookupData(FCW f){
         String table = searchFunctionTables(f.getAddr());
-        if(table.equals("TableTime")) {
-            return new String[]{Integer.toString(f.getData())};
-        }
         ArrayList<Integer> flags = new ArrayList<>();
         ArrayList<String> actions = new ArrayList<>();
         int data = f.getData();
-        Integer[] values = new Integer[]{256, 128, 64, 32, 16, 8, 4, 2, 1};
+        Integer[] values = null;
+        if(table.equals("TableTime")) {
+            return new String[]{Integer.toString(f.getData())};
+        }
+        else if (table.equals("TableC")){
+            values = new Integer[]{256, 128, 64, 32, 16, 8, 4, 2, 1};
+
+        }
+        else{
+        values = new Integer[]{256, 128, 64, 32, 16, 8};
+        }
         setFlags(values, data, flags);
         
         for(Entry<String, Integer> entry: tableCommands.get(table).entrySet()) {
