@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 
-package choreography.view.timeline;
+package src.choreography.view.timeline;
 
 import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.music.MusicPaneController;
+import choreography.view.timeline.TimelineController;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -126,6 +128,28 @@ public class Timeline extends ArrayList<Event>{
         
     }
     
+    public int[][] fillTheSpaces(int[][] oldArray ){
+    	
+    	for(int i = 0; i < oldArray.length; i++){
+    		for(int j = 0; j < oldArray[i].length; j++){
+    			int currentNumber = 0;
+    			boolean fill = false;
+    			if(oldArray[i][j] != 0 && oldArray[i][j] != -1){
+    				currentNumber = oldArray[i][j];
+    				fill = true;
+    			}
+    			if(oldArray[i][j] == 0){
+    				oldArray[i][j] = -1;
+    				fill = false;
+    			}
+    			if(fill = true && oldArray[i][j] != currentNumber){
+    				oldArray[i][j] = currentNumber;
+    			}
+    			
+    		}
+    	}
+    	return oldArray;
+    }
 //    /**
 //     *
 //     */
