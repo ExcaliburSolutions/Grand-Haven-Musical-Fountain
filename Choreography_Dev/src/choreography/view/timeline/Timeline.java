@@ -6,6 +6,7 @@
 
 package choreography.view.timeline;
 
+import choreography.io.FCWLib;
 import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.colorPalette.ColorPaletteEnum;
@@ -14,6 +15,7 @@ import choreography.view.timeline.TimelineController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
@@ -21,12 +23,16 @@ import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Logger;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 
 public class Timeline extends ArrayList<Event>{
     
     /**
     * 
     */
+	public static final int OFF = -5;
    private static final long serialVersionUID = 7_242_109_851_591_362_314L;
    private static Timeline instance;
    private int time;
@@ -34,7 +40,8 @@ public class Timeline extends ArrayList<Event>{
    private SortedMap<Integer, ArrayList<FCW>> timeline;
    private SortedMap<Integer, ArrayList<FCW>> waterTimeline;
    private SortedMap<Integer, ArrayList<FCW>> lightTimeline;
-   private HashMap<Integer, SortedMap<Integer, Integer>> lightFCWColorMap;
+   private SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray;
+   private int[][] lightFCWColorMap;
     private static final Logger LOG = Logger.getLogger(Timeline.class.getName());
    
     
@@ -54,12 +61,42 @@ public class Timeline extends ArrayList<Event>{
         timeline = new ConcurrentSkipListMap<>();
         waterTimeline = new ConcurrentSkipListMap<>();
         lightTimeline = new ConcurrentSkipListMap<>();
-        time = (int)(MusicPaneController.getInstance().getTime() * 10); //tenths of a second
-        numChannels = TimelineController.getInstance().lightRecArray.length;
-        lightFCWColorMap = new LinkedHashMap<>(numChannels);
     }
     
-    /**
+    public SortedMap<Integer, SortedMap<Integer, Integer>> getGtfoArray() {
+		return gtfoArray;
+	}
+
+	public void setGtfoArray(SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray) {
+		this.gtfoArray = gtfoArray;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
+	public int getNumChannels() {
+		return numChannels;
+	}
+
+	public void setNumChannels(int numChannels) {
+		this.numChannels = numChannels;
+	}
+
+	public void setWaterTimeline(SortedMap<Integer, ArrayList<FCW>> waterTimeline) {
+		this.waterTimeline = waterTimeline;
+	}
+
+	public void setLightTimeline(SortedMap<Integer, ArrayList<FCW>> lightTimeline) {
+		this.lightTimeline = lightTimeline;
+		
+	}
+
+	/**
      * @param timeline the timeline to set
      */
     public void setTimeline(SortedMap<Integer, ArrayList<FCW>> timeline) {
@@ -68,11 +105,18 @@ public class Timeline extends ArrayList<Event>{
             timeline.get(i).stream().forEach((f) -> {
                 if (f.getIsWater()) {
                     insertIntoTimeline(waterTimeline, i, f);
-                } else {
-                    
+                }
+                else {
+                    insertIntoTimeline(lightTimeline, i, f);
                 }
             });
         });
+        time = (int)(MusicPaneController.getInstance().SONG_TIME * 10); //tenths of a second
+        numChannels = countUChannels(lightTimeline);
+//        lightFCWColorMap = new LinkedHashMap<>(numChannels);
+        gtfoArray = new ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>>(); //new//new int[time][numChannels];
+        startAndEndPoints(gtfoArray);
+        fillTheSpaces(gtfoArray);
 //        populateLightFcwArray();
         TimelineController.getInstance().rePaint();
     }
@@ -110,45 +154,49 @@ public class Timeline extends ArrayList<Event>{
         waterTimeline.get(pointInTime).add(f);
     }
     
-    /**
-     *
-     * @param start
-     * @param end
-     * @param f
-     */
-    public void setLightFcwWithRange(int start, int end, FCW f) {
-        int row = f.getAddr();
-        int color = f.getData();
-        for(int i = start; i < end; i++) {
-            lightFCWColorMap.get(row).put(i, color);
-        }
-    }
+//    /**
+//     *
+//     * @param start
+//     * @param end
+//     * @param f
+//     */
+//    public void setLightFcwWithRange(int start, int end, FCW f) {
+//        int row = f.getAddr();
+//        int color = f.getData();
+//        for(int i = start; i < end; i++) {
+//            lightFCWColorMap.get(row).put(i, color);
+//        }
+//    }
     
     public void setLightFcwAtPoint(int point, FCW f) {
         
     }
     
-    public int[][] fillTheSpaces(int[][] oldArray ){
-    	
-    	for(int i = 0; i < oldArray.length; i++){
-    		for(int j = 0; j < oldArray[i].length; j++){
-    			int currentNumber = 0;
-    			boolean fill = false;
-    			if(oldArray[i][j] != 0 && oldArray[i][j] != -1){
-    				currentNumber = oldArray[i][j];
+    public void fillTheSpaces(SortedMap<Integer, SortedMap<Integer, Integer>> oldArray ){
+    	int currentNumber = 0;
+		boolean fill = false;
+		for(Integer channel: oldArray.keySet()) {
+			for(Integer tenth: oldArray.get(channel).keySet()) {
+				if(oldArray.get(channel).get(tenth) != 0 && oldArray.get(channel).get(tenth) != OFF){
+    				currentNumber = oldArray.get(channel).get(tenth);
     				fill = true;
     			}
-    			if(oldArray[i][j] == 0){
-    				oldArray[i][j] = -1;
+    			if(oldArray.get(channel).get(tenth) == OFF){
+//    				oldArray[i][j] = 0;
     				fill = false;
     			}
-    			if(fill = true && oldArray[i][j] != currentNumber){
-    				oldArray[i][j] = currentNumber;
+    			if(fill = true && oldArray.get(channel).get(tenth) != currentNumber){
+    				oldArray.get(channel).put(tenth, currentNumber);
     			}
-    			
-    		}
-    	}
-    	return oldArray;
+			}
+		}
+//    	for(int i = 0; i < oldArray.length; i++){
+//    		for(int j = 0; j < oldArray[i].length; j++){
+//    			
+//    			
+//    			
+//    		}
+//    	}
     }
 //    /**
 //     *
@@ -188,6 +236,48 @@ public class Timeline extends ArrayList<Event>{
             newFcw.add(f);
             srcTimeline.put(i, newFcw);
         }
+    }
+    
+    private void startAndEndPoints(SortedMap<Integer, SortedMap<Integer, Integer>> oldArray){
+    	lightTimeline.keySet().stream().forEach((i) -> {
+            lightTimeline.get(i).stream().forEach((f) -> {
+//                String name = FCWLib.getInstance().reverseLookupAddress(f);
+//                String[] actions = FCWLib.getInstance().reverseLookupData(f);
+                int data = f.getData();
+                int tenthOfSec = i % 10;
+                int secondsOnly = i /10; 
+                double tenths = (double) tenthOfSec;
+                double newTime = secondsOnly + (tenths / 10);
+                int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
+                if(colAtTime != 0){
+                    colAtTime = colAtTime - 1;
+                }
+                if(data == 0){
+                	data = -5;
+                }
+                SortedMap<Integer, Integer> newMap = new ConcurrentSkipListMap<>();
+                newMap.put(i, f.getData());
+                oldArray.put(f.getAddr(), newMap);//[f.getAddr()] = data;
+            });
+        });
+    	
+    	
+    	
+    }
+    
+    private int countUChannels(SortedMap<Integer, ArrayList<FCW>> srcTimeline){
+    	HashSet<Integer> address = new HashSet<Integer>();
+    	
+    	for(ArrayList<FCW> a: srcTimeline.values()){
+    		for(FCW f: a){
+    			if(!address.contains(f.getAddr())){
+    				address.add(f.getAddr());
+    			}
+    		}
+    	}
+    	
+		return address.size();
+    	
     }
 //    private void populateLightFcwArray() {
 //        //TODO populate LightFcwArray with LightTimeline data

@@ -43,6 +43,7 @@
 package choreography.view.colorPalette;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 /**
  *
@@ -130,6 +131,13 @@ public class ColorPaletteModel {
      */
     public void setSelectedIndex(int selectedIndex) {
         this.selectedIndex = selectedIndex;
+    }
+    
+    public Paint getColor(int i){
+    	
+    	
+		return colors[i];
+    	
     }
 
 }

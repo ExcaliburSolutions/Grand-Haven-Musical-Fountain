@@ -11,12 +11,15 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
+import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import choreography.view.ChoreographyController;
+
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -231,6 +234,7 @@ public class MusicPaneController {
             roundedTime = Double.parseDouble(f.format(getTime()));
             setTime(getTimeFactor() * Double.parseDouble(f.format(getTime())));
             SONG_TIME = (int) getTime();
+            Timeline.getInstance().setTime(SONG_TIME);
             TimelineController.getInstance().setTimelineGridPane();
             TimelineController.getInstance().setWaterGridPane();
             numberLine.setMinWidth(getTime()*26);

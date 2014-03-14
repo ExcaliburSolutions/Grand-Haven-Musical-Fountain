@@ -280,7 +280,7 @@ public class ChoreographyController implements Initializable {
      */
     public void setEventTimeline(SortedMap<Integer, ArrayList<FCW>> parsedCTL) {
         events.putAll(parsedCTL);
-        Timeline.getInstance().setTimeline(parsedCTL);
+        TimelineController.getInstance().setTimeline(parsedCTL);
     }
     
     /**

@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -58,7 +59,7 @@ public class TimelineController implements Initializable {
     private NumberAxis numLine;
 
     int startRow = 0;
-    final int rowNumber = 14;
+    int rowNumber;
     GridPane gridpaneLight;
     GridPane gridpaneWater;
     Rectangle[] waterRecArray;
@@ -161,16 +162,16 @@ public class TimelineController implements Initializable {
         time = MusicPaneController.SONG_TIME;
 
 //        gridpaneRec.setGridLinesVisible(true);
-
-        lightRecArray = new Rectangle[time][rowNumber];
+        rowNumber =  Timeline.getInstance().getNumChannels();
+        lightRecArray = new Rectangle[time][14];
         for (int i = 0; i < time; i++) {
             gridpaneLight.getColumnConstraints().add(new ColumnConstraints(26));
-            if (i < rowNumber) { // because the array is not square this needs to be
+            if (i < 14) { // because the array is not square this needs to be
                                             // here
                     gridpaneLight.getRowConstraints().add(new RowConstraints(26));
             }
 
-            for (int j = 0; j < rowNumber; j++) {
+            for (int j = 0; j < 14; j++) {
                 // if (i == 0){
                 // recArray[i][j] = new Rectangle(50,25, Color.RED);
                 // continue;
@@ -283,27 +284,43 @@ public class TimelineController implements Initializable {
                 //TODO update sliders
             }
         }
-        lightTimeline.keySet().stream().forEach((i) -> {
-            lightTimeline.get(i).stream().forEach((f) -> {
-                String name = FCWLib.getInstance().reverseLookupAddress(f);
-                String[] actions = FCWLib.getInstance().reverseLookupData(f);
-                //TODO paint light timeline proper color
-                
-                String color = actions[0];
-                Paint paint = Color.web(ColorPaletteEnum.valueOf(color).getColor());
-                
-                int tenthOfSec = i % 10;
-                int secondsOnly = i /10; 
-                double tenths = (double) tenthOfSec;
-                double newTime = secondsOnly + (tenths / 10);
-                int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
-                if(colAtTime != 0){
-                    colAtTime = colAtTime - 1;
-                }
-                int rowAtTime = lightRowLookup(name);
-                lightRecArray[colAtTime][rowAtTime].setFill(paint);
-            });
-        });
+        for(int i = 0; i < lightRecArray.length; i++){
+    		for(int j = 0; j < 14; j++){
+    			Integer gtfo = Timeline.getInstance().getGtfoArray().get(i).get(j);
+    			Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
+    			lightRecArray[i][j].setFill(color);
+    			
+    		}
+    		
+    		}
+//        lightTimeline.keySet().stream().forEach((i) -> {
+//            lightTimeline.get(i).stream().forEach((f) -> {
+//                String name = FCWLib.getInstance().reverseLookupAddress(f);
+//                String[] actions = FCWLib.getInstance().reverseLookupData(f);
+//                //TODO paint light timeline proper color
+//                
+//                String color = actions[0];
+//                Paint paint = Color.web(ColorPaletteEnum.valueOf(color).getColor());
+//                
+//                int tenthOfSec = i % 10;
+//                int secondsOnly = i /10; 
+//                double tenths = (double) tenthOfSec;
+//                double newTime = secondsOnly + (tenths / 10);
+//                int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
+//                if(colAtTime != 0){
+//                    colAtTime = colAtTime - 1;
+//                }
+//                int rowAtTime = lightRowLookup(name);
+//                lightRecArray[colAtTime][rowAtTime].setFill(paint);
+//            });
+//        });
+    }
+    
+    /**
+     * @param timeline the timeline to set
+     */
+    public void setTimeline(SortedMap<Integer, ArrayList<FCW>> timeline) {
+       Timeline.getInstance().setTimeline(timeline);
     }
     
     private int lightRowLookup(String name){
