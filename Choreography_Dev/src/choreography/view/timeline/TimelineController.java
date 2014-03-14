@@ -286,7 +286,7 @@ public class TimelineController implements Initializable {
         }
         for(int i = 0; i < lightRecArray.length; i++){
     		for(int j = 0; j < 14; j++){
-    			Integer gtfo = Timeline.getInstance().getGtfoArray().get(i).get(j);
+    			Integer gtfo = Timeline.getInstance().getGtfoMap().get(i).get(j);
     			Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
     			lightRecArray[i][j].setFill(color);
     			

@@ -63,7 +63,7 @@ public class Timeline extends ArrayList<Event>{
         lightTimeline = new ConcurrentSkipListMap<>();
     }
     
-    public SortedMap<Integer, SortedMap<Integer, Integer>> getGtfoArray() {
+    public SortedMap<Integer, SortedMap<Integer, Integer>> getGtfoMap() {
 		return gtfoArray;
 	}
 
