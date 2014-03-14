@@ -12,9 +12,9 @@
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet application.css?>
 
-<VBox fx:id="csGUI" prefHeight="800.0" prefWidth="1329.0" spacing="0.0" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.ChoreographyController">
+<VBox fx:id="csGUI" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="775.0" prefWidth="1329.0" spacing="0.0" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.ChoreographyController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="24.0" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File" fx:id="fileMenu">
           <items>
@@ -97,10 +97,10 @@
         <URL value="@application.css" />
       </stylesheets>
     </MenuBar>
-    <Pane maxHeight="-1.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="SOMETIMES" />
-    <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
+    <Pane maxHeight="-1.0" minHeight="-Infinity" prefHeight="250.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="ALWAYS" />
+    <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
       <children>
-        <fx:include source="sliders/Sliders.fxml" fillHeight="true" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" VBox.vgrow="SOMETIMES">
+        <fx:include source="sliders/Sliders.fxml" fillHeight="true" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" VBox.vgrow="NEVER">
           <padding>
             <Insets left="10.0" right="10.0" top="10.0" />
           </padding>
@@ -116,7 +116,7 @@
             <URL value="@application.css" />
           </stylesheets>
         </fx:include>
-        <fx:include source="timeline/Timeline.fxml" alignment="TOP_LEFT" gridLinesVisible="false" maxWidth="-1.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="1190.0" VBox.vgrow="ALWAYS">
+        <fx:include source="timeline/Timeline.fxml" alignment="TOP_LEFT" gridLinesVisible="false" maxHeight="-Infinity" maxWidth="-1.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="1190.0" VBox.vgrow="NEVER">
           <padding>
             <Insets left="5.0" right="5.0" />
           </padding>
@@ -126,12 +126,12 @@
         </fx:include>
         <GridPane id="GridPane" fx:id="progressIndicator" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" VBox.vgrow="NEVER">
           <children>
-            <Label fx:id="fcwOutput" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="18.0" text="FCW Output" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label fx:id="fcwOutput" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="18.0" text="FCW Output" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="NEVER">
               <GridPane.margin>
                 <Insets left="4.0" />
               </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="scaleChooser" maxHeight="-Infinity" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+            <ChoiceBox fx:id="scaleChooser" maxHeight="-Infinity" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.vgrow="NEVER">
               <items>
                 <FXCollections fx:factory="observableArrayList">
                   <String fx:value="Item 1" />

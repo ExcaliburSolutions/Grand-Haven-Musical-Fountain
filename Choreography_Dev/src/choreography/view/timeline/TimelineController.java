@@ -161,7 +161,7 @@ public class TimelineController implements Initializable {
 
         time = MusicPaneController.SONG_TIME;
 
-//        gridpaneRec.setGridLinesVisible(true);
+        gridpaneLight.setGridLinesVisible(true);
         rowNumber =  Timeline.getInstance().getNumChannels();
         lightRecArray = new Rectangle[time][14];
         for (int i = 0; i < time; i++) {
@@ -176,7 +176,7 @@ public class TimelineController implements Initializable {
                 // recArray[i][j] = new Rectangle(50,25, Color.RED);
                 // continue;
                 // }
-                lightRecArray[i][j] = new Rectangle(26, 26, Color.LIGHTGREY);
+                lightRecArray[i][j] = new Rectangle(25, 25, Color.LIGHTGREY);
                 gridpaneLight.add(lightRecArray[i][j], i, j);
                 // these are needed to talk to the mouse pressed events
                 final int testI = i;
@@ -221,7 +221,7 @@ public class TimelineController implements Initializable {
         time = MusicPaneController.SONG_TIME;
 //        numLine = new NumberAxis((double) 0, (double) time, 1);
 
-//        gridpaneRec.setGridLinesVisible(true);
+        gridpaneWater.setGridLinesVisible(true);
 
         waterRecArray = new Rectangle[time];
         for (int i = 0; i < time; i++) {
