@@ -121,7 +121,7 @@ public class ColorPaletteController implements Initializable {
             
         cpc = this;
     }
-
+    
     /**
      * @return the selectedColorIndex
      */
