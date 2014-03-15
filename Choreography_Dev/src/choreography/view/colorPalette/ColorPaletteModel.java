@@ -136,7 +136,7 @@ public class ColorPaletteModel {
     public Paint getColor(int i){
     	
     	
-		return colors[i];
+		return colors[i - 1];
     	
     }
 

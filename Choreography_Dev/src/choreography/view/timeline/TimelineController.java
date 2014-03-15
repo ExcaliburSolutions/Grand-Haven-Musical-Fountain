@@ -284,11 +284,15 @@ public class TimelineController implements Initializable {
                 //TODO update sliders
             }
         }
-        for(int i = 0; i < lightRecArray.length; i++){
-    		for(int j = 0; j < 14; j++){
-    			Integer gtfo = Timeline.getInstance().getGtfoMap().get(i).get(j);
+//        for(int i = 0; i < lightRecArray.length; i++){
+//    		for(int j = 0; j < 14; j++){
+        SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
+        for (int channel: gtfoArray.keySet()){
+        	for (int timeIndex: gtfoArray.get(channel).keySet()){
+    			System.out.println(Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex));
+    			Integer gtfo = Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex);
     			Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
-    			lightRecArray[i][j].setFill(color);
+    			lightRecArray[timeIndex][lightRowLookupNumber(channel)].setFill(color);
     			
     		}
     		
@@ -367,6 +371,23 @@ public class TimelineController implements Initializable {
     		return 13;
     	}
     	return 0;
+    }
+    private int lightRowLookupNumber(int channel){
+    	
+    	switch(channel){
+    	case 17: return 0;
+    	case 18: return 1;
+    	case 19: return 2;
+    	case 20: return 3;
+    	case 21: return 4;
+    	case 22: return 5;
+    	case 23: return 6;
+    	case 48: return 7;
+    	case 49: return 8;
+    	case 50: return 9;
+    	default: return 10;
+    	}
+    //return 0;
     }
     
     private String waterTLWords(String badName){

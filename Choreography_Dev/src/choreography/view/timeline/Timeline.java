@@ -107,7 +107,8 @@ public class Timeline extends ArrayList<Event>{
                     insertIntoTimeline(waterTimeline, i, f);
                 }
                 else {
-                    insertIntoTimeline(lightTimeline, i, f);
+                	if(f.getAddr() != 85)
+                		insertIntoTimeline(lightTimeline, i, f);
                 }
             });
         });
@@ -240,6 +241,7 @@ public class Timeline extends ArrayList<Event>{
     
     private void startAndEndPoints(SortedMap<Integer, SortedMap<Integer, Integer>> oldArray){
     	lightTimeline.keySet().stream().forEach((i) -> {
+    		SortedMap<Integer, Integer> newMap = new ConcurrentSkipListMap<>();
             lightTimeline.get(i).stream().forEach((f) -> {
 //                String name = FCWLib.getInstance().reverseLookupAddress(f);
 //                String[] actions = FCWLib.getInstance().reverseLookupData(f);
@@ -255,10 +257,14 @@ public class Timeline extends ArrayList<Event>{
                 if(data == 0){
                 	data = -5;
                 }
-                SortedMap<Integer, Integer> newMap = new ConcurrentSkipListMap<>();
-                newMap.put(i, f.getData());
-                oldArray.put(f.getAddr(), newMap);//[f.getAddr()] = data;
+                if(oldArray.containsKey(f.getAddr())) {
+                	oldArray.get(f.getAddr()).put(i, data);
+                } else {
+                	newMap.put(i, data);
+                	oldArray.putIfAbsent(f.getAddr(), newMap);                
+            	}
             });
+            //[f.getAddr()] = data;
         });
     	
     	
