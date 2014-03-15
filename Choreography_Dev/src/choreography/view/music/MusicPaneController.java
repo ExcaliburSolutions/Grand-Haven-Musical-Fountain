@@ -275,16 +275,17 @@ public class MusicPaneController {
             songProgress.setText( f.format(mediaPlayer.getCurrentTime().toSeconds()) + "/"+ f.format(mediaPlayer.getTotalDuration().toSeconds()));
                 duration = mediaPlayer.getMedia().getDuration();
             TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-            timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+            //timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeLabel.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-            if (mediaPlayer.getCurrentTime().toSeconds()%2 == 1){
-            	GraphicsContext gc = canvas2.getGraphicsContext2D();
-            	gc.setStroke(Color.BLUE);
-                gc.setLineWidth(5);
-                gc.strokeLine(mediaPlayer.getCurrentTime().toSeconds(), 180, 40, 30);
-            }
+//            if (mediaPlayer.getCurrentTime().toSeconds()/5 == 1){
+////            	GraphicsContext gc = canvas2.getGraphicsContext2D();
+////            	gc.setStroke(Color.BLUE);
+////                gc.setLineWidth(5);
+////                gc.strokeLine(mediaPlayer.getCurrentTime().toSeconds(), 180, 40, 30);
+//            	System.out.println("Hit");
+//            }
         } catch (Exception e) {
             System.out.println("Error updating song progress " + e);
         }
@@ -323,6 +324,14 @@ public class MusicPaneController {
                 	mediaPlayer.pause();
                 	playButton.setText("Play");
                     mediaPlayer.seek(duration.multiply(timeSlider.getValue() / 100.0));
+                    
+                    if (mediaPlayer.getCurrentTime().toSeconds()%5 == 1){
+//                    	GraphicsContext gc = canvas2.getGraphicsContext2D();
+//                    	gc.setStroke(Color.BLUE);
+//                        gc.setLineWidth(5);
+//                        gc.strokeLine(mediaPlayer.getCurrentTime().toSeconds(), 180, 40, 30);
+                    	System.out.println("Hit");
+                    }
                     //mediaPlayer.play();
                 }
             }
