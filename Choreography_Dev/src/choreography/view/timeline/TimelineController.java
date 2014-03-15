@@ -368,6 +368,27 @@ public class TimelineController implements Initializable {
     	}
     	return 0;
     }
+    
+    private String waterTLWords(String badName){
+    	String newName = "";
+    	
+    	switch(badName){
+    	case "RING5":  newName = "Ring 5";
+    	break;
+    	case "RING4":  newName = "Ring 4";
+		break;
+    	case "RING3":  newName = "Ring 3";
+		break;
+    	case "RING2":  newName = "Ring 2";
+		break;
+    	case "RING1":  newName = "Ring 1";
+		break;
+    	}
+    	
+    	
+    	
+		return newName;
+    }
 }
 
 ///**             
