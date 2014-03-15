@@ -373,6 +373,7 @@ public class TimelineController implements Initializable {
     	String newName = "";
     	
     	switch(badName){
+    	//From water address table
     	case "RING5":  newName = "Ring 5";
     	break;
     	case "RING4":  newName = "Ring 4";
@@ -383,9 +384,153 @@ public class TimelineController implements Initializable {
 		break;
     	case "RING1":  newName = "Ring 1";
 		break;
+    	case "SWEEP":  newName = "Sweeps";
+    	break;
+    	case "SPOUT":  newName = "Spout"; // TODO there are duplicate SPOUT in the FCW_DEF file one in the table A and one in WaterAddresses
+    	break;
+    	case "BAZOOKA": newName = "Bazooka"; // TODO Same issue as SPOUT.
+    	break;
+    	case "CANDELABRA": newName = "Candelabra";
+    	break;
+    	case "FTCURT": newName = "Front Curtain";
+    	break;
+    	case "BKCURT": newName = "Back Curtain";
+    	break;
+    	case "PEACOCK": newName = "Peacock";
+    	break;
+    	case "SWEEPA": newName = "Sweep A";
+    	break;
+    	case "SWEEPB": newName = "Sweep B";
+    	break;
+    	case "SWEEPLIMITAB": newName = "Sweep Limit A + B";
+    	break;
+    	case "SWEEPLIMITA": newName = "Sweep Limit A";
+    	break;
+    	case "SWEEPLIMITB": newName = "Sweep Limit B";
+    	break;
+    	case "MULTI": newName = "Wedding Cake Formation";
+    	break;
+    	case "PULSE": newName = "Repeat Jump @ 0.5sec";
+    	break;
+    	// From functions table
+    	case "VOICE": newName = "Auto Cateloged Formations (water + light)"; //TODO needed? 
+    	break;
+    	case "INTERCHANGEAB": newName = "Interchange A+B module formations (water + light)"; //TODO needed?
+    	break;
+    	case "OFF": newName = "Off"; //TODO needed?
+    	break;
+    	//From Table A
+//    	case "SPOUT": newName = "Spout"; // TODO May be an issue here. See google docs documents/FCW specs/possible FCW table issues
+//    	break;							 // look above for why these are commented out
+//    	case "BAZOOKA": newName = "Bazooka";
+//    	break;
+    	case "MODULEA": newName = "Module A";
+    	break;
+    	case "MODULEB": newName = "Module B";
+    	break;
+    	case "CONNECTAB": newName = "Connect A + B";
+    	break;
+//    	case "FTCURT": newName = "Front Curtain"; //TODO from table B
+//    	break;
+//    	case "BKCURT": newName = "Back Curtain"; //TODO from table B
+//    	break;
+//    	case "PEACOCK": newName = "Peacock"; //TODO from table B
+//    	break;
+    	// Table D
+    	case "OFFRESET": newName = "All Stop + Return to Center";
+    	break;
+    	case "SHORT": newName = "Short Sweep Motion";
+    	break;
+    	case "LONG": newName = "Long Sweep Motion";
+    	break;
+    	case "LARGO": newName = "Largo - As Slow As it Goes";
+    	break;
+    	case "ADAGIO": newName = "Slow Speed";
+    	break;
+    	case "ANDANTE": newName = "Andante";
+    	break;
+    	case "MODERATO": newName = "Medium Speed";
+    	break;
+    	case "ALLEGRETO": newName = "Allegreto";
+    	break;
+    	case "ALLEGRO": newName = "Fast Speed";
+    	break;
+    	case "PRESTO": newName = "As Fast as it Goes";
+    	break;
+    	case "PLAYPAUSE": newName = "Sweep Pause/Resume";
+    	break;
+//    	case "MODULEB": newName = "Module"; //TODO duplicate???
+//    	break;
+    	//Table H
+    	case "STOP": newName = "Stop Jumping and Return to Preset Level";
+    	break;
+    	case "ADDRSWEEP": newName = "Sweep Formation";
+    	break;
+    	case "JUMPA": newName = "Jump Module A";
+    	break;
+    	case "JUMPB": newName = "Jump Module B";
+    	break;
+    	case "JUMP0OR1": newName = "Jump 0 or 1 phase";
+    	break;
+    	case "HOLDRIGHTOT": newName = "Sweep Hold Right";
+    	break;
+    	case "RIGHTOTRIGHTLONG": newName = "Sweep Right OT to Right Long";
+    	break;
+    	case "RIGHTOTRIGHTSHORT": newName = "Sweep Right OT to Right Short";
+    	break;
+    	case "RIGHTOTCENTER": newName = "Sweep Right OT to Center";
+    	break;
+    	case "RIGHTOTLEFTSHORT": newName = "Sweep Right OT to Left Short";
+    	break;
+    	case "RIGHTOTLEFTLONG": newName = "Sweep Right OT to Left Long";
+    	break;
+    	case "RIGHTOTLEFTOT": newName = "Sweep Right OT to Left OT";
+    	break;
+    	case "HOLDRIGHTLONG": newName = "Sweep Hold Right Long";
+    	break;
+    	case "RIGHTLONGRIGHTSHORT": newName = "Sweep Right Long to Right Short";
+    	break;
+    	case "RIGHTLONGCENTER": newName = "Sweep Right Long to Center";
+    	break;
+    	case "RIGHTLONGLEFTSHORT": newName = "Sweep Right Long to Left Short";
+    	break;
+    	case "RIGHTLONGLEFTLONG": newName = "Sweep Right Long to Left Long";
+    	break;
+    	case "RIGHTLONGLEFTOT": newName = "Sweep Right Long to Left OT";
+    	break;
+    	case "HOLDRIGHTSHORT": newName = "Sweep Hold Right Short";
+    	break;
+    	case "RIGHTSHORTCENTER": newName = "Sweep Right Short to Center";
+    	break;
+    	case "RIGHTSHORTLEFTSHORT": newName = "Sweep Right Short to Left Short";
+    	break;
+    	case "RIGHTSHORTLEFTLONG": newName = "Sweep Right Short to Left Long";
+    	break;
+    	case "RIGHTSHORTLEFTOT": newName = "Sweep Right Short to Left OT";
+    	break;
+    	case "HOLDCENTER": newName = "Sweep Hold Center";
+    	break;
+    	case "CENTERLEFTSHORT": newName = "Sweep Center to Left Short";
+    	break;
+    	case "CENTERLEFTLONG": newName = "Sweep Center to Left Long";
+    	break;
+    	case "CENTERLEFTOT": newName = "Sweep Center to Left OT";
+    	break;
+    	case "HOLDLEFTSHORT": newName = "Sweep Hold Left Short";
+    	break;
+    	case "LEFTSHORTLEFTLONG": newName = "Sweep Left Short to Left Long";
+    	break;
+    	case "LEFTSHORTLEFTOT": newName = "Sweep Left Short to Left OT";
+    	break;
+    	case "HOLDLEFTLONG": newName = "Sweep Hold Left Long";
+    	break;
+    	case "LEFTLONGLEFTOT": newName = "Sweep Left Long to Left OT";
+    	break;
+    	case "HOLDLEFTOT": newName = "Sweep Hold Left OT";
+    	break;
+    	case "SWEEPSPECIAL": newName = "Sweep Special";
+    	break;
     	}
-    	
-    	
     	
 		return newName;
     }
