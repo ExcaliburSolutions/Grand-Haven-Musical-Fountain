@@ -173,24 +173,30 @@ public class Timeline extends ArrayList<Event>{
         
     }
     
-    public void fillTheSpaces(SortedMap<Integer, SortedMap<Integer, Integer>> oldArray ){
-    	int currentNumber = 0;
-		boolean fill = false;
-		for(Integer channel: oldArray.keySet()) {
-			for(Integer tenth: oldArray.get(channel).keySet()) {
-				if(oldArray.get(channel).get(tenth) != 0 && oldArray.get(channel).get(tenth) != OFF){
-    				currentNumber = oldArray.get(channel).get(tenth);
-    				fill = true;
-    			}
-    			if(oldArray.get(channel).get(tenth) == OFF){
-//    				oldArray[i][j] = 0;
-    				fill = false;
-    			}
-    			if(fill = true && oldArray.get(channel).get(tenth) != currentNumber){
-    				oldArray.get(channel).put(tenth, currentNumber);
-    			}
-			}
-		}
+    public void fillTheSpaces(SortedMap<Integer, SortedMap<Integer, Integer>> oldArray){
+//    	int currentNumber = 0;
+        boolean fill = false;
+        for(Integer channel: oldArray.keySet()) {
+            for(Integer tenth: oldArray.get(channel).keySet()) {
+                if(oldArray.get(channel).get(tenth) == 0) {
+                    oldArray.get(channel).put(tenth, oldArray.get(channel).get(tenth-1));
+                }
+                if(oldArray.get(channel).get(tenth) == -5) {
+                    break;
+                }
+//                if(oldArray.get(channel).get(tenth) != 0 && oldArray.get(channel).get(tenth) != OFF){
+//                    currentNumber = oldArray.get(channel).get(tenth);
+//                    fill = true;
+//                }
+//                if(oldArray.get(channel).get(tenth) == OFF){
+////    				oldArray[i][j] = 0;
+//                    fill = false;
+//                }
+//                if(fill = true && oldArray.get(channel).get(tenth) != currentNumber){
+//                    oldArray.get(channel).put(tenth, currentNumber);
+//                }
+            }
+        }
 //    	for(int i = 0; i < oldArray.length; i++){
 //    		for(int j = 0; j < oldArray[i].length; j++){
 //    			

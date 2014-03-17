@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.stage.FileChooser;
@@ -45,7 +46,11 @@ public class CtlLib {
         fc.setInitialFileName(System.getProperty("user.home"));
         fc.getExtensionFilters().add(new ExtensionFilter("CTL Files", "*.ctl"));
         File ctlFile = fc.showOpenDialog(null);
-        ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(ctlFile)));
+        
+    }
+    
+    public void openCtl(File file) {
+        ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(file)));
     }
 
     /**
@@ -78,11 +83,18 @@ public class CtlLib {
      */
     public synchronized SortedMap<Integer, ArrayList<FCW>> parseCTL(String input){
         //Split file into tokens of lines
-        String[] lines = input.split(System.getProperty("line.separator"));
+        Scanner ctlIn = new Scanner(input);
+        String versionNumber = ctlIn.nextLine();
+        if(versionNumber.equals("gvsuCapstone2014A")) {
+            ChoreographyController.getInstance().setAdvanced(true);
+        } else if(versionNumber.equals("ct0-382")) {
+            FCWLib.getInstance().usesClassicColors(true);
+        }
+        //Read
         //Create an Event[] to hold all events
         SortedMap<Integer, ArrayList<FCW>> events = new ConcurrentSkipListMap<>();
-        // For each line,
-        for(String line : lines){
+        while(ctlIn.hasNext()) {
+            String line = ctlIn.nextLine();
             //Get the time signature
             String totalTime = line.substring(0, 7);
             //Get the minutes
@@ -106,8 +118,8 @@ public class CtlLib {
                 fcws.add(fcw);       
             }
             events.put(totalTimeinTenthSecs, fcws);
-            
         }
+        // For each line,
         System.out.println(events.toString());
         return events;
     }
@@ -120,25 +132,46 @@ public class CtlLib {
      */
     public synchronized boolean saveFile(File file, SortedMap<Integer, ArrayList<FCW>> content){
 //
-//        try (FileWriter fileWriter = new FileWriter(file)){
-//            for(Integer i: content.keySet()){
-//                StringBuilder commandsOutput = new StringBuilder();
-//                int minutes = (int) (i / 60);
-//                for(FCW f: content.get(i)) {
-//                    commandsOutput.append(" ").append(f);
-//                String eventString = new DecimalFormat("00").format(minutes) + ":" 
-//                        + new DecimalFormat("00.0").format(i/10) + commandsOutput;
-//                    fileWriter.write(i.toString());
-//                    for(FCW f: content.get(i)) {
-//                        fileWriter.write(f.toString() + " ");
-//                    }
-//                    fileWriter.write("\n");
-//                }
-//            }
-//            return true;
-//        } catch (IOException ex) {
+        try (FileWriter fileWriter = new FileWriter(file)){
+            if(ChoreographyController.getInstance().getAdvanced()) {
+                fileWriter.write("gvsuCapstone2014A");
+            }
+            else {
+                fileWriter.write("gvsuCapstone2014B");
+            }
+            
+            postDate(content);
+            
+            for(Integer i: content.keySet()){
+                StringBuilder commandsOutput = new StringBuilder();
+                int minutes = (int) (i / 60);
+                for(FCW f: content.get(i)) {
+                    commandsOutput.append(" ").append(f);
+                String eventString = new DecimalFormat("00").format(minutes) + ":" 
+                        + new DecimalFormat("00.0").format(i/10) + commandsOutput;
+                    fileWriter.write(i.toString());
+                    for(FCW f: content.get(i)) {
+                        fileWriter.write(f.toString() + " ");
+                    }
+                    fileWriter.write("\n");
+                }
+            }
+            
+        } catch (IOException ex) {
             return false;
         }
+            
+            return true;
+        
         
     
 }
+
+    private void postDate(SortedMap<Integer, ArrayList<FCW>> content) {
+        for(Integer timeIndex: content.keySet()) {
+            for(FCW f: content.get(timeIndex)) {
+                double lag = LagTimeLibrary.getInstance().getLagTime(f);
+                
+            }
+        }
+    }
