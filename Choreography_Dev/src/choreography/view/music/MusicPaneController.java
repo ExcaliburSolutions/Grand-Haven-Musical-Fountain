@@ -195,17 +195,35 @@ public class MusicPaneController {
         fc.getExtensionFilters().setAll(new FileChooser.ExtensionFilter(
                 "Music Files", "*.wav", "*.flac"));
     	File file2 = fc.showOpenDialog(null);
-    	openMusicFile(file2);
-        
-    }
+    	music2 = new Music();
+    	if (file2 != null){
+    		getAllMusic(file2);
+    		music2.setDirectoryFile(file2.getAbsolutePath());
+    	}
+    	
+    	String source = new File(music2.getDirectoryFile()).toURI().toString();
+    	Media media = new Media(source);
+    	mediaPlayer = new MediaPlayer(media);
+    	//mediaPlayer.setVolume(volume.getValue());
+    	songName.setText(music2.getName());
+        mediaPlayer.play();
+        mediaPlayer.pause();
+    	updateProgressTimer(); 
+    	
+    	
+//    	mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
+//            @Override
+//            public void invalidated(Observable ov) {
+//                updateProgress();
+//            }
+//        });
 
-    public void loadMusicFile(File file2) {
-        URL url = null;
+    	URL url = null;
         try {
-            url = file2.toURI().toURL();
+                url = file2.toURI().toURL();
 
         } catch (MalformedURLException ec) {
-            ec.printStackTrace();
+                ec.printStackTrace();
         }
 		
         try {
@@ -225,29 +243,10 @@ public class MusicPaneController {
             numberLine.setVisible(true);
             songProgress.setText("0/"+roundedTime);
         } catch (Exception ex) {
-            
-            ex.printStackTrace();
+
+                ex.printStackTrace();
         }
         notFirst = true;
-    }
-
-    public void openMusicFile(File file2) {
-        music2 = new Music();
-        if (file2 != null){
-            getAllMusic(file2);
-            music2.setDirectoryFile(file2.getAbsolutePath());
-        }
-        
-        loadMusicFile(file2);
-        
-        String source = new File(music2.getDirectoryFile()).toURI().toString();
-        Media media = new Media(source);
-        mediaPlayer = new MediaPlayer(media);
-        //mediaPlayer.setVolume(volume.getValue());
-        songName.setText(music2.getName());
-        mediaPlayer.play();
-        mediaPlayer.pause();
-        updateProgressTimer();
     }
 
     /**

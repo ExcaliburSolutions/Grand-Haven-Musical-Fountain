@@ -82,7 +82,7 @@ public class ColorPaletteController implements Initializable {
         rectangles = new Rectangle[32];
 
         // sets the selected color to the a default to avoid errors. 
-        setSelectedColor(ColorPaletteModel.getInstance().getColors()[13]);
+        setSelectedColor(ColorPaletteModel.getInstance().getColors()[ColorPaletteModel.getInstance().getSelectedIndex()]);
 
         // Sets the first color to red and creates the event handler
         for(int index = 0; index < 16; index++) {
@@ -94,39 +94,31 @@ public class ColorPaletteController implements Initializable {
             colorPalette.getChildren().add(rectangles[index]);
             
         }
-        
-        rectangles[16] = new Rectangle(25, 25, ColorPaletteModel.getInstance().getColor(1));
-        rectangles[16].setOnMousePressed(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getButton() == MouseButton.SECONDARY) {
-                    rectangles[16].setFill(colorPicker.getValue());
-                    rectangles[17].setWidth(25);
-                    rectangles[17].setHeight(25);
-                }
-                else {
-                    ColorPaletteModel.getInstance().setSelectedIndex(16);
-                }
-            }
-        });
-        
-        for(int index = 17; index < 32; index++) {
-            final int index2 = index;
-            rectangles[index] = new Rectangle(0,0, Color.WHITE);
-            rectangles[index].setOnMousePressed((MouseEvent me) -> {
-                if(me.getButton() == MouseButton.SECONDARY) {
-                    rectangles[index2].setFill(colorPicker.getValue());
-                    rectangles[index2 + 1].setWidth(25);
-                    rectangles[index2 + 1].setHeight(25);
-                }
-                else {
-                    ColorPaletteModel.getInstance().setSelectedIndex(index2);
+            
+            Rectangle rectangle = rectangles[16] = new Rectangle(25, 25);
+            colorPalette.getChildren().add(rectangle);
+            rectangle.setOnMousePressed((MouseEvent me) -> {
+                if (me.getButton() == MouseButton.SECONDARY) {
+                    rectangle.setFill(colorPicker.getValue());
+                    Rectangle newRec = new Rectangle(25, 25, ColorPaletteModel.getInstance().getColors()[14]);
+                    newRec.setOnMousePressed(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if (me.getButton() == MouseButton.SECONDARY) {
+                            rectangle.setFill(colorPicker.getValue());
+                            Rectangle newRec2 = new Rectangle(25, 25, ColorPaletteModel.getInstance().getColors()[14]);
+                            colorPalette.getChildren().add(newRec2);
+                            } else {
+                                ColorPaletteModel.getInstance().setSelectedIndex(ColorPaletteModel.getInstance().getAvailableColors());
+                            }
+                        }
+                    });
+                    colorPalette.getChildren().add(newRec);
+                } else {
+                    ColorPaletteModel.getInstance().setSelectedIndex(ColorPaletteModel.getInstance().getAvailableColors());
                 }
             });
-            colorPalette.getChildren().add(colorPalette.getChildren().size(), rectangles[index]);
             
-        }
         cpc = this;
     }
     

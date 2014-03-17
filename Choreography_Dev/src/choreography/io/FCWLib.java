@@ -38,7 +38,6 @@ public final class FCWLib {
     private String[] functionNames;
     private HashMap<HashSet<Integer>, String> functionTables;
     private HashMap<String, HashMap<String, Integer>> tableCommands;
-    private boolean usesClassicColors;
 
     private FCWLib(){
         waterAddress = new HashMap<>();
@@ -238,8 +237,7 @@ public final class FCWLib {
         return new FCW(addr, data); //get rid of this crap!
     }
 
-    private synchronized int getCommandsForAction(String[] actions, 
-            String table, int data) {
+    private synchronized int getCommandsForAction(String[] actions, String table, int data) {
         for (String action : actions) {
             action = action.toUpperCase();
             int value = tableCommands.get(table).get(action);
@@ -304,47 +302,14 @@ public final class FCWLib {
      * @return
      */
     public synchronized String[] reverseLookupData(FCW f){
-        Integer[] values;
         String table = searchFunctionTables(f.getAddr());
-        switch(table) {
-            case "TableTime":
-                return new String[]{Integer.toString(f.getData())};
-            case "TableA":
-                values = new Integer[]{64, 32, 16, 8};
-                break;
-            case "TableC":
-                values = new Integer[]{32, 16, 8, 4, 2, 1};
-                break;
-            case "TableD":
-                values = new Integer[]{32, 16, 8, 7, 6, 5, 4, 3, 2, 1};
-                break;
-            case "TableE":
-                values = new Integer[]{8, 4, 2};
-                break;
-            case "TableF":
-                values = new Integer[]{1};
-                break;
-            case "TableG":
-                values = new Integer[]{64, 32, 16, 2, 1};
-                break;
-            case "TableH":
-                values = new Integer[]{64, 32, 16, 6};
-                break;
-            case "TableI":
-                values = new Integer[]{64, 32, 16, 2, 1};
-                break;
-            case "TableJ":
-                values = new Integer[]{102, 86, 85, 70, 69, 68, 54, 53, 52, 51, 38, 
-                37, 36, 35, 34, 22, 21, 20, 19, 18, 17, 6, 5, 4, 3, 2, 1};
-                break;
-            default:
-                 values = new Integer[]{256, 128, 64, 32, 16, 8};
+        if(table.equals("TableTime")) {
+            return new String[]{Integer.toString(f.getData())};
         }
-        
         ArrayList<Integer> flags = new ArrayList<>();
         ArrayList<String> actions = new ArrayList<>();
         int data = f.getData();
-        
+        Integer[] values = new Integer[]{256, 128, 64, 32, 16, 8, 4, 2, 1};
         setFlags(values, data, flags);
         
         for(Entry<String, Integer> entry: tableCommands.get(table).entrySet()) {
@@ -392,9 +357,5 @@ public final class FCWLib {
      */
     public synchronized void setFunctionNames(String[] functionNames) {
             this.functionNames = functionNames;
-    }
-
-    public void usesClassicColors(boolean b) {
-        usesClassicColors = b;
     }
 }
