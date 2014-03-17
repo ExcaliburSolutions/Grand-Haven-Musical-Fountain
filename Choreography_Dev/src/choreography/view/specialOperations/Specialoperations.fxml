@@ -1,112 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../application.css?>
 
-<Accordion prefHeight="200.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="choreography.view.specialOperations.SpecialoperationsController">
+<Accordion prefHeight="200.0" prefWidth="233.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.specialOperations.SpecialoperationsController">
   <panes>
     <TitledPane fx:id="sweepControlsPane" animated="true" text="Sweep Controls">
       <content>
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-          <children><AnchorPane fx:id="aSweepsPane" layoutX="33.0" prefHeight="12.0" prefWidth="200.0" /><Label layoutX="35.0" layoutY="18.0" text="LL          LS         C          RS         RL">
-<font>
-<Font size="9.0" />
-</font></Label>
-<AnchorPane fx:id="bSweepsPane" layoutX="32.0" layoutY="30.0" prefHeight="19.0" prefWidth="202.0" />
-<Label layoutX="35.0" layoutY="47.0" text="LL          LS         C          RS         RL">
-<font>
-<Font size="9.0" />
-</font>
-</Label>
-<Label layoutX="10.0" text="A:" />
-<Label layoutX="10.0" layoutY="35.0" text="B:" />
+          <children>
+            <Label layoutX="14.353271484375" layoutY="38.0" />
           </children>
         </AnchorPane>
       </content>
     </TitledPane>
-    <TitledPane animated="true" prefHeight="259.0" prefWidth="233.0" text="Copy Effects">
+    <TitledPane animated="true" prefHeight="259.0" prefWidth="233.0" text="untitled">
       <content>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-<children>
-<Group layoutY="5.0">
-<children><ToggleButton fx:id="copyAtoB" layoutX="12.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="A  to  B">
-<toggleGroup>
-<ToggleGroup fx:id="CopyButtons" />
-</toggleGroup>
-<font>
-<Font size="11.0" />
-</font></ToggleButton>
-<ToggleButton fx:id="copyLight" layoutX="75.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Light" toggleGroup="$CopyButtons">
-<font>
-<Font size="11.0" />
-</font>
-<padding>
-<Insets bottom="1.0" />
-</padding>
-</ToggleButton>
-<ToggleButton fx:id="copyBtoA" layoutX="75.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="B  to  A" toggleGroup="$CopyButtons">
-<font>
-<Font size="11.0" />
-</font>
-</ToggleButton>
-<ToggleButton fx:id="copyWater" layoutX="12.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Water" toggleGroup="$CopyButtons">
-<font>
-<Font size="11.0" />
-</font>
-<padding>
-<Insets bottom="1.0" />
-</padding>
-</ToggleButton>
-</children>
-<effect>
-<DropShadow />
-</effect>
-</Group>
-</children></AnchorPane>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
-    </TitledPane><TitledPane animated="false" text="Special Operations">
-  <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-<children>
-<Group>
-<children>
-<ToggleButton fx:id="eraseButton" layoutX="77.0" layoutY="8.0" mnemonicParsing="false" text="Erase">
-<toggleGroup>
-<ToggleGroup fx:id="SpecialOps" />
-</toggleGroup>
-<font>
-<Font size="11.0" />
-</font>
-</ToggleButton>
-<ToggleButton fx:id="resetButton" layoutX="10.0" layoutY="8.0" mnemonicParsing="false" text="Reset All" toggleGroup="$SpecialOps">
-<font>
-<Font size="11.0" />
-</font>
-</ToggleButton>
-</children>
-<effect>
-<DropShadow />
-</effect>
-</Group>
-<Group>
-<children><CheckBox fx:id="operatorCheckbox" layoutX="78.0" layoutY="45.0" mnemonicParsing="false" text="Operator Display" /><CheckBox fx:id="voiceCheckbox" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" text="Voice" />
-</children>
-<effect>
-<Lighting>
-<bumpInput>
-<Shadow />
-</bumpInput>
-</Lighting>
-</effect>
-</Group>
-</children></AnchorPane>
-  </content>
-</TitledPane>
+    </TitledPane>
   </panes>
 </Accordion>
