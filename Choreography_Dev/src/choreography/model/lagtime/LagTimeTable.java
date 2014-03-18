@@ -50,7 +50,7 @@ public class LagTimeTable {
      */
     public void setLagTimes(ArrayList<LagTime> delayTimes) {
             this.delays = delayTimes;
-            System.out.println(delays);
+//            System.out.println(delays);
 	}
 
 	/**

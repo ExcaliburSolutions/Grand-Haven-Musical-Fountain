@@ -114,7 +114,7 @@ public class CtlLib {
             events.put(totalTimeinTenthSecs, fcws);
             
         }
-        System.out.println(events.toString());
+//        System.out.println(events.toString());
         return events;
     }
 

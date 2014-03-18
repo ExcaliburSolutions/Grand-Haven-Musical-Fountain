@@ -334,7 +334,7 @@ public class TimelineController implements Initializable {
         SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
         for (int channel: gtfoArray.keySet()){
         	for (int timeIndex: gtfoArray.get(channel).keySet()){
-    			System.out.println(Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex));
+//    			System.out.println(Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex));
     			Integer gtfo = Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex);
     			Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
     			lightRecArray[timeIndex][lightRowLookupNumber(channel)].setFill(color);
