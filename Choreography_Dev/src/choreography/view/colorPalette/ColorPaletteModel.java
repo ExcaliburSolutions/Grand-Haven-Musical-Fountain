@@ -134,10 +134,10 @@ public class ColorPaletteModel {
     }
     
     public Paint getColor(int i){
-    	
-    	
-		return colors[i - 1];
-    	
+        if(i == 0)
+            return colors[0];
+        else
+            return colors[i - 1];
     }
 
 }

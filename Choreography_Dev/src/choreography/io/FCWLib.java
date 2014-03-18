@@ -397,4 +397,9 @@ public final class FCWLib {
     public void usesClassicColors(boolean b) {
         usesClassicColors = b;
     }
+    
+    public String reverseLookupAddress(int i) {
+        FCW f = new FCW(i, 0);
+        return reverseLookupAddress(f);
+    }
 }

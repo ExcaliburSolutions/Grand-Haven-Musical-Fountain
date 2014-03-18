@@ -7,12 +7,11 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.SortedMap;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -71,14 +70,16 @@ public class TimelineController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        setTimelineGridPane();
-        setLabelGridPane();
         // setWaterGridPane();
         instance = this;
 
     }
 
+    public void configureTimelines() {
+        setTimelineGridPane();
+        setLabelGridPane();
+    }
+    
 //    public void setLabelGridPane() {
 //        // 57 lines long
 //        final String[] labelNames = new String[] {"Custom Channel", "Module 1", "Module 2",
@@ -116,15 +117,17 @@ public class TimelineController implements Initializable {
 //
 //        for (int i = 0; i < 14; i++) {
     
-    public void setLabelGridPane(){
-    	timelineLabelPane = new GridPane();
-    	final String[] labelNames = new String[]{"Module 1", "Module 2", "Module 3", 
+    public void setLabelGridPane() {
+        timelineLabelPane = new GridPane();
+      final String[] labelNames = new String[]{"Module 1", "Module 2", "Module 3", 
             "Module 4", "Module 5", "Module 6", "Module 7", "A Modules", "B Modules", 
             "Front Curtain", "Back Curtain", "Peacock", "Voice", "ALL LEDs"};
     	
     	timelineLabelPane.setGridLinesVisible(true);
 //    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
-    	
+//        Integer[] channelAddresses = new Integer[1];
+//    	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
+//        channelAddresses = channelAddressesSet.toArray(channelAddresses);
     	final Label[] labelArray = new Label[14];
     	for(int i=0; i<14;i++){
         timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
@@ -133,6 +136,47 @@ public class TimelineController implements Initializable {
     	
     	for(int i=0; i<14;i++){
             labelArray[i] = new Label(labelNames[i]);
+//            labelArray[i] = new Label(FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]));
+            timelineLabelPane.add(labelArray[i], 0, i);
+    	}
+        
+        timelineScrollPane.vvalueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue o,Object oldVal, 
+                     Object newVal){
+                 labelScrollPane.setVvalue(timelineScrollPane.getVvalue());
+            }
+          });
+    	 labelScrollPane.vvalueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue o,Object oldVal, 
+                     Object newVal){
+                    timelineScrollPane.setVvalue(labelScrollPane.getVvalue());
+            }
+          });
+    	labelScrollPane.setContent(timelineLabelPane);
+    }
+    
+    public void setLabelGridPaneWithCtl(){
+    	timelineLabelPane = new GridPane();
+//    	final String[] labelNames = new String[]{"Module 1", "Module 2", "Module 3", 
+//            "Module 4", "Module 5", "Module 6", "Module 7", "A Modules", "B Modules", 
+//            "Front Curtain", "Back Curtain", "Peacock", "Voice", "ALL LEDs"};
+    	
+    	timelineLabelPane.setGridLinesVisible(true);
+//    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
+        Integer[] channelAddresses = new Integer[1];
+    	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
+        channelAddresses = channelAddressesSet.toArray(channelAddresses);
+    	final Label[] labelArray = new Label[channelAddresses.length];
+    	for(int i=0; i<14;i++){
+        timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
+    	}
+    	timelineLabelPane.getColumnConstraints().add(new ColumnConstraints(98));
+    	
+    	for(int i=0; i<14;i++){
+//            labelArray[i] = new Label(labelNames[i]);
+            labelArray[i] = new Label(FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]));
             timelineLabelPane.add(labelArray[i], 0, i);
     	}
         

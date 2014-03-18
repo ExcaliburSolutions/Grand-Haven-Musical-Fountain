@@ -2,12 +2,13 @@ package choreography.io;
 
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
+import choreography.view.music.MusicPaneController;
+import choreography.view.timeline.TimelineController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.SortedMap;
@@ -51,6 +52,7 @@ public class CtlLib {
     
     public void openCtl(File file) {
         ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(file)));
+        TimelineController.getInstance().setLabelGridPaneWithCtl();
     }
 
     /**
@@ -144,16 +146,14 @@ public class CtlLib {
             
             for(Integer i: content.keySet()){
                 StringBuilder commandsOutput = new StringBuilder();
-                int minutes = (int) (i / 60);
+                int totalTenths = MusicPaneController.SONG_TIME;
+                int tenths = totalTenths % 10;
+                int seconds = totalTenths /10;
+                int minutes = seconds / 60;
+                seconds = seconds - (minutes * 10);
+                String totTime = minutes + ":" + seconds + "." + tenths;
                 for(FCW f: content.get(i)) {
-                    commandsOutput.append(" ").append(f);
-                String eventString = new DecimalFormat("00").format(minutes) + ":" 
-                        + new DecimalFormat("00.0").format(i/10) + commandsOutput;
-                    fileWriter.write(i.toString());
-                    for(FCW f: content.get(i)) {
-                        fileWriter.write(f.toString() + " ");
-                    }
-                    fileWriter.write("\n");
+                    
                 }
             }
             
@@ -165,7 +165,7 @@ public class CtlLib {
         
         
     
-}
+    }
 
     private void postDate(SortedMap<Integer, ArrayList<FCW>> content) {
         for(Integer timeIndex: content.keySet()) {
@@ -175,3 +175,4 @@ public class CtlLib {
             }
         }
     }
+}
