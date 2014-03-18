@@ -10,6 +10,7 @@ import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
+import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.timeline.Timeline;
@@ -31,12 +32,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
@@ -209,8 +214,6 @@ public class ChoreographyController implements Initializable {
         fcwOutput.setText("Choreographer has loaded!");
         openCTLMenuItem.setDisable(true);
         cc = this;
-        MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
-        CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
     }
 
     private void buildFcwOutputAndSave() {
@@ -287,10 +290,6 @@ public class ChoreographyController implements Initializable {
      */
     public SortedMap<Integer, ArrayList<FCW>> getEventTimeline() {
         return events;
-    }
-
-    public void setAdvanced(boolean b) {
-        isAdvanced = b;
     }
 
     public boolean getAdvanced() {

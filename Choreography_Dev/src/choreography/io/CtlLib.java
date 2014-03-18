@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.stage.FileChooser;
@@ -85,18 +84,11 @@ public class CtlLib {
      */
     public synchronized SortedMap<Integer, ArrayList<FCW>> parseCTL(String input){
         //Split file into tokens of lines
-        Scanner ctlIn = new Scanner(input);
-        String versionNumber = ctlIn.nextLine();
-        if(versionNumber.equals("gvsuCapstone2014A")) {
-            ChoreographyController.getInstance().setAdvanced(true);
-        } else if(versionNumber.equals("ct0-382")) {
-            FCWLib.getInstance().usesClassicColors(true);
-        }
-        //Read
+        String[] lines = input.split(System.getProperty("line.separator"));
         //Create an Event[] to hold all events
         SortedMap<Integer, ArrayList<FCW>> events = new ConcurrentSkipListMap<>();
-        while(ctlIn.hasNext()) {
-            String line = ctlIn.nextLine();
+        // For each line,
+        for(String line : lines){
             //Get the time signature
             String totalTime = line.substring(0, 7);
             //Get the minutes
@@ -120,8 +112,8 @@ public class CtlLib {
                 fcws.add(fcw);       
             }
             events.put(totalTimeinTenthSecs, fcws);
+            
         }
-        // For each line,
         System.out.println(events.toString());
         return events;
     }
@@ -156,22 +148,19 @@ public class CtlLib {
                     
                 }
             }
-            
+        return true;    
         } catch (IOException ex) {
             return false;
         }
-            
-            return true;
-        
-        
-    
     }
 
     private void postDate(SortedMap<Integer, ArrayList<FCW>> content) {
         for(Integer timeIndex: content.keySet()) {
             for(FCW f: content.get(timeIndex)) {
-                double lag = LagTimeLibrary.getInstance().getLagTime(f);
-                
+                int lag = LagTimeLibrary.getInstance().getLagTime(f);
+                if(content.containsKey(timeIndex - lag)) {
+                    content.get(timeIndex - lag).add(f);
+                }
             }
         }
     }

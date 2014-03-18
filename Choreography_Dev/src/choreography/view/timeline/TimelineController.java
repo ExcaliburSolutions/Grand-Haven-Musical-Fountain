@@ -311,7 +311,8 @@ public class TimelineController implements Initializable {
                 String[] actions = FCWLib.getInstance().reverseLookupData(f);
                 StringBuilder actionList = new StringBuilder();
                 for(String s: actions){
-                	actionList.append(s);
+                	actionList.append(waterTLWords(s));
+                	actionList.append(System.getProperty("line.separator"));
                 }
                 int tenthOfSec = i % 10;
                 int secondsOnly = i /10; 
@@ -595,9 +596,11 @@ public class TimelineController implements Initializable {
     	break;
     	case "SWEEPSPECIAL": newName = "Sweep Special";
     	break;
-    	}
+    	default: newName = badName;
     	
-		return newName;
+    	}
+    	return newName;
+		
     }
 }
 

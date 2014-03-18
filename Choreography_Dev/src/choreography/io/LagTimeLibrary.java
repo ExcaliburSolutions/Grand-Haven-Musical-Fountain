@@ -87,8 +87,10 @@ public class LagTimeLibrary {
      * @param f
      * @return
      */
-    public double getLagTime(FCW f) {
-       return lagTimeTableInstance.getLagTime(f);
+    public int getLagTime(FCW f) {
+       double lag = lagTimeTableInstance.getLagTime(f);
+       int tenths = (int)lag * 10;
+       return tenths;
    }
     
     /**
