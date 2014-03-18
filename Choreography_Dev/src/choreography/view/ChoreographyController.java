@@ -214,6 +214,8 @@ public class ChoreographyController implements Initializable {
         fcwOutput.setText("Choreographer has loaded!");
         openCTLMenuItem.setDisable(true);
         cc = this;
+        MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
+        CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
     }
 
     private void buildFcwOutputAndSave() {
@@ -290,6 +292,10 @@ public class ChoreographyController implements Initializable {
      */
     public SortedMap<Integer, ArrayList<FCW>> getEventTimeline() {
         return events;
+    }
+
+    public void setAdvanced(boolean b) {
+        isAdvanced = b;
     }
 
     public boolean getAdvanced() {
