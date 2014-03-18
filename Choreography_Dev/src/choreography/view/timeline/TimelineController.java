@@ -41,7 +41,8 @@ public class TimelineController implements Initializable {
     private static TimelineController instance;
     private ColorPaletteEnum[] colorEnumArray = ColorPaletteEnum.values();
     private Integer[] channelAddresses;
-
+    boolean hasValue = false;
+    Rectangle oldRec = new Rectangle();
     /**
      * 
      * @return
@@ -285,16 +286,31 @@ public class TimelineController implements Initializable {
                 waterRecArray[i] = new Rectangle(25, 25, Color.LIGHTGREY);
                 gridpaneWater.add(waterRecArray[i], i, 0);
                 
-                waterRecArray[i].setOnMousePressed((MouseEvent me) -> {
+                waterRecArray[i]
+                        .setOnMousePressed(new EventHandler<MouseEvent>() {
+                            public void handle(MouseEvent me) {
+                            	
                     System.out.println("Col " + (testI));
+                                   
+                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
+                    if (!hasValue){ //aka false
+                    	oldRec = waterRecArray[testI];
+                    	hasValue = true;
+                    }
+                    else{
+                    	oldRec.setFill(Color.DARKBLUE);
+                    	oldRec = waterRecArray[testI];
+                    	waterRecArray[testI] = oldRec;
+                    	
+                    }}
                 });
-        }
         // ValueAxis axis = new ValueAxis();
 
         // scrollpane.setPrefSize(600, 250);
         MusicPaneController.getInstance().getWaterPane()
                         .setContent(gridpaneWater);
 //        MusicPaneController.getInstance().getLabelPane().setContent(numLine);
+    }
     }
 
     /**
