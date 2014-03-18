@@ -46,12 +46,12 @@ public class CtlLib {
         fc.setInitialFileName(System.getProperty("user.home"));
         fc.getExtensionFilters().add(new ExtensionFilter("CTL Files", "*.ctl"));
         File ctlFile = fc.showOpenDialog(null);
-        
+        openCtl(ctlFile);
     }
     
     public void openCtl(File file) {
         ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(file)));
-        TimelineController.getInstance().setLabelGridPaneWithCtl();
+        
     }
 
     /**

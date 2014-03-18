@@ -109,7 +109,7 @@ public class Timeline extends ArrayList<Event>{
         startAndEndPoints(gtfoArray);
         fillTheSpaces(gtfoArray);
 //        populateLightFcwArray();
-        TimelineController.getInstance().rePaint();
+//        TimelineController.getInstance().rePaint();
     }
 
 	/**

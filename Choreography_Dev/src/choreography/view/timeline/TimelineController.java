@@ -7,11 +7,13 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -38,6 +40,7 @@ public class TimelineController implements Initializable {
 	
     private static TimelineController instance;
     private ColorPaletteEnum[] colorEnumArray = ColorPaletteEnum.values();
+    private Integer[] channelAddresses;
 
     /**
      * 
@@ -71,8 +74,9 @@ public class TimelineController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // setWaterGridPane();
+    	channelAddresses = new Integer[1];
         instance = this;
-
+        configureTimelines();
     }
 
     public void configureTimelines() {
@@ -118,6 +122,7 @@ public class TimelineController implements Initializable {
 //        for (int i = 0; i < 14; i++) {
     
     public void setLabelGridPane() {
+    	channelAddresses = new Integer[]{17, 18, 19, 20, 21, 22, 23, 49, 50,51, 24, 25, 26, 190};
         timelineLabelPane = new GridPane();
       final String[] labelNames = new String[]{"Module 1", "Module 2", "Module 3", 
             "Module 4", "Module 5", "Module 6", "Module 7", "A Modules", "B Modules", 
@@ -165,18 +170,19 @@ public class TimelineController implements Initializable {
     	
     	timelineLabelPane.setGridLinesVisible(true);
 //    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
-        Integer[] channelAddresses = new Integer[1];
+        
     	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
         channelAddresses = channelAddressesSet.toArray(channelAddresses);
     	final Label[] labelArray = new Label[channelAddresses.length];
     	for(int i=0; i<14;i++){
-        timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
+    		timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
     	}
-    	timelineLabelPane.getColumnConstraints().add(new ColumnConstraints(98));
+    		timelineLabelPane.getColumnConstraints().add(new ColumnConstraints(98));
     	
     	for(int i=0; i<14;i++){
 //            labelArray[i] = new Label(labelNames[i]);
             labelArray[i] = new Label(FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]));
+            
             timelineLabelPane.add(labelArray[i], 0, i);
     	}
         
@@ -418,20 +424,12 @@ public class TimelineController implements Initializable {
     	return 0;
     }
     private int lightRowLookupNumber(int channel){
-    	
-    	switch(channel){
-    	case 17: return 0;
-    	case 18: return 1;
-    	case 19: return 2;
-    	case 20: return 3;
-    	case 21: return 4;
-    	case 22: return 5;
-    	case 23: return 6;
-    	case 48: return 7;
-    	case 49: return 8;
-    	case 50: return 9;
-    	default: return 10;
+    	for(int i = 0; i < channelAddresses.length; i++) {
+    		if(channelAddresses[i] == channel) {
+    			return i;
+    		}
     	}
+    	throw new IllegalArgumentException("Channel doesn't exist " + channel);
     //return 0;
     }
     
