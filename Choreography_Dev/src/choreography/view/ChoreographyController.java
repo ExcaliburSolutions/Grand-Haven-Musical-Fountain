@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -295,6 +297,20 @@ public class ChoreographyController implements Initializable {
 
     public boolean getAdvanced() {
         return isAdvanced;
+    }
+    
+    public void startPollingAlgorithms() {
+        Timer progressTimer = new Timer("progressTimer", true);
+        progressTimer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    MusicPaneController.getInstance().updateProgress();
+                    TimelineController.getInstance().fireSliderChangeEvent();
+                });
+            }
+        }, 0l, 125l);
     }
     
 }

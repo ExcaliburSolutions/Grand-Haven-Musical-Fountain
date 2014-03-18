@@ -5,21 +5,19 @@
 
 package choreography.view.music;
 
+import SimpleJavaFXPlayer.AudioWaveformCreator;
+import SimpleJavaFXPlayer.Music;
+import choreography.view.ChoreographyController;
+import choreography.view.sliders.SlidersController;
+import choreography.view.timeline.Timeline;
+import choreography.view.timeline.TimelineController;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
-
-import choreography.view.timeline.Timeline;
-import choreography.view.timeline.TimelineController;
-import SimpleJavaFXPlayer.AudioWaveformCreator;
-import SimpleJavaFXPlayer.Music;
-import choreography.view.ChoreographyController;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -244,7 +242,8 @@ public class MusicPaneController {
         songName.setText(music2.getName());
         mediaPlayer.play();
         mediaPlayer.pause();
-        updateProgressTimer();
+//        updateProgressTimer();
+        ChoreographyController.getInstance().startPollingAlgorithms();
     }
 
     /**
@@ -262,25 +261,13 @@ public class MusicPaneController {
             timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeLabel.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
-            
         } catch (Exception e) {
             System.out.println("Error updating song progress " + e);
         }
 
     }
     
-    public void updateProgressTimer() {
-        Timer progressTimer = new Timer("progressTimer", true);
-        progressTimer.scheduleAtFixedRate(new TimerTask() {
-
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    updateProgress();
-                });
-            }
-        }, 0l, 125l);
-    }
+    
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -330,5 +317,13 @@ public class MusicPaneController {
 
     public void setTime(double time) {
         this.time = time;
+    }
+    
+    public int getTenthsTime() {
+        double wholeTime = timeSlider.getValue();
+        double inter = wholeTime * 10;
+        int seconds = (int) inter;
+        System.out.println(wholeTime + " " + seconds);
+        return seconds;
     }
 }

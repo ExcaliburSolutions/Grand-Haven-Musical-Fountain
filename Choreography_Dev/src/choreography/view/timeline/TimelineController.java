@@ -7,6 +7,7 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
+import choreography.view.sliders.SlidersController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -601,6 +602,10 @@ public class TimelineController implements Initializable {
     	}
     	return newName;
 		
+    }
+
+    public void fireSliderChangeEvent() {
+        Timeline.getInstance().sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
     }
 }
 

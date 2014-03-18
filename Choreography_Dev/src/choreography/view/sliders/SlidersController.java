@@ -8,29 +8,38 @@ package choreography.view.sliders;
  * Sample Skeleton for "Sliders.fxml" Controller Class
  * You can copy and paste this code into your favorite IDE
  **/
+import choreography.Main;
+import choreography.io.FCWLib;
+import choreography.model.Fountain;
+import choreography.model.ModuleGroup;
+import choreography.model.cannon.Candelabra;
+import choreography.model.cannon.Cannon;
+import choreography.model.cannon.CannonEnum;
 import choreography.model.cannon.IndependentCannon;
-import choreography.model.cannon.Sweep;
 import choreography.model.cannon.Multi;
 import choreography.model.cannon.Ring;
-import choreography.model.cannon.Cannon;
-import choreography.model.cannon.Candelabra;
-import choreography.Main;
-
+import choreography.model.cannon.Sweep;
+import choreography.model.fcw.FCW;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
-import choreography.model.cannon.CannonEnum;
-import choreography.model.Fountain;
-import choreography.model.ModuleGroup;
 
 /**
  *
  * @author elementsking
  */
 public class SlidersController {
+    
+    private static SlidersController instance;
+    
+    public static SlidersController getInstance() {
+        if(instance == null) {
+            return instance = new SlidersController();
+        }
+        return instance;
+    }
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -234,6 +243,150 @@ public class SlidersController {
      */
     public void setFountain(Fountain fountain) {
             this.fountain = fountain;
+    }
+    
+    public void setSlidersWithFcw(ArrayList<FCW> fcws) {
+        for(FCW f: fcws) {
+            String[] actions = FCWLib.getInstance().reverseLookupData(f);
+            String module = findModule(actions);
+            int level = findLevel(actions);
+            switch(f.getAddr()) {
+                case 1:
+                    if(module.equalsIgnoreCase("A")){
+                        r5A.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        r5B.setValue(level);
+                    }
+                break;
+                case 2:
+                     if(module.equalsIgnoreCase("A")){
+                        r4A.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        r4B.setValue(level);
+                    }
+                break;
+                case 3:
+                     if(module.equalsIgnoreCase("A")){
+                        r3A.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        r3B.setValue(level);
+                    }
+                break;
+                case 4:
+                     if(module.equalsIgnoreCase("A")){
+                        r2A.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        r2B.setValue(level);
+                    }
+                break;
+                case 5:
+                     if(module.equalsIgnoreCase("A")){
+                        r1A.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        r1B.setValue(level);
+                    }
+                break;
+                case 6:
+                    if(module.equalsIgnoreCase("A")){
+                        swA.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        swB.setValue(level);
+                    }
+                break; 
+                case 7:
+                     if(module.equalsIgnoreCase("A")){
+                        sp.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        bz.setValue(level);
+                    }
+                break;
+                case 8:
+                     if(module.equalsIgnoreCase("A")){
+                        candleA.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        candleB.setValue(level);
+                    }
+                break;
+                case 9:
+                     if(module.equalsIgnoreCase("A")){
+                        ftC.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        for(String action: actions) {
+                            if(action.equalsIgnoreCase("peacock")) {
+                                pk.setValue(level);
+                            }
+                            else if(action.equalsIgnoreCase("bkcurt")) {
+                                bkC.setValue(level);
+                            }
+                        }
+                    }
+                break;
+                case 48:
+                    if(module.equalsIgnoreCase("A")){
+                        r1A.setValue(level);
+                        r2A.setValue(level);
+                        r3A.setValue(level);
+                        r4A.setValue(level);
+                        r5A.setValue(level);
+                        swA.setValue(level);
+                    }
+                    else if(module.equalsIgnoreCase("B")) {
+                        r1B.setValue(level);
+                        r2B.setValue(level);
+                        r3B.setValue(level);
+                        r4B.setValue(level);
+                        r5B.setValue(level);
+                        swB.setValue(level);
+                    }
+                break;
+            }
+        }
+    }
+    
+    public String findModule(String[] input) {
+        for(String action: input) {
+            if(action.equalsIgnoreCase("modulea")){
+                return "A";
+            }
+            else if(action.equalsIgnoreCase("moduleb")){
+                return "B";
+            }
+            else if(action.equalsIgnoreCase("ftcurt")) {
+                return "A";
+            }
+        }
+        return null;
+    }
+    
+    public int findLevel(String[] input) {
+        for(String action: input) {
+            switch(action){
+                case "0":
+                    return 0;
+                case "1":
+                    return 1;
+                case "2":
+                    return 2;
+                case "3":
+                    return 3;
+                case "4":
+                    return 4;
+                case "5":
+                    return 5;
+                case "6":
+                    return 6;
+            }
+        }
+        throw new IllegalArgumentException("Illegal level found..." + input);
     }
 }
 

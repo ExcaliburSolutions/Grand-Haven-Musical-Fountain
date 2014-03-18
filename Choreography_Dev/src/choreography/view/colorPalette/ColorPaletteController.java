@@ -75,10 +75,6 @@ public class ColorPaletteController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
-        /**
-         * @param args the command line arguments
-         */
-
         rectangles = new Rectangle[32];
 
         // sets the selected color to the a default to avoid errors. 

@@ -9,6 +9,7 @@ package choreography.view.timeline;
 import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.music.MusicPaneController;
+import choreography.view.sliders.SlidersController;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -143,6 +144,7 @@ public class Timeline extends ArrayList<Event>{
      */
     public void setWaterFcwAtPoint(int pointInTime, FCW f) {
         waterTimeline.get(pointInTime).add(f);
+        
     }
     
     /**
@@ -252,5 +254,10 @@ public class Timeline extends ArrayList<Event>{
         
     }
 //    private void populateLightFcwArray() {
+
+    void sendTimelineInstanceToSliders(int time) {
+        if(waterTimeline.containsKey(time))
+            SlidersController.getInstance().setSlidersWithFcw(waterTimeline.get(time));
+    }
         
 }
