@@ -237,7 +237,7 @@
     </HBox>
     <HBox maxHeight="-Infinity" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="NEVER">
       <children>
-        <fx:include source="../specialOperations/Specialoperations.fxml" />
+        <!--fx:include source="../specialOperations/Specialoperations.fxml" /-->
       </children>
     </HBox>
   </children>

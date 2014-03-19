@@ -301,7 +301,7 @@ public class SlidersController {
                 break; 
                 case 7:
                      if(module.equalsIgnoreCase("A")){
-                        sp.setValue(level);
+//                        sp.setValue(level);
                     }
                     else if(module.equalsIgnoreCase("B")) {
                         bz.setValue(level);

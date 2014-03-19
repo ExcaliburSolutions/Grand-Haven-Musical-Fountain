@@ -393,52 +393,7 @@ public class TimelineController implements Initializable {
     public void setTimeline(SortedMap<Integer, ArrayList<FCW>> timeline) {
        Timeline.getInstance().setTimeline(timeline);
     }
-    
-    private int lightRowLookup(String name){
-    	if(name.equals("MODULE1LIGHTS")){
-    		return 0;
-    	}
-    	if(name.equals("MODULE2LIGHTS")){
-    		return 1;
-    	}
-    	if(name.equals("MODULE3LIGHTS")){
-    		return 2;
-    	}
-    	if(name.equals("MODULE4LIGHTS")){
-    		return 3;
-    	}
-    	if(name.equals("MODULE5LIGHTS")){
-    		return 4;
-    	}
-    	if(name.equals("MODULE6LIGHTS")){
-    		return 5;
-    	}
-    	if(name.equals("MODULE7LIGHTS")){
-    		return 6;
-    	}
-    	if(name.equals("MODULEALIGHTS")){
-    		return 7;
-    	}
-    	if(name.equals("MODULEBLIGHTS")){
-    		return 8;
-    	}
-    	if(name.equals("FRONTALLLED")){//not sure if this is front curtain
-    		return 9;
-    	}
-    	if(name.equals("BACKCURTAINLIGHTS")){
-    		return 10;
-    	}
-    	if(name.equals("PEACOCKAB")){//not sure if this is the correct peacock
-    		return 11;
-    	}
-    	if(name.equals("SPOUTVOICEALL")){
-    		return 12;
-    	}
-    	if(name.equals("ALLLEDLIGHTS")){
-    		return 13;
-    	}
-    	return 0;
-    }
+
     private int lightRowLookupNumber(int channel){
     	for(int i = 0; i < channelAddresses.length; i++) {
     		if(channelAddresses[i] == channel) {
