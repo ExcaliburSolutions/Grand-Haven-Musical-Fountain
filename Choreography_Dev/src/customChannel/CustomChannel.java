@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -66,6 +67,7 @@ public class CustomChannel extends Application{
 
 		primaryStage.setScene(new Scene(rootPane, 400, 325));
 		primaryStage.show();
+
 	}
 
 	/**
@@ -146,10 +148,15 @@ public class CustomChannel extends Application{
 		finish.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				// @todo need to add handler in timeline to add selectedModules and exit the dialog
-				getSelected();
+				// TODO need to add handler in timeline to add selectedModules and exit the dialog
+				final Object[] selectedArray = getSelected();
+				for(int i = 0; i < selectedArray.length;i++ ){
+					System.out.println(selectedArray[i].toString());
+				}
 				try {
-					stop();
+					Node  source = (Node)  me.getSource(); 
+				    Stage stage  = (Stage) source.getScene().getWindow();
+				    stage.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -157,9 +164,9 @@ public class CustomChannel extends Application{
 		});
 	}
 	
-	public static Array[] getSelected() {
-		Array[] selectedArray;
-		selectedArray = (Array[]) selectedListView.getItems().toArray();
+	private static Object[] getSelected() {
+		Object[] selectedArray;
+		selectedArray = selectedListView.getItems().toArray();
 		return selectedArray;
 	}
 	
