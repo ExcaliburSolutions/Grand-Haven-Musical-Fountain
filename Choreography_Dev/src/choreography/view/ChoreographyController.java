@@ -82,6 +82,8 @@ public class ChoreographyController implements Initializable {
     @FXML
     private Menu editMenu;
     @FXML
+    private MenuItem addChannelsMenuItem;
+    @FXML
     private MenuItem undoMenuItem;
     @FXML
     private MenuItem redoMenuItem;
@@ -272,6 +274,10 @@ public class ChoreographyController implements Initializable {
      */
     public void setfcwOutput(String s) {
         fcwOutput.setText(s);
+    }
+    
+    public void addChannels(){
+    	
     }
     
     /**

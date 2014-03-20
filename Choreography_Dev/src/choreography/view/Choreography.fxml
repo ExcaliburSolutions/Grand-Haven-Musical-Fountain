@@ -53,6 +53,7 @@
         <Menu mnemonicParsing="false" text="Edit" fx:id="editMenu">
           <items>
             <CheckMenuItem mnemonicParsing="false" text="Advanced Function" fx:id="advancedCheckMenuItem" />
+            <MenuItem id="addChannelsMenuItem" mnemonicParsing="false" onAction="#addChannels" text="Add Channels" visible="true" fx:id="addChannelsMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#openLagTimeDialog" text="Set Lag Times" visible="false" fx:id="setLagTimesMenuItem" />
             <MenuItem mnemonicParsing="false" text="Undo" fx:id="undoMenuItem">
               <accelerator>
