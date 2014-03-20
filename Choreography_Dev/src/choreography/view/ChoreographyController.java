@@ -109,6 +109,7 @@ public class ChoreographyController implements Initializable {
     private File saveLocation;
     private boolean isSaved;
     private boolean isAdvanced;
+    private boolean isSlidersLoaded;
     /**
      * Initializes the controller class.
      * @param url
@@ -211,8 +212,15 @@ public class ChoreographyController implements Initializable {
         fcwOutput.setText("Choreographer has loaded!");
         openCTLMenuItem.setDisable(true);
         cc = this;
-        MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
-        CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
+        Platform.runLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
+                    CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
+                }
+            });
+        isSlidersLoaded = true;
     }
 
     private void buildFcwOutputAndSave() {
@@ -301,7 +309,7 @@ public class ChoreographyController implements Initializable {
         return isAdvanced;
     }
     
-    public void startPollingAlgorithms() {
+    public void startPollingSliderAlgorithm() {
         Timer progressTimer = new Timer("progressTimer", true);
         progressTimer.scheduleAtFixedRate(new TimerTask() {
 
@@ -309,10 +317,25 @@ public class ChoreographyController implements Initializable {
             public void run() {
                 Platform.runLater(() -> {
                     MusicPaneController.getInstance().updateProgress();
-                    TimelineController.getInstance().fireSliderChangeEvent();
                 });
             }
         }, 0l, 125l);
+    }
+    public void startPollingTimelineAlgorithm() {
+        Timer progressTimer = new Timer("progressTimer", true);
+        progressTimer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    TimelineController.getInstance().fireSliderChangeEvent();
+                });
+            }
+        }, 0l, 100l);
+    }
+
+    public void setSlidersLoaded(boolean b) {
+        isSlidersLoaded = b;
     }
     
 }

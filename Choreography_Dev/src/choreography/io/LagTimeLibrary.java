@@ -54,7 +54,7 @@ public class LagTimeLibrary {
      * @return
      */
     public ArrayList<LagTime> getLagTimes() {
-        return lagTimeTableInstance.getDelays();
+        return LagTimeTable.getDelays();
     }
 
     private LagTimeLibrary() throws FileNotFoundException {
@@ -71,7 +71,7 @@ public class LagTimeLibrary {
                 LagTime lt = new LagTime(tokens[0].trim(), Double.parseDouble(tokens[1].trim()));
                 delayTimes.add(lt);
             }
-            lagTimeTableInstance.setLagTimes(delayTimes);
+            LagTimeTable.setLagTimes(delayTimes);
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("Cannot find lagTimeDef file");
         } catch (NumberFormatException e) {
@@ -88,7 +88,7 @@ public class LagTimeLibrary {
      * @return
      */
     public int getLagTime(FCW f) {
-       double lag = lagTimeTableInstance.getLagTime(f);
+       double lag = LagTimeTable.getLagTime(f);
        int tenths = (int)lag * 10;
        return tenths;
    }

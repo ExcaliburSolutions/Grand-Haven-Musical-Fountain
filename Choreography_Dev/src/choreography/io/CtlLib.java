@@ -63,8 +63,8 @@ public class CtlLib {
         StringBuilder stringBuffer = new StringBuilder();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
-            bufferedReader.readLine();
             String text = null;
+            
             while ((text = bufferedReader.readLine()) != null) {
                 stringBuffer.append(text);
                 stringBuffer.append(System.getProperty("line.separator"));
@@ -140,13 +140,16 @@ public class CtlLib {
                 StringBuilder commandsOutput = new StringBuilder();
                 int totalTenths = MusicPaneController.SONG_TIME;
                 int tenths = totalTenths % 10;
-                int seconds = totalTenths /10;
+                int seconds = totalTenths % 60;
                 int minutes = seconds / 60;
                 seconds = seconds - (minutes * 10);
                 String totTime = minutes + ":" + seconds + "." + tenths;
+                commandsOutput.append(totTime);
                 for(FCW f: content.get(i)) {
-                    
+                    commandsOutput.append(f);
+                    commandsOutput.append(" ");
                 }
+                commandsOutput.append("\n");
             }
         return true;    
         } catch (IOException ex) {
@@ -158,8 +161,15 @@ public class CtlLib {
         for(Integer timeIndex: content.keySet()) {
             for(FCW f: content.get(timeIndex)) {
                 int lag = LagTimeLibrary.getInstance().getLagTime(f);
-                if(content.containsKey(timeIndex - lag)) {
-                    content.get(timeIndex - lag).add(f);
+                if(lag != 0){
+                    if(content.containsKey(timeIndex - lag)) {
+                        content.get(timeIndex - lag).add(f);
+                    }
+                    else {
+                        content.put(timeIndex, new ArrayList(10));
+                        content.get(timeIndex).add(f);
+                    }
+                content.get(timeIndex).remove(f);
                 }
             }
         }

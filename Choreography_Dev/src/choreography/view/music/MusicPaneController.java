@@ -8,7 +8,6 @@ package choreography.view.music;
 import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import choreography.view.ChoreographyController;
-import choreography.view.sliders.SlidersController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import java.io.File;
@@ -16,9 +15,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -134,6 +130,8 @@ public class MusicPaneController {
     	try{
             mediaPlayer.play();
             playButton.setText("Pause");
+            ChoreographyController.getInstance().startPollingSliderAlgorithm();
+            ChoreographyController.getInstance().startPollingTimelineAlgorithm();
     	}
     	catch (Exception e){
             ChoreographyController.getInstance().setfcwOutput("Error playing music...");
@@ -243,7 +241,7 @@ public class MusicPaneController {
         mediaPlayer.play();
         mediaPlayer.pause();
 //        updateProgressTimer();
-        ChoreographyController.getInstance().startPollingAlgorithms();
+//        ChoreographyController.getInstance().startPollingSliderAlgorithm();
     }
 
     /**
@@ -320,10 +318,11 @@ public class MusicPaneController {
     }
     
     public int getTenthsTime() {
-        double wholeTime = timeSlider.getValue();
-        double inter = wholeTime * 10;
-        int seconds = (int) inter;
-        System.out.println(wholeTime + " " + seconds);
-        return seconds;
+        double wholeTime = timeSlider.getValue() /100 * time;
+//        double inter = wholeTime * 10;
+//        int seconds = (int) inter;
+        int tenths = (int) wholeTime;
+//        System.out.println(wholeTime + " " + tenths);
+        return tenths;
     }
 }

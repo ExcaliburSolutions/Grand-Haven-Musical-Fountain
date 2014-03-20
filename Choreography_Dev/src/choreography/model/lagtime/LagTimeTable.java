@@ -14,13 +14,13 @@ import java.util.ArrayList;
  */
 public class LagTimeTable {
 	private static LagTimeTable instance;
-	private final int closeValve = 0;
-	private final double level1 = .2;
-	private final double level2 = .4;
-	private final double level3 = .6;
-	private final double level4 = .8;
-	private final double level5 = 1.0;
-	private ArrayList<LagTime> delays;
+	private static final int closeValve = 0;
+	private static final double level1 = .2;
+	private static final double level2 = .4;
+	private static final double level3 = .6;
+	private static final double level4 = .8;
+	private static final double level5 = 1.0;
+	private static ArrayList<LagTime> delays;
 
     /**
      *
@@ -40,7 +40,7 @@ public class LagTimeTable {
      *
      * @return
      */
-    public ArrayList<LagTime> getDelays() {
+    public static ArrayList<LagTime> getDelays() {
             return delays;
         }
 
@@ -48,50 +48,50 @@ public class LagTimeTable {
      *
      * @param delayTimes
      */
-    public void setLagTimes(ArrayList<LagTime> delayTimes) {
-            this.delays = delayTimes;
+    public static void setLagTimes(ArrayList<LagTime> delayTimes) {
+            LagTimeTable.delays = delayTimes;
 //            System.out.println(delays);
 	}
 
 	/**
 	 * @return the closeValve
 	 */
-	public synchronized int getCloseValve() {
+	public static synchronized int getCloseValve() {
 		return closeValve;
 	}
 
 	/**
 	 * @return the level1
 	 */
-	public synchronized double getLevel1() {
+	public static synchronized double getLevel1() {
 		return level1;
 	}
 
 	/**
 	 * @return the level2
 	 */
-	public synchronized double getLevel2() {
+	public static synchronized double getLevel2() {
 		return level2;
 	}
 
 	/**
 	 * @return the level3
 	 */
-	public synchronized double getLevel3() {
+	public static synchronized double getLevel3() {
 		return level3;
 	}
 
 	/**
 	 * @return the level4
 	 */
-	public synchronized double getLevel4() {
+	public static synchronized double getLevel4() {
 		return level4;
 	}
 
 	/**
 	 * @return the level5
 	 */
-	public synchronized double getLevel5() {
+	public static synchronized double getLevel5() {
 		return level5;
 	}
 
@@ -100,7 +100,7 @@ public class LagTimeTable {
      * @param f
      * @return
      */
-    public synchronized double getLagTime(FCW f) {
+    public static synchronized double getLagTime(FCW f) {
             String[] actions = FCWLib.getInstance().reverseLookupData(f);
             double lagTime = 0.0;
             for(String action: actions) {

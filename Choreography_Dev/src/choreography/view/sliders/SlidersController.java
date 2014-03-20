@@ -40,75 +40,6 @@ public class SlidersController {
         }
         return instance;
     }
-
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
-
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
-
-    @FXML // fx:id="bkC"
-    private Slider bkC; // Value injected by FXMLLoader
-
-    @FXML // fx:id="bz"
-    private Slider bz; // Value injected by FXMLLoader
-
-    @FXML // fx:id="candleA"
-    private Slider candleA; // Value injected by FXMLLoader
-
-    @FXML // fx:id="candleB"
-    private Slider candleB; // Value injected by FXMLLoader
-
-    @FXML // fx:id="ftC"
-    private Slider ftC; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mxA"
-    private Slider mxA; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mxB"
-    private Slider mxB; // Value injected by FXMLLoader
-
-    @FXML // fx:id="pk"
-    private Slider pk; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r1A"
-    private Slider r1A; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r1B"
-    private Slider r1B; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r2A"
-    private Slider r2A; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r2B"
-    private Slider r2B; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r3A"
-    private Slider r3A; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r3B"
-    private Slider r3B; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r4A"
-    private Slider r4A; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r4B"
-    private Slider r4B; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r5A"
-    private Slider r5A; // Value injected by FXMLLoader
-
-    @FXML // fx:id="r5B"
-    private Slider r5B; // Value injected by FXMLLoader
-
-    @FXML // fx:id="sp"
-    private Slider sp; // Value injected by FXMLLoader
-
-    @FXML // fx:id="swA"
-    private Slider swA; // Value injected by FXMLLoader
-
-    @FXML // fx:id="swB"
-    private Slider swB; // Value injected by FXMLLoader
     private Fountain fountain;
     private ModuleGroup A;
     private ModuleGroup B;
@@ -122,9 +53,79 @@ public class SlidersController {
     private IndependentCannon spout;
     private IndependentCannon bkCurt;
     private IndependentCannon ftCurt;
+    
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private Slider bkC;
+
+    @FXML
+    private Slider bz;
+
+    @FXML
+    private Slider candleA;
+
+    @FXML
+    private Slider candleB;
+
+    @FXML
+    private Slider ftC;
+
+    @FXML
+    private Slider mxA;
+
+    @FXML
+    private Slider mxB;
+
+    @FXML
+    private Slider pk;
+
+    @FXML
+    private Slider r1A;
+
+    @FXML
+    private Slider r1B;
+
+    @FXML
+    private Slider r2A;
+
+    @FXML
+    private Slider r2B;
+
+    @FXML
+    private Slider r3A;
+
+    @FXML
+    private Slider r3B;
+
+    @FXML
+    private Slider r4A;
+
+    @FXML
+    private Slider r4B;
+
+    @FXML
+    private Slider r5A;
+
+    @FXML
+    private Slider r5B;
+
+    @FXML
+    private Slider sp;
+
+    @FXML
+    private Slider swA;
+
+    @FXML
+    private Slider swB;
+    private Slider[] allSliders;
 
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
     void initialize() {
         assert bkC != null : "fx:id=\"bkC\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert bz != null : "fx:id=\"bz\" was not injected: check your FXML file 'Sliders.fxml'.";
@@ -147,15 +148,15 @@ public class SlidersController {
         assert sp != null : "fx:id=\"sp\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert swA != null : "fx:id=\"swA\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert swB != null : "fx:id=\"swB\" was not injected: check your FXML file 'Sliders.fxml'.";
-
-        // Initialize your logic here: all @FXML variables will have been injected
         configureModules();
+        allSliders = new Slider[]{r1A, r1B, r2A, r2B, r3A, r3B, r4A, r4B, r5A, 
+           r5B, mxA, mxB, candleA, candleB, swA, swB, ftC, bkC, pk, bz, sp};
+        instance = this;
     }
     private void configureModules(){
         fountain = Main.getFountain();
         A = fountain.getA();
         B = fountain.getB();
-        rings1A = new ArrayList<>();
         setupAModule();
         setupBModule();
         peacock = fountain.getPeacock();
@@ -247,131 +248,180 @@ public class SlidersController {
     
     public void setSlidersWithFcw(ArrayList<FCW> fcws) {
         for(FCW f: fcws) {
+            if(!f.getIsWater()) {
+                return;
+            }
+        }
+       resetAllSliders();
+        for(FCW f: fcws) {
             String[] actions = FCWLib.getInstance().reverseLookupData(f);
-            String module = findModule(actions);
-            int level = findLevel(actions);
+//            String module = findModule(actions);
+            
+            for(String action: actions) {
             switch(f.getAddr()) {
                 case 1:
-                    if(module.equalsIgnoreCase("A")){
+                    if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
                         r5A.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
                         r5B.setValue(level);
                     }
                 break;
                 case 2:
-                     if(module.equalsIgnoreCase("A")){
+                      if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
                         r4A.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
                         r4B.setValue(level);
                     }
                 break;
                 case 3:
-                     if(module.equalsIgnoreCase("A")){
+                    if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
                         r3A.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
                         r3B.setValue(level);
                     }
                 break;
                 case 4:
-                     if(module.equalsIgnoreCase("A")){
+                    if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
                         r2A.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
                         r2B.setValue(level);
                     }
                 break;
                 case 5:
-                     if(module.equalsIgnoreCase("A")){
+                    if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
                         r1A.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
                         r1B.setValue(level);
                     }
                 break;
                 case 6:
-                    if(module.equalsIgnoreCase("A")){
+                    if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
                         swA.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
                         swB.setValue(level);
                     }
                 break; 
                 case 7:
-                     if(module.equalsIgnoreCase("A")){
-//                        sp.setValue(level);
+                    if(action.equalsIgnoreCase("spout")) {
+                        int level = findLevel(actions);
+                        sp.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("bazooka")) {
+                        int level = findLevel(actions);
                         bz.setValue(level);
                     }
                 break;
                 case 8:
-                     if(module.equalsIgnoreCase("A")){
+                    if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
                         candleA.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
                         candleB.setValue(level);
                     }
                 break;
                 case 9:
-                     if(module.equalsIgnoreCase("A")){
+                    if(action.equalsIgnoreCase("peacock")){
+                        int level = findLevel(actions);
+                        pk.setValue(level);
+                    }
+                    else if(action.equalsIgnoreCase("ftcurt")) {
+                        int level = findLevel(actions);
                         ftC.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
-                        for(String action: actions) {
-                            if(action.equalsIgnoreCase("peacock")) {
-                                pk.setValue(level);
-                            }
-                            else if(action.equalsIgnoreCase("bkcurt")) {
-                                bkC.setValue(level);
-                            }
-                        }
+                    else if(action.equalsIgnoreCase("bkcurt")) {
+                        int level = findLevel(actions);
+                        bkC.setValue(level);
                     }
-                break;
+                    break;
                 case 48:
-                    if(module.equalsIgnoreCase("A")){
-                        r1A.setValue(level);
-                        r2A.setValue(level);
-                        r3A.setValue(level);
-                        r4A.setValue(level);
-                        r5A.setValue(level);
-                        swA.setValue(level);
+                    if(action.equalsIgnoreCase("modulea")){
+                        int level = findLevel(actions);
+                        mxA.setValue(level);
                     }
-                    else if(module.equalsIgnoreCase("B")) {
-                        r1B.setValue(level);
-                        r2B.setValue(level);
-                        r3B.setValue(level);
-                        r4B.setValue(level);
-                        r5B.setValue(level);
-                        swB.setValue(level);
+                    else if(action.equalsIgnoreCase("moduleb")) {
+                        int level = findLevel(actions);
+                        mxB.setValue(level);
                     }
-                break;
+                    break;
+                case 33:
+                case 34:
+                    if(action.equalsIgnoreCase("offreset")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("short")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("long")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("largo")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("adagio")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("andante")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("moderato")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("allegreto")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("allegro")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("presto")) {
+                        
+                    }
+                    else if(action.equalsIgnoreCase("playpause")) {
+                        
+                    }
+                    break;
+            }
             }
         }
     }
-    
-    public String findModule(String[] input) {
-        for(String action: input) {
-            if(action.equalsIgnoreCase("modulea")){
-                return "A";
-            }
-            else if(action.equalsIgnoreCase("moduleb")){
-                return "B";
-            }
-            else if(action.equalsIgnoreCase("ftcurt")) {
-                return "A";
-            }
-        }
-        return null;
-    }
+//    
+//    public String findModule(String[] input) {
+//        for(String action: input) {
+//            if(action.equalsIgnoreCase("modulea")){
+//                return "A";
+//            }
+//            else if(action.equalsIgnoreCase("moduleb")){
+//                return "B";
+//            }
+//            else if(action.equalsIgnoreCase("ftcurt")) {
+//                return "A";
+//            }
+//        }
+//        return null;
+//    }
     
     public int findLevel(String[] input) {
         for(String action: input) {
             switch(action){
-                case "0":
-                    return 0;
                 case "1":
                     return 1;
                 case "2":
@@ -385,8 +435,15 @@ public class SlidersController {
                 case "6":
                     return 6;
             }
+            
         }
-        throw new IllegalArgumentException("Illegal level found..." + input);
+        return 0;
+    }
+
+    private void resetAllSliders() {
+       for(Slider s: allSliders) {
+           s.setValue(0);
+       }
     }
 }
 
