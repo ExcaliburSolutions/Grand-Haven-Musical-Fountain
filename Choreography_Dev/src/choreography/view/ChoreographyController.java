@@ -14,6 +14,7 @@ import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,7 @@ import java.util.SortedMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentSkipListMap;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,17 +32,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
+
+import customChannel.CustomChannel;
 
 /**
  * FXML Controller class
@@ -105,6 +112,8 @@ public class ChoreographyController implements Initializable {
     private MenuItem aboutMenuItem;
     @FXML
     private MenuItem setLagTimesMenuItem;
+    @FXML
+    private ToggleButton selectionButton;
 //    @FXML
 //    private ProgressIndicator progressIndicator;
     
@@ -112,6 +121,10 @@ public class ChoreographyController implements Initializable {
     private boolean isSaved;
     private boolean isAdvanced;
     private boolean isSlidersLoaded;
+    private boolean isSelected = false;
+	boolean isFirst = true;
+
+
     /**
      * Initializes the controller class.
      * @param url
@@ -132,6 +145,26 @@ public class ChoreographyController implements Initializable {
             }
     		
     	});
+    	
+    	selectionButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+//				selectButton.isPressed();
+				if (isSelected){
+					isSelected = false;
+					System.out.println("Off");
+				}
+				else {
+					isSelected = true;
+					System.out.println("On");
+
+				}
+				
+			}
+    		
+		});
         
         openCTLMenuItem.setOnAction(new EventHandler<ActionEvent> () {
 
@@ -277,7 +310,14 @@ public class ChoreographyController implements Initializable {
     }
     
     public void addChannels(){
-    	
+    	if (isFirst){
+    	Stage primaryStage = new Stage();
+    	CustomChannel.getInstance().start(primaryStage);
+    	isFirst = false;
+    	}
+    	else{
+    		CustomChannel.getInstance().showStage();
+    	}
     }
     
     /**

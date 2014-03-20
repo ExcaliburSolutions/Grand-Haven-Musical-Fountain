@@ -1,11 +1,14 @@
 package customChannel;
 
+import java.net.URL;
 import java.sql.Array;
+import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -24,12 +27,22 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import choreography.io.FCWLib;
+import choreography.view.timeline.TimelineController;
 
 /**
  * @author Nick Van Kuiken
  * @version Allows user to add the different individual channels to choreography timeline
  */
-public class CustomChannel extends Application{
+public class CustomChannel implements Initializable{
+	
+	private static CustomChannel instance;
+	private Stage stage;
+	
+	public static CustomChannel getInstance() {
+        if (instance == null)
+            instance = new CustomChannel();
+        return instance;
+    }
 	// Used to show the user the available modules that can be selected.
 	private static final ListView<String> moduleListView = new ListView<String>();
 	
@@ -49,15 +62,14 @@ public class CustomChannel extends Application{
 	 * @param args
 	 * Main method
 	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 	/**
      * @param primaryStage
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
-	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Drag to select channels desired");
 		initializeComponenents();
@@ -66,8 +78,13 @@ public class CustomChannel extends Application{
 		populateData();
 
 		primaryStage.setScene(new Scene(rootPane, 400, 325));
+		stage = primaryStage;
 		primaryStage.show();
 
+	}
+	
+	public void showStage(){
+		stage.show();
 	}
 
 	/**
@@ -245,4 +262,15 @@ public class CustomChannel extends Application{
 			}
 		}
 	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		Stage stage = new Stage();
+		instance = this;
+		start(stage);
+		
+	}
+
+	
 }
