@@ -8,6 +8,7 @@ import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sliders.SlidersController;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -30,6 +31,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -291,7 +293,8 @@ public class TimelineController implements Initializable {
                             public void handle(MouseEvent me) {
                             	
                     System.out.println("Col " + (testI));
-                                   
+                    Duration duration = MusicPaneController.getInstance().getMediaPlayer().getTotalDuration();
+                    MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     waterRecArray[testI].setFill(Color.LIGHTBLUE);
                     if (!hasValue){ //aka false
                     	oldRec = waterRecArray[testI];
