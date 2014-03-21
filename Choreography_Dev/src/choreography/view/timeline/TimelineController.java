@@ -18,6 +18,7 @@ import java.util.SortedMap;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -76,12 +77,11 @@ public class TimelineController implements Initializable {
     Rectangle[] waterRecArray;
     Rectangle[][] lightRecArray;
     final ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
-    
-    final Line copy = new Line(60, 10, 150, 10);
-    final Line paste = new Line(60, 30, 150, 50);
 
+    MenuItem copy = new MenuItem("copy");
+    MenuItem paste = new MenuItem("paste");
+    
     final ContextMenu cm = new ContextMenu();
-    private DropShadow ds = new DropShadow();
     /**
      * Initializes the controller class.
      * @param url
@@ -93,6 +93,30 @@ public class TimelineController implements Initializable {
     	channelAddresses = new Integer[1];
         instance = this;
         configureTimelines();
+        cm.getItems().add(copy);
+        cm.getItems().add(paste);
+        
+        copy.setDisable(true);
+        paste.setDisable(true);
+        
+        copy.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				paste.setDisable(false);
+				
+			}
+    		
+		});
+    	
+    	paste.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				
+			}
+    		
+		});
     }
 
     public void configureTimelines() {
@@ -100,6 +124,10 @@ public class TimelineController implements Initializable {
         setLabelGridPane();
     }
     
+    public void disableCopyPaste(){
+    	copy.setDisable(true);
+    	paste.setDisable(true);
+    }
 //    public void setLabelGridPane() {
 //        // 57 lines long
 //        final String[] labelNames = new String[] {"Custom Channel", "Module 1", "Module 2",
@@ -219,34 +247,6 @@ public class TimelineController implements Initializable {
     	labelScrollPane.setContent(timelineLabelPane);
     }
     
-    private MenuItem getMenuItemForLine(String menuName, final Line line) {
-
-        Label menuLabel = new Label(menuName);
-        // apply style to occupy larger space for label
-        menuLabel.setStyle("-fx-padding: 5 10 5 10");
-        MenuItem mi = new MenuItem();
-        mi.setGraphic(menuLabel);
-        line.setStroke(Color.BLUE);
-
-        menuLabel.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                line.setStroke(Color.RED);
-                line.setEffect(ds);
-            }
-        });
-
-        menuLabel.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                line.setStroke(Color.BLUE);
-                line.setEffect(null);
-            }
-        });
-
-        return mi;
-    }
-    
     /**
      * 
      */
@@ -259,8 +259,7 @@ public class TimelineController implements Initializable {
         rowNumber =  Timeline.getInstance().getNumChannels();
         lightRecArray = new Rectangle[time][14];
         
-        cm.getItems().add(getMenuItemForLine("copy", copy));
-        cm.getItems().add(getMenuItemForLine("paste", paste));
+        
         
         for (int i = 0; i < time; i++) {
             gridpaneLight.getColumnConstraints().add(new ColumnConstraints(26));
@@ -287,11 +286,14 @@ public class TimelineController implements Initializable {
                     	if (me.getButton() == MouseButton.SECONDARY) {
                             cm.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
                         }
-                        startRow = testJ;
+                    	else{
+                    		startRow = testJ;
                         lightRecArray[testI][testJ]
                                 .setFill(ColorPaletteController
                                         .getInstance()
                                         .getSelectedColor());
+                    	}
+                        
                         if(ChoreographyController.getInstance().getIsSelected()){
                         	
                         }
@@ -308,6 +310,7 @@ public class TimelineController implements Initializable {
                     copyAL.clear();
                     
                 	if(ChoreographyController.getInstance().getIsSelected()){
+                		copy.setDisable(false);
                 		lightRecArray[testI][testJ].startFullDrag();
                 		lightRecArray[testI][testJ].setOpacity(50);
                         copyAL.add(lightRecArray[testI][testJ]);
