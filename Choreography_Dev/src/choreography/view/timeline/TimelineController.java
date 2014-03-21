@@ -22,15 +22,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -44,7 +49,7 @@ public class TimelineController implements Initializable {
     private static TimelineController instance;
     private ColorPaletteEnum[] colorEnumArray = ColorPaletteEnum.values();
     private Integer[] channelAddresses;
-    boolean hasValue = false;
+    boolean oldRecHasValue = false;
     Rectangle oldRec = new Rectangle();
     /**
      * 
@@ -70,6 +75,13 @@ public class TimelineController implements Initializable {
     GridPane gridpaneWater;
     Rectangle[] waterRecArray;
     Rectangle[][] lightRecArray;
+    final ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
+    
+    final Line copy = new Line(60, 10, 150, 10);
+    final Line paste = new Line(60, 30, 150, 50);
+
+    final ContextMenu cm = new ContextMenu();
+    private DropShadow ds = new DropShadow();
     /**
      * Initializes the controller class.
      * @param url
@@ -207,6 +219,34 @@ public class TimelineController implements Initializable {
     	labelScrollPane.setContent(timelineLabelPane);
     }
     
+    private MenuItem getMenuItemForLine(String menuName, final Line line) {
+
+        Label menuLabel = new Label(menuName);
+        // apply style to occupy larger space for label
+        menuLabel.setStyle("-fx-padding: 5 10 5 10");
+        MenuItem mi = new MenuItem();
+        mi.setGraphic(menuLabel);
+        line.setStroke(Color.BLUE);
+
+        menuLabel.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                line.setStroke(Color.RED);
+                line.setEffect(ds);
+            }
+        });
+
+        menuLabel.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                line.setStroke(Color.BLUE);
+                line.setEffect(null);
+            }
+        });
+
+        return mi;
+    }
+    
     /**
      * 
      */
@@ -218,6 +258,10 @@ public class TimelineController implements Initializable {
         gridpaneLight.setGridLinesVisible(true);
         rowNumber =  Timeline.getInstance().getNumChannels();
         lightRecArray = new Rectangle[time][14];
+        
+        cm.getItems().add(getMenuItemForLine("copy", copy));
+        cm.getItems().add(getMenuItemForLine("paste", paste));
+        
         for (int i = 0; i < time; i++) {
             gridpaneLight.getColumnConstraints().add(new ColumnConstraints(26));
             if (i < 14) { // because the array is not square this needs to be
@@ -240,6 +284,9 @@ public class TimelineController implements Initializable {
 
                     @Override
                     public void handle(MouseEvent me) {
+                    	if (me.getButton() == MouseButton.SECONDARY) {
+                            cm.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
+                        }
                         startRow = testJ;
                         lightRecArray[testI][testJ]
                                 .setFill(ColorPaletteController
@@ -254,6 +301,18 @@ public class TimelineController implements Initializable {
                 });
 
                 lightRecArray[i][j].setOnDragDetected((MouseEvent me) -> {
+                	
+                	for(Rectangle rec: copyAL){
+                        rec.setOpacity(1);
+                    }
+                    copyAL.clear();
+                    
+                	if(ChoreographyController.getInstance().getIsSelected()){
+                		lightRecArray[testI][testJ].startFullDrag();
+                		lightRecArray[testI][testJ].setOpacity(50);
+                        copyAL.add(lightRecArray[testI][testJ]);
+                	}
+                	
                     lightRecArray[testI][testJ].startFullDrag();
                 });
                 // continues and ends the drag event
@@ -264,6 +323,17 @@ public class TimelineController implements Initializable {
                                         .getInstance()
                                         .getSelectedColor());
                     }
+                    
+                    if (ChoreographyController.getInstance().getIsSelected()) {
+                    	lightRecArray[testI][testJ].setOpacity(.50);
+                        if (!copyAL.contains(lightRecArray[testI][testJ])){
+                            copyAL.add(lightRecArray[testI][testJ]);
+                        }
+                    } else {
+                    	lightRecArray[testI][testJ].setFill(ColorPaletteController
+                                .getInstance()
+                                .getSelectedColor());
+                    }
                 });
             }
         }
@@ -271,6 +341,10 @@ public class TimelineController implements Initializable {
         timelineScrollPane.setContent(gridpaneLight);
     }
 
+    public void clearCopyAL(){
+    	copyAL.clear();
+    }
+    
     public void setWaterGridPane() {
         gridpaneWater = new GridPane();
         // NumberAxis valueAxis = new NumberAxis();
@@ -291,7 +365,7 @@ public class TimelineController implements Initializable {
                 
                 waterRecArray[i] = new Rectangle(25, 25, Color.LIGHTGREY);
                 gridpaneWater.add(waterRecArray[i], i, 0);
-                
+                                
                 waterRecArray[i]
                         .setOnMousePressed(new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent me) {
@@ -299,15 +373,26 @@ public class TimelineController implements Initializable {
                     System.out.println("Col " + (testI));
                     Duration duration = MusicPaneController.getInstance().getMediaPlayer().getTotalDuration();
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
+                    
                     waterRecArray[testI].setFill(Color.LIGHTBLUE);
-                    if (!hasValue){ //aka false
+                    System.out.println(Timeline.getInstance().getActionsAtTime(testI));
+                    
+                    if (!oldRecHasValue){ //aka oldRed does not have a value
                     	oldRec = waterRecArray[testI];
-                    	hasValue = true;
+                    	oldRecHasValue = true;
                     }
                     else{
-                    	oldRec.setFill(Color.DARKBLUE);
+                    	if(Timeline.getInstance().getActionsAtTime(testI)){
+                    		oldRec.setFill(Color.DARKBLUE);
                     	oldRec = waterRecArray[testI];
                     	waterRecArray[testI] = oldRec;
+                    	}
+                    	else{
+                    		oldRec.setFill(Color.LIGHTGRAY);
+                        	oldRec = waterRecArray[testI];
+                        	waterRecArray[testI] = oldRec;
+                    	}
+                    	
                     	
                     }}
                 });

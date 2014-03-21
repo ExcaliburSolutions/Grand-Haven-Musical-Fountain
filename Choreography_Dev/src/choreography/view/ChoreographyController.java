@@ -147,14 +147,13 @@ public class ChoreographyController implements Initializable {
     	});
     	
     	selectionButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 //				selectButton.isPressed();
 				if (isSelected){
 					isSelected = false;
 					System.out.println("Off");
+					TimelineController.getInstance().clearCopyAL();
 				}
 				else {
 					isSelected = true;
@@ -166,6 +165,24 @@ public class ChoreographyController implements Initializable {
     		
 		});
         
+    	copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				
+			}
+    		
+		});
+    	
+    	pasteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				
+			}
+    		
+		});
+    	
         openCTLMenuItem.setOnAction(new EventHandler<ActionEvent> () {
 
                 @Override

@@ -259,5 +259,13 @@ public class Timeline extends ArrayList<Event>{
         if(waterTimeline.containsKey(time))
             SlidersController.getInstance().setSlidersWithFcw(waterTimeline.get(time));
     }
-        
+       
+    public boolean getActionsAtTime(int time){
+    	if(waterTimeline.containsKey(time)){
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
 }
