@@ -383,5 +383,10 @@ public class ChoreographyController implements Initializable {
     public void setSlidersLoaded(boolean b) {
         isSlidersLoaded = b;
     }
+ 
+    public boolean getIsSelected(){
+		
+    	return isSelected;
+	}
     
 }

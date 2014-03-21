@@ -3,6 +3,7 @@ package choreography.view.timeline;
 
 import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
+import choreography.view.ChoreographyController;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
@@ -244,6 +245,9 @@ public class TimelineController implements Initializable {
                                 .setFill(ColorPaletteController
                                         .getInstance()
                                         .getSelectedColor());
+                        if(ChoreographyController.getInstance().getIsSelected()){
+                        	
+                        }
 //                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
 //                                ColorPaletteController.getInstance().getModel().getSelectedIndex()));
                     }
