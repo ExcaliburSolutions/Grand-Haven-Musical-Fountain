@@ -153,7 +153,7 @@ public class ChoreographyController implements Initializable {
 				if (isSelected){
 					isSelected = false;
 					System.out.println("Off");
-					TimelineController.getInstance().clearCopyAL();
+					TimelineController.getInstance().clearAllAL();
 					TimelineController.getInstance().disableCopyPaste();
 				}
 				else {

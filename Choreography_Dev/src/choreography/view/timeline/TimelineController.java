@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -52,6 +53,9 @@ public class TimelineController implements Initializable {
     private Integer[] channelAddresses;
     boolean oldRecHasValue = false;
     Rectangle oldRec = new Rectangle();
+    Rectangle selectedRec = new Rectangle();
+    int selectedCol = 0;
+    int selectedRow = 0;
     /**
      * 
      * @return
@@ -77,7 +81,10 @@ public class TimelineController implements Initializable {
     Rectangle[] waterRecArray;
     Rectangle[][] lightRecArray;
     final ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
-
+    final ArrayList<Integer> colAL = new ArrayList<Integer>();
+    final ArrayList<Integer> rowAL = new ArrayList<Integer>();
+    final SortedMap<Integer, Integer> colRow = new TreeMap<Integer, Integer>();
+    	
     MenuItem copy = new MenuItem("copy");
     MenuItem paste = new MenuItem("paste");
     
@@ -104,7 +111,7 @@ public class TimelineController implements Initializable {
 			public void handle(ActionEvent event) {
 
 				paste.setDisable(false);
-				
+				System.out.println(copyAL.toString());
 			}
     		
 		});
@@ -113,7 +120,14 @@ public class TimelineController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 
-				
+				int count = 0;
+                for(Rectangle rec: copyAL){
+                	colRow.
+                	lightRecArray[selectedCol + count][selectedRow ].setFill(rec.getFill());
+                	System.out.println((selectedCol+count) +" " +(selectedRow));
+                    count++;
+                    
+                }
 			}
     		
 		});
@@ -283,20 +297,23 @@ public class TimelineController implements Initializable {
 
                     @Override
                     public void handle(MouseEvent me) {
-                    	if (me.getButton() == MouseButton.SECONDARY) {
-                            cm.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
-                        }
-                    	else{
-                    		startRow = testJ;
-                        lightRecArray[testI][testJ]
-                                .setFill(ColorPaletteController
-                                        .getInstance()
-                                        .getSelectedColor());
-                    	}
-                        
+                    	selectedRec = lightRecArray[testI][testJ];
+                    	selectedCol = testI;
+                    	selectedRow = testJ;
+                    	
                         if(ChoreographyController.getInstance().getIsSelected()){
+                        	if (me.getButton() == MouseButton.SECONDARY) {
+                                cm.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
+                            }
                         	
                         }
+                    else{
+                        		startRow = testJ;
+                            lightRecArray[testI][testJ]
+                                    .setFill(ColorPaletteController
+                                            .getInstance()
+                                            .getSelectedColor());
+                    }
 //                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
 //                                ColorPaletteController.getInstance().getModel().getSelectedIndex()));
                     }
@@ -308,12 +325,19 @@ public class TimelineController implements Initializable {
                         rec.setOpacity(1);
                     }
                     copyAL.clear();
+                    colAL.clear();
+                    rowAL.clear();
+                    colRow.clear();
                     
                 	if(ChoreographyController.getInstance().getIsSelected()){
                 		copy.setDisable(false);
                 		lightRecArray[testI][testJ].startFullDrag();
                 		lightRecArray[testI][testJ].setOpacity(50);
                         copyAL.add(lightRecArray[testI][testJ]);
+                        colRow.put(testI, testJ);
+                        
+                        colAL.add(testI);
+                        rowAL.add(testJ);
                 	}
                 	
                     lightRecArray[testI][testJ].startFullDrag();
@@ -331,6 +355,10 @@ public class TimelineController implements Initializable {
                     	lightRecArray[testI][testJ].setOpacity(.50);
                         if (!copyAL.contains(lightRecArray[testI][testJ])){
                             copyAL.add(lightRecArray[testI][testJ]);
+                            colRow.put(testI, testJ);
+                            
+                            colAL.add(testI);
+                            rowAL.add(testJ);
                         }
                     } else {
                     	lightRecArray[testI][testJ].setFill(ColorPaletteController
@@ -344,8 +372,13 @@ public class TimelineController implements Initializable {
         timelineScrollPane.setContent(gridpaneLight);
     }
 
-    public void clearCopyAL(){
+    public void clearAllAL(){
+    	for(Rectangle rec: copyAL){
+            rec.setOpacity(1);
+        }
     	copyAL.clear();
+    	colAL.clear();
+        rowAL.clear();
     }
     
     public void setWaterGridPane() {
