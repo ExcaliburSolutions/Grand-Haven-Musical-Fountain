@@ -139,5 +139,11 @@ public class ColorPaletteModel {
         else
             return colors[i - 1];
     }
+    
+    public void setColors(Color[] colors) {
+        for(int i = 16; i < colors.length; i++) {
+            this.colors[i] = colors[i];
+        }
+    }
 
 }

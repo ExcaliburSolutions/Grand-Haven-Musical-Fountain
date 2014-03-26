@@ -119,6 +119,8 @@ public class MusicPaneController {
     @FXML
     void pauseSong(ActionEvent event) {
     	mediaPlayer.pause();
+        ChoreographyController.getInstance().stopTimelineTimer();
+        ChoreographyController.getInstance().stopSliderTimer();
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
@@ -139,7 +141,7 @@ public class MusicPaneController {
     	}
     	
     	if (mediaPlayer.statusProperty().getValue()==Status.PLAYING){
-    		mediaPlayer.pause();
+            pauseSong(event);
             playButton.setText("Play");
 
     	}

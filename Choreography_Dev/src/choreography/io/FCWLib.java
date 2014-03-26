@@ -315,7 +315,7 @@ public final class FCWLib {
                 values = new Integer[]{32, 16, 8, 4, 2, 1};
                 break;
             case "TableD":
-                values = new Integer[]{32, 16, 8, 7, 6, 5, 4, 3, 2, 1};
+                values = new Integer[]{102, 96, 80, 64, 48, 32, 16, 8, 2, 1};
                 break;
             case "TableE":
                 values = new Integer[]{8, 4, 2};
@@ -400,5 +400,20 @@ public final class FCWLib {
     public String reverseLookupAddress(int i) {
         FCW f = new FCW(i, 0);
         return reverseLookupAddress(f);
+    }
+
+    public Integer lookupAddress(String in) {
+        in = in.toUpperCase();
+        for(Entry<String, Integer> entry: waterAddress.entrySet()) {
+            if(entry.getKey().equals(in)) {
+                return entry.getValue();
+            }
+        }
+        for(Entry<String, Integer> entry: lightAddress.entrySet()) {
+            if(entry.getKey().equals(in)) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 }

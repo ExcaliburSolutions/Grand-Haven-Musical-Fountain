@@ -1,276 +1,129 @@
 package customChannel;
 
-import java.net.URL;
-import java.sql.Array;
-import java.util.ResourceBundle;
-
+import choreography.io.FCWLib;
+import choreography.view.timeline.TimelineController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import choreography.io.FCWLib;
-import choreography.view.timeline.TimelineController;
 
 /**
- * @author Nick Van Kuiken
- * @version Allows user to add the different individual channels to choreography timeline
+ *
+ * @author cdea
  */
-public class CustomChannel implements Initializable{
-	
-	private static CustomChannel instance;
-	private Stage stage;
-	
-	public static CustomChannel getInstance() {
-        if (instance == null)
-            instance = new CustomChannel();
-        return instance;
-    }
-	// Used to show the user the available modules that can be selected.
-	private static final ListView<String> moduleListView = new ListView<String>();
-	
-	// Holds the modules available for the moduleListView
-	private static final ObservableList<String> moduleList = FXCollections.observableArrayList();
-	
-	// Used to show the user the selected modules the chose from dragging and dropping
-	private static final ListView<String> selectedListView = new ListView<String>();
-	
-	// Holds the ListViews 
-	private static final GridPane rootPane = new GridPane();
-	
-	// Finish button
-	private Button finish = new Button("Finish");
+public class CustomChannel {
 
-	/**
-	 * @param args
-	 * Main method
-	 */
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+    public static void start(Stage primaryStage) {
+        primaryStage.setTitle("Select Channels to Add");
+        Group root = new Group();
+        Scene scene = new Scene(root, 400, 450, Color.WHITE);
 
-	/**
-     * @param primaryStage
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 */
-	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Drag to select channels desired");
-		initializeComponenents();
-		initalizeListeners();
-		buildGUI();
-		populateData();
+        // create a grid pane
+        GridPane gridpane = new GridPane();
+        gridpane.setPadding(new Insets(5));
+        gridpane.setHgap(10);
+        gridpane.setVgap(10);
 
-		primaryStage.setScene(new Scene(rootPane, 400, 325));
-		stage = primaryStage;
-		primaryStage.show();
+        // selectable module label
+        Label candidatesLbl = new Label("Selectable Channels");
+        GridPane.setHalignment(candidatesLbl, HPos.CENTER);
+        gridpane.add(candidatesLbl, 0, 0);
 
-	}
-	
-	public void showStage(){
-		stage.show();
-	}
+        Label heroesLbl = new Label("Selected Channels");
+        gridpane.add(heroesLbl, 2, 0);
+        GridPane.setHalignment(heroesLbl, HPos.CENTER);
 
-	/**
-	 * Initializes the listeners for the ListViews for dragging and dropping
-	 */
-	private void initalizeListeners() {
-		
-		/** 
-		 * Handles when drag had started in the moduleListView
-		 * Creates a Dragboard. Creates a clipboard and adds the selected element
-		 * to the clipboard. Adds the clipboard to the Dragboard.
-		 */
-		moduleListView.setOnDragDetected(new EventHandler<MouseEvent>(){
-			public void handle(MouseEvent event){
-				
-				Dragboard dragBoard = moduleListView.startDragAndDrop(TransferMode.MOVE);
-				ClipboardContent content = new ClipboardContent();
-				content.putString(moduleListView.getSelectionModel().getSelectedItem());
-				dragBoard.setContent(content);
-			}
-		});
-		
-		/**
-		 * Required handler, not used.
-		 */
-		moduleListView.setOnDragDone(new EventHandler<DragEvent>(){
-			public void handle(DragEvent dragEvent){
-				
-			}
-		});
-		
-		/**
-		 * Handles when drag enters selectedListView.
-		 * Blendmode is used to signify to teh user they have entered the 
-		 * ListView and can now drop the selection. 
-		 */
-		selectedListView.setOnDragEntered(new EventHandler<DragEvent>(){
-			public void handle(DragEvent dragEvent) {
-				selectedListView.setBlendMode(BlendMode.DIFFERENCE);
-			}
-		});
-		
-		/**
-		 * Handles when the drag leaves the ListView.
-		 * Sets the Blendmode back to default.
-		 */
-		selectedListView.setOnDragExited(new EventHandler<DragEvent>() {
-			public void handle(DragEvent dragEvent) {
-				selectedListView.setBlendMode(null);
-			}
-		});
-		
-		/**
-		 * Handles when the drag is over the selectedListView.
-		 */
-		selectedListView.setOnDragOver(new EventHandler<DragEvent>(){
-			public void handle(DragEvent dragEvent){
-				dragEvent.acceptTransferModes(TransferMode.MOVE);
-			}
-		});
-		
-		/**
-		 * Handles when the drag is dropped in the selectedListView.
-		 * Creates a string called module to hold the clipboard.
-		 * Adds the string to the ListView.
-		 * Removes the selected content from the moduleList.
-		 * Completes the dragEvent.
-		 */
-		selectedListView.setOnDragDropped(new EventHandler<DragEvent>() {
-			public void handle(DragEvent dragEvent) {
-				String module = dragEvent.getDragboard().getString();
-				selectedListView.getItems().addAll(module);
-				moduleList.remove(module);
-				dragEvent.setDropCompleted(true);
-			}
-		});
-		
-		finish.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {
-				// TODO need to add handler in timeline to add selectedModules and exit the dialog
-				final Object[] selectedArray = getSelected();
-				for(int i = 0; i < selectedArray.length;i++ ){
-					System.out.println(selectedArray[i].toString());
+        // modules
+        final ObservableList<String> moduleList = FXCollections.observableArrayList(FCWLib.getInstance().getLightTable());
+        final ListView<String> moduleListView = new ListView<String>(moduleList);
+        moduleListView.setPrefWidth(150);
+        moduleListView.setPrefHeight(350);
+
+        gridpane.add(moduleListView, 0, 1);
+
+        // selected
+        final ObservableList<String> selectedList = FXCollections.observableArrayList(
+        		TimelineController.getInstance().getLabelNames());
+        final ListView<String> selectedListView = new ListView<String>(selectedList);
+        selectedListView.setPrefWidth(150);
+        selectedListView.setPrefHeight(350);
+
+        gridpane.add(selectedListView, 2, 1);
+
+
+        // selected modules
+        Button sendRightButton = new Button(">");
+        sendRightButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent event) {
+                String potential = moduleListView.getSelectionModel().getSelectedItem();
+                if (potential != null) {
+                    moduleListView.getSelectionModel().clearSelection();
+                    moduleList.remove(potential);
+                    selectedList.add(potential);
+                }
+            }
+        });
+
+        // deselect modules
+        Button sendLeftButton = new Button("<");
+        sendLeftButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent event) {
+                String notHero = selectedListView.getSelectionModel().getSelectedItem();
+                if (notHero != null) {
+                    selectedListView.getSelectionModel().clearSelection();
+                    selectedList.remove(notHero);
+                    moduleList.add(notHero);
+                }
+            }
+        });
+        
+        Button finishButton = new Button("Finish");
+        gridpane.add(finishButton, 2, 3);
+        
+        // Finish button
+        finishButton.setOnAction(new EventHandler<ActionEvent>() {
+        	public void handle(ActionEvent event) {
+        		String[] selectedArray;
+        		selectedArray = selectedListView.getItems().toArray(new String[1]);
+        		for(int i = 0; i < selectedArray.length;i++ ){
+					TimelineController.getInstance().setLabelGridPane(selectedArray);
 				}
 				try {
-					Node  source = (Node)  me.getSource(); 
-				    Stage stage  = (Stage) source.getScene().getWindow();
-				    stage.close();
+					//Node  source = (Node)  ActionEvent.getSource(); 
+					//Stage stage  = (Stage) source.getScene().getWindow();
+					//stage.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
-	}
-	
-	private static Object[] getSelected() {
-		Object[] selectedArray;
-		selectedArray = selectedListView.getItems().toArray();
-		return selectedArray;
-	}
-	
-	/**
-	 * Builds the GUI of the application. Sets all the 
-	 * default values for the GUI.
-	 */
-	private void buildGUI() {
-		rootPane.setPadding(new Insets(10));
-		rootPane.setPrefHeight(30);
-		rootPane.setPrefWidth(100);
-		rootPane.setVgap(10);
-		rootPane.setHgap(20);
+            }
+        });
+        
+        
 
-		Label modules = new Label("Players");
-		Label selectedModules = new Label("Team");
+        VBox vbox = new VBox(5);
+        vbox.getChildren().addAll(sendRightButton,sendLeftButton);
 
-		rootPane.add(modules, 0, 0);
-		rootPane.add(moduleListView, 0, 1);
-		rootPane.add(selectedModules, 1, 0);
-		rootPane.add(selectedListView, 1, 1);
-		rootPane.add(finish, 1, 2);
-	}
-	
-	/**
-	 * Populates data from the FCW_DEF.txt file. 
-	 * Calls pre-fetched data from the FCWLib class, then adds
-	 * the data to the moduleListView.
-	 */
-	private void populateData() {
-		moduleList.addAll(FCWLib.getInstance().getLightTable());
-		moduleListView.setItems(moduleList);
-	}
+        gridpane.add(vbox, 1, 1);
+        GridPane.setConstraints(vbox, 1, 1, 1, 2,HPos.CENTER, VPos.CENTER);
 
-	/**
-	 * Initializes the ListView components
-	 */
-	private void initializeComponenents() {
-		initializeListView(moduleListView);
-		initializeListView(selectedListView);
-	}
-
-	/**
-	 * @param listView 
-	 * Initializes the inidividual ListVIew components when send
-	 * a ListView from the initializeComponents() method. 
-	 */
-	private void initializeListView(ListView<String> listView) {
-		listView.setPrefSize(250, 290);
-		listView.setEditable(false);
-		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		listView.setCellFactory((Callback<ListView<String>, ListCell<String>>) new StringListCellFactory());
-	}
-	
-	/**
-	 * @author Nick Van Kuiken
-	 * These classes help to make sure the data is updated correctly after dragging. 
-	 */
-	class StringListCellFactory implements Callback<ListView<String>, ListCell<String>>{
-		@Override
-		public ListCell<String> call(ListView<String> playerListView){
-			return new StringListCell();
-		}
-
-		/**
-		 * @author Nick Van Kuiken
-		 *
-		 */
-		class StringListCell extends ListCell<String>{
-			protected void updateItem(String module, boolean b){
-				super.updateItem(module, b);
-
-				if (module != null){
-					setText(module);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		Stage stage = new Stage();
-		instance = this;
-		start(stage);
-		
-	}
-
-	
+        root.getChildren().add(gridpane);        
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 }

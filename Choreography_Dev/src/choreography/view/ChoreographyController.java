@@ -9,6 +9,7 @@ package choreography.view;
 import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.LagTimeLibrary;
+import choreography.io.MapLib;
 import choreography.model.fcw.FCW;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
@@ -123,6 +124,8 @@ public class ChoreographyController implements Initializable {
     private boolean isSlidersLoaded;
     private boolean isSelected = false;
 	boolean isFirst = true;
+    Timer timelineTimer = new Timer("progressTimer", true);
+    Timer sliderTimer = new Timer("progressTimer", true);
 
 
     /**
@@ -153,7 +156,7 @@ public class ChoreographyController implements Initializable {
 				if (isSelected){
 					isSelected = false;
 					System.out.println("Off");
-					TimelineController.getInstance().clearCopyAL();
+					TimelineController.getInstance().clearAllAL();
 					TimelineController.getInstance().disableCopyPaste();
 				}
 				else {
@@ -328,14 +331,14 @@ public class ChoreographyController implements Initializable {
     }
     
     public void addChannels(){
-    	if (isFirst){
+//    	if (isFirst){
     	Stage primaryStage = new Stage();
-    	CustomChannel.getInstance().start(primaryStage);
-    	isFirst = false;
-    	}
-    	else{
-    		CustomChannel.getInstance().showStage();
-    	}
+    	CustomChannel.start(primaryStage);
+//    	isFirst = false;
+//    	}
+//    	else{
+//    		CustomChannel.showStage();
+//    	}
     }
     
     /**
@@ -374,8 +377,8 @@ public class ChoreographyController implements Initializable {
     }
     
     public void startPollingSliderAlgorithm() {
-        Timer progressTimer = new Timer("progressTimer", true);
-        progressTimer.scheduleAtFixedRate(new TimerTask() {
+        
+        sliderTimer.scheduleAtFixedRate(new TimerTask() {
 
             @Override
             public void run() {
@@ -386,8 +389,8 @@ public class ChoreographyController implements Initializable {
         }, 0l, 125l);
     }
     public void startPollingTimelineAlgorithm() {
-        Timer progressTimer = new Timer("progressTimer", true);
-        progressTimer.scheduleAtFixedRate(new TimerTask() {
+       
+        timelineTimer.scheduleAtFixedRate(new TimerTask() {
 
             @Override
             public void run() {
@@ -403,8 +406,19 @@ public class ChoreographyController implements Initializable {
     }
  
     public boolean getIsSelected(){
-		
-    	return isSelected;
-	}
+	return isSelected;
+    }
+
+    public void stopTimelineTimer() {
+       timelineTimer.cancel();
+    }
+
+    public void stopSliderTimer() {
+        sliderTimer.cancel();
+    }
+    
+    public void openMapFileMenuItemHandler() {
+        MapLib.openMap();
+    }
     
 }

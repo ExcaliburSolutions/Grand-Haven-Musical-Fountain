@@ -144,7 +144,6 @@ public class Timeline extends ArrayList<Event>{
      */
     public void setWaterFcwAtPoint(int pointInTime, FCW f) {
         waterTimeline.get(pointInTime).add(f);
-        
     }
     
     /**
@@ -261,11 +260,7 @@ public class Timeline extends ArrayList<Event>{
     }
        
     public boolean getActionsAtTime(int time){
-    	if(waterTimeline.containsKey(time)){
-    		return true;
-    	}
-    	
-    	return false;
+    	return waterTimeline.containsKey(time);
     }
     
 }

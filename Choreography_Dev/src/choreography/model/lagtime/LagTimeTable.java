@@ -101,26 +101,24 @@ public class LagTimeTable {
      * @return
      */
     public static synchronized double getLagTime(FCW f) {
-            String[] actions = FCWLib.getInstance().reverseLookupData(f);
-            double lagTime = 0.0;
-            for(String action: actions) {
-                for(CannonEnum ce : CannonEnum.values()) {
-                    if(action.contains(ce.toString())) {
-                        for(LagTime lt: delays) {
-                            if(lt.getDelayName().equalsIgnoreCase(action)) {
-                                lagTime = lt.getDelayTime();
-                            }
-                        }
-                    }
-                }
-                switch(action) {
-                    case "1": lagTime *= level1; break;
-                    case "2": lagTime *= level2; break;
-                    case "3": lagTime *= level3; break;
-                    case "4": lagTime *= level4; break;
-                    case "5": lagTime *= level5; break;
-                }
+        String[] actions = FCWLib.getInstance().reverseLookupData(f);
+        String cannon = FCWLib.getInstance().reverseLookupAddress(f.getAddr());
+        double lagTime = -99.0; 
+        for(LagTime lt: delays) {
+            if(lt.getDelayName().equalsIgnoreCase(cannon)) {
+                lagTime = lt.getDelayTime();
+                break;
             }
-            return lagTime;
         }
+        for(String action: actions) {
+            switch(action) {
+                case "1": lagTime *= level1; return lagTime;
+                case "2": lagTime *= level2; return lagTime;
+                case "3": lagTime *= level3; return lagTime;
+                case "4": lagTime *= level4; return lagTime;
+                case "5": lagTime *= level5; return lagTime;
+            }
+        }
+        throw new IllegalArgumentException("Invalid lag time! " + f);
+    }
 }

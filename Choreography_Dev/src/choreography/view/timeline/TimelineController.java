@@ -8,14 +8,13 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
-import choreography.view.sliders.SlidersController;
-
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
-
+import java.util.TreeMap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -28,7 +27,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
@@ -36,7 +34,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -48,10 +45,14 @@ import javafx.util.Duration;
 public class TimelineController implements Initializable {
 	
     private static TimelineController instance;
-    private ColorPaletteEnum[] colorEnumArray = ColorPaletteEnum.values();
+    private final ColorPaletteEnum[] colorEnumArray;
     private Integer[] channelAddresses;
     boolean oldRecHasValue = false;
     Rectangle oldRec = new Rectangle();
+    private String[] labelNames;
+    Rectangle selectedRec = new Rectangle();
+    int selectedCol = 0;
+    int selectedRow = 0;
     /**
      * 
      * @return
@@ -76,21 +77,32 @@ public class TimelineController implements Initializable {
     GridPane gridpaneWater;
     Rectangle[] waterRecArray;
     Rectangle[][] lightRecArray;
-    final ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
-
+    final ArrayList<Rectangle> copyAL;
+    final ArrayList<Integer> colAL;
+    final ArrayList<Integer> rowAL;
+    final SortedMap<Integer, Integer> colRow;
+    	
     MenuItem copy = new MenuItem("copy");
     MenuItem paste = new MenuItem("paste");
     
     final ContextMenu cm = new ContextMenu();
+
+    public TimelineController() {
+        this.colorEnumArray = ColorPaletteEnum.values();
+        this.colRow = new TreeMap<>();
+        this.rowAL = new ArrayList<>();
+        this.colAL = new ArrayList<>();
+        this.copyAL = new ArrayList<>();
+    }
     /**
      * Initializes the controller class.
      * @param url
      * @param rb
      */
     @Override
+    @SuppressWarnings("Convert2Lambda")
     public void initialize(URL url, ResourceBundle rb) {
         // setWaterGridPane();
-    	channelAddresses = new Integer[1];
         instance = this;
         configureTimelines();
         cm.getItems().add(copy);
@@ -100,28 +112,34 @@ public class TimelineController implements Initializable {
         paste.setDisable(true);
         
         copy.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-
-				paste.setDisable(false);
-				
-			}
-    		
-		});
+            @Override
+            public void handle(ActionEvent event) {
+                paste.setDisable(false);
+                System.out.println(copyAL.toString());
+            }
+    	});
     	
     	paste.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
+            @Override
+            public void handle(ActionEvent event) {
 
-				
-			}
+                int count = 0;
+                for(Rectangle rec: copyAL){
+                    lightRecArray[selectedCol + count][selectedRow ].setFill(rec.getFill());
+                    System.out.println((selectedCol+count) +" " +(selectedRow));
+                    count++;
+                }
+            }
     		
-		});
+        });
     }
 
     public void configureTimelines() {
+        setLabelNames(new String[]{"Module1", "Module2", "Module3", 
+                "Module4", "Module5", "Module6", "Module7", "ModuleA", "ModuleB", 
+                "FrontCurtain", "BackCurtain", "PeacockAB", "SpoutVoice", "AllLEDs"});
+        setLabelGridPane(getLabelNames());
         setTimelineGridPane();
-        setLabelGridPane();
     }
     
     public void disableCopyPaste(){
@@ -165,86 +183,58 @@ public class TimelineController implements Initializable {
 //
 //        for (int i = 0; i < 14; i++) {
     
-    public void setLabelGridPane() {
-    	channelAddresses = new Integer[]{17, 18, 19, 20, 21, 22, 23, 49, 50,51, 24, 25, 26, 190};
-        timelineLabelPane = new GridPane();
-      final String[] labelNames = new String[]{"Module 1", "Module 2", "Module 3", 
-            "Module 4", "Module 5", "Module 6", "Module 7", "A Modules", "B Modules", 
-            "Front Curtain", "Back Curtain", "Peacock", "Voice", "ALL LEDs"};
+    public void setLabelGridPane(String[] input) {
+    	setLabelNames(input);
+    	Set<Integer> addresses = new HashSet<>();
+    	for(String in: input) {
+            Integer addr = FCWLib.getInstance().lookupAddress(in);
+    		 addresses.add(addr);
+    	}
+    	channelAddresses = addresses.toArray(new Integer[1]);
+    	setLabelGridPane(channelAddresses);
+	}
+    
+    public void setLabelGridPaneWithCtl(){
+    	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
+        channelAddresses = channelAddressesSet.toArray(channelAddresses);
+        labelNames = new String[channelAddresses.length];
+        for(int i = 0; i < channelAddresses.length; i++) {
+   		 	labelNames[i] = FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]);
+        }
+        setLabelGridPane(channelAddresses);
+        
+    }
     	
+	public void setLabelGridPane(Integer[] input) {
+        timelineLabelPane = new GridPane();
     	timelineLabelPane.setGridLinesVisible(true);
-//    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
-//        Integer[] channelAddresses = new Integer[1];
-//    	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
-//        channelAddresses = channelAddressesSet.toArray(channelAddresses);
-    	final Label[] labelArray = new Label[14];
-    	for(int i=0; i<14;i++){
-        timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
+    	Label[] labelArray = new Label[input.length];
+    	for(int i=0; i<input.length;i++){
+            timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
     	}
     	timelineLabelPane.getColumnConstraints().add(new ColumnConstraints(98));
     	
-    	for(int i=0; i<14;i++){
-            labelArray[i] = new Label(labelNames[i]);
-//            labelArray[i] = new Label(FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]));
+    	for(int i=0; i < input.length;i++){
+            labelArray[i] = new Label(FCWLib.getInstance().reverseLookupAddress((input[i])));
             timelineLabelPane.add(labelArray[i], 0, i);
     	}
         
-        timelineScrollPane.vvalueProperty().addListener(new ChangeListener() {
+        timelineScrollPane.vvalueProperty().addListener(new ChangeListener<Object>() {
             @Override
-            public void changed(ObservableValue o,Object oldVal, 
+            public void changed(ObservableValue<?> o,Object oldVal, 
                      Object newVal){
                  labelScrollPane.setVvalue(timelineScrollPane.getVvalue());
             }
           });
-    	 labelScrollPane.vvalueProperty().addListener(new ChangeListener() {
+    	 labelScrollPane.vvalueProperty().addListener(new ChangeListener<Object>() {
             @Override
-            public void changed(ObservableValue o,Object oldVal, 
+            public void changed(ObservableValue<?> o,Object oldVal, 
                      Object newVal){
                     timelineScrollPane.setVvalue(labelScrollPane.getVvalue());
             }
           });
     	labelScrollPane.setContent(timelineLabelPane);
-    }
-    
-    public void setLabelGridPaneWithCtl(){
-    	timelineLabelPane = new GridPane();
-//    	final String[] labelNames = new String[]{"Module 1", "Module 2", "Module 3", 
-//            "Module 4", "Module 5", "Module 6", "Module 7", "A Modules", "B Modules", 
-//            "Front Curtain", "Back Curtain", "Peacock", "Voice", "ALL LEDs"};
-    	
-    	timelineLabelPane.setGridLinesVisible(true);
-//    	timelineLabelPane.setStyle("-fx-background-color: #4CC552;");
-        
-    	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
-        channelAddresses = channelAddressesSet.toArray(channelAddresses);
-    	final Label[] labelArray = new Label[channelAddresses.length];
-    	for(int i=0; i<14;i++){
-    		timelineLabelPane.getRowConstraints().add(new RowConstraints(26));
-    	}
-    		timelineLabelPane.getColumnConstraints().add(new ColumnConstraints(98));
-    	
-    	for(int i=0; i<14;i++){
-//            labelArray[i] = new Label(labelNames[i]);
-            labelArray[i] = new Label(FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]));
-            
-            timelineLabelPane.add(labelArray[i], 0, i);
-    	}
-        
-        timelineScrollPane.vvalueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue o,Object oldVal, 
-                     Object newVal){
-                 labelScrollPane.setVvalue(timelineScrollPane.getVvalue());
-            }
-          });
-    	 labelScrollPane.vvalueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue o,Object oldVal, 
-                     Object newVal){
-                    timelineScrollPane.setVvalue(labelScrollPane.getVvalue());
-            }
-          });
-    	labelScrollPane.setContent(timelineLabelPane);
+//    	rePaint();
     }
     
     /**
@@ -252,23 +242,19 @@ public class TimelineController implements Initializable {
      */
     public void setTimelineGridPane() {
         gridpaneLight = new GridPane();
-
         time = MusicPaneController.SONG_TIME;
-
         gridpaneLight.setGridLinesVisible(true);
-        rowNumber =  Timeline.getInstance().getNumChannels();
-        lightRecArray = new Rectangle[time][14];
-        
-        
+        rowNumber =  labelNames.length;
+        lightRecArray = new Rectangle[time][labelNames.length];
         
         for (int i = 0; i < time; i++) {
             gridpaneLight.getColumnConstraints().add(new ColumnConstraints(26));
-            if (i < 14) { // because the array is not square this needs to be
+            if (i < labelNames.length) { // because the array is not square this needs to be
                                             // here
                     gridpaneLight.getRowConstraints().add(new RowConstraints(26));
             }
 
-            for (int j = 0; j < 14; j++) {
+            for (int j = 0; j < labelNames.length; j++) {
                 // if (i == 0){
                 // recArray[i][j] = new Rectangle(50,25, Color.RED);
                 // continue;
@@ -283,20 +269,23 @@ public class TimelineController implements Initializable {
 
                     @Override
                     public void handle(MouseEvent me) {
-                    	if (me.getButton() == MouseButton.SECONDARY) {
-                            cm.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
-                        }
-                    	else{
-                    		startRow = testJ;
-                        lightRecArray[testI][testJ]
-                                .setFill(ColorPaletteController
-                                        .getInstance()
-                                        .getSelectedColor());
-                    	}
-                        
+                    	selectedRec = lightRecArray[testI][testJ];
+                    	selectedCol = testI;
+                    	selectedRow = testJ;
+                    	
                         if(ChoreographyController.getInstance().getIsSelected()){
+                        	if (me.getButton() == MouseButton.SECONDARY) {
+                                cm.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
+                            }
                         	
                         }
+                    else{
+                        		startRow = testJ;
+                            lightRecArray[testI][testJ]
+                                    .setFill(ColorPaletteController
+                                            .getInstance()
+                                            .getSelectedColor());
+                    }
 //                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
 //                                ColorPaletteController.getInstance().getModel().getSelectedIndex()));
                     }
@@ -308,12 +297,19 @@ public class TimelineController implements Initializable {
                         rec.setOpacity(1);
                     }
                     copyAL.clear();
+                    colAL.clear();
+                    rowAL.clear();
+                    colRow.clear();
                     
                 	if(ChoreographyController.getInstance().getIsSelected()){
                 		copy.setDisable(false);
                 		lightRecArray[testI][testJ].startFullDrag();
                 		lightRecArray[testI][testJ].setOpacity(50);
                         copyAL.add(lightRecArray[testI][testJ]);
+                        colRow.put(testI, testJ);
+                        
+                        colAL.add(testI);
+                        rowAL.add(testJ);
                 	}
                 	
                     lightRecArray[testI][testJ].startFullDrag();
@@ -331,6 +327,10 @@ public class TimelineController implements Initializable {
                     	lightRecArray[testI][testJ].setOpacity(.50);
                         if (!copyAL.contains(lightRecArray[testI][testJ])){
                             copyAL.add(lightRecArray[testI][testJ]);
+                            colRow.put(testI, testJ);
+                            
+                            colAL.add(testI);
+                            rowAL.add(testJ);
                         }
                     } else {
                     	lightRecArray[testI][testJ].setFill(ColorPaletteController
@@ -344,8 +344,13 @@ public class TimelineController implements Initializable {
         timelineScrollPane.setContent(gridpaneLight);
     }
 
-    public void clearCopyAL(){
+    public void clearAllAL(){
+    	for(Rectangle rec: copyAL){
+            rec.setOpacity(1);
+        }
     	copyAL.clear();
+    	colAL.clear();
+        rowAL.clear();
     }
     
     public void setWaterGridPane() {
@@ -399,12 +404,7 @@ public class TimelineController implements Initializable {
                     	
                     }}
                 });
-        // ValueAxis axis = new ValueAxis();
-
-        // scrollpane.setPrefSize(600, 250);
-        MusicPaneController.getInstance().getWaterPane()
-                        .setContent(gridpaneWater);
-//        MusicPaneController.getInstance().getLabelPane().setContent(numLine);
+        MusicPaneController.getInstance().getWaterPane().setContent(gridpaneWater);
     }
     }
 
@@ -446,8 +446,6 @@ public class TimelineController implements Initializable {
                 //TODO update sliders
             }
         }
-//        for(int i = 0; i < lightRecArray.length; i++){
-//    		for(int j = 0; j < 14; j++){
         SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
         for (int channel: gtfoArray.keySet()){
         	for (int timeIndex: gtfoArray.get(channel).keySet()){
@@ -459,27 +457,6 @@ public class TimelineController implements Initializable {
     		}
     		
     		}
-//        lightTimeline.keySet().stream().forEach((i) -> {
-//            lightTimeline.get(i).stream().forEach((f) -> {
-//                String name = FCWLib.getInstance().reverseLookupAddress(f);
-//                String[] actions = FCWLib.getInstance().reverseLookupData(f);
-//                //TODO paint light timeline proper color
-//                
-//                String color = actions[0];
-//                Paint paint = Color.web(ColorPaletteEnum.valueOf(color).getColor());
-//                
-//                int tenthOfSec = i % 10;
-//                int secondsOnly = i /10; 
-//                double tenths = (double) tenthOfSec;
-//                double newTime = secondsOnly + (tenths / 10);
-//                int colAtTime = (int) (newTime * MusicPaneController.getInstance().getTimeFactor());
-//                if(colAtTime != 0){
-//                    colAtTime = colAtTime - 1;
-//                }
-//                int rowAtTime = lightRowLookup(name);
-//                lightRecArray[colAtTime][rowAtTime].setFill(paint);
-//            });
-//        });
     }
     
     /**
@@ -549,24 +526,12 @@ public class TimelineController implements Initializable {
     	break;
     	case "OFF": newName = "Off"; //TODO needed?
     	break;
-    	//From Table A
-//    	case "SPOUT": newName = "Spout"; // TODO May be an issue here. See google docs documents/FCW specs/possible FCW table issues
-//    	break;							 // look above for why these are commented out
-//    	case "BAZOOKA": newName = "Bazooka";
-//    	break;
     	case "MODULEA": newName = "Module A";
     	break;
     	case "MODULEB": newName = "Module B";
     	break;
     	case "CONNECTAB": newName = "Connect A + B";
     	break;
-//    	case "FTCURT": newName = "Front Curtain"; //TODO from table B
-//    	break;
-//    	case "BKCURT": newName = "Back Curtain"; //TODO from table B
-//    	break;
-//    	case "PEACOCK": newName = "Peacock"; //TODO from table B
-//    	break;
-    	// Table D
     	case "OFFRESET": newName = "Hold Center";
     	break;
     	case "SHORT": newName = "Short";
@@ -589,9 +554,6 @@ public class TimelineController implements Initializable {
     	break;
     	case "PLAYPAUSE": newName = "Play/Pause Sweep";
     	break;
-//    	case "MODULEB": newName = "Module"; //TODO duplicate???
-//    	break;
-    	//Table H
     	case "STOP": newName = "Stop Jumping";
     	break;
     	case "ADDRSWEEP": newName = "Sweep Formation";
@@ -670,58 +632,12 @@ public class TimelineController implements Initializable {
     public void fireSliderChangeEvent() {
         Timeline.getInstance().sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
     }
+
+	public String[] getLabelNames() {
+		return labelNames;
+	}
+
+	public void setLabelNames(String[] labelNames) {
+		this.labelNames = labelNames;
+	}
 }
-
-///**             
-// * for(int j=0; j<1; j++){
-// * // if (i == 0){
-// * // recArray[i][j] = new Rectangle(50,25, Color.RED);
-// * // continue;
-// * // }
-// * recArray[i][j] = new Rectangle(25,25, Color.LIGHTGREY);
-// * gridpaneRec.add(recArray[i][j], i, j);
-// * //these are needed to talk to the mouse pressed events
-// * final int testI = i;
-// * final int testJ = j;
-// * 
-// * recArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
-// * @Override
-// public void handle(MouseEvent me) {
-// System.out.println("Col " + (testI) + " Row " + (testJ+1));
-// recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
-// .getSelectedColor());
-// }
-// });
-//
-// recArray[i][j].setOnDragDetected(new EventHandler<MouseEvent>() {
-// @Override
-// public void handle(MouseEvent me) {
-// //starts the drag event
-// recArray[testI][testJ].startFullDrag();
-// }
-//
-// });
-// //continues and ends the drag event
-// recArray[i][j].setOnMouseDragOver(new EventHandler<MouseEvent>()
-// {
-// @Override
-// public void handle(MouseEvent me) {
-// recArray[testI][testJ].setFill(ColorPaletteController.getInstance()
-// .getSelectedColor());
-// }
-// });
-// } 
-// **/
-
-
-//        timelineScrollPane.hvalueProperty().addListener(new ChangeListener<Number>() {
-//            public void changed(ObservableValue<? extends Number> ov,
-//                    Number old_val, Number new_val) {
-//                //System.out.println(volume.getValue());
-//                //mediaPlayer.setVolume(volume.getValue());
-//            	//System.out.println("works");
-//            	timelineScrollPane.setHvalue((Double) new_val);
-//            	Duration duration = new Duration((timelineScrollPane.getHvalue()/100)*(MusicPaneController.getInstance().getMediaPlayer().getTotalDuration().toSeconds()));
-//            	MusicPaneController.getInstance().getMediaPlayer().seek(duration);
-//            }
-//        }); 

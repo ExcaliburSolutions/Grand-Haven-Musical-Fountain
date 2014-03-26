@@ -89,8 +89,9 @@ public class LagTimeLibrary {
      */
     public int getLagTime(FCW f) {
        double lag = LagTimeTable.getLagTime(f);
-       int tenths = (int)lag * 10;
-       return tenths;
+       double tenths = lag * 10;
+       int retVal = (int) tenths;
+       return retVal;
    }
     
     /**

@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.stage.FileChooser;
@@ -32,6 +33,7 @@ public class CtlLib {
             instance = new CtlLib();
         return instance;
     }
+    private boolean isTimeCompensated;
     
     private CtlLib(){
 
@@ -63,6 +65,16 @@ public class CtlLib {
         StringBuilder stringBuffer = new StringBuilder();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
+            String version = bufferedReader.readLine();
+            switch(version) {
+                case "ct0-382":
+                    break;
+                case "gvsuCapstone2014B":
+                    isTimeCompensated = true;
+                case "gvsuCapstone2014A":
+                    ChoreographyController.getInstance().setAdvanced(true);
+                    break;
+            }
             String text = null;
             
             while ((text = bufferedReader.readLine()) != null) {
@@ -109,10 +121,13 @@ public class CtlLib {
                 String[] tokens = command.split("-");
                 fcw = new FCW(Integer.parseInt(tokens[0]), 
                     Integer.parseInt(tokens[1]));
+                
                 fcws.add(fcw);       
             }
             events.put(totalTimeinTenthSecs, fcws);
-            
+            if(isTimeCompensated) {
+                    reversePostDate(events);
+            }
         }
 //        System.out.println(events.toString());
         return events;
@@ -134,7 +149,21 @@ public class CtlLib {
                 fileWriter.write("gvsuCapstone2014B");
             }
             
-            postDate(content);
+            for(Integer timeIndex: content.keySet()) {
+                Iterator<FCW> it = content.get(timeIndex).iterator();
+                while(it.hasNext()){
+                    FCW f = it.next();
+                    if(f.getIsWater()) {
+                        System.out.println(f + " " + timeIndex);
+                        if(postDateSingleFcw(f, content, timeIndex)){ 
+                            it.remove();
+                        }
+                    }
+                    if(content.get(timeIndex).isEmpty()) {
+                        content.remove(timeIndex);
+                    }
+                }
+            }
             
             for(Integer i: content.keySet()){
                 StringBuilder commandsOutput = new StringBuilder();
@@ -157,21 +186,56 @@ public class CtlLib {
         }
     }
 
-    private void postDate(SortedMap<Integer, ArrayList<FCW>> content) {
+    private synchronized void postDate(SortedMap<Integer, ArrayList<FCW>> content) {
         for(Integer timeIndex: content.keySet()) {
-            for(FCW f: content.get(timeIndex)) {
-                int lag = LagTimeLibrary.getInstance().getLagTime(f);
-                if(lag != 0){
-                    if(content.containsKey(timeIndex - lag)) {
-                        content.get(timeIndex - lag).add(f);
-                    }
-                    else {
-                        content.put(timeIndex, new ArrayList(10));
-                        content.get(timeIndex).add(f);
-                    }
-                content.get(timeIndex).remove(f);
+            Iterator<FCW> it = content.get(timeIndex).iterator();
+            while(it.hasNext()){
+                FCW f = it.next();
+                if(f.getIsWater()) {
+                    if(postDateSingleFcw(f, content, timeIndex))
+                        it.remove();
                 }
             }
+            if(content.get(timeIndex).isEmpty()) {
+                content.remove(timeIndex);
+            }
         }
+    }
+
+    public synchronized boolean postDateSingleFcw(FCW f, SortedMap<Integer, ArrayList<FCW>> content, Integer timeIndex) {
+        int lag = LagTimeLibrary.getInstance().getLagTime(f);
+        if(lag != 0){
+            if(content.containsKey(timeIndex - lag)) {
+                content.get(timeIndex - lag).add(f);
+            }
+            else {
+                content.put(timeIndex - lag, new ArrayList(10));
+                content.get(timeIndex - lag).add(f);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean reversePostDate(SortedMap<Integer, ArrayList<FCW>> content) {
+        for(Integer timeIndex: content.keySet()) {
+            Iterator<FCW> it = content.get(timeIndex).iterator();
+            while(it.hasNext()){
+                FCW f = it.next();
+                int lag = LagTimeLibrary.getInstance().getLagTime(f);
+                if(lag != 0){
+                    if(content.containsKey(timeIndex + lag)) {
+                        content.get(timeIndex + lag).add(f);
+                    }
+                    else {
+                        content.put(timeIndex + lag, new ArrayList(10));
+                        content.get(timeIndex + lag).add(f);
+                    }
+                    return true;
+                }
+        
+            }
+        }
+        return false;
     }
 }

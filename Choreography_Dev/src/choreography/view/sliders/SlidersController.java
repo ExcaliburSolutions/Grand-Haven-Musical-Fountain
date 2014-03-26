@@ -22,6 +22,7 @@ import choreography.model.cannon.Sweep;
 import choreography.model.fcw.FCW;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
@@ -246,14 +247,16 @@ public class SlidersController {
             this.fountain = fountain;
     }
     
-    public void setSlidersWithFcw(ArrayList<FCW> fcws) {
+    public synchronized void setSlidersWithFcw(ArrayList<FCW> fcws) {
         for(FCW f: fcws) {
             if(!f.getIsWater()) {
                 return;
             }
         }
-       resetAllSliders();
-        for(FCW f: fcws) {
+        resetAllSliders();
+        Iterator<FCW> it = fcws.iterator();
+        while(it.hasNext()) {
+            FCW f = it.next();
             String[] actions = FCWLib.getInstance().reverseLookupData(f);
 //            String module = findModule(actions);
             
