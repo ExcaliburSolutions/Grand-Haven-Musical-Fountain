@@ -8,6 +8,8 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
+import choreography.view.timeline.Timeline;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +17,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import javax.swing.JOptionPane;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -78,9 +82,9 @@ public class TimelineController implements Initializable {
     GridPane gridpaneWater;
     Rectangle[] waterRecArray;
     Rectangle[][] lightRecArray;
-    final ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
-    final ArrayList<Integer> colAL = new ArrayList<Integer>();
-    final ArrayList<Integer> rowAL = new ArrayList<Integer>();
+    ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
+    ArrayList<Integer> colAL = new ArrayList<Integer>();
+    ArrayList<Integer> rowAL = new ArrayList<Integer>();
     	
     MenuItem copy = new MenuItem("copy");
     MenuItem paste = new MenuItem("paste");
@@ -89,7 +93,6 @@ public class TimelineController implements Initializable {
 
     public TimelineController() {
         this.colorEnumArray = ColorPaletteEnum.values();
-        this.colRow = new TreeMap<>();
         this.rowAL = new ArrayList<>();
         this.colAL = new ArrayList<>();
         this.copyAL = new ArrayList<>();
@@ -116,6 +119,7 @@ public class TimelineController implements Initializable {
             public void handle(ActionEvent event) {
                 paste.setDisable(false);
                 System.out.println(copyAL.toString());
+                copy.setDisable(true);
             }
     	});
     	
@@ -160,17 +164,33 @@ public class TimelineController implements Initializable {
             		}
             		
             	}
-            	
+            	boolean outOfBounds = false;
             	for(int i = 0; i < colAL.size(); i++){
+            		if(transRowAL.get(i) >= labelNames.length){
+            			JOptionPane.showMessageDialog(null, "You have tried to paste out of bounds", "Pasting out of bounds", 2);
+            			outOfBounds = true;
+            			break;
+            		}
+            		
+            		if(transColAL.get(i) >= MusicPaneController.SONG_TIME){
+            			JOptionPane.showMessageDialog(null, "You have tried to paste out of bounds", "Pasting out of bounds", 2);
+            			outOfBounds = true;
+            			break;
+            		}
+            	}
+            	
+            	if(!outOfBounds){
+            		for(int i = 0; i < colAL.size(); i++){
+            		
             		int newCol = transColAL.get(i) - colAL.get(i);
             		int newRow = transRowAL.get(i) - rowAL.get(i);
             		
             		lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
             	}
-            	
+            	}
 			}
     		
-        });
+		});
     }
 
     public void configureTimelines() {

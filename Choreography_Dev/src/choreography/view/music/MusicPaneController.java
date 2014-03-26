@@ -144,6 +144,8 @@ public class MusicPaneController {
             pauseSong(event);
             playButton.setText("Play");
 
+            ChoreographyController.getInstance().stopSliderTimer();
+            ChoreographyController.getInstance().stopTimelineTimer();
     	}
     }
 
