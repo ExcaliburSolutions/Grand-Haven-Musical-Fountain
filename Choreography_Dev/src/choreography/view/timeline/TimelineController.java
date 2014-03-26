@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -77,10 +78,9 @@ public class TimelineController implements Initializable {
     GridPane gridpaneWater;
     Rectangle[] waterRecArray;
     Rectangle[][] lightRecArray;
-    final ArrayList<Rectangle> copyAL;
-    final ArrayList<Integer> colAL;
-    final ArrayList<Integer> rowAL;
-    final SortedMap<Integer, Integer> colRow;
+    final ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
+    final ArrayList<Integer> colAL = new ArrayList<Integer>();
+    final ArrayList<Integer> rowAL = new ArrayList<Integer>();
     	
     MenuItem copy = new MenuItem("copy");
     MenuItem paste = new MenuItem("paste");
@@ -123,13 +123,52 @@ public class TimelineController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
 
-                int count = 0;
-                for(Rectangle rec: copyAL){
-                    lightRecArray[selectedCol + count][selectedRow ].setFill(rec.getFill());
-                    System.out.println((selectedCol+count) +" " +(selectedRow));
-                    count++;
-                }
-            }
+            	ArrayList<Integer> transColAL = new ArrayList<Integer>();
+                ArrayList<Integer> transRowAL = new ArrayList<Integer>();
+            	
+            	transColAL.add(selectedCol);
+            	transRowAL.add(selectedRow);
+            	
+            	for(int i = 1; i < colAL.size(); i++){
+            		int currentCol = colAL.get(i);
+            		int currentRow = rowAL.get(i);
+            		int prevCol = colAL.get(i-1);
+            		int prevRow = rowAL.get(i-1);
+            		
+            		if(currentCol > prevCol){
+            			selectedCol = selectedCol+1;
+            			transColAL.add(selectedCol);
+            		}
+            		if(currentCol < prevCol){
+            			selectedCol = selectedCol-1;
+            			transColAL.add(selectedCol);
+            		}
+            		if(currentCol == prevCol){
+            			transColAL.add(selectedCol);
+            		}
+            		
+            		if(currentRow > prevRow){
+            			selectedRow = selectedRow+1;
+            			transRowAL.add(selectedRow);
+            		}
+            		if(currentRow < prevRow){
+            			selectedRow = selectedRow-1;
+            			transRowAL.add(selectedRow);
+            		}
+            		if(currentRow == prevRow){
+            			transRowAL.add(selectedRow);
+            		}
+            		
+            	}
+            	
+            	for(int i = 0; i < colAL.size(); i++){
+            		int newCol = transColAL.get(i) - colAL.get(i);
+            		int newRow = transRowAL.get(i) - rowAL.get(i);
+            		
+            		lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
+            	}
+            	
+			}
     		
         });
     }
@@ -299,14 +338,12 @@ public class TimelineController implements Initializable {
                     copyAL.clear();
                     colAL.clear();
                     rowAL.clear();
-                    colRow.clear();
-                    
+                
                 	if(ChoreographyController.getInstance().getIsSelected()){
                 		copy.setDisable(false);
                 		lightRecArray[testI][testJ].startFullDrag();
                 		lightRecArray[testI][testJ].setOpacity(50);
                         copyAL.add(lightRecArray[testI][testJ]);
-                        colRow.put(testI, testJ);
                         
                         colAL.add(testI);
                         rowAL.add(testJ);
@@ -316,18 +353,17 @@ public class TimelineController implements Initializable {
                 });
                 // continues and ends the drag event
                 lightRecArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
-                    if (startRow == testJ) {
-                        lightRecArray[testI][testJ]
-                                .setFill(ColorPaletteController
-                                        .getInstance()
-                                        .getSelectedColor());
-                    }
+//                    if (startRow == testJ) {
+//                        lightRecArray[testI][testJ]
+//                                .setFill(ColorPaletteController
+//                                        .getInstance()
+//                                        .getSelectedColor());
+//                    }
                     
                     if (ChoreographyController.getInstance().getIsSelected()) {
                     	lightRecArray[testI][testJ].setOpacity(.50);
                         if (!copyAL.contains(lightRecArray[testI][testJ])){
                             copyAL.add(lightRecArray[testI][testJ]);
-                            colRow.put(testI, testJ);
                             
                             colAL.add(testI);
                             rowAL.add(testJ);
