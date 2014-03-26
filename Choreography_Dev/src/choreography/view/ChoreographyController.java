@@ -39,6 +39,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -115,6 +116,8 @@ public class ChoreographyController implements Initializable {
     private MenuItem setLagTimesMenuItem;
     @FXML
     private ToggleButton selectionButton;
+    @FXML
+    private Pane simPane;
 //    @FXML
 //    private ProgressIndicator progressIndicator;
     

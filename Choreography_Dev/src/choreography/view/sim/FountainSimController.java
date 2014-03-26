@@ -1,0 +1,917 @@
+package choreography.view.sim;
+
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import choreography.view.timeline.TimelineController;
+import customChannel.CustomChannel;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.Lighting;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+
+public class FountainSimController implements Initializable {
+	
+	private static FountainSimController instance;
+
+
+	@FXML
+	private ResourceBundle resources;
+
+	@FXML
+	private URL location;
+
+	@FXML
+	private Pane fountainPane;
+
+	@FXML
+    private Group mod5;
+
+    
+
+	@FXML
+    private Rectangle mod3ring4;
+
+    @FXML
+    private Group mod4;
+
+    @FXML
+    private Group mod3;
+
+    @FXML
+    private Rectangle mod3ring2;
+
+    @FXML
+    private Rectangle mod6ring4;
+
+    @FXML
+    private Group mod2;
+
+    @FXML
+    private Rectangle mod6ring5;
+
+    @FXML
+    private Slider ring4Slider;
+
+    @FXML
+    private Group mod7;
+
+    @FXML
+    private Group mod6;
+
+    @FXML
+    private MenuButton ring5Level;
+
+    @FXML
+    private Slider ring1Slider;
+
+    @FXML
+    private Group mod1;
+
+    @FXML
+    private Rectangle mod6ring2;
+
+    @FXML
+    private Rectangle mod6ring3;
+
+    @FXML
+    private Slider ring3Slider;
+
+    @FXML
+    private Rectangle mod6ring1;
+
+    @FXML
+    private Rectangle mod3ring3;
+
+    @FXML
+    private Slider ring5Slider;
+
+    @FXML
+    private Rectangle mod3ring1;
+
+    @FXML
+    private Rectangle mod3ring5;
+
+    @FXML
+    private Rectangle mod4ring1;
+
+    @FXML
+    private Rectangle mod7ring4;
+
+    @FXML
+    private Rectangle mod7ring3;
+
+    @FXML
+    private Rectangle mod2ring5;
+
+    @FXML
+    private Rectangle mod7ring2;
+
+    @FXML
+    private Rectangle mod2ring4;
+
+    @FXML
+    private Rectangle mod7ring1;
+
+    @FXML
+    private Rectangle mod2ring3;
+
+    @FXML
+    private Rectangle mod5ring4;
+
+    @FXML
+    private Rectangle mod2ring2;
+
+    @FXML
+    private Rectangle mod5ring3;
+
+    @FXML
+    private Rectangle mod2ring1;
+
+    @FXML
+    private Rectangle mod5ring5;
+
+    @FXML
+    private Rectangle mod5ring2;
+
+    @FXML
+    private Rectangle mod5ring1;
+
+    @FXML
+    private Rectangle mod7ring5;
+
+    @FXML
+    private Slider ring2Slider;
+
+    @FXML
+    private Rectangle mod1ring1;
+
+    @FXML
+    private Rectangle mod4ring2;
+
+    @FXML
+    private Rectangle mod1ring2;
+
+    @FXML
+    private Rectangle mod4ring3;
+
+    @FXML
+    private Rectangle mod4ring4;
+
+    @FXML
+    private Rectangle mod4ring5;
+
+    @FXML
+    private Rectangle mod1ring5;
+
+    @FXML
+    private Rectangle mod1ring3;
+
+    @FXML
+    private Rectangle mod1ring4;
+    
+    @FXML
+    private QuadCurve bazookaB;
+    
+    @FXML
+    private Line bazooka1;
+    
+    @FXML
+    private Line bazooka2;
+    
+    @FXML
+    private Line bazooka3;
+    
+    @FXML
+    private Line bazooka4;
+    
+    @FXML
+    private Line bazooka5;
+    
+    @FXML
+    private Line peacock1;
+    
+    @FXML
+    private Line peacock2;
+    
+    @FXML
+    private Line peacock3;
+    
+    @FXML
+    private Line peacock4;
+    
+    @FXML
+    private Line peacock5;
+    
+    @FXML
+    private Line peacock6;
+    
+    @FXML
+    private Line peacock7;
+    
+    @FXML
+    private Line peacock8;
+    
+    @FXML
+    private Line peacock9;
+    
+    @FXML
+    private Rectangle frontCurtain;
+    
+    @FXML
+    private Rectangle backCurtain;
+	
+	private static Stage principalStage;
+	Timeline timelingRing1;
+
+	
+//	@Override
+//	public void start(Stage primaryStage) throws Exception {
+//		
+//		
+//		Parent root = FXMLLoader.load(getClass().getResource("fountainSim.fxml"));		
+//        
+//        Scene scene = new Scene(root);
+//        principalStage = primaryStage;
+//        principalStage.setScene(scene);
+//        principalStage.setTitle("Sim");
+//        principalStage.show();
+//
+//	}
+	
+	public static void main(String[] args) {
+        Application.launch(args);
+    }
+	
+	public static FountainSimController getInstance() {
+        if (instance == null)
+            instance = new FountainSimController();
+        return instance;
+    }
+	
+	public void updateColors(int colNum){
+		choreography.view.timeline.Timeline.getInstance().getGtfoMap();
+		//lookup colors for for all existing channels at given time...
+		
+		//update the sim objects to those colors
+	}
+
+
+	@Override
+    public void initialize(URL url, ResourceBundle rb) {
+		assert fountainPane != null : "fx:id=\"fountainPane\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		//assert ring1Rec != null : "fx:id=\"ring1Rec\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		assert ring1Slider != null : "fx:id=\"ring1Slider\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		//assert ring2Rec != null : "fx:id=\"ring2Rec\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		assert ring2Slider != null : "fx:id=\"ring2Slider\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		//assert ring3Rec != null : "fx:id=\"ring3Rec\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		assert ring3Slider != null : "fx:id=\"ring3Slider\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		//assert ring4Rec != null : "fx:id=\"ring4Rec\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		assert ring4Slider != null : "fx:id=\"ring4Slider\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		assert ring5Level != null : "fx:id=\"ring5Level\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		//assert ring5Rec != null : "fx:id=\"ring5Rec\" was not injected: check your FXML file 'fountainSim.fxml'.";
+		assert ring5Slider != null : "fx:id=\"ring5Slider\" was not injected: check your FXML file 'fountainSim.fxml'.";
+
+        instance = this;
+		
+		// Listen for Slider value changes
+		ring5Slider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable,
+					Number oldValue, Number newValue) {
+				final Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				//timeline.setAutoReverse(true);
+				final KeyValue kv7 = new KeyValue(getMod7ring5().heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv6 = new KeyValue(mod6ring5.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv5 = new KeyValue(mod5ring5.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv4 = new KeyValue(mod4ring5.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv3 = new KeyValue(mod3ring5.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv2 = new KeyValue(mod2ring5.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv1 = new KeyValue(mod1ring5.heightProperty(), ((35*newValue.doubleValue())));
+
+
+
+				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+				timeline.getKeyFrames().add(kf);
+				timeline.play();
+				
+				System.out.println(newValue);
+				//outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+
+			}
+		});
+		
+		
+		ring4Slider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable,
+					Number oldValue, Number newValue) {
+				final Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				//timeline.setAutoReverse(true);
+				final KeyValue kv7 = new KeyValue(mod7ring4.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv6 = new KeyValue(mod6ring4.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv5 = new KeyValue(mod5ring4.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv4 = new KeyValue(mod4ring4.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv3 = new KeyValue(mod3ring4.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv2 = new KeyValue(mod2ring4.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv1 = new KeyValue(mod1ring4.heightProperty(), ((35*newValue.doubleValue())));
+
+
+
+				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+				timeline.getKeyFrames().add(kf);
+				timeline.play();
+				
+				System.out.println(newValue);
+				//outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+
+			}
+		});
+		
+		ring3Slider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable,
+					Number oldValue, Number newValue) {
+				final Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				//timeline.setAutoReverse(true);
+				final KeyValue kv7 = new KeyValue(mod7ring3.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv6 = new KeyValue(mod6ring3.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv5 = new KeyValue(mod5ring3.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv4 = new KeyValue(mod4ring3.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv3 = new KeyValue(mod3ring3.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv2 = new KeyValue(mod2ring3.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv1 = new KeyValue(mod1ring3.heightProperty(), ((35*newValue.doubleValue())));
+
+
+
+				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+				timeline.getKeyFrames().add(kf);
+				timeline.play();
+				
+				System.out.println(newValue);
+				//outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+
+			}
+		});
+		
+		ring2Slider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable,
+					Number oldValue, Number newValue) {
+				final Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				//timeline.setAutoReverse(true);
+				final KeyValue kv7 = new KeyValue(mod7ring2.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv6 = new KeyValue(mod6ring2.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv5 = new KeyValue(mod5ring2.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv4 = new KeyValue(mod4ring2.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv3 = new KeyValue(mod3ring2.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv2 = new KeyValue(mod2ring2.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv1 = new KeyValue(mod1ring2.heightProperty(), ((35*newValue.doubleValue())));
+
+
+
+				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+				timeline.getKeyFrames().add(kf);
+				timeline.play();
+				
+				System.out.println(newValue);
+				//outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+
+			}
+		});
+		
+		ring1Slider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable,
+					Number oldValue, Number newValue) {
+				final Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				//timeline.setAutoReverse(true);
+				final KeyValue kv7 = new KeyValue(mod7ring1.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv6 = new KeyValue(mod6ring1.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv5 = new KeyValue(mod5ring1.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv4 = new KeyValue(mod4ring1.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv3 = new KeyValue(mod3ring1.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv2 = new KeyValue(mod2ring1.heightProperty(), ((35*newValue.doubleValue())));
+				final KeyValue kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*newValue.doubleValue())));
+
+
+
+				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+				timeline.getKeyFrames().add(kf);
+				timeline.play();
+				
+				System.out.println(newValue);
+				//outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+
+			}
+		});
+		
+		
+	}
+
+	public Rectangle getMod7ring5() {
+		return mod7ring5;
+	}
+
+	public void setMod7ring5(Rectangle mod7ring5) {
+		this.mod7ring5 = mod7ring5;
+	}
+	
+	public Group getMod5() {
+		return mod5;
+	}
+
+	public void setMod5(Group mod5) {
+		this.mod5 = mod5;
+	}
+
+	public Rectangle getMod3ring4() {
+		return mod3ring4;
+	}
+
+	public void setMod3ring4(Rectangle mod3ring4) {
+		this.mod3ring4 = mod3ring4;
+	}
+
+	public Group getMod4() {
+		return mod4;
+	}
+
+	public void setMod4(Group mod4) {
+		this.mod4 = mod4;
+	}
+
+	public Group getMod3() {
+		return mod3;
+	}
+
+	public void setMod3(Group mod3) {
+		this.mod3 = mod3;
+	}
+
+	public Rectangle getMod3ring2() {
+		return mod3ring2;
+	}
+
+	public void setMod3ring2(Rectangle mod3ring2) {
+		this.mod3ring2 = mod3ring2;
+	}
+
+	public Rectangle getMod6ring4() {
+		return mod6ring4;
+	}
+
+	public void setMod6ring4(Rectangle mod6ring4) {
+		this.mod6ring4 = mod6ring4;
+	}
+
+	public Group getMod2() {
+		return mod2;
+	}
+
+	public void setMod2(Group mod2) {
+		this.mod2 = mod2;
+	}
+
+	public Rectangle getMod6ring5() {
+		return mod6ring5;
+	}
+
+	public void setMod6ring5(Rectangle mod6ring5) {
+		this.mod6ring5 = mod6ring5;
+	}
+
+	public Group getMod7() {
+		return mod7;
+	}
+
+	public void setMod7(Group mod7) {
+		this.mod7 = mod7;
+	}
+
+	public Group getMod6() {
+		return mod6;
+	}
+
+	public void setMod6(Group mod6) {
+		this.mod6 = mod6;
+	}
+
+	public Group getMod1() {
+		return mod1;
+	}
+
+	public void setMod1(Group mod1) {
+		this.mod1 = mod1;
+	}
+
+	public Rectangle getMod6ring2() {
+		return mod6ring2;
+	}
+
+	public void setMod6ring2(Rectangle mod6ring2) {
+		this.mod6ring2 = mod6ring2;
+	}
+
+	public Rectangle getMod6ring3() {
+		return mod6ring3;
+	}
+
+	public void setMod6ring3(Rectangle mod6ring3) {
+		this.mod6ring3 = mod6ring3;
+	}
+
+	public Rectangle getMod6ring1() {
+		return mod6ring1;
+	}
+
+	public void setMod6ring1(Rectangle mod6ring1) {
+		this.mod6ring1 = mod6ring1;
+	}
+
+	public Rectangle getMod3ring3() {
+		return mod3ring3;
+	}
+
+	public void setMod3ring3(Rectangle mod3ring3) {
+		this.mod3ring3 = mod3ring3;
+	}
+
+	public Rectangle getMod3ring1() {
+		return mod3ring1;
+	}
+
+	public void setMod3ring1(Rectangle mod3ring1) {
+		this.mod3ring1 = mod3ring1;
+	}
+
+	public Rectangle getMod3ring5() {
+		return mod3ring5;
+	}
+
+	public void setMod3ring5(Rectangle mod3ring5) {
+		this.mod3ring5 = mod3ring5;
+	}
+
+	public Rectangle getMod4ring1() {
+		return mod4ring1;
+	}
+
+	public void setMod4ring1(Rectangle mod4ring1) {
+		this.mod4ring1 = mod4ring1;
+	}
+
+	public Rectangle getMod7ring4() {
+		return mod7ring4;
+	}
+
+	public void setMod7ring4(Rectangle mod7ring4) {
+		this.mod7ring4 = mod7ring4;
+	}
+
+	public Rectangle getMod7ring3() {
+		return mod7ring3;
+	}
+
+	public void setMod7ring3(Rectangle mod7ring3) {
+		this.mod7ring3 = mod7ring3;
+	}
+
+	public Rectangle getMod2ring5() {
+		return mod2ring5;
+	}
+
+	public void setMod2ring5(Rectangle mod2ring5) {
+		this.mod2ring5 = mod2ring5;
+	}
+
+	public Rectangle getMod7ring2() {
+		return mod7ring2;
+	}
+
+	public void setMod7ring2(Rectangle mod7ring2) {
+		this.mod7ring2 = mod7ring2;
+	}
+
+	public Rectangle getMod2ring4() {
+		return mod2ring4;
+	}
+
+	public void setMod2ring4(Rectangle mod2ring4) {
+		this.mod2ring4 = mod2ring4;
+	}
+
+	public Rectangle getMod7ring1() {
+		return mod7ring1;
+	}
+
+	public void setMod7ring1(Rectangle mod7ring1) {
+		this.mod7ring1 = mod7ring1;
+	}
+
+	public Rectangle getMod2ring3() {
+		return mod2ring3;
+	}
+
+	public void setMod2ring3(Rectangle mod2ring3) {
+		this.mod2ring3 = mod2ring3;
+	}
+
+	public Rectangle getMod5ring4() {
+		return mod5ring4;
+	}
+
+	public void setMod5ring4(Rectangle mod5ring4) {
+		this.mod5ring4 = mod5ring4;
+	}
+
+	public Rectangle getMod2ring2() {
+		return mod2ring2;
+	}
+
+	public void setMod2ring2(Rectangle mod2ring2) {
+		this.mod2ring2 = mod2ring2;
+	}
+
+	public Rectangle getMod5ring3() {
+		return mod5ring3;
+	}
+
+	public void setMod5ring3(Rectangle mod5ring3) {
+		this.mod5ring3 = mod5ring3;
+	}
+
+	public Rectangle getMod2ring1() {
+		return mod2ring1;
+	}
+
+	public void setMod2ring1(Rectangle mod2ring1) {
+		this.mod2ring1 = mod2ring1;
+	}
+
+	public Rectangle getMod5ring5() {
+		return mod5ring5;
+	}
+
+	public void setMod5ring5(Rectangle mod5ring5) {
+		this.mod5ring5 = mod5ring5;
+	}
+
+	public Rectangle getMod5ring2() {
+		return mod5ring2;
+	}
+
+	public void setMod5ring2(Rectangle mod5ring2) {
+		this.mod5ring2 = mod5ring2;
+	}
+
+	public Rectangle getMod5ring1() {
+		return mod5ring1;
+	}
+
+	public void setMod5ring1(Rectangle mod5ring1) {
+		this.mod5ring1 = mod5ring1;
+	}
+
+	public Rectangle getMod1ring1() {
+		return mod1ring1;
+	}
+
+	public void setMod1ring1(Rectangle mod1ring1) {
+		this.mod1ring1 = mod1ring1;
+	}
+
+	public Rectangle getMod4ring2() {
+		return mod4ring2;
+	}
+
+	public void setMod4ring2(Rectangle mod4ring2) {
+		this.mod4ring2 = mod4ring2;
+	}
+
+	public Rectangle getMod1ring2() {
+		return mod1ring2;
+	}
+
+	public void setMod1ring2(Rectangle mod1ring2) {
+		this.mod1ring2 = mod1ring2;
+	}
+
+	public Rectangle getMod4ring3() {
+		return mod4ring3;
+	}
+
+	public void setMod4ring3(Rectangle mod4ring3) {
+		this.mod4ring3 = mod4ring3;
+	}
+
+	public Rectangle getMod4ring4() {
+		return mod4ring4;
+	}
+
+	public void setMod4ring4(Rectangle mod4ring4) {
+		this.mod4ring4 = mod4ring4;
+	}
+
+	public Rectangle getMod4ring5() {
+		return mod4ring5;
+	}
+
+	public void setMod4ring5(Rectangle mod4ring5) {
+		this.mod4ring5 = mod4ring5;
+	}
+
+	public Rectangle getMod1ring5() {
+		return mod1ring5;
+	}
+
+	public void setMod1ring5(Rectangle mod1ring5) {
+		this.mod1ring5 = mod1ring5;
+	}
+
+	public Rectangle getMod1ring3() {
+		return mod1ring3;
+	}
+
+	public void setMod1ring3(Rectangle mod1ring3) {
+		this.mod1ring3 = mod1ring3;
+	}
+
+	public Rectangle getMod1ring4() {
+		return mod1ring4;
+	}
+
+	public void setMod1ring4(Rectangle mod1ring4) {
+		this.mod1ring4 = mod1ring4;
+	}
+
+	public QuadCurve getBazookaB() {
+		return bazookaB;
+	}
+
+	public void setBazookaB(QuadCurve bazookaB) {
+		this.bazookaB = bazookaB;
+	}
+
+	public Line getBazooka1() {
+		return bazooka1;
+	}
+
+	public void setBazooka1(Line bazooka1) {
+		this.bazooka1 = bazooka1;
+	}
+
+	public Line getBazooka2() {
+		return bazooka2;
+	}
+
+	public void setBazooka2(Line bazooka2) {
+		this.bazooka2 = bazooka2;
+	}
+
+	public Line getBazooka3() {
+		return bazooka3;
+	}
+
+	public void setBazooka3(Line bazooka3) {
+		this.bazooka3 = bazooka3;
+	}
+
+	public Line getBazooka4() {
+		return bazooka4;
+	}
+
+	public void setBazooka4(Line bazooka4) {
+		this.bazooka4 = bazooka4;
+	}
+
+	public Line getBazooka5() {
+		return bazooka5;
+	}
+
+	public void setBazooka5(Line bazooka5) {
+		this.bazooka5 = bazooka5;
+	}
+
+	public Line getPeacock1() {
+		return peacock1;
+	}
+
+	public void setPeacock1(Line peacock1) {
+		this.peacock1 = peacock1;
+	}
+
+	public Line getPeacock2() {
+		return peacock2;
+	}
+
+	public void setPeacock2(Line peacock2) {
+		this.peacock2 = peacock2;
+	}
+
+	public Line getPeacock3() {
+		return peacock3;
+	}
+
+	public void setPeacock3(Line peacock3) {
+		this.peacock3 = peacock3;
+	}
+
+	public Line getPeacock4() {
+		return peacock4;
+	}
+
+	public void setPeacock4(Line peacock4) {
+		this.peacock4 = peacock4;
+	}
+
+	public Line getPeacock5() {
+		return peacock5;
+	}
+
+	public void setPeacock5(Line peacock5) {
+		this.peacock5 = peacock5;
+	}
+
+	public Line getPeacock6() {
+		return peacock6;
+	}
+
+	public void setPeacock6(Line peacock6) {
+		this.peacock6 = peacock6;
+	}
+
+	public Line getPeacock7() {
+		return peacock7;
+	}
+
+	public void setPeacock7(Line peacock7) {
+		this.peacock7 = peacock7;
+	}
+
+	public Line getPeacock8() {
+		return peacock8;
+	}
+
+	public void setPeacock8(Line peacock8) {
+		this.peacock8 = peacock8;
+	}
+
+	public Line getPeacock9() {
+		return peacock9;
+	}
+
+	public void setPeacock9(Line peacock9) {
+		this.peacock9 = peacock9;
+	}
+
+	public Rectangle getFrontCurtain() {
+		return frontCurtain;
+	}
+
+	public void setFrontCurtain(Rectangle frontCurtain) {
+		this.frontCurtain = frontCurtain;
+	}
+
+	public Rectangle getBackCurtain() {
+		return backCurtain;
+	}
+
+	public void setBackCurtain(Rectangle backCurtain) {
+		this.backCurtain = backCurtain;
+	}
+
+
+//	public void initialize(URL location, ResourceBundle resources) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
+	
+}
