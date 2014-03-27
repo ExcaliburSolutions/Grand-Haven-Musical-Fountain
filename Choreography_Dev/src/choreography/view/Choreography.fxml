@@ -99,7 +99,11 @@
         <URL value="@application.css" />
       </stylesheets>
     </MenuBar>
-    <Pane maxHeight="-1.0" minHeight="-Infinity" prefHeight="250.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="ALWAYS" />
+    <Pane fx:id="simPane" maxHeight="-1.0" minHeight="-Infinity" prefHeight="250.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="ALWAYS">
+      <children>
+        <fx:include source="sim/fountainSim.fxml" />
+      </children>
+    </Pane>
     <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
       <children>
         <fx:include source="sliders/Sliders.fxml" fillHeight="true" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" VBox.vgrow="NEVER">

@@ -8,13 +8,16 @@ package choreography.view.music;
 import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import choreography.view.ChoreographyController;
+import choreography.view.sim.FountainSimController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -144,6 +147,8 @@ public class MusicPaneController {
             pauseSong(event);
             playButton.setText("Play");
 
+            ChoreographyController.getInstance().stopSliderTimer();
+            ChoreographyController.getInstance().stopTimelineTimer();
     	}
     }
 
@@ -256,6 +261,8 @@ public class MusicPaneController {
 //                    songProgress.setText( f.format((mediaPlayer.getTotalDuration().toSeconds() - mediaPlayer.getCurrentTime().toSeconds())) + "s");
             songProgress.setText( f.format(mediaPlayer.getCurrentTime().toSeconds()) + "/"+ f.format(mediaPlayer.getTotalDuration().toSeconds()));
                 duration = mediaPlayer.getMedia().getDuration();
+//                int currTime = (int)mediaPlayer.getCurrentTime().toSeconds()*10;
+//                FountainSimController.getInstance().updateColors(currTime);
             TimelineController.getInstance().getScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
