@@ -137,15 +137,6 @@
                 <Insets left="4.0" />
               </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="scaleChooser" maxHeight="-Infinity" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.vgrow="NEVER">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
-              </items>
-            </ChoiceBox>
             <ToggleButton fx:id="selectionButton" mnemonicParsing="false" text="Select" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
               <GridPane.margin>
                 <Insets left="20.0" />
