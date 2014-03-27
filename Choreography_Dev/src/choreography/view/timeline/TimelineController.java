@@ -78,9 +78,9 @@ public class TimelineController implements Initializable {
     GridPane gridpaneWater;
     Rectangle[] waterRecArray;
     Rectangle[][] lightRecArray;
-    final ArrayList<Rectangle> copyAL = new ArrayList<Rectangle>();
-    final ArrayList<Integer> colAL = new ArrayList<Integer>();
-    final ArrayList<Integer> rowAL = new ArrayList<Integer>();
+    final ArrayList<Rectangle> copyAL;
+    final ArrayList<Integer> colAL;
+    final ArrayList<Integer> rowAL;
     	
     MenuItem copy = new MenuItem("copy");
     MenuItem paste = new MenuItem("paste");
@@ -89,7 +89,6 @@ public class TimelineController implements Initializable {
 
     public TimelineController() {
         this.colorEnumArray = ColorPaletteEnum.values();
-        this.colRow = new TreeMap<>();
         this.rowAL = new ArrayList<>();
         this.colAL = new ArrayList<>();
         this.copyAL = new ArrayList<>();
@@ -123,8 +122,8 @@ public class TimelineController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
 
-            	ArrayList<Integer> transColAL = new ArrayList<Integer>();
-                ArrayList<Integer> transRowAL = new ArrayList<Integer>();
+            	ArrayList<Integer> transColAL = new ArrayList<>();
+                ArrayList<Integer> transRowAL = new ArrayList<>();
             	
             	transColAL.add(selectedCol);
             	transRowAL.add(selectedRow);
@@ -484,15 +483,13 @@ public class TimelineController implements Initializable {
         }
         SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
         for (int channel: gtfoArray.keySet()){
-        	for (int timeIndex: gtfoArray.get(channel).keySet()){
-//    			System.out.println(Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex));
-    			Integer gtfo = Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex);
-    			Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
-    			lightRecArray[timeIndex][lightRowLookupNumber(channel)].setFill(color);
-    			
-    		}
-    		
-    		}
+            for (int timeIndex: gtfoArray.get(channel).keySet()){
+                Integer gtfo = Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex);
+                Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
+                lightRecArray[timeIndex][lightRowLookupNumber(channel)].setFill(color);
+
+            }
+        }
     }
     
     /**

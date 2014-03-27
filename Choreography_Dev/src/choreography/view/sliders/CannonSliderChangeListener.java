@@ -41,6 +41,6 @@ class CannonSliderChangeListener<T extends Cannon> implements ChangeListener<Num
         String[] actions = new String[]{module, Integer.toString(level)};
         FCW f = FCWLib.getInstance().getFCW(name, actions);
         ChoreographyController.getInstance().setfcwOutput(f.toString());
-        Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+//        Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
     }
 }

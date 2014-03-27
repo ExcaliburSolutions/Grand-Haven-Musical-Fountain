@@ -1,8 +1,9 @@
 /**
  * 
  */
-package choreography.model;
+package choreography.model.fountain;
 
+import choreography.model.fountain.Module;
 import choreography.model.cannon.CannonEnum;
 import choreography.model.cannon.Cannon;
 import java.util.ArrayList;

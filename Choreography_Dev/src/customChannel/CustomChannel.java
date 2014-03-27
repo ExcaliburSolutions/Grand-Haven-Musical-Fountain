@@ -49,7 +49,7 @@ public class CustomChannel {
 
         // modules
         final ObservableList<String> moduleList = FXCollections.observableArrayList(FCWLib.getInstance().getLightTable());
-        final ListView<String> moduleListView = new ListView<String>(moduleList);
+        final ListView<String> moduleListView = new ListView<>(moduleList);
         moduleListView.setPrefWidth(150);
         moduleListView.setPrefHeight(350);
 
@@ -58,7 +58,7 @@ public class CustomChannel {
         // selected
         final ObservableList<String> selectedList = FXCollections.observableArrayList(
         		TimelineController.getInstance().getLabelNames());
-        final ListView<String> selectedListView = new ListView<String>(selectedList);
+        final ListView<String> selectedListView = new ListView<>(selectedList);
         selectedListView.setPrefWidth(150);
         selectedListView.setPrefHeight(350);
 
@@ -109,7 +109,6 @@ public class CustomChannel {
 					//Stage stage  = (Stage) source.getScene().getWindow();
 					//stage.close();
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
             }
         });

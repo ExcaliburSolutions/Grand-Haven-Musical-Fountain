@@ -143,10 +143,10 @@ public class CtlLib {
 //
         try (FileWriter fileWriter = new FileWriter(file)){
             if(ChoreographyController.getInstance().getAdvanced()) {
-                fileWriter.write("gvsuCapstone2014A");
+                fileWriter.write("gvsuCapstone2014A\n");
             }
             else {
-                fileWriter.write("gvsuCapstone2014B");
+                fileWriter.write("gvsuCapstone2014B\n");
             }
             
             for(Integer timeIndex: content.keySet()) {
@@ -154,7 +154,7 @@ public class CtlLib {
                 while(it.hasNext()){
                     FCW f = it.next();
                     if(f.getIsWater()) {
-                        System.out.println(f + " " + timeIndex);
+//                        System.out.println(f + " " + timeIndex);
                         if(postDateSingleFcw(f, content, timeIndex)){ 
                             it.remove();
                         }
@@ -164,15 +164,21 @@ public class CtlLib {
                     }
                 }
             }
-            
-            for(Integer i: content.keySet()){
-                StringBuilder commandsOutput = new StringBuilder();
-                int totalTenths = MusicPaneController.SONG_TIME;
-                int tenths = totalTenths % 10;
-                int seconds = totalTenths % 60;
-                int minutes = seconds / 60;
-                seconds = seconds - (minutes * 10);
-                String totTime = minutes + ":" + seconds + "." + tenths;
+            StringBuilder commandsOutput = new StringBuilder();
+            for(Integer i: content.keySet()) {
+                String totTime = "";
+                int timeIndex = i;
+                if(i < 0) {
+                    totTime = "-";
+                    timeIndex = Math.abs(i);
+                }
+                int tenths = Math.abs(timeIndex % 10);
+                int seconds = Math.abs(timeIndex / 10 % 60);
+                int minutes = Math.abs(((timeIndex/10)-seconds) /60);
+//                seconds = seconds - (minutes * 10);
+//                 totTime = minutes + ":" + seconds + "." + tenths;
+                totTime += String.format("%1$02d:%2$02d.%3$01d", minutes, seconds, tenths);
+                System.out.println(totTime);
                 commandsOutput.append(totTime);
                 for(FCW f: content.get(i)) {
                     commandsOutput.append(f);
@@ -180,8 +186,11 @@ public class CtlLib {
                 }
                 commandsOutput.append("\n");
             }
+            fileWriter.write(commandsOutput.toString());
+            ChoreographyController.getInstance().setfcwOutput("Finished saving CTL!");
         return true;    
         } catch (IOException ex) {
+            ex.printStackTrace();
             return false;
         }
     }

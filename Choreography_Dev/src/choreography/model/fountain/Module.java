@@ -1,7 +1,7 @@
 /**
  * 
  */
-package choreography.model;
+package choreography.model.fountain;
 
 import choreography.model.cannon.Sweep;
 import choreography.model.cannon.Multi;

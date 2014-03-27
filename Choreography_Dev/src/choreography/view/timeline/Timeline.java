@@ -6,7 +6,6 @@
 
 package choreography.view.timeline;
 
-import choreography.model.Event;
 import choreography.model.fcw.FCW;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sliders.SlidersController;
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
 
 
 
-public class Timeline extends ArrayList<Event>{
+public class Timeline {
     
     /**
     * 

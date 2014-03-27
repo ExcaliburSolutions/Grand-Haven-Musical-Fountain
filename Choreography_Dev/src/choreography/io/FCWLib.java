@@ -361,7 +361,8 @@ public final class FCWLib {
                 data -= value;
                 flags.add(value);
             }
-        } if(data <= 5)
+        } 
+        if(data <= 6)
             flags.add(data);
     }
 

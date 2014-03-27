@@ -59,36 +59,35 @@ public class ColorPaletteModel {
         return instance;
     }
     
-    private final Color[] colors;
+    private Color[] colors;
     private int availableColors;
     private int selectedIndex;
-
+    
+    
     public ColorPaletteModel() {
         colors = new Color[32];
         availableColors = 16;
-        selectedIndex = 14;
-
-        colors[0] = Color.web(ColorPaletteEnum.RED.getColor()); // red
-        colors[1] = Color.web(ColorPaletteEnum.ORANGE.getColor()); // orange
-        colors[2] = Color.web(ColorPaletteEnum.YELLOW.getColor()); // yellow
-        colors[3] = Color.web(ColorPaletteEnum.GREEN.getColor()); // green
-        colors[4] = Color.web(ColorPaletteEnum.BLUE.getColor()); // blue
-        colors[5] = Color.web(ColorPaletteEnum.VIOLET.getColor()); // violet
-        colors[6] = Color.web(ColorPaletteEnum.LIGHTRED.getColor()); // lightRed
-        colors[7] = Color.web(ColorPaletteEnum.LIGHTORANGE.getColor()); // lightOrange
-        colors[8] = Color.web(ColorPaletteEnum.LIGHTYELLOW.getColor()); // lightYellow
-        colors[9] = Color.web(ColorPaletteEnum.LIGHTGREEN.getColor()); // lightGreen
-        colors[10] = Color.web(ColorPaletteEnum.LIGHTBLUE.getColor()); // lightBlue
-        colors[11] = Color.web(ColorPaletteEnum.LIGHTVIOLET.getColor()); // lightViolet
-        colors[12] = Color.web(ColorPaletteEnum.MAGENTA.getColor()); // magenta
-        colors[13] = Color.web(ColorPaletteEnum.CYAN.getColor()); // cyan
-        colors[14] = Color.web(ColorPaletteEnum.OFF.getColor()); // black/Off
-        colors[15] = Color.web(ColorPaletteEnum.WHITE.getColor()); // white/On
         
-        for(int index = 16; index < 32; index++) {
-            colors[index] = Color.web(ColorPaletteEnum.WHITE.getColor());
+//        colors[0] = Color.web(ColorPaletteEnum.RED.getColor()); // red
+//        colors[1] = Color.web(ColorPaletteEnum.ORANGE.getColor()); // orange
+//        colors[2] = Color.web(ColorPaletteEnum.YELLOW.getColor()); // yellow
+//        colors[3] = Color.web(ColorPaletteEnum.GREEN.getColor()); // green
+//        colors[4] = Color.web(ColorPaletteEnum.BLUE.getColor()); // blue
+//        colors[5] = Color.web(ColorPaletteEnum.VIOLET.getColor()); // violet
+//        colors[6] = Color.web(ColorPaletteEnum.LIGHTRED.getColor()); // lightRed
+//        colors[7] = Color.web(ColorPaletteEnum.LIGHTORANGE.getColor()); // lightOrange
+//        colors[8] = Color.web(ColorPaletteEnum.LIGHTYELLOW.getColor()); // lightYellow
+//        colors[9] = Color.web(ColorPaletteEnum.LIGHTGREEN.getColor()); // lightGreen
+//        colors[10] = Color.web(ColorPaletteEnum.LIGHTBLUE.getColor()); // lightBlue
+//        colors[11] = Color.web(ColorPaletteEnum.LIGHTVIOLET.getColor()); // lightViolet
+//        colors[12] = Color.web(ColorPaletteEnum.MAGENTA.getColor()); // magenta
+//        colors[13] = Color.web(ColorPaletteEnum.CYAN.getColor()); // cyan
+//        colors[14] = Color.web(ColorPaletteEnum.OFF.getColor()); // black/Off
+//        colors[15] = Color.web(ColorPaletteEnum.WHITE.getColor()); // white/On
+               	
+        
         }
-    }
+    
 
     /**
      * @return the colors
@@ -96,6 +95,7 @@ public class ColorPaletteModel {
     public Color[] getColors() {
         return colors;
     }
+    
 
     /**
      * @return the availableColors
@@ -104,29 +104,41 @@ public class ColorPaletteModel {
         return availableColors;
     }
 
-    /**
+      /**
      * @return the selectedIndex
      */
     public int getSelectedIndex() {
         return selectedIndex;
     }
-
-    /**
+    
+    
+    public void setColor(Color newColor, int index){
+  			this.colors[index] = newColor;
+  			this.colors[availableColors] = newColor;
+  			availableColors++;
+  		}		      
+       
+       /**
+     * @param newColor
+     * @param index
      * @param c the colors to set
-     */
-    public void setColor(Color c) {
-        this.colors[availableColors] = c;
-        availableColors++;
+     * @return 
+     */    
+    public boolean changeColor(Color newColor, int index) {
+    	if(index > 15) {
+    			return true;
+    	}
+    	return false;  		 	
     }
-
+     
     /**
      * @param availableColors the availableColors to set
      */
     public void setAvailableColors(int availableColors) {
         this.availableColors = availableColors;
-    }
+         }
 
-    /**
+       /**
      * @param selectedIndex the selectedIndex to set
      */
     public void setSelectedIndex(int selectedIndex) {
@@ -139,11 +151,10 @@ public class ColorPaletteModel {
         else
             return colors[i - 1];
     }
-    
-    public void setColors(Color[] colors) {
-        for(int i = 16; i < colors.length; i++) {
-            this.colors[i] = colors[i];
-        }
+
+    public void setColors(Color[] parseMap) {
+        this.colors = parseMap;
+        ColorPaletteController.getInstance().rePaint();
     }
 
 }

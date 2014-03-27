@@ -6,8 +6,8 @@
 
 package choreography.model.cannon;
 
-import choreography.model.Module;
-import choreography.model.ModuleGroup;
+import choreography.model.fountain.Module;
+import choreography.model.fountain.ModuleGroup;
 
 /**
  *

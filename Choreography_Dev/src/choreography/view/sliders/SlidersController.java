@@ -10,8 +10,8 @@ package choreography.view.sliders;
  **/
 import choreography.Main;
 import choreography.io.FCWLib;
-import choreography.model.Fountain;
-import choreography.model.ModuleGroup;
+import choreography.model.fountain.Fountain;
+import choreography.model.fountain.ModuleGroup;
 import choreography.model.cannon.Candelabra;
 import choreography.model.cannon.Cannon;
 import choreography.model.cannon.CannonEnum;

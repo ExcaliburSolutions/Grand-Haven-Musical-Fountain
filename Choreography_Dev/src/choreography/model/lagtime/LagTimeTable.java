@@ -7,6 +7,7 @@ import choreography.io.FCWLib;
 import choreography.model.cannon.CannonEnum;
 import choreography.model.fcw.FCW;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author elementsking
@@ -103,7 +104,10 @@ public class LagTimeTable {
     public static synchronized double getLagTime(FCW f) {
         String[] actions = FCWLib.getInstance().reverseLookupData(f);
         String cannon = FCWLib.getInstance().reverseLookupAddress(f.getAddr());
-        double lagTime = -99.0; 
+        if(cannon.contains("SWEEP")) {
+            return 0;
+        }
+        double lagTime = 99.0; 
         for(LagTime lt: delays) {
             if(lt.getDelayName().equalsIgnoreCase(cannon)) {
                 lagTime = lt.getDelayTime();
@@ -112,13 +116,15 @@ public class LagTimeTable {
         }
         for(String action: actions) {
             switch(action) {
-                case "1": lagTime *= level1; return lagTime;
-                case "2": lagTime *= level2; return lagTime;
-                case "3": lagTime *= level3; return lagTime;
-                case "4": lagTime *= level4; return lagTime;
-                case "5": lagTime *= level5; return lagTime;
+                case "0": return 0;
+                case "1": return lagTime *= level1;
+                case "2": return lagTime *= level2;
+                case "3": return lagTime *= level3;
+                case "4": return lagTime *= level4;
+                case "5": return lagTime *= level5;
+                case "6": return lagTime *= level5;
             }
         }
-        throw new IllegalArgumentException("Invalid lag time! " + f);
+        throw new IllegalArgumentException("Invalid lag time! " + Arrays.toString(actions));
     }
 }
