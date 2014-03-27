@@ -54,6 +54,8 @@ public class TimelineController implements Initializable {
     private Integer[] channelAddresses;
     boolean oldRecHasValue = false;
     Rectangle oldRec = new Rectangle();
+    Rectangle copyWaterRec = new Rectangle();
+    int copyWaterLocation = 0;
     private String[] labelNames;
     Rectangle selectedRec = new Rectangle();
     int selectedCol = 0;
@@ -86,11 +88,14 @@ public class TimelineController implements Initializable {
     final ArrayList<Integer> colAL;
     final ArrayList<Integer> rowAL;
     	
-    MenuItem copy = new MenuItem("copy");
-    MenuItem paste = new MenuItem("paste");
+    MenuItem lightCopy = new MenuItem("copy");
+    MenuItem lightPaste = new MenuItem("paste");
+    MenuItem waterCopy = new MenuItem("copy");
+    MenuItem waterPaste = new MenuItem("paste");
     
-    final ContextMenu cm = new ContextMenu();
-
+    final ContextMenu lightCM = new ContextMenu();
+    final ContextMenu waterCM = new ContextMenu();
+    
     public TimelineController() {
         this.colorEnumArray = ColorPaletteEnum.values();
         this.rowAL = new ArrayList<>();
@@ -108,22 +113,45 @@ public class TimelineController implements Initializable {
         // setWaterGridPane();
         instance = this;
         configureTimelines();
-        cm.getItems().add(copy);
-        cm.getItems().add(paste);
+        lightCM.getItems().add(lightCopy);
+        lightCM.getItems().add(lightPaste);
         
-        copy.setDisable(true);
-        paste.setDisable(true);
+        waterCM.getItems().add(waterCopy);
+        waterCM.getItems().add(waterPaste);
         
-        copy.setOnAction(new EventHandler<ActionEvent>() {
+        lightCopy.setDisable(true);
+        lightPaste.setDisable(true);
+        
+        waterCopy.setDisable(true);
+        waterPaste.setDisable(true);
+        
+        waterCopy.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                paste.setDisable(false);
+            	waterPaste.setDisable(false);
                 System.out.println(copyAL.toString());
-                copy.setDisable(true);
+                waterCopy.setDisable(true);
+            }
+    	});
+        
+        waterPaste.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	copyWaterRec = oldRec;
+            	waterRecArray[copyWaterLocation].setFill(copyWaterRec.getFill());
+            }
+    	});
+        
+        lightCopy.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                lightPaste.setDisable(false);
+                System.out.println(copyAL.toString());
+                lightCopy.setDisable(true);
             }
     	});
     	
-    	paste.setOnAction(new EventHandler<ActionEvent>() {
+    	lightPaste.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
@@ -202,8 +230,8 @@ public class TimelineController implements Initializable {
     }
     
     public void disableCopyPaste(){
-    	copy.setDisable(true);
-    	paste.setDisable(true);
+    	lightCopy.setDisable(true);
+    	lightPaste.setDisable(true);
     }
 //    public void setLabelGridPane() {
 //        // 57 lines long
@@ -334,7 +362,7 @@ public class TimelineController implements Initializable {
                     	
                         if(ChoreographyController.getInstance().getIsSelected()){
                         	if (me.getButton() == MouseButton.SECONDARY) {
-                                cm.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
+                                lightCM.show(lightRecArray[testI][testJ], me.getScreenX(), me.getScreenY());
                             }
                         	
                         }
@@ -360,7 +388,7 @@ public class TimelineController implements Initializable {
                     rowAL.clear();
                 
                 	if(ChoreographyController.getInstance().getIsSelected()){
-                		copy.setDisable(false);
+                		lightCopy.setDisable(false);
                 		lightRecArray[testI][testJ].startFullDrag();
                 		lightRecArray[testI][testJ].setOpacity(50);
                         copyAL.add(lightRecArray[testI][testJ]);
@@ -434,7 +462,14 @@ public class TimelineController implements Initializable {
                         .setOnMousePressed(new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent me) {
                             	
-                    System.out.println("Col " + (testI));
+                            	if (me.getButton() == MouseButton.SECONDARY) {
+//                            		currentWaterRec = waterRecArray[testI];
+                            		copyWaterLocation = testI;
+                            		waterCopy.setDisable(false);
+                                    waterCM.show(waterRecArray[testI], me.getScreenX(), me.getScreenY());
+                                }
+                    
+                            	System.out.println("Col " + (testI));
                     Duration duration = MusicPaneController.getInstance().getMediaPlayer().getTotalDuration();
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     
