@@ -98,18 +98,19 @@ public class CustomChannel {
         
         // Finish button
         finishButton.setOnAction(new EventHandler<ActionEvent>() {
-        	public void handle(ActionEvent event) {
-        		String[] selectedArray;
-        		selectedArray = selectedListView.getItems().toArray(new String[1]);
-        		for(int i = 0; i < selectedArray.length;i++ ){
-					TimelineController.getInstance().setLabelGridPane(selectedArray);
-				}
-				try {
-					//Node  source = (Node)  ActionEvent.getSource(); 
-					//Stage stage  = (Stage) source.getScene().getWindow();
-					//stage.close();
-				} catch (Exception e) {
-				}
+            @Override
+            public void handle(ActionEvent event) {
+                String[] selectedArray;
+                selectedArray = selectedListView.getItems().toArray(new String[1]);
+                for(int i = 0; i < selectedArray.length;i++ ){
+                    TimelineController.getInstance().setLabelGridPane(selectedArray);
+                }
+                try {
+                    //Node  source = (Node)  ActionEvent.getSource(); 
+                    //Stage stage  = (Stage) source.getScene().getWindow();
+                    //stage.close();
+                } catch (Exception e) {
+                }
             }
         });
         

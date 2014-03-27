@@ -44,6 +44,7 @@ package choreography.view.colorPalette;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import choreography.view.colorPalette.ColorPaletteEnum;
 
 /**
  *
@@ -52,16 +53,40 @@ import javafx.scene.paint.Paint;
 public class ColorPaletteModel {
     
     private static ColorPaletteModel instance;
+    private boolean classicColors;
+    private Color[] colors;
+    private int availableColors;
+    private int selectedIndex;
     
     public static ColorPaletteModel getInstance() {
         if(instance == null)
             instance = new ColorPaletteModel();
         return instance;
     }
+
+    /**
+     * @return the classicColors
+     */
+    public boolean isClassicColors() {
+        return classicColors;
+    }
+
+    /**
+     * @param aClassicColors the classicColors to set
+     */
+    public void setClassicColors(boolean aClassicColors) {
+        classicColors = aClassicColors;
+        colors = new Color[32];
+//        colors[0] = Color.web(ColorPaletteEnum.OFF.getColor());
+        colors[0] = Color.web(ColorPaletteEnum.RED.getColor());
+        colors[1] = Color.web(ColorPaletteEnum.BLUE.getColor());
+        colors[3] = Color.web(ColorPaletteEnum.AMBER.getColor());
+        colors[7] = Color.web(ColorPaletteEnum.WHITE.getColor());
+        colors[15] = Color.web(ColorPaletteEnum.GREEN.getColor());
+        colors[31] = Color.web(ColorPaletteEnum.YELLOW.getColor());
+    }
     
-    private Color[] colors;
-    private int availableColors;
-    private int selectedIndex;
+    
     
     
     public ColorPaletteModel() {
@@ -113,10 +138,10 @@ public class ColorPaletteModel {
     
     
     public void setColor(Color newColor, int index){
-  			this.colors[index] = newColor;
-  			this.colors[availableColors] = newColor;
-  			availableColors++;
-  		}		      
+        this.colors[index] = newColor;
+        this.colors[availableColors] = newColor;
+        availableColors++;
+    }		      
        
        /**
      * @param newColor
@@ -126,7 +151,7 @@ public class ColorPaletteModel {
      */    
     public boolean changeColor(Color newColor, int index) {
     	if(index > 15) {
-    			return true;
+            return true;
     	}
     	return false;  		 	
     }

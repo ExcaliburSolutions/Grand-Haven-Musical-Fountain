@@ -139,6 +139,7 @@ public class MusicPaneController {
             ChoreographyController.getInstance().startPollingTimelineAlgorithm();
     	}
     	catch (Exception e){
+            e.printStackTrace();
             ChoreographyController.getInstance().setfcwOutput("Error playing music...");
     	}
     	}

@@ -275,8 +275,8 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void run() {
-                    MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
                     MapLib.openMap(new File("src/choreography/model/color/dmx.map"));
+                    MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
                     CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
                 }
             });
@@ -414,11 +414,11 @@ public class ChoreographyController implements Initializable {
     }
 
     public void stopTimelineTimer() {
-       timelineTimer.cancel();
+       timelineTimer.purge();
     }
 
     public void stopSliderTimer() {
-        sliderTimer.cancel();
+        sliderTimer.purge();
     }
     
     public void openMapFileMenuItemHandler() {

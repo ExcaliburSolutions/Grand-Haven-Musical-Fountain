@@ -2,8 +2,7 @@ package choreography.io;
 
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
-import choreography.view.music.MusicPaneController;
-import choreography.view.timeline.TimelineController;
+import choreography.view.colorPalette.ColorPaletteModel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -68,6 +67,7 @@ public class CtlLib {
             String version = bufferedReader.readLine();
             switch(version) {
                 case "ct0-382":
+                    ColorPaletteModel.getInstance().setClassicColors(true);
                     break;
                 case "gvsuCapstone2014B":
                     isTimeCompensated = true;

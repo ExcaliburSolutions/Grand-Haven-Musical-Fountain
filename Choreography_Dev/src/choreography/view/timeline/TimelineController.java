@@ -507,12 +507,16 @@ public class TimelineController implements Initializable {
             return timelineScrollPane;
     }
     
+    public void rePaint() {
+        rePaintWaterTimeline();
+        rePaintLightTimeline();
+    }
+    
     /**
      *
      */
-    public void rePaint() {
+    public void rePaintWaterTimeline() {
         SortedMap<Integer, ArrayList<FCW>> waterTimeline = Timeline.getInstance().getWaterTimeline();
-        SortedMap<Integer, ArrayList<FCW>> lightTimeline = Timeline.getInstance().getLightTimeline();
         for(Integer i: waterTimeline.keySet()){
             for(FCW f: waterTimeline.get(i)) {
                 String name = FCWLib.getInstance().reverseLookupAddress(f);
@@ -530,13 +534,17 @@ public class TimelineController implements Initializable {
                 if(colAtTime != 0){
                 	colAtTime = colAtTime - 1;
                 }
-                waterRecArray[colAtTime].setFill(Color.ALICEBLUE);
+                waterRecArray[colAtTime].setFill(Color.AZURE);
                 Tooltip t = new Tooltip(actionList.toString());
                 Tooltip.install(waterRecArray[colAtTime], t);
                 //TODO make mouse over info better
                 //TODO update sliders
             }
         }
+        rePaintLightTimeline();
+    }
+
+    public void rePaintLightTimeline() {
         SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
         for (int channel: gtfoArray.keySet()){
             for (int timeIndex: gtfoArray.get(channel).keySet()){

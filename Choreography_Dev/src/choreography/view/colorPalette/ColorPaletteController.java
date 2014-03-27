@@ -168,7 +168,5 @@ public class ColorPaletteController implements Initializable {
         for(int i = 0; i < colors.length; i++) {
             rectangles[i].setFill(colors[i]);
         }
-    }
-
-    
+    } 
 }

@@ -198,7 +198,7 @@ public class PlayerViewControllerOld implements Initializable {
 //                mediaPlayer.stop();
             	//System.out.println(roundedTime);
             	
-            	System.out.println(time);
+//            	System.out.println(time);
             	
                 
             }

@@ -164,9 +164,7 @@ public class Timeline {
     
     public void fillTheSpaces(SortedMap<Integer, SortedMap<Integer, Integer>> channelMap) {
         for(Integer channel: channelMap.keySet()) {
-            int start;
-            int end;
-            int color;
+            int start, end, color;
             SortedMap<Integer, Integer> newMap = new ConcurrentSkipListMap<>();
             for(Integer tenth: channelMap.get(channel).keySet()) {
                 if(channelMap.get(channel).get(tenth) != 0){
@@ -181,7 +179,7 @@ public class Timeline {
                             break;
                         }
                         else if(timeColor.getValue() != color) {
-                            end = timeColor.getKey() - 1;
+                            end = timeColor.getKey();// - 1;
                             setLightFcwWithRange(newMap, start, end, color);
                             break;
                         }
@@ -238,7 +236,7 @@ public class Timeline {
     }
     
     private int countUChannels(SortedMap<Integer, ArrayList<FCW>> srcTimeline){
-        HashSet<Integer> address = new HashSet<Integer>();
+        HashSet<Integer> address = new HashSet<>();
         
         for(ArrayList<FCW> a: srcTimeline.values()){
             for(FCW f: a){

@@ -950,7 +950,7 @@ public class SlidersController {
                 return;
             }
         }
-        resetAllSliders();
+//        resetAllSliders();
         Iterator<FCW> it = fcws.iterator();
         while(it.hasNext()) {
             FCW f = it.next();
