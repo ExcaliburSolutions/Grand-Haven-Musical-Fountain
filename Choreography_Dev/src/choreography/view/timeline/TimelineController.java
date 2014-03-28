@@ -495,6 +495,41 @@ public class TimelineController implements Initializable {
                     	
                     }}
                 });
+                
+                waterRecArray[i].setOnDragDetected((MouseEvent me) -> {
+                	for(Rectangle rec: copyAL){
+                        rec.setOpacity(1);
+                    }
+                    copyAL.clear();
+                    colAL.clear();
+                
+                	if(ChoreographyController.getInstance().getIsSelected()){
+                		lightCopy.setDisable(false);
+                		waterRecArray[testI].startFullDrag();
+                        copyAL.add(waterRecArray[testI]);
+                        
+                        colAL.add(testI);
+                	}
+                	
+                	waterRecArray[testI].startFullDrag();
+                });
+                
+                waterRecArray[i].setOnMouseDragOver((MouseEvent me) -> {
+                  
+                  if (ChoreographyController.getInstance().getIsSelected()) {
+                	  waterRecArray[testI].setOpacity(.50);
+                      if (!copyAL.contains(waterRecArray[testI])){
+                          copyAL.add(waterRecArray[testI]);
+                          
+                          colAL.add(testI);
+                      }
+                  } else {
+                	  waterRecArray[testI].setFill(ColorPaletteController
+                              .getInstance()
+                              .getSelectedColor());
+                  }
+              });
+                
         MusicPaneController.getInstance().getWaterPane().setContent(gridpaneWater);
     }
     }
