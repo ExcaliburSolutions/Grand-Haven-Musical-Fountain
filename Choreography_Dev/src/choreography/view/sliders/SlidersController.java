@@ -160,7 +160,358 @@ public class SlidersController {
         allSliders = new Slider[]{r1A, r1B, r2A, r2B, r3A, r3B, r4A, r4B, r5A, 
            r5B, mxA, mxB, candleA, candleB, swA, swB, ftC, bkC, pk, bz, sp};
         instance = this;
+       
+     // Listen for Slider value changes
+      		swA.valueProperty().addListener(new ChangeListener<Number>() {
+      			@Override
+      			public void changed(ObservableValue<? extends Number> observable,
+      					Number oldValue, Number newValue) {
+      				final Timeline timeline = new Timeline();
+      				timeline.setCycleCount(1);
+      				
+      				KeyValue kv25 = null;
+					KeyValue kv26 = null;
+					KeyValue kv27 = null;
+					KeyValue kv28 = null;
+					KeyValue kv29 = null;
+					KeyValue kv30 = null;
+					KeyValue kv31 = null;
+					KeyValue kv32 = null;
+					
+					FountainSimController.getInstance().getMod1sweep1().setVisible(true);
+  					FountainSimController.getInstance().getMod1sweep2().setVisible(true);
+  					FountainSimController.getInstance().getMod3sweep1().setVisible(true);
+  					FountainSimController.getInstance().getMod3sweep2().setVisible(true);
+  					FountainSimController.getInstance().getMod5sweep1().setVisible(true);
+  					FountainSimController.getInstance().getMod5sweep2().setVisible(true);
+  					FountainSimController.getInstance().getMod7sweep1().setVisible(true);
+  					FountainSimController.getInstance().getMod7sweep2().setVisible(true);
+  				
+					if (newValue.doubleValue()==0){
+  					kv25 = new KeyValue(FountainSimController.getInstance().getMod1sweep1().visibleProperty(), false);
+      				kv26 = new KeyValue(FountainSimController.getInstance().getMod1sweep2().visibleProperty(), false);
+      				
+      				kv27 = new KeyValue(FountainSimController.getInstance().getMod3sweep1().visibleProperty(), false);
+      				kv28 = new KeyValue(FountainSimController.getInstance().getMod3sweep2().visibleProperty(), false);
+      				
+      				kv29 = new KeyValue(FountainSimController.getInstance().getMod5sweep1().visibleProperty(), false);
+      				kv30 = new KeyValue(FountainSimController.getInstance().getMod5sweep2().visibleProperty(), false);
+      				
+      				kv31 = new KeyValue(FountainSimController.getInstance().getMod7sweep1().visibleProperty(), false);
+      				kv32 = new KeyValue(FountainSimController.getInstance().getMod7sweep2().visibleProperty(), false);
+  				}
+      				
+      				
+      				final KeyValue kv1 = new KeyValue(FountainSimController.getInstance().getMod1sweep1().endYProperty(), ((35*newValue.doubleValue())));
+      				final KeyValue kv2 = new KeyValue(FountainSimController.getInstance().getMod1sweep2().endYProperty(), ((35*newValue.doubleValue())));
+      				
+      				final KeyValue kv7 = new KeyValue(FountainSimController.getInstance().getMod3sweep1().endYProperty(), ((35*newValue.doubleValue())));
+      				final KeyValue kv8 = new KeyValue(FountainSimController.getInstance().getMod3sweep2().endYProperty(), ((35*newValue.doubleValue())));
+      				
+      				final KeyValue kv13 = new KeyValue(FountainSimController.getInstance().getMod5sweep1().endYProperty(), ((35*newValue.doubleValue())));
+      				final KeyValue kv14 = new KeyValue(FountainSimController.getInstance().getMod5sweep2().endYProperty(), ((35*newValue.doubleValue())));
+      				
+      				final KeyValue kv19 = new KeyValue(FountainSimController.getInstance().getMod7sweep1().endYProperty(), ((35*newValue.doubleValue())));
+      				final KeyValue kv20 = new KeyValue(FountainSimController.getInstance().getMod7sweep2().endYProperty(), ((35*newValue.doubleValue())));
+
+      				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv7, kv8, kv13, 
+      																		kv14, kv14, kv19, kv20,
+      																		kv25, kv26, kv27, kv28,
+      																		kv29, kv30, kv31, kv32);
+      				timeline.getKeyFrames().add(kf);
+      				timeline.play();     				
+      				System.out.println(newValue);
+      			}
+      		});
+      		
+      	// Listen for Slider value changes
+      		swB.valueProperty().addListener(new ChangeListener<Number>() {
+      			@Override
+      			public void changed(ObservableValue<? extends Number> observable,
+      					Number oldValue, Number newValue) {
+      				final Timeline timeline = new Timeline();
+      				timeline.setCycleCount(1);
+      				
+      				KeyValue kv15 = null;
+  					KeyValue kv16 = null;
+  					KeyValue kv17 = null;
+  					KeyValue kv18 = null;
+  					KeyValue kv19 = null;
+  					KeyValue kv20 = null;
+  					
+  					FountainSimController.getInstance().getMod2sweep1().setVisible(true);
+  					FountainSimController.getInstance().getMod2sweep2().setVisible(true);
+  					FountainSimController.getInstance().getMod4sweep1().setVisible(true);
+  					FountainSimController.getInstance().getMod4sweep2().setVisible(true);
+  					FountainSimController.getInstance().getMod6sweep1().setVisible(true);
+  					FountainSimController.getInstance().getMod6sweep2().setVisible(true);
+
+  					if (newValue.doubleValue()==0){
+      					kv15 = new KeyValue(FountainSimController.getInstance().getMod2sweep1().visibleProperty(), false);
+          				kv16 = new KeyValue(FountainSimController.getInstance().getMod2sweep2().visibleProperty(), false);
+          				
+          				kv17 = new KeyValue(FountainSimController.getInstance().getMod4sweep1().visibleProperty(), false);
+          				kv18 = new KeyValue(FountainSimController.getInstance().getMod4sweep2().visibleProperty(), false);
+          				
+          				kv19 = new KeyValue(FountainSimController.getInstance().getMod6sweep1().visibleProperty(), false);
+          				kv20 = new KeyValue(FountainSimController.getInstance().getMod6sweep2().visibleProperty(), false);
+      				}
+      				
+      				final KeyValue kv1 = new KeyValue(FountainSimController.getInstance().getMod2sweep1().endYProperty(), ((35*newValue.doubleValue())));
+      				final KeyValue kv2 = new KeyValue(FountainSimController.getInstance().getMod2sweep2().endYProperty(), ((35*newValue.doubleValue())));
+      				
+      				final KeyValue kv7 = new KeyValue(FountainSimController.getInstance().getMod4sweep1().endYProperty(), ((35*newValue.doubleValue())));
+      				final KeyValue kv8 = new KeyValue(FountainSimController.getInstance().getMod4sweep2().endYProperty(), ((35*newValue.doubleValue())));
+      				
+      				final KeyValue kv13 = new KeyValue(FountainSimController.getInstance().getMod6sweep1().endYProperty(), ((35*newValue.doubleValue())));
+      				final KeyValue kv14 = new KeyValue(FountainSimController.getInstance().getMod6sweep2().endYProperty(), ((35*newValue.doubleValue())));
+      				
+      				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv7, kv8, kv13, 
+      																		kv14, kv15, kv16, kv17, kv18, kv19, kv20);
+      				timeline.getKeyFrames().add(kf);
+      				timeline.play();     				
+      				System.out.println(newValue);
+      			}
+      		});
         
+        // Listen for Slider value changes
+ 		candleA.valueProperty().addListener(new ChangeListener<Number>() {
+ 			@Override
+ 			public void changed(ObservableValue<? extends Number> observable,
+ 					Number oldValue, Number newValue) {
+ 				final Timeline timeline = new Timeline();
+ 				timeline.setCycleCount(1);
+ 				
+ 					KeyValue kv25 = null;
+					KeyValue kv26 = null;
+					KeyValue kv27 = null;
+					KeyValue kv28 = null;
+					KeyValue kv29 = null;
+					KeyValue kv30 = null;
+					KeyValue kv31 = null;
+					KeyValue kv32 = null;
+					KeyValue kv33 = null;
+					KeyValue kv34 = null;
+					KeyValue kv35 = null;
+					KeyValue kv36 = null;
+					KeyValue kv37 = null;
+					KeyValue kv38 = null;
+					KeyValue kv39 = null;
+					KeyValue kv40 = null;
+					KeyValue kv41 = null;
+					KeyValue kv42 = null;
+					KeyValue kv43 = null;
+					KeyValue kv44 = null;
+					KeyValue kv45 = null;
+					KeyValue kv46 = null;
+					KeyValue kv47 = null;
+					KeyValue kv48 = null;
+					FountainSimController.getInstance().getMod1candle1().setVisible(true);
+					FountainSimController.getInstance().getMod1candle2().setVisible(true);
+					FountainSimController.getInstance().getMod1candle3().setVisible(true);
+					FountainSimController.getInstance().getMod1candle4().setVisible(true);
+					FountainSimController.getInstance().getMod1candle5().setVisible(true);
+					FountainSimController.getInstance().getMod1candle6().setVisible(true);
+					FountainSimController.getInstance().getMod3candle1().setVisible(true);
+					FountainSimController.getInstance().getMod3candle2().setVisible(true);
+					FountainSimController.getInstance().getMod3candle3().setVisible(true);
+					FountainSimController.getInstance().getMod3candle4().setVisible(true);
+					FountainSimController.getInstance().getMod3candle5().setVisible(true);
+					FountainSimController.getInstance().getMod3candle6().setVisible(true);
+					FountainSimController.getInstance().getMod5candle1().setVisible(true);
+					FountainSimController.getInstance().getMod5candle2().setVisible(true);
+					FountainSimController.getInstance().getMod5candle3().setVisible(true);
+					FountainSimController.getInstance().getMod5candle4().setVisible(true);
+					FountainSimController.getInstance().getMod5candle5().setVisible(true);
+					FountainSimController.getInstance().getMod5candle6().setVisible(true);
+					FountainSimController.getInstance().getMod7candle1().setVisible(true);
+					FountainSimController.getInstance().getMod7candle2().setVisible(true);
+					FountainSimController.getInstance().getMod7candle3().setVisible(true);
+					FountainSimController.getInstance().getMod7candle4().setVisible(true);
+					FountainSimController.getInstance().getMod7candle5().setVisible(true);
+					FountainSimController.getInstance().getMod7candle6().setVisible(true);
+
+
+					
+  				
+					if (newValue.doubleValue()==0){
+  					kv25 = new KeyValue(FountainSimController.getInstance().getMod1candle1().visibleProperty(), false);
+      				kv26 = new KeyValue(FountainSimController.getInstance().getMod1candle2().visibleProperty(), false);      				
+      				kv27 = new KeyValue(FountainSimController.getInstance().getMod1candle3().visibleProperty(), false);
+      				kv28 = new KeyValue(FountainSimController.getInstance().getMod1candle4().visibleProperty(), false);      				
+      				kv29 = new KeyValue(FountainSimController.getInstance().getMod1candle5().visibleProperty(), false);
+      				kv30 = new KeyValue(FountainSimController.getInstance().getMod1candle6().visibleProperty(), false);
+      				
+      				kv31 = new KeyValue(FountainSimController.getInstance().getMod3candle1().visibleProperty(), false);
+      				kv32 = new KeyValue(FountainSimController.getInstance().getMod3candle2().visibleProperty(), false);      				
+      				kv33 = new KeyValue(FountainSimController.getInstance().getMod3candle3().visibleProperty(), false);
+      				kv34 = new KeyValue(FountainSimController.getInstance().getMod3candle4().visibleProperty(), false);      				
+      				kv35 = new KeyValue(FountainSimController.getInstance().getMod3candle5().visibleProperty(), false);
+      				kv36 = new KeyValue(FountainSimController.getInstance().getMod3candle6().visibleProperty(), false);
+      				
+      				kv37 = new KeyValue(FountainSimController.getInstance().getMod5candle1().visibleProperty(), false);
+      				kv38 = new KeyValue(FountainSimController.getInstance().getMod5candle2().visibleProperty(), false);      				
+      				kv39 = new KeyValue(FountainSimController.getInstance().getMod5candle3().visibleProperty(), false);
+      				kv40 = new KeyValue(FountainSimController.getInstance().getMod5candle4().visibleProperty(), false);      				
+      				kv41 = new KeyValue(FountainSimController.getInstance().getMod5candle5().visibleProperty(), false);
+      				kv42 = new KeyValue(FountainSimController.getInstance().getMod5candle6().visibleProperty(), false);
+      			
+      				kv43 = new KeyValue(FountainSimController.getInstance().getMod7candle1().visibleProperty(), false);
+      				kv44 = new KeyValue(FountainSimController.getInstance().getMod7candle2().visibleProperty(), false);      				
+      				kv45 = new KeyValue(FountainSimController.getInstance().getMod7candle3().visibleProperty(), false);
+      				kv46 = new KeyValue(FountainSimController.getInstance().getMod7candle4().visibleProperty(), false);      				
+      				kv47 = new KeyValue(FountainSimController.getInstance().getMod7candle5().visibleProperty(), false);
+      				kv48 = new KeyValue(FountainSimController.getInstance().getMod7candle6().visibleProperty(), false);
+      				
+      				
+  				}
+ 				
+ 				
+ 				final KeyValue kv1 = new KeyValue(FountainSimController.getInstance().getMod1candle1().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv2 = new KeyValue(FountainSimController.getInstance().getMod1candle2().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv3 = new KeyValue(FountainSimController.getInstance().getMod1candle3().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv4 = new KeyValue(FountainSimController.getInstance().getMod1candle4().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv5 = new KeyValue(FountainSimController.getInstance().getMod1candle5().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv6 = new KeyValue(FountainSimController.getInstance().getMod1candle6().endYProperty(), ((35*newValue.doubleValue())));
+ 				
+ 				final KeyValue kv7 = new KeyValue(FountainSimController.getInstance().getMod3candle1().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv8 = new KeyValue(FountainSimController.getInstance().getMod3candle2().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv9 = new KeyValue(FountainSimController.getInstance().getMod3candle3().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv10 = new KeyValue(FountainSimController.getInstance().getMod3candle4().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv11 = new KeyValue(FountainSimController.getInstance().getMod3candle5().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv12 = new KeyValue(FountainSimController.getInstance().getMod3candle6().endYProperty(), ((35*newValue.doubleValue())));
+ 				
+ 				final KeyValue kv13 = new KeyValue(FountainSimController.getInstance().getMod5candle1().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv14 = new KeyValue(FountainSimController.getInstance().getMod5candle2().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv15 = new KeyValue(FountainSimController.getInstance().getMod5candle3().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv16 = new KeyValue(FountainSimController.getInstance().getMod5candle4().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv17 = new KeyValue(FountainSimController.getInstance().getMod5candle5().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv18 = new KeyValue(FountainSimController.getInstance().getMod5candle6().endYProperty(), ((35*newValue.doubleValue())));
+ 				
+ 				final KeyValue kv19 = new KeyValue(FountainSimController.getInstance().getMod7candle1().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv20 = new KeyValue(FountainSimController.getInstance().getMod7candle2().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv21 = new KeyValue(FountainSimController.getInstance().getMod7candle3().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv22 = new KeyValue(FountainSimController.getInstance().getMod7candle4().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv23 = new KeyValue(FountainSimController.getInstance().getMod7candle5().endYProperty(), ((35*newValue.doubleValue())));
+ 				final KeyValue kv24 = new KeyValue(FountainSimController.getInstance().getMod7candle6().endYProperty(), ((35*newValue.doubleValue())));
+
+ 				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv5, kv6,
+ 																		kv7, kv8, kv9, kv10, kv11, kv12,
+ 																		kv13, kv14, kv15, kv16, kv17, kv18,
+ 																		kv19, kv20, kv21, kv22, kv23, kv24,
+ 																		kv25, kv26, kv27, kv28, kv29, kv30, kv31, kv32,
+ 																		kv33, kv34, kv35, kv36, kv37, kv38, kv39, kv40,
+ 																		kv41, kv42, kv43, kv44, kv45, kv46, kv47, kv48);
+ 				timeline.getKeyFrames().add(kf);
+ 				timeline.play();     				
+ 				System.out.println(newValue);
+ 			}
+ 		});
+ 		
+ 	// Listen for Slider value changes
+ 	 		candleB.valueProperty().addListener(new ChangeListener<Number>() {
+ 	 			@Override
+ 	 			public void changed(ObservableValue<? extends Number> observable,
+ 	 					Number oldValue, Number newValue) {
+ 	 				final Timeline timeline = new Timeline();
+ 	 				timeline.setCycleCount(1);
+
+ 	 				KeyValue kv25 = null;
+					KeyValue kv26 = null;
+					KeyValue kv27 = null;
+					KeyValue kv28 = null;
+					KeyValue kv29 = null;
+					KeyValue kv30 = null;
+					KeyValue kv31 = null;
+					KeyValue kv32 = null;
+					KeyValue kv33 = null;
+					KeyValue kv34 = null;
+					KeyValue kv35 = null;
+					KeyValue kv36 = null;
+					KeyValue kv37 = null;
+					KeyValue kv38 = null;
+					KeyValue kv39 = null;
+					KeyValue kv40 = null;
+					KeyValue kv41 = null;
+					KeyValue kv42 = null;
+				
+					FountainSimController.getInstance().getMod2candle1().setVisible(true);
+					FountainSimController.getInstance().getMod2candle2().setVisible(true);
+					FountainSimController.getInstance().getMod2candle3().setVisible(true);
+					FountainSimController.getInstance().getMod2candle4().setVisible(true);
+					FountainSimController.getInstance().getMod2candle5().setVisible(true);
+					FountainSimController.getInstance().getMod2candle6().setVisible(true);
+					FountainSimController.getInstance().getMod4candle1().setVisible(true);
+					FountainSimController.getInstance().getMod4candle2().setVisible(true);
+					FountainSimController.getInstance().getMod4candle3().setVisible(true);
+					FountainSimController.getInstance().getMod4candle4().setVisible(true);
+					FountainSimController.getInstance().getMod4candle5().setVisible(true);
+					FountainSimController.getInstance().getMod4candle6().setVisible(true);
+					FountainSimController.getInstance().getMod6candle1().setVisible(true);
+					FountainSimController.getInstance().getMod6candle2().setVisible(true);
+					FountainSimController.getInstance().getMod6candle3().setVisible(true);
+					FountainSimController.getInstance().getMod6candle4().setVisible(true);
+					FountainSimController.getInstance().getMod6candle5().setVisible(true);
+					FountainSimController.getInstance().getMod6candle6().setVisible(true);
+  				
+					if (newValue.doubleValue()==0){
+  					kv25 = new KeyValue(FountainSimController.getInstance().getMod2candle1().visibleProperty(), false);
+      				kv26 = new KeyValue(FountainSimController.getInstance().getMod2candle2().visibleProperty(), false);      				
+      				kv27 = new KeyValue(FountainSimController.getInstance().getMod2candle3().visibleProperty(), false);
+      				kv28 = new KeyValue(FountainSimController.getInstance().getMod2candle4().visibleProperty(), false);      				
+      				kv29 = new KeyValue(FountainSimController.getInstance().getMod2candle5().visibleProperty(), false);
+      				kv30 = new KeyValue(FountainSimController.getInstance().getMod2candle6().visibleProperty(), false);
+      				
+      				kv31 = new KeyValue(FountainSimController.getInstance().getMod4candle1().visibleProperty(), false);
+      				kv32 = new KeyValue(FountainSimController.getInstance().getMod4candle2().visibleProperty(), false);      				
+      				kv33 = new KeyValue(FountainSimController.getInstance().getMod4candle3().visibleProperty(), false);
+      				kv34 = new KeyValue(FountainSimController.getInstance().getMod4candle4().visibleProperty(), false);      				
+      				kv35 = new KeyValue(FountainSimController.getInstance().getMod4candle5().visibleProperty(), false);
+      				kv36 = new KeyValue(FountainSimController.getInstance().getMod4candle6().visibleProperty(), false);
+      				
+      				kv37 = new KeyValue(FountainSimController.getInstance().getMod6candle1().visibleProperty(), false);
+      				kv38 = new KeyValue(FountainSimController.getInstance().getMod6candle2().visibleProperty(), false);      				
+      				kv39 = new KeyValue(FountainSimController.getInstance().getMod6candle3().visibleProperty(), false);
+      				kv40 = new KeyValue(FountainSimController.getInstance().getMod6candle4().visibleProperty(), false);      				
+      				kv41 = new KeyValue(FountainSimController.getInstance().getMod6candle5().visibleProperty(), false);
+      				kv42 = new KeyValue(FountainSimController.getInstance().getMod6candle6().visibleProperty(), false);
+      			
+  				}
+ 	 				
+ 	 				final KeyValue kv1 = new KeyValue(FountainSimController.getInstance().getMod2candle1().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv2 = new KeyValue(FountainSimController.getInstance().getMod2candle2().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv3 = new KeyValue(FountainSimController.getInstance().getMod2candle3().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv4 = new KeyValue(FountainSimController.getInstance().getMod2candle4().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv5 = new KeyValue(FountainSimController.getInstance().getMod2candle5().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv6 = new KeyValue(FountainSimController.getInstance().getMod2candle6().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				
+ 	 				final KeyValue kv7 = new KeyValue(FountainSimController.getInstance().getMod4candle1().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv8 = new KeyValue(FountainSimController.getInstance().getMod4candle2().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv9 = new KeyValue(FountainSimController.getInstance().getMod4candle3().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv10 = new KeyValue(FountainSimController.getInstance().getMod4candle4().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv11 = new KeyValue(FountainSimController.getInstance().getMod4candle5().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv12 = new KeyValue(FountainSimController.getInstance().getMod4candle6().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				
+ 	 				final KeyValue kv13 = new KeyValue(FountainSimController.getInstance().getMod6candle1().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv14 = new KeyValue(FountainSimController.getInstance().getMod6candle2().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv15 = new KeyValue(FountainSimController.getInstance().getMod6candle3().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv16 = new KeyValue(FountainSimController.getInstance().getMod6candle4().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv17 = new KeyValue(FountainSimController.getInstance().getMod6candle5().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				final KeyValue kv18 = new KeyValue(FountainSimController.getInstance().getMod6candle6().endYProperty(), ((35*newValue.doubleValue())));
+ 	 				
+
+ 	 				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv5, kv6,
+ 	 																		kv7, kv8, kv9, kv10, kv11, kv12,
+ 	 																		kv13, kv14, kv15, kv16, kv17, kv18,
+ 	 																		kv25, kv26, kv27, kv28, kv29, kv30, kv31, kv32,
+ 	 																		kv33, kv34, kv35, kv36, kv37, kv38, kv39, kv40,
+ 	 																		kv41, kv42);
+ 	 				timeline.getKeyFrames().add(kf);
+ 	 				timeline.play();     				
+ 	 				System.out.println(newValue);
+ 	 			}
+ 	 		});
+ 		
      // Listen for Slider value changes
      		r1A.valueProperty().addListener(new ChangeListener<Number>() {
      			@Override

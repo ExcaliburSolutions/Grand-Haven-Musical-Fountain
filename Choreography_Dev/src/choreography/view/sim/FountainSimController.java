@@ -241,7 +241,176 @@ public class FountainSimController implements Initializable {
     
     @FXML
     private Rectangle backCurtain;
+    
+    @FXML
+    private Line mod1sweep1;
+    
+    @FXML
+    private Line mod1sweep2;
+    
+    @FXML
+    private Line mod1candle1;
+    
+    @FXML
+    private Line mod1candle2;
+    
+    @FXML
+    private Line mod1candle3;
+    
+    @FXML
+    private Line mod1candle4;
+    
+    @FXML
+    private Line mod1candle5;
+    
+    @FXML
+    private Line mod1candle6;    
+    
+    
+    @FXML
+    private Line mod2sweep1;
+    
+    @FXML
+    private Line mod2sweep2;
+    
+    @FXML
+    private Line mod2candle1;
+    
+    @FXML
+    private Line mod2candle2;
+    
+    @FXML
+    private Line mod2candle3;
+    
+    @FXML
+    private Line mod2candle4;
+    
+    @FXML
+    private Line mod2candle5;
+    
+    @FXML
+    private Line mod2candle6;
+    
+    @FXML
+    private Line mod3sweep1;
+    
+    @FXML
+    private Line mod3sweep2;
+    
+    @FXML
+    private Line mod3candle1;
+    
+    @FXML
+    private Line mod3candle2;
+    
+    @FXML
+    private Line mod3candle3;
+    
+    @FXML
+    private Line mod3candle4;
+    
+    @FXML
+    private Line mod3candle5;
+    
+    @FXML
+    private Line mod3candle6;
+    
+    @FXML
+    private Line mod4sweep1;
+    
+    @FXML
+    private Line mod4sweep2;
+    
+    @FXML
+    private Line mod4candle1;
+    
+    @FXML
+    private Line mod4candle2;
+    
+    @FXML
+    private Line mod4candle3;
+    
+    @FXML
+    private Line mod4candle4;
+    
+    @FXML
+    private Line mod4candle5;
+    
+    @FXML
+    private Line mod4candle6;
 	
+    @FXML
+    private Line mod5sweep1;
+    
+    @FXML
+    private Line mod5sweep2;
+    
+    @FXML
+    private Line mod5candle1;
+    
+    @FXML
+    private Line mod5candle2;
+    
+    @FXML
+    private Line mod5candle3;
+    
+    @FXML
+    private Line mod5candle4;
+    
+    @FXML
+    private Line mod5candle5;
+    
+    @FXML
+    private Line mod5candle6;
+    
+    @FXML
+    private Line mod6sweep1;
+    
+    @FXML
+    private Line mod6sweep2;
+    
+    @FXML
+    private Line mod6candle1;
+    
+    @FXML
+    private Line mod6candle2;
+    
+    @FXML
+    private Line mod6candle3;
+    
+    @FXML
+    private Line mod6candle4;
+    
+    @FXML
+    private Line mod6candle5;
+    
+    @FXML
+    private Line mod6candle6;
+    
+    @FXML
+    private Line mod7sweep1;
+    
+    @FXML
+    private Line mod7sweep2;
+    
+    @FXML
+    private Line mod7candle1;
+    
+    @FXML
+    private Line mod7candle2;
+    
+    @FXML
+    private Line mod7candle3;
+    
+    @FXML
+    private Line mod7candle4;
+    
+    @FXML
+    private Line mod7candle5;
+    
+    @FXML
+    private Line mod7candle6;
+    
 	private static Stage principalStage;
 	Timeline timelingRing1;
 
@@ -905,6 +1074,454 @@ public class FountainSimController implements Initializable {
 
 	public void setBackCurtain(Rectangle backCurtain) {
 		this.backCurtain = backCurtain;
+	}
+
+	public Line getMod1sweep1() {
+		return mod1sweep1;
+	}
+
+	public void setMod1sweep1(Line mod1sweep1) {
+		this.mod1sweep1 = mod1sweep1;
+	}
+
+	public Line getMod1sweep2() {
+		return mod1sweep2;
+	}
+
+	public void setMod1sweep2(Line mod1sweep2) {
+		this.mod1sweep2 = mod1sweep2;
+	}
+
+	public Line getMod1candle1() {
+		return mod1candle1;
+	}
+
+	public void setMod1candle1(Line mod1candle1) {
+		this.mod1candle1 = mod1candle1;
+	}
+
+	public Line getMod1candle2() {
+		return mod1candle2;
+	}
+
+	public void setMod1candle2(Line mod1candle2) {
+		this.mod1candle2 = mod1candle2;
+	}
+
+	public Line getMod1candle3() {
+		return mod1candle3;
+	}
+
+	public void setMod1candle3(Line mod1candle3) {
+		this.mod1candle3 = mod1candle3;
+	}
+
+	public Line getMod1candle4() {
+		return mod1candle4;
+	}
+
+	public void setMod1candle4(Line mod1candle4) {
+		this.mod1candle4 = mod1candle4;
+	}
+
+	public Line getMod1candle5() {
+		return mod1candle5;
+	}
+
+	public void setMod1candle5(Line mod1candle5) {
+		this.mod1candle5 = mod1candle5;
+	}
+
+	public Line getMod1candle6() {
+		return mod1candle6;
+	}
+
+	public void setMod1candle6(Line mod1candle6) {
+		this.mod1candle6 = mod1candle6;
+	}
+
+	public Line getMod2sweep1() {
+		return mod2sweep1;
+	}
+
+	public void setMod2sweep1(Line mod2sweep1) {
+		this.mod2sweep1 = mod2sweep1;
+	}
+
+	public Line getMod2sweep2() {
+		return mod2sweep2;
+	}
+
+	public void setMod2sweep2(Line mod2sweep2) {
+		this.mod2sweep2 = mod2sweep2;
+	}
+
+	public Line getMod2candle1() {
+		return mod2candle1;
+	}
+
+	public void setMod2candle1(Line mod2candle1) {
+		this.mod2candle1 = mod2candle1;
+	}
+
+	public Line getMod2candle2() {
+		return mod2candle2;
+	}
+
+	public void setMod2candle2(Line mod2candle2) {
+		this.mod2candle2 = mod2candle2;
+	}
+
+	public Line getMod2candle3() {
+		return mod2candle3;
+	}
+
+	public void setMod2candle3(Line mod2candle3) {
+		this.mod2candle3 = mod2candle3;
+	}
+
+	public Line getMod2candle4() {
+		return mod2candle4;
+	}
+
+	public void setMod2candle4(Line mod2candle4) {
+		this.mod2candle4 = mod2candle4;
+	}
+
+	public Line getMod2candle5() {
+		return mod2candle5;
+	}
+
+	public void setMod2candle5(Line mod2candle5) {
+		this.mod2candle5 = mod2candle5;
+	}
+
+	public Line getMod2candle6() {
+		return mod2candle6;
+	}
+
+	public void setMod2candle6(Line mod2candle6) {
+		this.mod2candle6 = mod2candle6;
+	}
+
+	public Line getMod3sweep1() {
+		return mod3sweep1;
+	}
+
+	public void setMod3sweep1(Line mod3sweep1) {
+		this.mod3sweep1 = mod3sweep1;
+	}
+
+	public Line getMod3sweep2() {
+		return mod3sweep2;
+	}
+
+	public void setMod3sweep2(Line mod3sweep2) {
+		this.mod3sweep2 = mod3sweep2;
+	}
+
+	public Line getMod3candle1() {
+		return mod3candle1;
+	}
+
+	public void setMod3candle1(Line mod3candle1) {
+		this.mod3candle1 = mod3candle1;
+	}
+
+	public Line getMod3candle2() {
+		return mod3candle2;
+	}
+
+	public void setMod3candle2(Line mod3candle2) {
+		this.mod3candle2 = mod3candle2;
+	}
+
+	public Line getMod3candle3() {
+		return mod3candle3;
+	}
+
+	public void setMod3candle3(Line mod3candle3) {
+		this.mod3candle3 = mod3candle3;
+	}
+
+	public Line getMod3candle4() {
+		return mod3candle4;
+	}
+
+	public void setMod3candle4(Line mod3candle4) {
+		this.mod3candle4 = mod3candle4;
+	}
+
+	public Line getMod3candle5() {
+		return mod3candle5;
+	}
+
+	public void setMod3candle5(Line mod3candle5) {
+		this.mod3candle5 = mod3candle5;
+	}
+
+	public Line getMod3candle6() {
+		return mod3candle6;
+	}
+
+	public void setMod3candle6(Line mod3candle6) {
+		this.mod3candle6 = mod3candle6;
+	}
+
+	public Line getMod4sweep1() {
+		return mod4sweep1;
+	}
+
+	public void setMod4sweep1(Line mod4sweep1) {
+		this.mod4sweep1 = mod4sweep1;
+	}
+
+	public Line getMod4sweep2() {
+		return mod4sweep2;
+	}
+
+	public void setMod4sweep2(Line mod4sweep2) {
+		this.mod4sweep2 = mod4sweep2;
+	}
+
+	public Line getMod4candle1() {
+		return mod4candle1;
+	}
+
+	public void setMod4candle1(Line mod4candle1) {
+		this.mod4candle1 = mod4candle1;
+	}
+
+	public Line getMod4candle2() {
+		return mod4candle2;
+	}
+
+	public void setMod4candle2(Line mod4candle2) {
+		this.mod4candle2 = mod4candle2;
+	}
+
+	public Line getMod4candle3() {
+		return mod4candle3;
+	}
+
+	public void setMod4candle3(Line mod4candle3) {
+		this.mod4candle3 = mod4candle3;
+	}
+
+	public Line getMod4candle4() {
+		return mod4candle4;
+	}
+
+	public void setMod4candle4(Line mod4candle4) {
+		this.mod4candle4 = mod4candle4;
+	}
+
+	public Line getMod4candle5() {
+		return mod4candle5;
+	}
+
+	public void setMod4candle5(Line mod4candle5) {
+		this.mod4candle5 = mod4candle5;
+	}
+
+	public Line getMod4candle6() {
+		return mod4candle6;
+	}
+
+	public void setMod4candle6(Line mod4candle6) {
+		this.mod4candle6 = mod4candle6;
+	}
+
+	public Line getMod5sweep1() {
+		return mod5sweep1;
+	}
+
+	public void setMod5sweep1(Line mod5sweep1) {
+		this.mod5sweep1 = mod5sweep1;
+	}
+
+	public Line getMod5sweep2() {
+		return mod5sweep2;
+	}
+
+	public void setMod5sweep2(Line mod5sweep2) {
+		this.mod5sweep2 = mod5sweep2;
+	}
+
+	public Line getMod5candle1() {
+		return mod5candle1;
+	}
+
+	public void setMod5candle1(Line mod5candle1) {
+		this.mod5candle1 = mod5candle1;
+	}
+
+	public Line getMod5candle2() {
+		return mod5candle2;
+	}
+
+	public void setMod5candle2(Line mod5candle2) {
+		this.mod5candle2 = mod5candle2;
+	}
+
+	public Line getMod5candle3() {
+		return mod5candle3;
+	}
+
+	public void setMod5candle3(Line mod5candle3) {
+		this.mod5candle3 = mod5candle3;
+	}
+
+	public Line getMod5candle4() {
+		return mod5candle4;
+	}
+
+	public void setMod5candle4(Line mod5candle4) {
+		this.mod5candle4 = mod5candle4;
+	}
+
+	public Line getMod5candle5() {
+		return mod5candle5;
+	}
+
+	public void setMod5candle5(Line mod5candle5) {
+		this.mod5candle5 = mod5candle5;
+	}
+
+	public Line getMod5candle6() {
+		return mod5candle6;
+	}
+
+	public void setMod5candle6(Line mod5candle6) {
+		this.mod5candle6 = mod5candle6;
+	}
+
+	public Line getMod6sweep1() {
+		return mod6sweep1;
+	}
+
+	public void setMod6sweep1(Line mod6sweep1) {
+		this.mod6sweep1 = mod6sweep1;
+	}
+
+	public Line getMod6sweep2() {
+		return mod6sweep2;
+	}
+
+	public void setMod6sweep2(Line mod6sweep2) {
+		this.mod6sweep2 = mod6sweep2;
+	}
+
+	public Line getMod6candle1() {
+		return mod6candle1;
+	}
+
+	public void setMod6candle1(Line mod6candle1) {
+		this.mod6candle1 = mod6candle1;
+	}
+
+	public Line getMod6candle2() {
+		return mod6candle2;
+	}
+
+	public void setMod6candle2(Line mod6candle2) {
+		this.mod6candle2 = mod6candle2;
+	}
+
+	public Line getMod6candle3() {
+		return mod6candle3;
+	}
+
+	public void setMod6candle3(Line mod6candle3) {
+		this.mod6candle3 = mod6candle3;
+	}
+
+	public Line getMod6candle4() {
+		return mod6candle4;
+	}
+
+	public void setMod6candle4(Line mod6candle4) {
+		this.mod6candle4 = mod6candle4;
+	}
+
+	public Line getMod6candle5() {
+		return mod6candle5;
+	}
+
+	public void setMod6candle5(Line mod6candle5) {
+		this.mod6candle5 = mod6candle5;
+	}
+
+	public Line getMod6candle6() {
+		return mod6candle6;
+	}
+
+	public void setMod6candle6(Line mod6candle6) {
+		this.mod6candle6 = mod6candle6;
+	}
+
+	public Line getMod7sweep1() {
+		return mod7sweep1;
+	}
+
+	public void setMod7sweep1(Line mod7sweep1) {
+		this.mod7sweep1 = mod7sweep1;
+	}
+
+	public Line getMod7sweep2() {
+		return mod7sweep2;
+	}
+
+	public void setMod7sweep2(Line mod7sweep2) {
+		this.mod7sweep2 = mod7sweep2;
+	}
+
+	public Line getMod7candle1() {
+		return mod7candle1;
+	}
+
+	public void setMod7candle1(Line mod7candle1) {
+		this.mod7candle1 = mod7candle1;
+	}
+
+	public Line getMod7candle2() {
+		return mod7candle2;
+	}
+
+	public void setMod7candle2(Line mod7candle2) {
+		this.mod7candle2 = mod7candle2;
+	}
+
+	public Line getMod7candle3() {
+		return mod7candle3;
+	}
+
+	public void setMod7candle3(Line mod7candle3) {
+		this.mod7candle3 = mod7candle3;
+	}
+
+	public Line getMod7candle4() {
+		return mod7candle4;
+	}
+
+	public void setMod7candle4(Line mod7candle4) {
+		this.mod7candle4 = mod7candle4;
+	}
+
+	public Line getMod7candle5() {
+		return mod7candle5;
+	}
+
+	public void setMod7candle5(Line mod7candle5) {
+		this.mod7candle5 = mod7candle5;
+	}
+
+	public Line getMod7candle6() {
+		return mod7candle6;
+	}
+
+	public void setMod7candle6(Line mod7candle6) {
+		this.mod7candle6 = mod7candle6;
 	}
 
 
