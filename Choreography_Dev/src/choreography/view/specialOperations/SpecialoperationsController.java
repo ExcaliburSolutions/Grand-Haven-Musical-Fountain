@@ -145,17 +145,37 @@ public class SpecialoperationsController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if(voiceCheckbox.isSelected()) {
-                    ArrayList<String> AL = new ArrayList<>(3);
-                    AL.add("ON");
-                    String[] actions = AL.toArray(new String[1]);
-                    FCW f = FCWLib.getInstance().getFCW("VOICE", actions);
+                    setVoiceOnOff("ON");
                 }
                 else {
-                    ArrayList<String> AL = new ArrayList<>(3);
-                    AL.add("OFF");
-                    String[] actions = AL.toArray(new String[1]);
-                    FCW f = FCWLib.getInstance().getFCW("VOICE", actions);
+                    setVoiceOnOff("OFF");
                 }
+            }
+
+            public void setVoiceOnOff(String onOff) {
+                ArrayList<String> AL = new ArrayList<>(3);
+                AL.add(onOff);
+                String[] actions = AL.toArray(new String[1]);
+                FCW f = FCWLib.getInstance().getFCW("VOICE", actions);
+                int tenths = MusicPaneController.getInstance().getTenthsTime();
+                Timeline.getInstance().setWaterFcwAtPoint(tenths, f);
+                TimelineController.getInstance().rePaintWaterTimeline();
+                ChoreographyController.getInstance().setfcwOutput(f.toString());
+            }
+        });
+        
+        resetButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                ArrayList<String> AL = new ArrayList<>(3);
+                AL.add("RESETALL");
+                String[] actions = AL.toArray(new String[1]);
+                FCW f = FCWLib.getInstance().getFCW("OFF", actions);
+                int tenths = MusicPaneController.getInstance().getTenthsTime();
+                Timeline.getInstance().setWaterFcwAtPoint(tenths, f);
+                TimelineController.getInstance().rePaintWaterTimeline();
+                ChoreographyController.getInstance().setfcwOutput(f.toString());
             }
         });
     }    
