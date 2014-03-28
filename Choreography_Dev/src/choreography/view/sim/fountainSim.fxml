@@ -103,85 +103,85 @@
     </Group><Rectangle fx:id="frontCurtain" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="1310.0" x="10.0" />
 <Group fx:id="candleSweepGroup1" layoutY="3.0">
 <children>
-<Line fx:id="mod1candle6" endX="1260.0" endY="175.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" /><Line fx:id="mod1sweep2" endX="1120.0" endY="175.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod1candle2" endX="1140.0" endY="175.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod1sweep1" endX="1290.0" endY="175.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod1candle3" endX="1130.0" endY="175.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod1candle4" endX="1280.0" endY="175.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod1candle1" endX="1150.0" endY="175.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod1candle5" endX="1270.0" endY="175.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
+<Line fx:id="mod1candle6" endX="1260.0" endY="0.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" /><Line fx:id="mod1sweep2" endX="1120.0" endY="0.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod1candle2" endX="1140.0" endY="0.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod1sweep1" endX="1290.0" endY="0.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false"/>
+<Line fx:id="mod1candle3" endX="1130.0" endY="0.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod1candle4" endX="1280.0" endY="0.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod1candle1" endX="1150.0" endY="0.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod1candle5" endX="1270.0" endY="0.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false"/>
 </children>
 </Group>
 <Group fx:id="candleSweepGroup2" layoutY="3.0" layoutX="-180.0">
 <children>
-<Line fx:id="mod2candle6" endX="1260.0" endY="175.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod2sweep2" endX="1120.0" endY="175.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod2candle2" endX="1140.0" endY="175.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod2sweep1" endX="1290.0" endY="175.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod2candle3" endX="1130.0" endY="175.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod2candle4" endX="1280.0" endY="175.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod2candle1" endX="1150.0" endY="175.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod2candle5" endX="1270.0" endY="175.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
+<Line fx:id="mod2candle6" endX="1260.0" endY="0.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod2sweep2" endX="1120.0" endY="0.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod2candle2" endX="1140.0" endY="0.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod2sweep1" endX="1290.0" endY="0.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod2candle3" endX="1130.0" endY="0.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod2candle4" endX="1280.0" endY="0.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod2candle1" endX="1150.0" endY="0.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod2candle5" endX="1270.0" endY="0.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
 </children>
 </Group>
 <Group fx:id="candleSweepGroup3" layoutY="3.0" layoutX="-360.0">
 <children>
-<Line fx:id="mod3candle6" endX="1260.0" endY="175.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod3sweep2" endX="1120.0" endY="175.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod3candle2" endX="1140.0" endY="175.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod3sweep1" endX="1290.0" endY="175.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod3candle3" endX="1130.0" endY="175.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod3candle4" endX="1280.0" endY="175.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod3candle1" endX="1150.0" endY="175.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod3candle5" endX="1270.0" endY="175.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
+<Line fx:id="mod3candle6" endX="1260.0" endY="0.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod3sweep2" endX="1120.0" endY="0.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod3candle2" endX="1140.0" endY="0.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod3sweep1" endX="1290.0" endY="0.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod3candle3" endX="1130.0" endY="0.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod3candle4" endX="1280.0" endY="0.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod3candle1" endX="1150.0" endY="0.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod3candle5" endX="1270.0" endY="0.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
 </children>
 </Group>
 <Group fx:id="candleSweepGroup4" layoutY="3.0" layoutX="-540.0">
 <children>
-<Line fx:id="mod4candle6" endX="1260.0" endY="175.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod4sweep2" endX="1120.0" endY="175.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod4candle2" endX="1140.0" endY="175.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod4sweep1" endX="1290.0" endY="175.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod4candle3" endX="1130.0" endY="175.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod4candle4" endX="1280.0" endY="175.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod4candle1" endX="1150.0" endY="175.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod4candle5" endX="1270.0" endY="175.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
+<Line fx:id="mod4candle6" endX="1260.0" endY="0.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod4sweep2" endX="1120.0" endY="0.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod4candle2" endX="1140.0" endY="0.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod4sweep1" endX="1290.0" endY="0.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod4candle3" endX="1130.0" endY="0.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod4candle4" endX="1280.0" endY="0.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod4candle1" endX="1150.0" endY="0.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod4candle5" endX="1270.0" endY="0.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
 </children>
 </Group>
 <Group fx:id="candleSweepGroup5" layoutY="3.0" layoutX="-720.0">
 <children>
-<Line fx:id="mod5candle6" endX="1260.0" endY="175.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod5sweep2" endX="1120.0" endY="175.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod5candle2" endX="1140.0" endY="175.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod5sweep1" endX="1290.0" endY="175.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod5candle3" endX="1130.0" endY="175.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod5candle4" endX="1280.0" endY="175.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod5candle1" endX="1150.0" endY="175.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod5candle5" endX="1270.0" endY="175.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
+<Line fx:id="mod5candle6" endX="1260.0" endY="0.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod5sweep2" endX="1120.0" endY="0.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod5candle2" endX="1140.0" endY="0.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod5sweep1" endX="1290.0" endY="0.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod5candle3" endX="1130.0" endY="0.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod5candle4" endX="1280.0" endY="0.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod5candle1" endX="1150.0" endY="0.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod5candle5" endX="1270.0" endY="0.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
 </children>
 </Group>
 <Group fx:id="candleSweepGroup6" layoutY="3.0" layoutX="-900.0">
 <children>
-<Line fx:id="mod6candle6" endX="1260.0" endY="175.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod6sweep2" endX="1120.0" endY="175.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod6candle2" endX="1140.0" endY="175.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod6sweep1" endX="1290.0" endY="175.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod6candle3" endX="1130.0" endY="175.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod6candle4" endX="1280.0" endY="175.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod6candle1" endX="1150.0" endY="175.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod6candle5" endX="1270.0" endY="175.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
+<Line fx:id="mod6candle6" endX="1260.0" endY="0.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod6sweep2" endX="1120.0" endY="0.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod6candle2" endX="1140.0" endY="0.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod6sweep1" endX="1290.0" endY="0.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod6candle3" endX="1130.0" endY="0.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod6candle4" endX="1280.0" endY="0.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod6candle1" endX="1150.0" endY="0.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod6candle5" endX="1270.0" endY="0.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
 </children>
 </Group>
 <Group fx:id="candleSweepGroup7" layoutY="3.0" layoutX="-1080.0">
 <children>
-<Line fx:id="mod7candle6" endX="1260.0" endY="175.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod7sweep2" endX="1120.0" endY="175.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod7candle2" endX="1140.0" endY="175.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod7sweep1" endX="1290.0" endY="175.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" />
-<Line fx:id="mod7candle3" endX="1130.0" endY="175.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod7candle4" endX="1280.0" endY="175.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod7candle1" endX="1150.0" endY="175.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
-<Line fx:id="mod7candle5" endX="1270.0" endY="175.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" />
+<Line fx:id="mod7candle6" endX="1260.0" endY="0.0" startX="1130.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod7sweep2" endX="1120.0" endY="0.0" startX="1120.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod7candle2" endX="1140.0" endY="0.0" startX="1270.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod7sweep1" endX="1290.0" endY="0.0" startX="1290.0" stroke="#e80909" strokeLineCap="ROUND" strokeWidth="5.0" visible="false" />
+<Line fx:id="mod7candle3" endX="1130.0" endY="0.0" startX="1260.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod7candle4" endX="1280.0" endY="0.0" startX="1150.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod7candle1" endX="1150.0" endY="0.0" startX="1280.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
+<Line fx:id="mod7candle5" endX="1270.0" endY="0.0" startX="1140.0" stroke="#2af50f" strokeLineCap="ROUND" strokeWidth="3.0" visible="false" />
 </children>
 </Group>
   </children>
