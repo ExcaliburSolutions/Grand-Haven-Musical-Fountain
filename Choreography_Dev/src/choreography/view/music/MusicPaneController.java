@@ -9,6 +9,7 @@ import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import choreography.view.ChoreographyController;
 import choreography.view.sim.FountainSimController;
+import choreography.view.sliders.SlidersController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 
@@ -155,10 +156,11 @@ public class MusicPaneController {
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
-    void stopSong(ActionEvent event) {
+    private void stopSong(ActionEvent event) {
     	mediaPlayer.stop();
         playButton.setText("Play");
         timeSlider.setValue(0.0);
+        SlidersController.getInstance().resetAllSliders();
     }
     
     private void getAllMusic(File fileChosen) {
@@ -284,9 +286,6 @@ public class MusicPaneController {
         assert songName != null : "fx:id=\"songName\" was not injected: check your FXML file 'MusicPane.fxml'.";
         assert songProgress != null : "fx:id=\"songProgress\" was not injected: check your FXML file 'MusicPane.fxml'.";
         //assert volume != null : "fx:id=\"volume\" was not injected: check your FXML file 'MusicPane.fxml'.";
-
-        // Initialize your logic here: all @FXML variables will have been injected
-        instance = this;
         
         timeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
@@ -300,6 +299,8 @@ public class MusicPaneController {
                 }
             }
         });
+        this.timeFactor = 10;
+        instance = this;
     }
 
     /**
@@ -334,5 +335,9 @@ public class MusicPaneController {
         int tenths = (int) wholeTime;
 //        System.out.println(wholeTime + " " + tenths);
         return tenths;
+    }
+
+    public Slider getTimeSlider() {
+        return timeSlider;
     }
 }

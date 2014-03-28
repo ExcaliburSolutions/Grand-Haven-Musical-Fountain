@@ -142,7 +142,9 @@ public class Timeline {
      * @param f
      */
     public void setWaterFcwAtPoint(int pointInTime, FCW f) {
-        waterTimeline.get(pointInTime).add(f);
+        insertIntoTimeline(waterTimeline, pointInTime, f);
+        TimelineController.getInstance().rePaintWaterTimeline();
+//        waterTimeline.get(pointInTime).add(f);
     }
     
     /**

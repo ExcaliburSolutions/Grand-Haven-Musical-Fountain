@@ -6,16 +6,25 @@
 
 package choreography.view.specialOperations;
 
+import choreography.io.FCWLib;
+import choreography.model.fcw.FCW;
+import choreography.view.ChoreographyController;
+import choreography.view.music.MusicPaneController;
+import choreography.view.sliders.SlidersController;
+import choreography.view.timeline.Timeline;
+import choreography.view.timeline.TimelineController;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -27,8 +36,6 @@ public class SpecialoperationsController implements Initializable {
     @FXML
     private TitledPane sweepControlsPane;
     
-    @FXML
-    private ToggleGroup CopyButtons;
 
     @FXML
     private CheckBox voiceCheckbox;
@@ -36,52 +43,50 @@ public class SpecialoperationsController implements Initializable {
     @FXML
     private AnchorPane bSweepsPane;
 
-    @FXML
-    private ToggleButton copyWater;
-
-    @FXML
-    private CheckBox operatorCheckbox;
-
-    @FXML
-    private ToggleButton copyLight;
 
     @FXML
     private ToggleGroup SpecialOps;
 
-    @FXML
-    private ToggleButton copyAtoB;
-
-    @FXML
-    private ToggleButton copyBtoA;
-
-    @FXML
-    private ToggleButton eraseButton;
 
     @FXML
     private AnchorPane aSweepsPane;
 
     @FXML
     private ToggleButton resetButton;
-
+    @FXML
+    private ToggleGroup sweepGroup;
+    @FXML
+    private ToggleButton opposedSweeps;
+    @FXML
+    private ToggleButton parallelSweeps;
+    @FXML
+    private ToggleButton deleteButton;
+    @FXML
+    private CheckBox strobeCheckbox;
+    @FXML
+    private ToggleButton fadeUpButton;
+    @FXML
+    private ToggleGroup fadeGroup;
+    @FXML
+    private ToggleButton fadeDownButton;
+    @FXML
+    private ToggleButton independentSweeps;
+    
+    private RangeSlider aSweeps;
+    private RangeSlider bSweeps;
+    private String cannon;
+    private SweepsEventHandlerImpl aSweepsEventHandler;
+    private SweepsEventHandlerImpl bSweepsEventHandler;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        RangeSlider aSweeps = new RangeSlider(0.0, 4.0, 1.0, 3.0);
-        RangeSlider bSweeps = new RangeSlider(0.0, 4.0, 1.0, 3.0);
-       
-        //= new AnchorPane(aSweeps);
-        
-        //= new AnchorPane(bSweeps);
-        //AnchorPane sweepsAnchor = new AnchorPane(aSweeps, bSweeps);
-//        AnchorPane.setLeftAnchor(aSweeps, 5.0);
-//        AnchorPane.setRightAnchor(aSweeps, 5.0);
-//        AnchorPane.setTopAnchor(aSweeps, 10.0);
-//        AnchorPane.setTopAnchor(bSweeps, 25.0);
-//        AnchorPane.setLeftAnchor(bSweeps, 5.0);
-//        AnchorPane.setRightAnchor(bSweeps, 5.0);
+        aSweeps = new RangeSlider(0.0, 4.0, 1.0, 3.0);
+        bSweeps = new RangeSlider(0.0, 4.0, 1.0, 3.0);
         
         aSweeps.setSnapToTicks(true);
         aSweeps.setMajorTickUnit(1); aSweeps.setShowTickMarks(true); 
@@ -90,9 +95,158 @@ public class SpecialoperationsController implements Initializable {
         bSweeps.setSnapToTicks(true);
         bSweeps.setMajorTickUnit(1); bSweeps.setShowTickMarks(true); 
         bSweeps.setMinorTickCount(0); bSweeps.setBlockIncrement(1);
+        
         aSweepsPane.getChildren().add(aSweeps); 
         bSweepsPane.getChildren().add(bSweeps); 
-        //sweepControlsPane.setContent(sweepsAnchor);
+        aSweeps.setVisible(false);
+        bSweeps.setVisible(false);
+        
+        opposedSweeps.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                aSweeps.setVisible(true);
+                bSweeps.setVisible(false);
+                aSweepsEventHandler.setOpposed(true);
+                bSweepsEventHandler.setOpposed(true);
+            }
+        });
+        
+        independentSweeps.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                aSweeps.setVisible(true);
+                bSweeps.setVisible(true);
+                aSweepsEventHandler.setOpposed(false);
+                bSweepsEventHandler.setOpposed(false);
+            }
+        });
+        
+        parallelSweeps.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                aSweeps.setVisible(true);
+                bSweeps.setVisible(false);
+                aSweepsEventHandler.setOpposed(true);
+                bSweepsEventHandler.setOpposed(true);
+            }
+        });
+        
+        aSweepsEventHandler = new SweepsEventHandlerImpl("SWEEPLIMITA", aSweeps);
+        bSweepsEventHandler = new SweepsEventHandlerImpl("SWEEPLIMITB", bSweeps);
+        
+        aSweeps.setOnMouseReleased(aSweepsEventHandler);
+        bSweeps.setOnMouseReleased(bSweepsEventHandler);
+        
+        voiceCheckbox.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if(voiceCheckbox.isSelected()) {
+                    ArrayList<String> AL = new ArrayList<>(3);
+                    AL.add("ON");
+                    String[] actions = AL.toArray(new String[1]);
+                    FCW f = FCWLib.getInstance().getFCW("VOICE", actions);
+                }
+                else {
+                    ArrayList<String> AL = new ArrayList<>(3);
+                    AL.add("OFF");
+                    String[] actions = AL.toArray(new String[1]);
+                    FCW f = FCWLib.getInstance().getFCW("VOICE", actions);
+                }
+            }
+        });
+    }    
+
+    private class SweepsEventHandlerImpl implements EventHandler<MouseEvent> {
+        
+        String sweeps;
+        RangeSlider slider;
+        boolean opposed;
+
+        public SweepsEventHandlerImpl(String sweeps, RangeSlider slider) {
+            this.sweeps = sweeps;
+            this.slider = slider;
+        }
+        
+        public boolean isOpposed() {
+            return opposed;
+        }
+        
+        public void setOpposed(boolean opposed) {
+            this.opposed = opposed;
+        }
+
+        @Override
+        public void handle(MouseEvent event) {
+            String[] actions = new String[2];
+            String action;
+            FCW f = null;
+            if(opposedSweeps.isSelected()) {
+                f = createFcw(actions);
+            } else if(parallelSweeps.isSelected()) {
+                f = createFcw(actions);
+            } else if(independentSweeps.isSelected()) {
+                f = createFcw(actions);
+            }
+//            else { f = new FCW(0, 0); }
+            System.out.println(f);
+            ChoreographyController.getInstance().setfcwOutput(f.toString());
+            Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+            TimelineController.getInstance().rePaintWaterTimeline();
+        }
+
+        public FCW createFcw(String[] actions) {
+            String action;
+            FCW f;
+            int low = (int)slider.getLowValue();
+            int high = (int)slider.getHighValue();
+            System.out.println(low + " " + high);
+            action = buildSweepLimitString(low, actions, high);
+            System.out.println(action);
+            if(opposed) {
+                f = FCWLib.getInstance().getFCW("SWEEPLIMITAB", new String[]{action});
+            } else
+                f = FCWLib.getInstance().getFCW(sweeps, new String[]{action});
+            return f;
+        }
+
+            public String buildSweepLimitString(int low, String[] actions, int high) {
+                String action;
+                switch(low) {
+                    case 0:
+                        actions[0] = "LEFTLONG";break;
+                    case 1:
+                        actions[0] = "LEFTSHORT";break;
+                    case 2:
+                        actions[0] = "CENTER";break;
+                    case 3:
+                        actions[0] = "RIGHTSHORT";break;
+                    case 4:
+                        actions[0] = "RIGHTLONG";break;
+                }
+                switch(high) {
+                    case 0:
+                        actions[1] = "LEFTLONG";break;
+                    case 1:
+                        actions[1] = "LEFTSHORT";break;
+                    case 2:
+                        actions[1] = "CENTER";break;
+                    case 3:
+                        actions[1] = "RIGHTSHORT";break;
+                    case 4:
+                        actions[1] = "RIGHTLONG";break;
+                }
+                if(low == high) {
+                    action = "HOLD" + actions[0];
+                }
+                else {
+                    action = actions[1] + actions[0];
+                }
+                return action;
+            }
     }    
     
 }

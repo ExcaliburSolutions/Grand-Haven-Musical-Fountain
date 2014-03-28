@@ -153,12 +153,12 @@ public class SlidersController {
         assert r4B != null : "fx:id=\"r4B\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert r5A != null : "fx:id=\"r5A\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert r5B != null : "fx:id=\"r5B\" was not injected: check your FXML file 'Sliders.fxml'.";
-        assert sp != null : "fx:id=\"sp\" was not injected: check your FXML file 'Sliders.fxml'.";
+        assert getSp() != null : "fx:id=\"sp\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert swA != null : "fx:id=\"swA\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert swB != null : "fx:id=\"swB\" was not injected: check your FXML file 'Sliders.fxml'.";
         configureModules();
         allSliders = new Slider[]{r1A, r1B, r2A, r2B, r3A, r3B, r4A, r4B, r5A, 
-           r5B, mxA, mxB, candleA, candleB, swA, swB, ftC, bkC, pk, bz, sp};
+           r5B, mxA, mxB, candleA, candleB, swA, swB, ftC, bkC, pk, bz, getSp()};
         instance = this;
        
      // Listen for Slider value changes
@@ -1229,6 +1229,8 @@ public class SlidersController {
         list = aB.getCannonGroup(ce);
         CannonSliderChangeListener<? extends Cannon> cs = new CannonSliderChangeListener<>(list, aB.toString());
         s.valueProperty().addListener(cs);
+        SliderMouseReleasedEvent se = new SliderMouseReleasedEvent(ce, aB.toString(), cs);
+        s.setOnMouseReleased(se);
     }
 
     private void setupAModule() {
@@ -1274,7 +1276,7 @@ public class SlidersController {
     
     private void setupIndependentCannons() {
     	bz.valueProperty().addListener(new IndependentCannonSliderChangeListener(bazooka));
-    	sp.valueProperty().addListener(new IndependentCannonSliderChangeListener(spout));
+    	getSp().valueProperty().addListener(new IndependentCannonSliderChangeListener(spout));
     	pk.valueProperty().addListener(new IndependentCannonSliderChangeListener(peacock));
     	bkC.valueProperty().addListener(new IndependentCannonSliderChangeListener(bkCurt));
     	ftC.valueProperty().addListener(new IndependentCannonSliderChangeListener(ftCurt));
@@ -1373,7 +1375,7 @@ public class SlidersController {
                 case 7:
                     if(action.equalsIgnoreCase("spout")) {
                         int level = findLevel(actions);
-                        sp.setValue(level);
+                        getSp().setValue(level);
                     }
                     else if(action.equalsIgnoreCase("bazooka")) {
                         int level = findLevel(actions);
@@ -1491,10 +1493,24 @@ public class SlidersController {
         return 0;
     }
 
-    private void resetAllSliders() {
+    public void resetAllSliders() {
        for(Slider s: allSliders) {
            s.setValue(0);
        }
+    }
+
+    /**
+     * @return the sp
+     */
+    public Slider getSp() {
+        return sp;
+    }
+
+    /**
+     * @param sp the sp to set
+     */
+    public void setSp(Slider sp) {
+        this.sp = sp;
     }
 }
 

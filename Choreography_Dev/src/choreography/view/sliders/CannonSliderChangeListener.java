@@ -20,6 +20,7 @@ class CannonSliderChangeListener<T extends Cannon> implements ChangeListener<Num
     ArrayList<T> cannons;
     String name;
     String module;
+    private int lastNumber;
     
     public CannonSliderChangeListener(ArrayList<T> list, String module) {
         this.module = module;
@@ -34,6 +35,7 @@ class CannonSliderChangeListener<T extends Cannon> implements ChangeListener<Num
     @Override
     public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
         int level = t1.intValue();
+        lastNumber = level;
         for(T c : cannons){
             c.setLevel(level);
         } 
@@ -41,6 +43,13 @@ class CannonSliderChangeListener<T extends Cannon> implements ChangeListener<Num
         String[] actions = new String[]{module, Integer.toString(level)};
         FCW f = FCWLib.getInstance().getFCW(name, actions);
         ChoreographyController.getInstance().setfcwOutput(f.toString());
-//        Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+        
+    }
+
+    /**
+     * @return the lastNumber
+     */
+    public int getLastNumber() {
+        return lastNumber;
     }
 }

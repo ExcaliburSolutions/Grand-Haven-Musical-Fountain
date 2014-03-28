@@ -27,7 +27,7 @@
 <Label layoutX="10.0" layoutY="35.0" text="B:" />
 <Group>
 <children>
-<ToggleButton layoutX="133.0" layoutY="64.0" mnemonicParsing="false" prefWidth="24.5" text="...">
+<ToggleButton fx:id="independentSweeps" layoutX="135.0" layoutY="64.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="31.0" text="...">
 <font>
 <Font size="10.0" />
 </font>
@@ -35,19 +35,14 @@
 <ToggleGroup fx:id="sweepGroup" />
 </toggleGroup>
 </ToggleButton>
-<ToggleButton fx:id="opposedSweeps" layoutX="103.0" layoutY="64.0" mnemonicParsing="false" prefWidth="24.5" text="/ \" toggleGroup="$sweepGroup">
+<ToggleButton fx:id="opposedSweeps" layoutX="100.0" layoutY="64.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="31.0" text="/ \" toggleGroup="$sweepGroup">
 <font>
 <Font size="10.0" />
 </font>
-</ToggleButton><ToggleButton fx:id="parallelSweeps" layoutX="40.0" layoutY="64.0" mnemonicParsing="false" prefWidth="24.5" text="//" toggleGroup="$sweepGroup">
+</ToggleButton><ToggleButton fx:id="parallelSweeps" layoutX="65.0" layoutY="64.0" mnemonicParsing="false" prefWidth="31.0" text="//" toggleGroup="$sweepGroup">
 <font>
 <Font size="10.0" />
 </font></ToggleButton>
-<ToggleButton fx:id="crossingSweeps" layoutX="71.0" layoutY="64.0" mnemonicParsing="false" prefWidth="24.5" text="\\ /" toggleGroup="$sweepGroup">
-<font>
-<Font size="10.0" />
-</font>
-</ToggleButton>
 </children>
 <effect>
 <DropShadow />

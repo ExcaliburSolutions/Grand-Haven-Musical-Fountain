@@ -352,7 +352,33 @@ public final class FCWLib {
                     actions.add(entry.getKey());
             }
         }
+        
+        cleanupActionsArrayList(f, actions);
+        
         return actions.toArray(new String[0]);
+    }
+
+    public void cleanupActionsArrayList(FCW f, ArrayList<String> actions) {
+        //        for(String action: actions) {
+        switch(f.getAddr()) {
+            case 1:
+                actions.remove("SPOUT");
+                actions.remove("BAZOOKA");
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 8:
+                break;
+            case 7:
+                actions.remove("MODULEA");
+                actions.remove("MODULEB");
+                break;
+            case 9:
+                
+        }
+//        }
     }
 
     private void setFlags(Integer[] values, int data, ArrayList<Integer> flags) {
