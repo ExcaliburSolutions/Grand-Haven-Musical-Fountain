@@ -137,17 +137,17 @@
                 <Insets left="4.0" />
               </GridPane.margin>
             </Label>
-            <ToggleButton fx:id="selectionButton" mnemonicParsing="false" text="Select" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+            <ToggleButton fx:id="selectionButton" mnemonicParsing="false" prefWidth="53.0" text="Select" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0">
               <GridPane.margin>
-                <Insets left="20.0" />
+                <Insets />
               </GridPane.margin>
             </ToggleButton>
-            <fx:include source="colorPalette/ColorPalette.fxml" prefHeight="30.0" prefWidth="800.0" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.vgrow="NEVER" />
+            <fx:include source="colorPalette/ColorPalette.fxml" prefHeight="30.0" prefWidth="1000.0" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.vgrow="NEVER" />
           </children>
           <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="181.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="77.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1113.0" minWidth="10.0" prefWidth="1071.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
