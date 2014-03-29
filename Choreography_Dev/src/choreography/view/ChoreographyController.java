@@ -404,6 +404,19 @@ public class ChoreographyController implements Initializable {
             }
         }, 0l, 100l);
     }
+    
+    public void startPollingColorAlgorithm() {
+        
+        timelineTimer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    TimelineController.getInstance().updateColors(MusicPaneController.getInstance().getTenthsTime());
+                });
+            }
+        }, 0l, 100l);
+    }
 
     public void setSlidersLoaded(boolean b) {
         isSlidersLoaded = b;
