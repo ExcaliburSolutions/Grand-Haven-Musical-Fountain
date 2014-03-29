@@ -33,6 +33,16 @@ import javafx.scene.layout.AnchorPane;
  * @author elementsking
  */
 public class SpecialoperationsController implements Initializable {
+    
+    private static SpecialoperationsController instance;
+    
+    public static SpecialoperationsController getInstance() {
+        if(instance == null) {
+            return new SpecialoperationsController();
+        }
+        return instance;
+    }
+    
     @FXML
     private TitledPane sweepControlsPane;
     
@@ -178,7 +188,23 @@ public class SpecialoperationsController implements Initializable {
                 ChoreographyController.getInstance().setfcwOutput(f.toString());
             }
         });
+        
+        //TODO Add Fadeup
+        //TODO Add Fadedown
+        //TODO Add Strobe
+        //TODO Modify 
     }    
+
+    public void setSweeps(FCW f) {
+        String[] actions = FCWLib.getInstance().reverseLookupData(f);
+        System.out.println(actions);
+        switch(f.getAddr()) {
+            case 35:
+//                aSweeps.setMin(value);
+            case 36:
+            case 37:
+        }
+    }
 
     private class SweepsEventHandlerImpl implements EventHandler<MouseEvent> {
         

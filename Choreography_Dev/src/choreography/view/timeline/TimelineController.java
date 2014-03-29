@@ -17,9 +17,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import javax.swing.JOptionPane;
-
+import java.util.concurrent.ConcurrentSkipListMap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -32,6 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
@@ -41,6 +40,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -48,6 +48,8 @@ import javafx.util.Duration;
  * @author elementsking
  */
 public class TimelineController implements Initializable {
+    
+    //TODO Add new Light FCWs to Timeline via setLightTimeWithRange()
 	
     private static TimelineController instance;
     private final ColorPaletteEnum[] colorEnumArray;
@@ -60,6 +62,8 @@ public class TimelineController implements Initializable {
     Rectangle selectedRec = new Rectangle();
     int selectedCol = 0;
     int selectedRow = 0;
+    private int start;
+    
     /**
      * 
      * @return
@@ -223,8 +227,8 @@ public class TimelineController implements Initializable {
 
     public void configureTimelines() {
         setLabelNames(new String[]{"Module1", "Module2", "Module3", 
-                "Module4", "Module5", "Module6", "Module7", "ModuleA", "ModuleB", 
-                "FrontCurtain", "BackCurtain", "PeacockAB", "SpoutVoice", "AllLEDs"});
+                "Module4", "Module5", "Module6", "Module7", "PeacockAB", 
+                "FrontCurtain", "BackCurtain"});
         setLabelGridPane(getLabelNames());
         setTimelineGridPane();
     }
@@ -278,6 +282,7 @@ public class TimelineController implements Initializable {
     		 addresses.add(addr);
     	}
     	channelAddresses = addresses.toArray(new Integer[1]);
+        injectIntoGtfo(channelAddresses);
     	setLabelGridPane(channelAddresses);
 	}
     
@@ -353,6 +358,7 @@ public class TimelineController implements Initializable {
                 final int testJ = j;
 
                 lightRecArray[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
+                    
 
                     @Override
                     public void handle(MouseEvent me) {
@@ -367,14 +373,17 @@ public class TimelineController implements Initializable {
                         	
                         }
                     else{
-                        		startRow = testJ;
+                            startRow = testJ;
                             lightRecArray[testI][testJ]
                                     .setFill(ColorPaletteController
                                             .getInstance()
                                             .getSelectedColor());
+                            int address = channelAddresses[testJ];
+//                            Timeline.getInstance().setLightFcw(new FCW(address, 
+//                                ColorPaletteModel.getInstance().getSelectedIndex() + 1), testI, testJ);
+                            start = testI;
                     }
-//                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
-//                                ColorPaletteController.getInstance().getModel().getSelectedIndex()));
+                        
                     }
                 });
 
@@ -386,19 +395,18 @@ public class TimelineController implements Initializable {
                     copyAL.clear();
                     colAL.clear();
                     rowAL.clear();
-                
-                	if(ChoreographyController.getInstance().getIsSelected()){
-                		lightCopy.setDisable(false);
-                		lightRecArray[testI][testJ].startFullDrag();
-                		lightRecArray[testI][testJ].setOpacity(50);
-                        copyAL.add(lightRecArray[testI][testJ]);
-                        
+                    copyAL.add(lightRecArray[testI][testJ]);
+                    if(ChoreographyController.getInstance().getIsSelected()){
+                        lightCopy.setDisable(false);
+                        lightRecArray[testI][testJ].startFullDrag();
+                        lightRecArray[testI][testJ].setOpacity(50);
+
                         colAL.add(testI);
                         rowAL.add(testJ);
-                	}
+                    }
                 	
                     lightRecArray[testI][testJ].startFullDrag();
-                });
+                }); 
                 // continues and ends the drag event
                 lightRecArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
 //                    if (startRow == testJ) {
@@ -407,20 +415,28 @@ public class TimelineController implements Initializable {
 //                                        .getInstance()
 //                                        .getSelectedColor());
 //                    }
-                    
+                    if (!copyAL.contains(lightRecArray[testI][testJ])){
+                            copyAL.add(lightRecArray[testI][testJ]);
+                    }
                     if (ChoreographyController.getInstance().getIsSelected()) {
                     	lightRecArray[testI][testJ].setOpacity(.50);
                         if (!copyAL.contains(lightRecArray[testI][testJ])){
                             copyAL.add(lightRecArray[testI][testJ]);
-                            
-                            colAL.add(testI);
-                            rowAL.add(testJ);
+                        colAL.add(testI);
+                        rowAL.add(testJ);
                         }
                     } else {
                     	lightRecArray[testI][testJ].setFill(ColorPaletteController
                                 .getInstance()
                                 .getSelectedColor());
+//                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
+//                                ColorPaletteModel.getInstance().getSelectedIndex()));
                     }
+                });
+                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
+                    FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                    System.out.println(f + " " + start + " " + testI + 1);
                 });
             }
         }
@@ -460,16 +476,17 @@ public class TimelineController implements Initializable {
                                 
                 waterRecArray[i]
                         .setOnMousePressed(new EventHandler<MouseEvent>() {
-                            public void handle(MouseEvent me) {
-                            	
-                            	if (me.getButton() == MouseButton.SECONDARY) {
+                @Override
+                public void handle(MouseEvent me) {
+
+                    if (me.getButton() == MouseButton.SECONDARY) {
 //                            		currentWaterRec = waterRecArray[testI];
-                            		copyWaterLocation = testI;
-                            		waterCopy.setDisable(false);
-                                    waterCM.show(waterRecArray[testI], me.getScreenX(), me.getScreenY());
-                                }
-                    
-                            	System.out.println("Col " + (testI));
+                        copyWaterLocation = testI;
+                        waterCopy.setDisable(false);
+                        waterCM.show(waterRecArray[testI], me.getScreenX(), me.getScreenY());
+                    }
+
+                    System.out.println("Col " + (testI));
                     Duration duration = MusicPaneController.getInstance().getMediaPlayer().getTotalDuration();
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     
@@ -482,18 +499,19 @@ public class TimelineController implements Initializable {
                     }
                     else{
                     	if(Timeline.getInstance().getActionsAtTime(testI)){
-                    		oldRec.setFill(Color.DARKBLUE);
-                    	oldRec = waterRecArray[testI];
-                    	waterRecArray[testI] = oldRec;
+                            oldRec.setFill(Color.DARKBLUE);
+                            oldRec = waterRecArray[testI];
+                            waterRecArray[testI] = oldRec;
                     	}
                     	else{
-                    		oldRec.setFill(Color.LIGHTGRAY);
-                        	oldRec = waterRecArray[testI];
-                        	waterRecArray[testI] = oldRec;
+                            oldRec.setFill(Color.LIGHTGRAY);
+                            oldRec = waterRecArray[testI];
+                            waterRecArray[testI] = oldRec;
                     	}
                     	
                     	
-                    }}
+                    }
+                }
                 });
                 
                 waterRecArray[i].setOnDragDetected((MouseEvent me) -> {
@@ -576,7 +594,7 @@ public class TimelineController implements Initializable {
                 //TODO update sliders
             }
         }
-        rePaintLightTimeline();
+//        rePaintLightTimeline();
     }
 
     public void rePaintLightTimeline() {
@@ -762,7 +780,7 @@ public class TimelineController implements Initializable {
     }
 
     public void fireSliderChangeEvent() {
-        Timeline.getInstance().sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
+//        Timeline.getInstance().sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
     }
 
 	public String[] getLabelNames() {
@@ -772,4 +790,11 @@ public class TimelineController implements Initializable {
 	public void setLabelNames(String[] labelNames) {
 		this.labelNames = labelNames;
 	}
+        
+        public void injectIntoGtfo(Integer[] newAddresses) {
+            SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = Timeline.getInstance().getGtfoMap();
+            for(Integer i: newAddresses) {
+                gtfo.putIfAbsent(i, new ConcurrentSkipListMap<>());
+            }
+        }
 }

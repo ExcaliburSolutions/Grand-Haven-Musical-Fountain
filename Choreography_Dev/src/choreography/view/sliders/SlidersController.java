@@ -1276,6 +1276,7 @@ public class SlidersController {
     }
     
     private void setupIndependentCannons() {
+    	setupIndepentCannonListeners(bz, CannonEnum.BAZOOKA, bazooka);
         setupIndepentCannonListeners(sp, CannonEnum.SPOUT, spout);
         setupIndepentCannonListeners(pk, CannonEnum.PEACOCK, peacock);
         setupIndepentCannonListeners(bkC, CannonEnum.BKCURT, bkCurt);

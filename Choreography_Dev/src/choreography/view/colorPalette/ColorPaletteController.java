@@ -164,7 +164,24 @@ public class ColorPaletteController implements Initializable {
     }
 
     void rePaint() {
+        rectangles = new Rectangle[32];
+        colorPalette.getChildren().clear();
         Color[] colors = ColorPaletteModel.getInstance().getColors();
+        
+        // Sets the first color to red and creates the event handler
+        for(int index = 0; index < colors.length; index++) {
+            final int index2 = index;   
+            rectangles[index] = new Rectangle(25, 25, ColorPaletteModel.getInstance().getColors()[index]);
+            rectangles[index].setOnMouseClicked(new EventHandler<MouseEvent> (){
+            	
+                    @Override
+            	public void handle(MouseEvent e) {
+            		ColorPaletteModel.getInstance().setSelectedIndex(index2);
+                    setSelectedColor(ColorPaletteModel.getInstance().getColor(index2 + 1));
+            	}
+            });
+            colorPalette.getChildren().add(rectangles[index]);
+        }
         for(int i = 0; i < colors.length; i++) {
             rectangles[i].setFill(colors[i]);
         }
