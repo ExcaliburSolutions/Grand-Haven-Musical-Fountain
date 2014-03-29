@@ -18,7 +18,7 @@ public class BkCurt extends IndependentCannon {
 		super(level);
 	}
 
-    BkCurt(int level, String name) {
+    public BkCurt(int level, String name) {
         super(level, name);
     }
 

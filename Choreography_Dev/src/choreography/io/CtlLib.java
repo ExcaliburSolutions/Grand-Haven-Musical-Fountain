@@ -82,7 +82,8 @@ public class CtlLib {
                 stringBuffer.append(System.getProperty("line.separator"));
             }
 
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            ex.printStackTrace();
         } finally {
         }
 

@@ -34,6 +34,7 @@ import javafx.beans.value.ObservableValue;
 
 import javafx.util.Duration;
 import choreography.view.sim.FountainSimController;
+import choreography.view.specialOperations.SpecialoperationsController;
 /**
  *
  * @author elementsking
@@ -1275,11 +1276,17 @@ public class SlidersController {
     }
     
     private void setupIndependentCannons() {
-    	bz.valueProperty().addListener(new IndependentCannonSliderChangeListener(bazooka));
-    	getSp().valueProperty().addListener(new IndependentCannonSliderChangeListener(spout));
-    	pk.valueProperty().addListener(new IndependentCannonSliderChangeListener(peacock));
-    	bkC.valueProperty().addListener(new IndependentCannonSliderChangeListener(bkCurt));
-    	ftC.valueProperty().addListener(new IndependentCannonSliderChangeListener(ftCurt));
+        setupIndepentCannonListeners(sp, CannonEnum.SPOUT, spout);
+        setupIndepentCannonListeners(pk, CannonEnum.PEACOCK, peacock);
+        setupIndepentCannonListeners(bkC, CannonEnum.BKCURT, bkCurt);
+        setupIndepentCannonListeners(ftC, CannonEnum.FTCURT, ftCurt);
+    }
+
+    public void setupIndepentCannonListeners(Slider s, CannonEnum ce, IndependentCannon ic) {
+        IndependentCannonSliderChangeListener bzIn = new IndependentCannonSliderChangeListener(ic);
+        s.valueProperty().addListener(bzIn);
+        IndependentSliderMouseReleasedEvent se = new IndependentSliderMouseReleasedEvent(ce, bzIn);
+        s.setOnMouseReleased(se);
     }
 
 
@@ -1416,8 +1423,11 @@ public class SlidersController {
                         mxB.setValue(level);
                     }
                     break;
+                //Sweeps Speeds!
                 case 33:
                 case 34:
+                case 38:
+                case 39:
                     if(action.equalsIgnoreCase("offreset")) {
                         
                     }
@@ -1451,6 +1461,11 @@ public class SlidersController {
                     else if(action.equalsIgnoreCase("playpause")) {
                         
                     }
+                    break;
+                case 35:
+                case 36:
+                case 37:
+                    SpecialoperationsController.getInstance().setSweeps(f);
                     break;
             }
             }

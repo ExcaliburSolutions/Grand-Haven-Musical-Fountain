@@ -17,6 +17,7 @@ public class IndependentCannonSliderChangeListener implements ChangeListener<Num
 
 	private IndependentCannon cannon;
 	private String name;
+        private int lastNumber;
 
 	/**
 	 * @param cannon
@@ -35,12 +36,19 @@ public class IndependentCannonSliderChangeListener implements ChangeListener<Num
     @Override
 	public void changed(ObservableValue<? extends Number> observable, Number oldValue,
 			Number newValue) {
-        int level = newValue.intValue();
+            int level = newValue.intValue();
+            lastNumber = level;
             cannon.setLevel(level);
-        String[] actions = new String[]{Integer.toString(level), name};
-        ChoreographyController.getInstance().setfcwOutput(
-                FCWLib.getInstance().getFCW(name.toString(), actions).toString());
-
+            String[] actions = new String[]{Integer.toString(level), name};
+            FCW f = FCWLib.getInstance().getFCW(name, actions);
+            ChoreographyController.getInstance().setfcwOutput(
+                f.toString());
+            Timeline.getInstance().setWaterFcwAtPoint(
+                    MusicPaneController.getInstance().getTenthsTime(), f);
 	}
+
+    public int getLastNumber() {
+        return lastNumber;
+    }
 
 }

@@ -136,8 +136,8 @@ public class MusicPaneController {
     	try{
             mediaPlayer.play();
             playButton.setText("Pause");
-            ChoreographyController.getInstance().startPollingSliderAlgorithm();
-            ChoreographyController.getInstance().startPollingTimelineAlgorithm();
+            ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
+            ChoreographyController.getInstance().startPollingSlidersAlgorithm();
     	}
     	catch (Exception e){
             e.printStackTrace();
@@ -251,7 +251,7 @@ public class MusicPaneController {
         mediaPlayer.play();
         mediaPlayer.pause();
 //        updateProgressTimer();
-//        ChoreographyController.getInstance().startPollingSliderAlgorithm();
+//        ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
     }
 
     /**

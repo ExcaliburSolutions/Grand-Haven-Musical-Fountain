@@ -42,9 +42,11 @@
 
 package choreography.view.colorPalette;
 
+import choreography.io.MapLib;
+import java.io.File;
+import java.util.HashMap;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import choreography.view.colorPalette.ColorPaletteEnum;
 
 /**
  *
@@ -57,6 +59,7 @@ public class ColorPaletteModel {
     private Color[] colors;
     private int availableColors;
     private int selectedIndex;
+    private HashMap<Integer, Integer> classicMap;
     
     public static ColorPaletteModel getInstance() {
         if(instance == null)
@@ -77,17 +80,9 @@ public class ColorPaletteModel {
     public void setClassicColors(boolean aClassicColors) {
         classicColors = aClassicColors;
         colors = new Color[32];
-//        colors[0] = Color.web(ColorPaletteEnum.OFF.getColor());
-        colors[0] = Color.web(ColorPaletteEnum.RED.getColor());
-        colors[1] = Color.web(ColorPaletteEnum.BLUE.getColor());
-        colors[3] = Color.web(ColorPaletteEnum.AMBER.getColor());
-        colors[7] = Color.web(ColorPaletteEnum.WHITE.getColor());
-        colors[15] = Color.web(ColorPaletteEnum.GREEN.getColor());
-        colors[31] = Color.web(ColorPaletteEnum.YELLOW.getColor());
+        MapLib.openMap(new File("src/choreography/model/color/legacy.map"));
+        ColorPaletteController.getInstance().rePaint();
     }
-    
-    
-    
     
     public ColorPaletteModel() {
         colors = new Color[32];
@@ -143,10 +138,9 @@ public class ColorPaletteModel {
         availableColors++;
     }		      
        
-       /**
+    /**
      * @param newColor
      * @param index
-     * @param c the colors to set
      * @return 
      */    
     public boolean changeColor(Color newColor, int index) {
@@ -171,6 +165,11 @@ public class ColorPaletteModel {
     }
     
     public Paint getColor(int i){
+        if(classicColors) {
+            classicMap = new HashMap<>();
+            classicMap.put(32, 7);
+            //TODO set up classicMap
+        }
         if(i == 0)
             return colors[0];
         else

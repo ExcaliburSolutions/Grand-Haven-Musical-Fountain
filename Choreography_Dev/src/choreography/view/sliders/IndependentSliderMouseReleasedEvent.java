@@ -45,10 +45,9 @@ package choreography.view.sliders;
 import choreography.io.FCWLib;
 import choreography.model.cannon.CannonEnum;
 import choreography.model.fcw.FCW;
+import choreography.view.ChoreographyController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.timeline.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -56,29 +55,28 @@ import javafx.scene.input.MouseEvent;
  *
  * @author elementsking
  */
-public class SliderMouseReleasedEvent implements EventHandler<MouseEvent>{
+public class IndependentSliderMouseReleasedEvent implements EventHandler<MouseEvent>{
     
     private final CannonEnum cannonType;
-    private final String module;
-    private final CannonSliderChangeListener cscl;
+    private final IndependentCannonSliderChangeListener icscl;
     
     /**
      *
      * @param type
-     * @param module
-     * @param cscl
+     * @param icscl
      */
-    public SliderMouseReleasedEvent(CannonEnum type, String module, CannonSliderChangeListener cscl) {
+    public IndependentSliderMouseReleasedEvent(CannonEnum type, IndependentCannonSliderChangeListener icscl) {
         this.cannonType = type;
-        this.module = module;
-        this.cscl = cscl;
+        this.icscl = icscl;
     }
 
     @Override
     public void handle(MouseEvent event) {
-        String[] actions = new String[]{module, Integer.toString(cscl.getLastNumber())};
+        ChoreographyController.getInstance().stopSliderTimer();
+        ChoreographyController.getInstance().stopTimelineTimer();
+        String[] actions = new String[]{Integer.toString(icscl.getLastNumber())};
         FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
         Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
     }
-    
 }
+ 

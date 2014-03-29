@@ -380,7 +380,10 @@ public class ChoreographyController implements Initializable {
         return isAdvanced;
     }
     
-    public void startPollingSliderAlgorithm() {
+    /**
+     * Updates timeSlider in MusicPaneController every 1/8th of a second
+     */
+    public void startPollingTimeSliderAlgorithm() {
         
         sliderTimer.scheduleAtFixedRate(new TimerTask() {
 
@@ -392,7 +395,10 @@ public class ChoreographyController implements Initializable {
             }
         }, 0l, 125l);
     }
-    public void startPollingTimelineAlgorithm() {
+    
+    /**
+     */
+    public void startPollingSlidersAlgorithm() {
        
         timelineTimer.scheduleAtFixedRate(new TimerTask() {
 
@@ -400,6 +406,7 @@ public class ChoreographyController implements Initializable {
             public void run() {
                 Platform.runLater(() -> {
                     TimelineController.getInstance().fireSliderChangeEvent();
+                    Timeline.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
                 });
             }
         }, 0l, 100l);
