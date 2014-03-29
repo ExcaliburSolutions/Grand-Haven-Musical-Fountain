@@ -397,7 +397,9 @@ public class ChoreographyController implements Initializable {
     }
     
     /**
+     * Draws SIM and sets sliders every 10th of a second
      */
+    
     public void startPollingSlidersAlgorithm() {
        
         timelineTimer.scheduleAtFixedRate(new TimerTask() {

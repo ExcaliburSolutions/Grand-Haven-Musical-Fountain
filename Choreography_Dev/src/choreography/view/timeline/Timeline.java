@@ -7,6 +7,8 @@
 package choreography.view.timeline;
 
 import choreography.model.fcw.FCW;
+import choreography.model.fountain.Fountain;
+import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sliders.SlidersController;
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ public class Timeline {
         timeline = new ConcurrentSkipListMap<>();
         waterTimeline = new ConcurrentSkipListMap<>();
         lightTimeline = new ConcurrentSkipListMap<>();
+        gtfoArray = new ConcurrentSkipListMap<>();
     }
     
     public SortedMap<Integer, SortedMap<Integer, Integer>> getGtfoMap() {
@@ -260,6 +263,13 @@ public class Timeline {
        
     public boolean getActionsAtTime(int time){
     	return waterTimeline.containsKey(time);
+    }
+    
+
+    void setLightFcw(FCW f, int start, int end) {
+        SortedMap<Integer, Integer> channel = gtfoArray.get(f.getAddr());
+        setLightFcwWithRange(channel, start, end, f.getData());
+        TimelineController.getInstance().rePaintLightTimeline();
     }
     
 }
