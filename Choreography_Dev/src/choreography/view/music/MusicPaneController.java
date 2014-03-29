@@ -138,6 +138,9 @@ public class MusicPaneController {
             playButton.setText("Pause");
             ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
             ChoreographyController.getInstance().startPollingSlidersAlgorithm();
+            ChoreographyController.getInstance().startPollingColorAlgorithm();
+
+            
     	}
     	catch (Exception e){
             e.printStackTrace();

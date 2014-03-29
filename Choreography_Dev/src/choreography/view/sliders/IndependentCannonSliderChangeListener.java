@@ -3,11 +3,14 @@
  */
 package choreography.view.sliders;
 
+import choreography.io.FCWLib;
+import choreography.model.cannon.IndependentCannon;
+import choreography.model.fcw.FCW;
+import choreography.view.ChoreographyController;
+import choreography.view.music.MusicPaneController;
+import choreography.view.timeline.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import choreography.model.cannon.IndependentCannon;
-import choreography.io.FCWLib;
-import choreography.view.ChoreographyController;
 
 /**
  * @author madridf
@@ -44,7 +47,7 @@ public class IndependentCannonSliderChangeListener implements ChangeListener<Num
             ChoreographyController.getInstance().setfcwOutput(
                 f.toString());
             Timeline.getInstance().setWaterFcwAtPoint(
-                    MusicPaneController.getInstance().getTenthsTime(), f);
+                MusicPaneController.getInstance().getTenthsTime(), f);
 	}
 
     public int getLastNumber() {

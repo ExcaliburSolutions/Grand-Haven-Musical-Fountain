@@ -10,7 +10,9 @@ import choreography.model.fcw.FCW;
 import choreography.model.fountain.Fountain;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
+import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -260,6 +262,13 @@ public class Timeline {
         if(waterTimeline.containsKey(time))
             SlidersController.getInstance().setSlidersWithFcw(waterTimeline.get(time));
     }
+    
+//    public void updateColorsLists(int time){
+//    	for (int channel: gtfoArray.keySet()){
+//    		for()
+//    	}
+//    	FountainSimController.getInstance().getFrontCurtain().setFill(arg0);
+//    }
        
     public boolean getActionsAtTime(int time){
     	return waterTimeline.containsKey(time);

@@ -411,6 +411,9 @@ public class FountainSimController implements Initializable {
     @FXML
     private Line mod7candle6;
     
+    @FXML
+    private Rectangle spoutRec;
+    
 	private static Stage principalStage;
 	Timeline timelingRing1;
 
@@ -1522,6 +1525,14 @@ public class FountainSimController implements Initializable {
 
 	public void setMod7candle6(Line mod7candle6) {
 		this.mod7candle6 = mod7candle6;
+	}
+
+	public Rectangle getSpoutRec() {
+		return spoutRec;
+	}
+
+	public void setSpoutRec(Rectangle spoutRec) {
+		this.spoutRec = spoutRec;
 	}
 
 

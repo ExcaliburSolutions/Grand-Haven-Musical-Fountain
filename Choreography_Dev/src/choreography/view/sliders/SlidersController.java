@@ -914,6 +914,21 @@ public class SlidersController {
      			}
      		});
      		
+     		sp.valueProperty().addListener(new ChangeListener<Number>() {
+     			@Override
+     			public void changed(ObservableValue<? extends Number> observable,
+     					Number oldValue, Number newValue) {
+     				final Timeline timeline = new Timeline();
+     				timeline.setCycleCount(1);
+     				//timeline.setAutoReverse(true);
+     				final KeyValue kv1 = new KeyValue(FountainSimController.getInstance().getSpoutRec().heightProperty(), ((40*newValue.doubleValue())));
+     				
+     				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
+     				timeline.getKeyFrames().add(kf);
+     				timeline.play();     				
+     			}
+     		});
+     		
      	// Listen for Slider value changes
      		mxA.valueProperty().addListener(new ChangeListener<Number>() {
      			@Override

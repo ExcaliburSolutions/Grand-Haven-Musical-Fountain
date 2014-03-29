@@ -17,7 +17,7 @@ import javafx.util.Duration;
  *
  */
 public class FtCurt extends IndependentCannon {
-
+    /**
     * @param level
      */
     public FtCurt(int level) {
