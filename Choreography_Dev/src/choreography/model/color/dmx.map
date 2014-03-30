@@ -7,7 +7,7 @@
 // The first color is always 000000 (black/off), and the last palette is always FFFFFF (white/full power).
 // List only the values between the first and last.
 // Jukebox version 2.00 will process up to 14 values.
-000000 // Black
+// 000000 // Black
 FF0000 // Red
 FF1900 // Orange
 FFC800 // Yellow

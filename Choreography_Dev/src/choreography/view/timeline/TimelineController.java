@@ -613,7 +613,6 @@ public class TimelineController implements Initializable {
     public void updateColors(int time){
     	SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
     	for (int channel: gtfoArray.keySet()){
-    		
     		Paint color = lightRecArray[time][lightRowLookupNumber(channel)].getFill();
     		if(channel == 17){
         		FountainSimController.getInstance().getMod1ring1().setFill(color);

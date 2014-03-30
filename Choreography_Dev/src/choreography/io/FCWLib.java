@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -297,6 +298,23 @@ public final class FCWLib {
         return result;
     }
     
+//    public synchronized String[] reverseLookupLegacyColor(int c) {
+//        case 24:
+//                List<String> rejected = new ArrayList<>();
+//                rejected.add("RED");rejected.add("BLUE");
+//                rejected.add("AMBER"); rejected.add(("White"));
+//                actions.removeAll(rejected); //Only Green Yellow  
+//                break;
+//            case 25:case 26:case 27:case 41:
+//                actions.remove("WHITE"); //No white
+//                break;
+//            case 17:case 18:case 19:case 20:case 21:case 22:case 23:
+//            case 49:case 50:case 51:case 52:case 53:  
+////                actions.remove("OFF"); //No change
+//                break;
+//        return reverseLookupData(new FCW(17, c));
+//    }
+    
     /**
      *
      * @param f
@@ -376,7 +394,8 @@ public final class FCWLib {
                 actions.remove("MODULEB");
                 break;
             case 9:
-                
+                break;
+            
         }
 //        }
     }

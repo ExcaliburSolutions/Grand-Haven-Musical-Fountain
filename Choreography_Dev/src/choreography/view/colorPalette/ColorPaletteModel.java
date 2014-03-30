@@ -79,15 +79,35 @@ public class ColorPaletteModel {
      */
     public void setClassicColors(boolean aClassicColors) {
         classicColors = aClassicColors;
-        colors = new Color[32];
-        MapLib.openMap(new File("src/choreography/model/color/legacy.map"));
-        ColorPaletteController.getInstance().rePaint();
+//        colors = new Color[32];
+//        MapLib.openMap(new File("src/choreography/model/color/legacy.map"));
+        classicMap = new HashMap<>();
+        classicMap.put(1, 1);
+        classicMap.put(2, 5);
+        classicMap.put(3, 6);
+        classicMap.put(4, 3);
+        classicMap.put(5, 2);
+        classicMap.put(6, 4);
+        classicMap.put(7, 13);
+        classicMap.put(8, 15);
+        classicMap.put(9, 7);
+        classicMap.put(10, 11);
+        classicMap.put(11, 12);
+        classicMap.put(12, 9);
+        classicMap.put(13, 8);
+        classicMap.put(14, 10);
+        classicMap.put(15, 14);
+        classicMap.put(16, 4);
+        classicMap.put(32, 3);
+        classicMap.put(48, 10);
+        classicMap.put(-1, 2);
+//        ColorPaletteController.getInstance().rePaint();
     }
     
     public ColorPaletteModel() {
         colors = new Color[32];
         availableColors = 16;
-        
+        classicMap = new HashMap<>(32);
 //        colors[0] = Color.web(ColorPaletteEnum.RED.getColor()); // red
 //        colors[1] = Color.web(ColorPaletteEnum.ORANGE.getColor()); // orange
 //        colors[2] = Color.web(ColorPaletteEnum.YELLOW.getColor()); // yellow
@@ -166,14 +186,18 @@ public class ColorPaletteModel {
     
     public Paint getColor(int i){
         if(classicColors) {
-            classicMap = new HashMap<>();
-            classicMap.put(32, 7);
-            //TODO set up classicMap
+            if(i == 0) {
+                return Color.web(ColorPaletteEnum.OFF.getColor());
+            }
+            return colors[classicMap.get(i) - 1];
         }
-        if(i == 0)
-            return colors[0];
-        else
-            return colors[i - 1];
+        else {
+            if(i == 0)
+                return colors[0];
+            else
+                return colors[i - 1];
+        }
+//        throw new IllegalArgumentException(i + "isn't a valid color reference...");
     }
 
     public void setColors(Color[] parseMap) {

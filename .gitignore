@@ -72,3 +72,5 @@ Choreography_Dev/nbproject/project.xml
 Choreography_Dev/nbproject/project.xml
 
 Choreography_Dev/nbproject/private/profiler/configurations.xml
+
+*.properties
