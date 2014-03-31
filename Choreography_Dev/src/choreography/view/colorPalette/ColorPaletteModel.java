@@ -124,7 +124,7 @@ public class ColorPaletteModel {
 //        colors[13] = Color.web(ColorPaletteEnum.CYAN.getColor()); // cyan
 //        colors[14] = Color.web(ColorPaletteEnum.OFF.getColor()); // black/Off
 //        colors[15] = Color.web(ColorPaletteEnum.WHITE.getColor()); // white/On
-               	
+            	
         
         }
     
