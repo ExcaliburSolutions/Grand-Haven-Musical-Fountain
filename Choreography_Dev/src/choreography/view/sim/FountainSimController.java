@@ -3,6 +3,7 @@ package choreography.view.sim;
 
 import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -448,6 +450,17 @@ public class FountainSimController implements Initializable {
                     actionsList.add(s);
                 }
                 switch(f.getAddr()) {
+                
+                	case 7:
+                		if(actionsList.contains("SPOUT")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawSpout(level);
+                		}
+                		else if(actionsList.contains("BAZOOKA")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawBazooka(level);
+                		}
+                		
                     case 9:
                         if(actionsList.contains("FTCURT")) {
                             int level = FCWLib.getInstance().reverseGetLevel(f);
@@ -457,7 +470,10 @@ public class FountainSimController implements Initializable {
                             int level = FCWLib.getInstance().reverseGetLevel(f);
                             drawPeacock(level);
                         }
-                       
+                        else if(actionsList.contains("BKCURT")) {
+                            int level = FCWLib.getInstance().reverseGetLevel(f);
+                            drawBkCurtain(level);
+                        }                       
                 }
             }
         }
@@ -473,12 +489,192 @@ public class FountainSimController implements Initializable {
     public void drawFtCurtain(int level) {
         final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
-        //timeline.setAutoReverse(true);
         final KeyValue kv1 = new KeyValue(frontCurtain.heightProperty(), ((40*level)));
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
         timeline.getKeyFrames().add(kf);
         timeline.play();     				
-//        System.out.println(newValue);
+    }
+    
+    public void drawBkCurtain(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(backCurtain.heightProperty(), ((40*level)));
+			
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();     				
+    }
+    
+    public void drawRing1A(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod3ring1.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod5ring1.heightProperty(), ((35*level)));
+			final KeyValue kv4 = new KeyValue(mod7ring1.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+			timeline.getKeyFrames().add(kf);
+			timeline.play(); 
+    }
+    
+    public void drawRing1B(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod6ring1.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing2A(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod1ring2.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod3ring2.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod5ring2.heightProperty(), ((35*level)));
+			final KeyValue kv4 = new KeyValue(mod7ring2.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing2B(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod2ring2.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod4ring2.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod6ring2.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing3A(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod1ring3.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod3ring3.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod5ring3.heightProperty(), ((35*level)));
+			final KeyValue kv4 = new KeyValue(mod7ring3.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing3B(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod2ring3.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod4ring3.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod6ring3.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing4A(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod1ring4.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod3ring4.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod5ring4.heightProperty(), ((35*level)));
+			final KeyValue kv4 = new KeyValue(mod7ring4.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing4B(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod2ring4.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod4ring4.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod6ring4.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing5A(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod1ring5.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod3ring5.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod5ring5.heightProperty(), ((35*level)));
+			final KeyValue kv4 = new KeyValue(mod7ring5.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawRing5B(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(mod2ring5.heightProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod4ring5.heightProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod6ring5.heightProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+    
+    public void drawSpout(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			final KeyValue kv1 = new KeyValue(spoutRec.heightProperty(), ((40*level)));
+			
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
+			timeline.getKeyFrames().add(kf);
+			timeline.play(); 				
+    }
+    
+    public void drawBazooka(int level){
+    	final Timeline timeline = new Timeline();
+			KeyValue kv2 = null;
+			KeyValue kv3 = null;
+			KeyValue kv4 = null;
+			KeyValue kv5 = null;
+			KeyValue kv6 = null;
+			KeyValue kv7 = null;
+
+			timeline.setCycleCount(1);
+			if (level > 0.0){
+				bazooka1.setVisible(true);
+				bazooka2.setVisible(true);
+				
+				kv2 = new KeyValue(bazooka1.endXProperty(), (10+(100*level)));
+				kv3 = new KeyValue(bazooka1.endYProperty(), (5+(47*level)));
+				kv4 = new KeyValue(bazooka2.endXProperty(), (10+1320-(100*level)));
+				kv5 = new KeyValue(bazooka2.endYProperty(), (5+(47*level)));
+
+
+			}
+			else{
+				
+				kv2 = new KeyValue(bazooka1.endXProperty(), (10+(100*level)));
+				kv3 = new KeyValue(bazooka1.endYProperty(), (10+(47*level)));
+				kv4 = new KeyValue(bazooka2.endXProperty(), (1310-(100*level)));
+				kv5 = new KeyValue(bazooka2.endYProperty(), (10+(47*level)));
+				kv6 = new KeyValue(bazooka1.visibleProperty(), false);
+				kv7 = new KeyValue(bazooka2.visibleProperty(), false);
+				
+			}
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv2, kv3, kv4, kv5, kv6, kv7);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();  
     }
     
     public void drawPeacock(int level) {
@@ -595,6 +791,608 @@ public class FountainSimController implements Initializable {
         timeline.play();  
      				
         }
+    
+    public void drawSweepsA(int level){
+    		final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			
+			KeyValue kv25 = null;
+			KeyValue kv26 = null;
+			KeyValue kv27 = null;
+			KeyValue kv28 = null;
+			KeyValue kv29 = null;
+			KeyValue kv30 = null;
+			KeyValue kv31 = null;
+			KeyValue kv32 = null;
+		
+			mod1sweep1.setVisible(true);
+			mod1sweep2.setVisible(true);
+			mod3sweep1.setVisible(true);
+			mod3sweep2.setVisible(true);
+			mod5sweep1.setVisible(true);
+			mod5sweep2.setVisible(true);
+			mod7sweep1.setVisible(true);
+			mod7sweep2.setVisible(true);
+		
+		if (level==0){
+			kv25 = new KeyValue(mod1sweep1.visibleProperty(), false);
+			kv26 = new KeyValue(mod1sweep2.visibleProperty(), false);
+			
+			kv27 = new KeyValue(mod3sweep1.visibleProperty(), false);
+			kv28 = new KeyValue(mod3sweep2.visibleProperty(), false);
+			
+			kv29 = new KeyValue(mod5sweep1.visibleProperty(), false);
+			kv30 = new KeyValue(mod5sweep2.visibleProperty(), false);
+			
+			kv31 = new KeyValue(mod7sweep1.visibleProperty(), false);
+			kv32 = new KeyValue(mod7sweep2.visibleProperty(), false);
+		}
+			
+			
+			final KeyValue kv1 = new KeyValue(mod1sweep1.endYProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod1sweep2.endYProperty(), ((35*level)));
+			
+			final KeyValue kv7 = new KeyValue(mod3sweep1.endYProperty(), ((35*level)));
+			final KeyValue kv8 = new KeyValue(mod3sweep2.endYProperty(), ((35*level)));
+			
+			final KeyValue kv13 = new KeyValue(mod5sweep1.endYProperty(), ((35*level)));
+			final KeyValue kv14 = new KeyValue(mod5sweep2.endYProperty(), ((35*level)));
+			
+			final KeyValue kv19 = new KeyValue(mod7sweep1.endYProperty(), ((35*level)));
+			final KeyValue kv20 = new KeyValue(mod7sweep2.endYProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv7, kv8, kv13, 
+																	kv14, kv14, kv19, kv20,
+																	kv25, kv26, kv27, kv28,
+																	kv29, kv30, kv31, kv32);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();     				
+    }
+    
+    public void drawSweepsB(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			
+			KeyValue kv15 = null;
+			KeyValue kv16 = null;
+			KeyValue kv17 = null;
+			KeyValue kv18 = null;
+			KeyValue kv19 = null;
+			KeyValue kv20 = null;
+			
+			mod2sweep1.setVisible(true);
+			mod2sweep2.setVisible(true);
+			mod4sweep1.setVisible(true);
+			mod4sweep2.setVisible(true);
+			mod6sweep1.setVisible(true);
+			mod6sweep2.setVisible(true);
+
+			if (level==0){
+				kv15 = new KeyValue(mod2sweep1.visibleProperty(), false);
+				kv16 = new KeyValue(mod2sweep2.visibleProperty(), false);
+				
+				kv17 = new KeyValue(mod4sweep1.visibleProperty(), false);
+				kv18 = new KeyValue(mod4sweep2.visibleProperty(), false);
+				
+				kv19 = new KeyValue(mod6sweep1.visibleProperty(), false);
+				kv20 = new KeyValue(mod6sweep2.visibleProperty(), false);
+			}
+			
+			final KeyValue kv1 = new KeyValue(mod2sweep1.endYProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod2sweep2.endYProperty(), ((35*level)));
+			
+			final KeyValue kv7 = new KeyValue(mod4sweep1.endYProperty(), ((35*level)));
+			final KeyValue kv8 = new KeyValue(mod4sweep2.endYProperty(), ((35*level)));
+			
+			final KeyValue kv13 = new KeyValue(mod6sweep1.endYProperty(), ((35*level)));
+			final KeyValue kv14 = new KeyValue(mod6sweep2.endYProperty(), ((35*level)));
+			
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv7, kv8, kv13, 
+																	kv14, kv15, kv16, kv17, kv18, kv19, kv20);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+    
+    public void drawMultiA(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			
+			KeyValue kv1 = null;
+			KeyValue kv2 = null;
+			KeyValue kv3 = null;
+			KeyValue kv4 = null;
+			KeyValue kv5 = null;
+			KeyValue kv6 = null;
+			KeyValue kv7 = null;
+			KeyValue kv8 = null;
+			KeyValue kv9 = null;
+			KeyValue kv10 = null;
+			KeyValue kv11 = null;
+			KeyValue kv12 = null;
+			KeyValue kv13 = null;
+			KeyValue kv14 = null;
+			KeyValue kv15 = null;
+			KeyValue kv16 = null;
+			KeyValue kv17 = null;
+			KeyValue kv18 = null;
+			KeyValue kv19 = null;
+			KeyValue kv20 = null;
+			KeyValue kv21 = null;
+			//timeline.setAutoReverse(true);
+			if(level == 1.0 || level == 0.0 ){
+			kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*level)));
+			kv2 = new KeyValue(mod3ring1.heightProperty(), ((35*level)));
+			kv3 = new KeyValue(mod5ring1.heightProperty(), ((35*level)));
+			kv4 = new KeyValue(mod7ring1.heightProperty(), ((35*level)));
+			kv5 = new KeyValue(mod1ring2.heightProperty(), ((35*level)));
+			kv6 = new KeyValue(mod3ring2.heightProperty(), ((35*level)));
+			kv7 = new KeyValue(mod5ring2.heightProperty(), ((35*level)));
+			kv8 = new KeyValue(mod7ring2.heightProperty(), ((35*level)));
+			kv9 = new KeyValue(mod1ring3.heightProperty(), ((35*level)));
+			kv10 = new KeyValue(mod3ring3.heightProperty(), ((35*level)));
+			kv11 = new KeyValue(mod5ring3.heightProperty(), ((35*level)));
+			kv12 = new KeyValue(mod7ring3.heightProperty(), ((35*level)));
+			kv13 = new KeyValue(mod1ring4.heightProperty(), ((35*level)));
+			kv14 = new KeyValue(mod3ring4.heightProperty(), ((35*level)));
+			kv15 = new KeyValue(mod5ring4.heightProperty(), ((35*level)));
+			kv16 = new KeyValue(mod7ring4.heightProperty(), ((35*level)));
+			kv17 = new KeyValue(mod1ring5.heightProperty(), ((35*level)));
+			kv18 = new KeyValue(mod3ring5.heightProperty(), ((35*level)));
+			kv19 = new KeyValue(mod5ring5.heightProperty(), ((35*level)));
+			kv20 = new KeyValue(mod7ring5.heightProperty(), ((35*level)));
+			}
+			
+			if(level == 2.0){
+				kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*(level-1))));
+				kv2 = new KeyValue(mod3ring1.heightProperty(), ((35*(level-1))));
+				kv3 = new KeyValue(mod5ring1.heightProperty(), ((35*(level-1))));
+				kv4 = new KeyValue(mod7ring1.heightProperty(), ((35*(level-1))));
+				kv5 = new KeyValue(mod1ring2.heightProperty(), ((35*level)));
+				kv6 = new KeyValue(mod3ring2.heightProperty(), ((35*level)));
+				kv7 = new KeyValue(mod5ring2.heightProperty(), ((35*level)));
+				kv8 = new KeyValue(mod7ring2.heightProperty(), ((35*level)));
+				kv9 = new KeyValue(mod1ring3.heightProperty(), ((35*level)));
+				kv10 = new KeyValue(mod3ring3.heightProperty(), ((35*level)));
+				kv11 = new KeyValue(mod5ring3.heightProperty(), ((35*level)));
+				kv12 = new KeyValue(mod7ring3.heightProperty(), ((35*level)));
+				kv13 = new KeyValue(mod1ring4.heightProperty(), ((35*level)));
+				kv14 = new KeyValue(mod3ring4.heightProperty(), ((35*level)));
+				kv15 = new KeyValue(mod5ring4.heightProperty(), ((35*level)));
+				kv16 = new KeyValue(mod7ring4.heightProperty(), ((35*level)));
+				kv17 = new KeyValue(mod1ring5.heightProperty(), ((35*level)));
+				kv18 = new KeyValue(mod3ring5.heightProperty(), ((35*level)));
+				kv19 = new KeyValue(mod5ring5.heightProperty(), ((35*level)));
+				kv20 = new KeyValue(mod7ring5.heightProperty(), ((35*level)));
+			}
+			
+			if(level == 3.0){
+				kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*(level-2))));
+				kv2 = new KeyValue(mod3ring1.heightProperty(), ((35*(level-2))));
+				kv3 = new KeyValue(mod5ring1.heightProperty(), ((35*(level-2))));
+				kv4 = new KeyValue(mod7ring1.heightProperty(), ((35*(level-2))));
+				kv5 = new KeyValue(mod1ring2.heightProperty(), ((35*(level-1))));
+				kv6 = new KeyValue(mod3ring2.heightProperty(), ((35*(level-1))));
+				kv7 = new KeyValue(mod5ring2.heightProperty(), ((35*(level-1))));
+				kv8 = new KeyValue(mod7ring2.heightProperty(), ((35*(level-1))));
+				kv9 = new KeyValue(mod1ring3.heightProperty(), ((35*(level-0))));
+				kv10 = new KeyValue(mod3ring3.heightProperty(), ((35*(level-0))));
+				kv11 = new KeyValue(mod5ring3.heightProperty(), ((35*(level-0))));
+				kv12 = new KeyValue(mod7ring3.heightProperty(), ((35*(level-0))));
+				kv13 = new KeyValue(mod1ring4.heightProperty(), ((35*(level-0))));
+				kv14 = new KeyValue(mod3ring4.heightProperty(), ((35*(level-0))));
+				kv15 = new KeyValue(mod5ring4.heightProperty(), ((35*(level-0))));
+				kv16 = new KeyValue(mod7ring4.heightProperty(), ((35*(level-0))));
+				kv17 = new KeyValue(mod1ring5.heightProperty(), ((35*(level-0))));
+				kv18 = new KeyValue(mod3ring5.heightProperty(), ((35*(level-0))));
+				kv19 = new KeyValue(mod5ring5.heightProperty(), ((35*(level-0))));
+				kv20 = new KeyValue(mod7ring5.heightProperty(), ((35*(level-0))));
+			}
+			
+			if(level == 4.0){
+				kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*(level-3))));
+				kv2 = new KeyValue(mod3ring1.heightProperty(), ((35*(level-3))));
+				kv3 = new KeyValue(mod5ring1.heightProperty(), ((35*(level-3))));
+				kv4 = new KeyValue(mod7ring1.heightProperty(), ((35*(level-3))));
+				kv5 = new KeyValue(mod1ring2.heightProperty(), ((35*(level-2))));
+				kv6 = new KeyValue(mod3ring2.heightProperty(), ((35*(level-2))));
+				kv7 = new KeyValue(mod5ring2.heightProperty(), ((35*(level-2))));
+				kv8 = new KeyValue(mod7ring2.heightProperty(), ((35*(level-2))));
+				kv9 = new KeyValue(mod1ring3.heightProperty(), ((35*(level-1))));
+				kv10 = new KeyValue(mod3ring3.heightProperty(), ((35*(level-1))));
+				kv11 = new KeyValue(mod5ring3.heightProperty(), ((35*(level-1))));
+				kv12 = new KeyValue(mod7ring3.heightProperty(), ((35*(level-1))));
+				kv13 = new KeyValue(mod1ring4.heightProperty(), ((35*(level-0))));
+				kv14 = new KeyValue(mod3ring4.heightProperty(), ((35*(level-0))));
+				kv15 = new KeyValue(mod5ring4.heightProperty(), ((35*(level-0))));
+				kv16 = new KeyValue(mod7ring4.heightProperty(), ((35*(level-0))));
+				kv17 = new KeyValue(mod1ring5.heightProperty(), ((35*(level-0))));
+				kv18 = new KeyValue(mod3ring5.heightProperty(), ((35*(level-0))));
+				kv19 = new KeyValue(mod5ring5.heightProperty(), ((35*(level-0))));
+				kv20 = new KeyValue(mod7ring5.heightProperty(), ((35*(level-0))));
+			}
+			
+			if(level == 5.0){
+				kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*(level-4))));
+				kv2 = new KeyValue(mod3ring1.heightProperty(), ((35*(level-4))));
+				kv3 = new KeyValue(mod5ring1.heightProperty(), ((35*(level-4))));
+				kv4 = new KeyValue(mod7ring1.heightProperty(), ((35*(level-4))));
+				kv5 = new KeyValue(mod1ring2.heightProperty(), ((35*(level-3))));
+				kv6 = new KeyValue(mod3ring2.heightProperty(), ((35*(level-3))));
+				kv7 = new KeyValue(mod5ring2.heightProperty(), ((35*(level-3))));
+				kv8 = new KeyValue(mod7ring2.heightProperty(), ((35*(level-3))));
+				kv9 = new KeyValue(mod1ring3.heightProperty(), ((35*(level-2))));
+				kv10 = new KeyValue(mod3ring3.heightProperty(), ((35*(level-2))));
+				kv11 = new KeyValue(mod5ring3.heightProperty(), ((35*(level-2))));
+				kv12 = new KeyValue(mod7ring3.heightProperty(), ((35*(level-2))));
+				kv13 = new KeyValue(mod1ring4.heightProperty(), ((35*(level-1))));
+				kv14 = new KeyValue(mod3ring4.heightProperty(), ((35*(level-1))));
+				kv15 = new KeyValue(mod5ring4.heightProperty(), ((35*(level-1))));
+				kv16 = new KeyValue(mod7ring4.heightProperty(), ((35*(level-1))));
+				kv17 = new KeyValue(mod1ring5.heightProperty(), ((35*(level-0))));
+				kv18 = new KeyValue(mod3ring5.heightProperty(), ((35*(level-0))));
+				kv19 = new KeyValue(mod5ring5.heightProperty(), ((35*(level-0))));
+				kv20 = new KeyValue(mod7ring5.heightProperty(), ((35*(level-0))));
+			}
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4,
+																	kv5, kv6, kv7, kv8,
+																	kv9, kv10, kv11, kv12,
+																	kv13, kv14, kv15, kv16,
+																	kv17, kv18, kv19, kv20);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawMultiB(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			
+			KeyValue kv1 = null;
+			KeyValue kv2 = null;
+			KeyValue kv3 = null;
+			KeyValue kv4 = null;
+			KeyValue kv5 = null;
+			KeyValue kv6 = null;
+			KeyValue kv7 = null;
+			KeyValue kv8 = null;
+			KeyValue kv9 = null;
+			KeyValue kv10 = null;
+			KeyValue kv11 = null;
+			KeyValue kv12 = null;
+			KeyValue kv13 = null;
+			KeyValue kv14 = null;
+			KeyValue kv15 = null;
+			KeyValue kv16 = null;
+			KeyValue kv17 = null;
+			KeyValue kv18 = null;
+			KeyValue kv19 = null;
+			KeyValue kv20 = null;
+			KeyValue kv21 = null;
+			
+			if(level == 1.0 || level == 0.0 ){
+			kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*level)));
+			kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*level)));
+			kv3 = new KeyValue(mod6ring1.heightProperty(), ((35*level)));
+			kv5 = new KeyValue(mod2ring2.heightProperty(), ((35*level)));
+			kv6 = new KeyValue(mod4ring2.heightProperty(), ((35*level)));
+			kv7 = new KeyValue(mod6ring2.heightProperty(), ((35*level)));
+			kv9 = new KeyValue(mod2ring3.heightProperty(), ((35*level)));
+			kv10 = new KeyValue(mod4ring3.heightProperty(), ((35*level)));
+			kv11 = new KeyValue(mod6ring3.heightProperty(), ((35*level)));
+			kv13 = new KeyValue(mod2ring4.heightProperty(), ((35*level)));
+			kv14 = new KeyValue(mod4ring4.heightProperty(), ((35*level)));
+			kv15 = new KeyValue(mod6ring4.heightProperty(), ((35*level)));
+			kv17 = new KeyValue(mod2ring5.heightProperty(), ((35*level)));
+			kv18 = new KeyValue(mod4ring5.heightProperty(), ((35*level)));
+			kv19 = new KeyValue(mod6ring5.heightProperty(), ((35*level)));
+			}
+			
+			if(level == 2.0){
+				kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*(level-1))));
+				kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*(level-1))));
+				kv3 = new KeyValue(mod6ring1.heightProperty(), ((35*(level-1))));
+				kv5 = new KeyValue(mod2ring2.heightProperty(), ((35*level)));
+				kv6 = new KeyValue(mod4ring2.heightProperty(), ((35*level)));
+				kv7 = new KeyValue(mod6ring2.heightProperty(), ((35*level)));
+				kv9 = new KeyValue(mod2ring3.heightProperty(), ((35*level)));
+				kv10 = new KeyValue(mod4ring3.heightProperty(), ((35*level)));
+				kv11 = new KeyValue(mod6ring3.heightProperty(), ((35*level)));
+				kv13 = new KeyValue(mod2ring4.heightProperty(), ((35*level)));
+				kv14 = new KeyValue(mod4ring4.heightProperty(), ((35*level)));
+				kv15 = new KeyValue(mod6ring4.heightProperty(), ((35*level)));
+				kv17 = new KeyValue(mod2ring5.heightProperty(), ((35*level)));
+				kv18 = new KeyValue(mod4ring5.heightProperty(), ((35*level)));
+				kv19 = new KeyValue(mod6ring5.heightProperty(), ((35*level)));
+			}
+			
+			if(level == 3.0){
+				kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*(level-2))));
+				kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*(level-2))));
+				kv3 = new KeyValue(mod6ring1.heightProperty(), ((35*(level-2))));
+				kv5 = new KeyValue(mod2ring2.heightProperty(), ((35*(level-1))));
+				kv6 = new KeyValue(mod4ring2.heightProperty(), ((35*(level-1))));
+				kv7 = new KeyValue(mod6ring2.heightProperty(), ((35*(level-1))));
+				kv9 = new KeyValue(mod2ring3.heightProperty(), ((35*(level-0))));
+				kv10 = new KeyValue(mod4ring3.heightProperty(), ((35*(level-0))));
+				kv11 = new KeyValue(mod6ring3.heightProperty(), ((35*(level-0))));
+				kv13 = new KeyValue(mod2ring4.heightProperty(), ((35*(level-0))));
+				kv14 = new KeyValue(mod4ring4.heightProperty(), ((35*(level-0))));
+				kv15 = new KeyValue(mod6ring4.heightProperty(), ((35*(level-0))));
+				kv17 = new KeyValue(mod2ring5.heightProperty(), ((35*(level-0))));
+				kv18 = new KeyValue(mod4ring5.heightProperty(), ((35*(level-0))));
+				kv19 = new KeyValue(mod6ring5.heightProperty(), ((35*(level-0))));
+			}
+			
+			if(level == 4.0){
+				kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*(level-3))));
+				kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*(level-3))));
+				kv3 = new KeyValue(mod6ring1.heightProperty(), ((35*(level-3))));
+				kv5 = new KeyValue(mod2ring2.heightProperty(), ((35*(level-2))));
+				kv6 = new KeyValue(mod4ring2.heightProperty(), ((35*(level-2))));
+				kv7 = new KeyValue(mod6ring2.heightProperty(), ((35*(level-2))));
+				kv9 = new KeyValue(mod2ring3.heightProperty(), ((35*(level-1))));
+				kv10 = new KeyValue(mod4ring3.heightProperty(), ((35*(level-1))));
+				kv11 = new KeyValue(mod6ring3.heightProperty(), ((35*(level-1))));
+				kv13 = new KeyValue(mod2ring4.heightProperty(), ((35*(level-0))));
+				kv14 = new KeyValue(mod4ring4.heightProperty(), ((35*(level-0))));
+				kv15 = new KeyValue(mod6ring4.heightProperty(), ((35*(level-0))));
+				kv17 = new KeyValue(mod2ring5.heightProperty(), ((35*(level-0))));
+				kv18 = new KeyValue(mod4ring5.heightProperty(), ((35*(level-0))));
+				kv19 = new KeyValue(mod6ring5.heightProperty(), ((35*(level-0))));
+			}
+			
+			if(level == 5.0){
+				kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*(level-4))));
+				kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*(level-4))));
+				kv3 = new KeyValue(mod6ring1.heightProperty(), ((35*(level-4))));
+				kv5 = new KeyValue(mod2ring2.heightProperty(), ((35*(level-3))));
+				kv6 = new KeyValue(mod4ring2.heightProperty(), ((35*(level-3))));
+				kv7 = new KeyValue(mod6ring2.heightProperty(), ((35*(level-3))));
+				kv9 = new KeyValue(mod2ring3.heightProperty(), ((35*(level-2))));
+				kv10 = new KeyValue(mod4ring3.heightProperty(), ((35*(level-2))));
+				kv11 = new KeyValue(mod6ring3.heightProperty(), ((35*(level-2))));
+				kv13 = new KeyValue(mod2ring4.heightProperty(), ((35*(level-1))));
+				kv14 = new KeyValue(mod4ring4.heightProperty(), ((35*(level-1))));
+				kv15 = new KeyValue(mod6ring4.heightProperty(), ((35*(level-1))));
+				kv17 = new KeyValue(mod2ring5.heightProperty(), ((35*(level-0))));
+				kv18 = new KeyValue(mod4ring5.heightProperty(), ((35*(level-0))));
+				kv19 = new KeyValue(mod6ring5.heightProperty(), ((35*(level-0))));
+			}
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3,
+																	kv5, kv6, kv7,
+																	kv9, kv10, kv11,
+																	kv13, kv14, kv15,
+																	kv17, kv18, kv19);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+    
+    public void drawCandlesA(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+			
+			KeyValue kv25 = null;
+			KeyValue kv26 = null;
+			KeyValue kv27 = null;
+			KeyValue kv28 = null;
+			KeyValue kv29 = null;
+			KeyValue kv30 = null;
+			KeyValue kv31 = null;
+			KeyValue kv32 = null;
+			KeyValue kv33 = null;
+			KeyValue kv34 = null;
+			KeyValue kv35 = null;
+			KeyValue kv36 = null;
+			KeyValue kv37 = null;
+			KeyValue kv38 = null;
+			KeyValue kv39 = null;
+			KeyValue kv40 = null;
+			KeyValue kv41 = null;
+			KeyValue kv42 = null;
+			KeyValue kv43 = null;
+			KeyValue kv44 = null;
+			KeyValue kv45 = null;
+			KeyValue kv46 = null;
+			KeyValue kv47 = null;
+			KeyValue kv48 = null;
+			mod1candle1.setVisible(true);
+			mod1candle2.setVisible(true);
+			mod1candle3.setVisible(true);
+			mod1candle4.setVisible(true);
+			mod1candle5.setVisible(true);
+			mod1candle6.setVisible(true);
+			mod3candle1.setVisible(true);
+			mod3candle2.setVisible(true);
+			mod3candle3.setVisible(true);
+			mod3candle4.setVisible(true);
+			mod3candle5.setVisible(true);
+			mod3candle6.setVisible(true);
+			mod5candle1.setVisible(true);
+			mod5candle2.setVisible(true);
+			mod5candle3.setVisible(true);
+			mod5candle4.setVisible(true);
+			mod5candle5.setVisible(true);
+			mod5candle6.setVisible(true);
+			mod7candle1.setVisible(true);
+			mod7candle2.setVisible(true);
+			mod7candle3.setVisible(true);
+			mod7candle4.setVisible(true);
+			mod7candle5.setVisible(true);
+			mod7candle6.setVisible(true);
+
+
+			
+			
+			if (level==0){
+				kv25 = new KeyValue(mod1candle1.visibleProperty(), false);
+				kv26 = new KeyValue(mod1candle2.visibleProperty(), false);      				
+				kv27 = new KeyValue(mod1candle3.visibleProperty(), false);
+				kv28 = new KeyValue(mod1candle4.visibleProperty(), false);      				
+				kv29 = new KeyValue(mod1candle5.visibleProperty(), false);
+				kv30 = new KeyValue(mod1candle6.visibleProperty(), false);
+				
+				kv31 = new KeyValue(mod3candle1.visibleProperty(), false);
+				kv32 = new KeyValue(mod3candle2.visibleProperty(), false);      				
+				kv33 = new KeyValue(mod3candle3.visibleProperty(), false);
+				kv34 = new KeyValue(mod3candle4.visibleProperty(), false);      				
+				kv35 = new KeyValue(mod3candle5.visibleProperty(), false);
+				kv36 = new KeyValue(mod3candle6.visibleProperty(), false);
+				
+				kv37 = new KeyValue(mod5candle1.visibleProperty(), false);
+				kv38 = new KeyValue(mod5candle2.visibleProperty(), false);      				
+				kv39 = new KeyValue(mod5candle3.visibleProperty(), false);
+				kv40 = new KeyValue(mod5candle4.visibleProperty(), false);      				
+				kv41 = new KeyValue(mod5candle5.visibleProperty(), false);
+				kv42 = new KeyValue(mod5candle6.visibleProperty(), false);
+			
+				kv43 = new KeyValue(mod7candle1.visibleProperty(), false);
+				kv44 = new KeyValue(mod7candle2.visibleProperty(), false);      				
+				kv45 = new KeyValue(mod7candle3.visibleProperty(), false);
+				kv46 = new KeyValue(mod7candle4.visibleProperty(), false);      				
+				kv47 = new KeyValue(mod7candle5.visibleProperty(), false);
+				kv48 = new KeyValue(mod7candle6.visibleProperty(), false);
+				
+				
+			}
+			
+			
+			final KeyValue kv1 = new KeyValue(mod1candle1.endYProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod1candle2.endYProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod1candle3.endYProperty(), ((35*level)));
+			final KeyValue kv4 = new KeyValue(mod1candle4.endYProperty(), ((35*level)));
+			final KeyValue kv5 = new KeyValue(mod1candle5.endYProperty(), ((35*level)));
+			final KeyValue kv6 = new KeyValue(mod1candle6.endYProperty(), ((35*level)));
+			
+			final KeyValue kv7 = new KeyValue(mod3candle1.endYProperty(), ((35*level)));
+			final KeyValue kv8 = new KeyValue(mod3candle2.endYProperty(), ((35*level)));
+			final KeyValue kv9 = new KeyValue(mod3candle3.endYProperty(), ((35*level)));
+			final KeyValue kv10 = new KeyValue(mod3candle4.endYProperty(), ((35*level)));
+			final KeyValue kv11 = new KeyValue(mod3candle5.endYProperty(), ((35*level)));
+			final KeyValue kv12 = new KeyValue(mod3candle6.endYProperty(), ((35*level)));
+			
+			final KeyValue kv13 = new KeyValue(mod5candle1.endYProperty(), ((35*level)));
+			final KeyValue kv14 = new KeyValue(mod5candle2.endYProperty(), ((35*level)));
+			final KeyValue kv15 = new KeyValue(mod5candle3.endYProperty(), ((35*level)));
+			final KeyValue kv16 = new KeyValue(mod5candle4.endYProperty(), ((35*level)));
+			final KeyValue kv17 = new KeyValue(mod5candle5.endYProperty(), ((35*level)));
+			final KeyValue kv18 = new KeyValue(mod5candle6.endYProperty(), ((35*level)));
+			
+			final KeyValue kv19 = new KeyValue(mod7candle1.endYProperty(), ((35*level)));
+			final KeyValue kv20 = new KeyValue(mod7candle2.endYProperty(), ((35*level)));
+			final KeyValue kv21 = new KeyValue(mod7candle3.endYProperty(), ((35*level)));
+			final KeyValue kv22 = new KeyValue(mod7candle4.endYProperty(), ((35*level)));
+			final KeyValue kv23 = new KeyValue(mod7candle5.endYProperty(), ((35*level)));
+			final KeyValue kv24 = new KeyValue(mod7candle6.endYProperty(), ((35*level)));
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv5, kv6,
+																	kv7, kv8, kv9, kv10, kv11, kv12,
+																	kv13, kv14, kv15, kv16, kv17, kv18,
+																	kv19, kv20, kv21, kv22, kv23, kv24,
+																	kv25, kv26, kv27, kv28, kv29, kv30, kv31, kv32,
+																	kv33, kv34, kv35, kv36, kv37, kv38, kv39, kv40,
+																	kv41, kv42, kv43, kv44, kv45, kv46, kv47, kv48);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();
+    }
+
+    public void drawCandlesB(int level){
+    	final Timeline timeline = new Timeline();
+			timeline.setCycleCount(1);
+
+			KeyValue kv25 = null;
+		KeyValue kv26 = null;
+		KeyValue kv27 = null;
+		KeyValue kv28 = null;
+		KeyValue kv29 = null;
+		KeyValue kv30 = null;
+		KeyValue kv31 = null;
+		KeyValue kv32 = null;
+		KeyValue kv33 = null;
+		KeyValue kv34 = null;
+		KeyValue kv35 = null;
+		KeyValue kv36 = null;
+		KeyValue kv37 = null;
+		KeyValue kv38 = null;
+		KeyValue kv39 = null;
+		KeyValue kv40 = null;
+		KeyValue kv41 = null;
+		KeyValue kv42 = null;
+	
+		mod2candle1.setVisible(true);
+		mod2candle2.setVisible(true);
+		mod2candle3.setVisible(true);
+		mod2candle4.setVisible(true);
+		mod2candle5.setVisible(true);
+		mod2candle6.setVisible(true);
+		mod4candle1.setVisible(true);
+		mod4candle2.setVisible(true);
+		mod4candle3.setVisible(true);
+		mod4candle4.setVisible(true);
+		mod4candle5.setVisible(true);
+		mod4candle6.setVisible(true);
+		mod6candle1.setVisible(true);
+		mod6candle2.setVisible(true);
+		mod6candle3.setVisible(true);
+		mod6candle4.setVisible(true);
+		mod6candle5.setVisible(true);
+		mod6candle6.setVisible(true);
+		
+		if (level==0){
+			kv25 = new KeyValue(mod2candle1.visibleProperty(), false);
+			kv26 = new KeyValue(mod2candle2.visibleProperty(), false);      				
+			kv27 = new KeyValue(mod2candle3.visibleProperty(), false);
+			kv28 = new KeyValue(mod2candle4.visibleProperty(), false);      				
+			kv29 = new KeyValue(mod2candle5.visibleProperty(), false);
+			kv30 = new KeyValue(mod2candle6.visibleProperty(), false);
+			
+			kv31 = new KeyValue(mod4candle1.visibleProperty(), false);
+			kv32 = new KeyValue(mod4candle2.visibleProperty(), false);      				
+			kv33 = new KeyValue(mod4candle3.visibleProperty(), false);
+			kv34 = new KeyValue(mod4candle4.visibleProperty(), false);      				
+			kv35 = new KeyValue(mod4candle5.visibleProperty(), false);
+			kv36 = new KeyValue(mod4candle6.visibleProperty(), false);
+			
+			kv37 = new KeyValue(mod6candle1.visibleProperty(), false);
+			kv38 = new KeyValue(mod6candle2.visibleProperty(), false);      				
+			kv39 = new KeyValue(mod6candle3.visibleProperty(), false);
+			kv40 = new KeyValue(mod6candle4.visibleProperty(), false);      				
+			kv41 = new KeyValue(mod6candle5.visibleProperty(), false);
+			kv42 = new KeyValue(mod6candle6.visibleProperty(), false);
+		
+		}
+			
+			final KeyValue kv1 = new KeyValue(mod2candle1.endYProperty(), ((35*level)));
+			final KeyValue kv2 = new KeyValue(mod2candle2.endYProperty(), ((35*level)));
+			final KeyValue kv3 = new KeyValue(mod2candle3.endYProperty(), ((35*level)));
+			final KeyValue kv4 = new KeyValue(mod2candle4.endYProperty(), ((35*level)));
+			final KeyValue kv5 = new KeyValue(mod2candle5.endYProperty(), ((35*level)));
+			final KeyValue kv6 = new KeyValue(mod2candle6.endYProperty(), ((35*level)));
+			
+			final KeyValue kv7 = new KeyValue(mod4candle1.endYProperty(), ((35*level)));
+			final KeyValue kv8 = new KeyValue(mod4candle2.endYProperty(), ((35*level)));
+			final KeyValue kv9 = new KeyValue(mod4candle3.endYProperty(), ((35*level)));
+			final KeyValue kv10 = new KeyValue(mod4candle4.endYProperty(), ((35*level)));
+			final KeyValue kv11 = new KeyValue(mod4candle5.endYProperty(), ((35*level)));
+			final KeyValue kv12 = new KeyValue(mod4candle6.endYProperty(), ((35*level)));
+			
+			final KeyValue kv13 = new KeyValue(mod6candle1.endYProperty(), ((35*level)));
+			final KeyValue kv14 = new KeyValue(mod6candle2.endYProperty(), ((35*level)));
+			final KeyValue kv15 = new KeyValue(mod6candle3.endYProperty(), ((35*level)));
+			final KeyValue kv16 = new KeyValue(mod6candle4.endYProperty(), ((35*level)));
+			final KeyValue kv17 = new KeyValue(mod6candle5.endYProperty(), ((35*level)));
+			final KeyValue kv18 = new KeyValue(mod6candle6.endYProperty(), ((35*level)));
+			
+
+			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv5, kv6,
+																	kv7, kv8, kv9, kv10, kv11, kv12,
+																	kv13, kv14, kv15, kv16, kv17, kv18,
+																	kv25, kv26, kv27, kv28, kv29, kv30, kv31, kv32,
+																	kv33, kv34, kv35, kv36, kv37, kv38, kv39, kv40,
+																	kv41, kv42);
+			timeline.getKeyFrames().add(kf);
+			timeline.play();     			
+    }
+
+    
 
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -615,139 +1413,139 @@ public class FountainSimController implements Initializable {
 
         instance = this;
 		
-        // Listen for Slider value changes
-        ring5Slider.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable,
-                                Number oldValue, Number newValue) {
-                        final Timeline timeline = new Timeline();
-                        timeline.setCycleCount(1);
-                        //timeline.setAutoReverse(true);
-                        final KeyValue kv7 = new KeyValue(getMod7ring5().heightProperty(), ((35*newValue.doubleValue())));
-                        final KeyValue kv6 = new KeyValue(mod6ring5.heightProperty(), ((35*newValue.doubleValue())));
-                        final KeyValue kv5 = new KeyValue(mod5ring5.heightProperty(), ((35*newValue.doubleValue())));
-                        final KeyValue kv4 = new KeyValue(mod4ring5.heightProperty(), ((35*newValue.doubleValue())));
-                        final KeyValue kv3 = new KeyValue(mod3ring5.heightProperty(), ((35*newValue.doubleValue())));
-                        final KeyValue kv2 = new KeyValue(mod2ring5.heightProperty(), ((35*newValue.doubleValue())));
-                        final KeyValue kv1 = new KeyValue(mod1ring5.heightProperty(), ((35*newValue.doubleValue())));
-                        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
-                        timeline.getKeyFrames().add(kf);
-                        timeline.play();
-
-                        System.out.println(newValue);
-                        //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-
-                }
-        });
-		
-		
-            ring4Slider.valueProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable,
-                                    Number oldValue, Number newValue) {
-                            final Timeline timeline = new Timeline();
-                            timeline.setCycleCount(1);
-                            //timeline.setAutoReverse(true);
-                            final KeyValue kv7 = new KeyValue(mod7ring4.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv6 = new KeyValue(mod6ring4.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv5 = new KeyValue(mod5ring4.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv4 = new KeyValue(mod4ring4.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv3 = new KeyValue(mod3ring4.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv2 = new KeyValue(mod2ring4.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv1 = new KeyValue(mod1ring4.heightProperty(), ((35*newValue.doubleValue())));
-
-
-
-                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
-                            timeline.getKeyFrames().add(kf);
-                            timeline.play();
-
-                            System.out.println(newValue);
-                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-
-                    }
-            });
-
-            ring3Slider.valueProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable,
-                                    Number oldValue, Number newValue) {
-                            final Timeline timeline = new Timeline();
-                            timeline.setCycleCount(1);
-                            //timeline.setAutoReverse(true);
-                            final KeyValue kv7 = new KeyValue(mod7ring3.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv6 = new KeyValue(mod6ring3.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv5 = new KeyValue(mod5ring3.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv4 = new KeyValue(mod4ring3.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv3 = new KeyValue(mod3ring3.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv2 = new KeyValue(mod2ring3.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv1 = new KeyValue(mod1ring3.heightProperty(), ((35*newValue.doubleValue())));
-
-
-
-                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
-                            timeline.getKeyFrames().add(kf);
-                            timeline.play();
-
-                            System.out.println(newValue);
-                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-
-                    }
-            });
-
-            ring2Slider.valueProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable,
-                                    Number oldValue, Number newValue) {
-                            final Timeline timeline = new Timeline();
-                            timeline.setCycleCount(1);
-                            //timeline.setAutoReverse(true);
-                            final KeyValue kv7 = new KeyValue(mod7ring2.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv6 = new KeyValue(mod6ring2.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv5 = new KeyValue(mod5ring2.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv4 = new KeyValue(mod4ring2.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv3 = new KeyValue(mod3ring2.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv2 = new KeyValue(mod2ring2.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv1 = new KeyValue(mod1ring2.heightProperty(), ((35*newValue.doubleValue())));
-
-
-
-                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
-                            timeline.getKeyFrames().add(kf);
-                            timeline.play();
-
-                            System.out.println(newValue);
-                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-
-                    }
-            });
-
-            ring1Slider.valueProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable,
-                                    Number oldValue, Number newValue) {
-                            final Timeline timeline = new Timeline();
-                            timeline.setCycleCount(1);
-                            //timeline.setAutoReverse(true);
-                            final KeyValue kv7 = new KeyValue(mod7ring1.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv6 = new KeyValue(mod6ring1.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv5 = new KeyValue(mod5ring1.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv4 = new KeyValue(mod4ring1.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv3 = new KeyValue(mod3ring1.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv2 = new KeyValue(mod2ring1.heightProperty(), ((35*newValue.doubleValue())));
-                            final KeyValue kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*newValue.doubleValue())));
-
-
-
-                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
-                            timeline.getKeyFrames().add(kf);
-                            timeline.play();
-
-                            System.out.println(newValue);
-                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-
-                    }
-            });
+//        // Listen for Slider value changes
+//        ring5Slider.valueProperty().addListener(new ChangeListener<Number>() {
+//                @Override
+//                public void changed(ObservableValue<? extends Number> observable,
+//                                Number oldValue, Number newValue) {
+//                        final Timeline timeline = new Timeline();
+//                        timeline.setCycleCount(1);
+//                        //timeline.setAutoReverse(true);
+//                        final KeyValue kv7 = new KeyValue(getMod7ring5().heightProperty(), ((35*level)));
+//                        final KeyValue kv6 = new KeyValue(mod6ring5.heightProperty(), ((35*level)));
+//                        final KeyValue kv5 = new KeyValue(mod5ring5.heightProperty(), ((35*level)));
+//                        final KeyValue kv4 = new KeyValue(mod4ring5.heightProperty(), ((35*level)));
+//                        final KeyValue kv3 = new KeyValue(mod3ring5.heightProperty(), ((35*level)));
+//                        final KeyValue kv2 = new KeyValue(mod2ring5.heightProperty(), ((35*level)));
+//                        final KeyValue kv1 = new KeyValue(mod1ring5.heightProperty(), ((35*level)));
+//                        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+//                        timeline.getKeyFrames().add(kf);
+//                        timeline.play();
+//
+//                        System.out.println(newValue);
+//                        //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+//
+//                }
+//        });
+//		
+//		
+//            ring4Slider.valueProperty().addListener(new ChangeListener<Number>() {
+//                    @Override
+//                    public void changed(ObservableValue<? extends Number> observable,
+//                                    Number oldValue, Number newValue) {
+//                            final Timeline timeline = new Timeline();
+//                            timeline.setCycleCount(1);
+//                            //timeline.setAutoReverse(true);
+//                            final KeyValue kv7 = new KeyValue(mod7ring4.heightProperty(), ((35*level)));
+//                            final KeyValue kv6 = new KeyValue(mod6ring4.heightProperty(), ((35*level)));
+//                            final KeyValue kv5 = new KeyValue(mod5ring4.heightProperty(), ((35*level)));
+//                            final KeyValue kv4 = new KeyValue(mod4ring4.heightProperty(), ((35*level)));
+//                            final KeyValue kv3 = new KeyValue(mod3ring4.heightProperty(), ((35*level)));
+//                            final KeyValue kv2 = new KeyValue(mod2ring4.heightProperty(), ((35*level)));
+//                            final KeyValue kv1 = new KeyValue(mod1ring4.heightProperty(), ((35*level)));
+//
+//
+//
+//                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+//                            timeline.getKeyFrames().add(kf);
+//                            timeline.play();
+//
+//                            System.out.println(newValue);
+//                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+//
+//                    }
+//            });
+//
+//            ring3Slider.valueProperty().addListener(new ChangeListener<Number>() {
+//                    @Override
+//                    public void changed(ObservableValue<? extends Number> observable,
+//                                    Number oldValue, Number newValue) {
+//                            final Timeline timeline = new Timeline();
+//                            timeline.setCycleCount(1);
+//                            //timeline.setAutoReverse(true);
+//                            final KeyValue kv7 = new KeyValue(mod7ring3.heightProperty(), ((35*level)));
+//                            final KeyValue kv6 = new KeyValue(mod6ring3.heightProperty(), ((35*level)));
+//                            final KeyValue kv5 = new KeyValue(mod5ring3.heightProperty(), ((35*level)));
+//                            final KeyValue kv4 = new KeyValue(mod4ring3.heightProperty(), ((35*level)));
+//                            final KeyValue kv3 = new KeyValue(mod3ring3.heightProperty(), ((35*level)));
+//                            final KeyValue kv2 = new KeyValue(mod2ring3.heightProperty(), ((35*level)));
+//                            final KeyValue kv1 = new KeyValue(mod1ring3.heightProperty(), ((35*level)));
+//
+//
+//
+//                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+//                            timeline.getKeyFrames().add(kf);
+//                            timeline.play();
+//
+//                            System.out.println(newValue);
+//                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+//
+//                    }
+//            });
+//
+//            ring2Slider.valueProperty().addListener(new ChangeListener<Number>() {
+//                    @Override
+//                    public void changed(ObservableValue<? extends Number> observable,
+//                                    Number oldValue, Number newValue) {
+//                            final Timeline timeline = new Timeline();
+//                            timeline.setCycleCount(1);
+//                            //timeline.setAutoReverse(true);
+//                            final KeyValue kv7 = new KeyValue(mod7ring2.heightProperty(), ((35*level)));
+//                            final KeyValue kv6 = new KeyValue(mod6ring2.heightProperty(), ((35*level)));
+//                            final KeyValue kv5 = new KeyValue(mod5ring2.heightProperty(), ((35*level)));
+//                            final KeyValue kv4 = new KeyValue(mod4ring2.heightProperty(), ((35*level)));
+//                            final KeyValue kv3 = new KeyValue(mod3ring2.heightProperty(), ((35*level)));
+//                            final KeyValue kv2 = new KeyValue(mod2ring2.heightProperty(), ((35*level)));
+//                            final KeyValue kv1 = new KeyValue(mod1ring2.heightProperty(), ((35*level)));
+//
+//
+//
+//                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+//                            timeline.getKeyFrames().add(kf);
+//                            timeline.play();
+//
+//                            System.out.println(newValue);
+//                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+//
+//                    }
+//            });
+//
+//            ring1Slider.valueProperty().addListener(new ChangeListener<Number>() {
+//                    @Override
+//                    public void changed(ObservableValue<? extends Number> observable,
+//                                    Number oldValue, Number newValue) {
+//                            final Timeline timeline = new Timeline();
+//                            timeline.setCycleCount(1);
+//                            //timeline.setAutoReverse(true);
+//                            final KeyValue kv7 = new KeyValue(mod7ring1.heightProperty(), ((35*level)));
+//                            final KeyValue kv6 = new KeyValue(mod6ring1.heightProperty(), ((35*level)));
+//                            final KeyValue kv5 = new KeyValue(mod5ring1.heightProperty(), ((35*level)));
+//                            final KeyValue kv4 = new KeyValue(mod4ring1.heightProperty(), ((35*level)));
+//                            final KeyValue kv3 = new KeyValue(mod3ring1.heightProperty(), ((35*level)));
+//                            final KeyValue kv2 = new KeyValue(mod2ring1.heightProperty(), ((35*level)));
+//                            final KeyValue kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*level)));
+//
+//
+//
+//                            final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv4, kv5, kv6, kv7);
+//                            timeline.getKeyFrames().add(kf);
+//                            timeline.play();
+//
+//                            System.out.println(newValue);
+//                            //outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+//
+//                    }
+//            });
 
 
     }
