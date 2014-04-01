@@ -56,29 +56,11 @@
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 <children>
 <Group>
-<children>
-<ToggleButton fx:id="deleteButton" layoutX="77.0" layoutY="8.0" mnemonicParsing="false" text="Delete">
-<toggleGroup>
-<ToggleGroup fx:id="SpecialOps" />
-</toggleGroup>
-<font>
-<Font size="11.0" />
-</font>
-</ToggleButton>
-<ToggleButton fx:id="resetButton" layoutX="10.0" layoutY="8.0" mnemonicParsing="false" text="Reset All" toggleGroup="$SpecialOps">
-<font>
-<Font size="11.0" />
-</font>
-</ToggleButton>
-</children>
 <effect>
 <DropShadow />
 </effect>
 </Group>
 <Group>
-<children><CheckBox fx:id="voiceCheckbox" layoutX="137.0" layoutY="12.0" mnemonicParsing="false" text="Voice" />
-<CheckBox fx:id="strobeCheckbox" layoutX="137.0" layoutY="50.0" mnemonicParsing="false" text="Strobe" />
-</children>
 <effect>
 <Lighting>
 <bumpInput>
@@ -86,18 +68,7 @@
 </bumpInput>
 </Lighting>
 </effect>
-</Group><ToggleButton fx:id="fadeUpButton" layoutX="11.0" layoutY="47.0" mnemonicParsing="false" text="Fade ↑">
-<toggleGroup>
-<ToggleGroup fx:id="fadeGroup" />
-</toggleGroup>
-<effect>
-<DropShadow />
-</effect></ToggleButton>
-<ToggleButton fx:id="fadeDownButton" layoutX="73.0" layoutY="47.0" mnemonicParsing="false" text="Fade ↓" toggleGroup="$fadeGroup">
-<effect>
-<DropShadow />
-</effect>
-</ToggleButton>
+</Group><Button fx:id="fadeUpButton" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" text="Fade ↑" /><Button fx:id="fadeDownButton" layoutX="78.33837890625" layoutY="47.0" mnemonicParsing="false" text="Fade ↓" /><Button fx:id="strobeButton" layoutX="145.39453125" layoutY="47.0" mnemonicParsing="false" text="Strobe" /><Button fx:id="resetButton" layoutX="10.83837890625" layoutY="8.5" mnemonicParsing="false" text="Reset All" /><Button fx:id="deleteButton" layoutX="88.83837890625" layoutY="8.5" mnemonicParsing="false" text="Delete" /><CheckBox fx:id="voiceCheckbox" layoutX="154.0" layoutY="13.0" mnemonicParsing="false" text="Voice" />
 </children></AnchorPane>
   </content>
 </TitledPane>
