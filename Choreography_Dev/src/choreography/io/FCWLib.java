@@ -416,6 +416,11 @@ public final class FCWLib {
                 break;
             case 9:
                 break;
+            case 35:
+            case 36:
+            case 37:
+                actions.remove("HOLDRIGHTOT");
+                
             
         }
 //        }

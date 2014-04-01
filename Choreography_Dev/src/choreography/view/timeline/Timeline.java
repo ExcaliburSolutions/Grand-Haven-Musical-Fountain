@@ -6,6 +6,7 @@
 
 package choreography.view.timeline;
 
+import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
@@ -13,6 +14,7 @@ import choreography.view.sliders.SlidersController;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -43,7 +45,7 @@ public class Timeline {
    private int time;    
    private int numChannels;
    private ConcurrentSkipListMap<Integer, ArrayList<FCW>> timeline;
-   private ConcurrentSkipListMap<Integer, ArrayList<FCW>> waterTimeline;
+   private final ConcurrentSkipListMap<Integer, ArrayList<FCW>> waterTimeline;
    private ConcurrentSkipListMap<Integer, ArrayList<FCW>> lightTimeline;
    private ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> gtfoArray;
    private int[] lightChannelAddresses;
@@ -77,10 +79,6 @@ public class Timeline {
 
 	public void setNumChannels(int numChannels) {
             this.numChannels = numChannels;
-        }
-
-	public void setWaterTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> waterTimeline) {
-            this.waterTimeline = waterTimeline;
         }
 
 	public void setLightTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> lightTimeline) {
@@ -144,8 +142,26 @@ public class Timeline {
      * @param f
      */
     public void setWaterFcwAtPoint(int pointInTime, FCW f) {
+        String[] fActions = FCWLib.getInstance().reverseLookupData(f);
+        for(String s: fActions) {
+            if(s.equals("RESETALL")) {
+                waterTimeline.remove(pointInTime);
+            }
+        }
+//        if()
+        if(checkForCollision(waterTimeline, pointInTime, f)) {
+            ArrayList<FCW> exists = waterTimeline.get(pointInTime);
+            ListIterator<FCW> it = exists.listIterator();
+            while(it.hasNext()) {
+                FCW fExists = it.next();
+                if(fExists.getAddr() == f.getAddr()) {
+                    it.remove();
+                }
+            }
+        }
         insertIntoTimeline(waterTimeline, pointInTime, f);
         TimelineController.getInstance().rePaintWaterTimeline();
+        
 //        waterTimeline.get(pointInTime).add(f);
     }
     
@@ -283,7 +299,26 @@ public class Timeline {
 
     void sendSubmapToSim(int tenthsTime) {
         FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, true, tenthsTime + BUFFERBOUNDARY, true));
-        
+    }
+
+    private boolean checkForCollision(SortedMap<Integer, ArrayList<FCW>> timeline, int pointInTime, FCW query) {
+        boolean result = false;
+        if(timeline.containsKey(pointInTime)) {
+            for(FCW f: timeline.get(pointInTime)) {
+                if(f.getAddr() == query.getAddr()) {
+                    String[] fActions = FCWLib.getInstance().reverseLookupData(f);
+                    String[] queryActions = FCWLib.getInstance().reverseLookupData(query);
+                    for(String fAction:fActions) {
+                        for(String queryAction: queryActions) {
+                            if(fAction.equals(queryAction)) {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+            return result;
     }
     
 }

@@ -15,6 +15,7 @@ import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -197,7 +198,7 @@ public class SpecialoperationsController implements Initializable {
 
     public void setSweeps(FCW f) {
         String[] actions = FCWLib.getInstance().reverseLookupData(f);
-        System.out.println(actions);
+        System.out.println(Arrays.toString(actions));
         switch(f.getAddr()) {
             case 35:
 //                aSweeps.setMin(value);
@@ -230,17 +231,23 @@ public class SpecialoperationsController implements Initializable {
             String[] actions = new String[2];
             String action;
             FCW f = null;
+            int tenths = MusicPaneController.getInstance().getTenthsTime();
             if(opposedSweeps.isSelected()) {
                 f = createFcw(actions);
+                FCW opposed = FCWLib.getInstance().getFCW("SWEEPTYPE", new String[]{"OPPOSED"});
+                Timeline.getInstance().setWaterFcwAtPoint(tenths, opposed);
             } else if(parallelSweeps.isSelected()) {
                 f = createFcw(actions);
+                FCW opposed = FCWLib.getInstance().getFCW("SWEEPTYPE", new String[]{"TOGETHER"});
+                Timeline.getInstance().setWaterFcwAtPoint(tenths, opposed);
             } else if(independentSweeps.isSelected()) {
                 f = createFcw(actions);
+                FCW opposed = FCWLib.getInstance().getFCW("SWEEPTYPE", new String[]{"INDEPENDENT"});
+                Timeline.getInstance().setWaterFcwAtPoint(tenths, opposed);
             }
 //            else { f = new FCW(0, 0); }
-            System.out.println(f);
             ChoreographyController.getInstance().setfcwOutput(f.toString());
-            Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+            Timeline.getInstance().setWaterFcwAtPoint(tenths, f);
             TimelineController.getInstance().rePaintWaterTimeline();
         }
 
