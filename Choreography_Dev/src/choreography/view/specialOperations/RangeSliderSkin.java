@@ -306,7 +306,6 @@ public class RangeSliderSkin extends BehaviorSkinBase<RangeSlider, RangeSliderBe
                 // add 1 to the slider minor tick count since the axis draws one
                 // less minor ticks than the number given.
                 tickLine.setMinorTickCount(Math.max(rangeSlider.getMinorTickCount(),0) + 1);
-                // TODO change slider API to Integer from Number
         //            if (slider.getLabelFormatter() != null)
         //                tickLine.setFormatTickLabel(slider.getLabelFormatter());
         //            tickLine.dataChanged();

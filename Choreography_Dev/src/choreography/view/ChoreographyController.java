@@ -357,7 +357,7 @@ public class ChoreographyController implements Initializable {
      * Sets the 
      * @param parsedCTL
      */
-    public void setEventTimeline(SortedMap<Integer, ArrayList<FCW>> parsedCTL) {
+    public void setEventTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> parsedCTL) {
         events.putAll(parsedCTL);
         TimelineController.getInstance().setTimeline(parsedCTL);
         TimelineController.getInstance().setLabelGridPaneWithCtl();
@@ -407,7 +407,7 @@ public class ChoreographyController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    TimelineController.getInstance().fireSliderChangeEvent();
+//                    TimelineController.getInstance().fireSliderChangeEvent();
 //                    Timeline.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
                 });
             }
@@ -445,6 +445,10 @@ public class ChoreographyController implements Initializable {
     
     public void openMapFileMenuItemHandler() {
         MapLib.openMap();
+    }
+
+    public void startPlayingSim() {
+        TimelineController.getInstance().fireSubmapToSim();
     }
     
 }

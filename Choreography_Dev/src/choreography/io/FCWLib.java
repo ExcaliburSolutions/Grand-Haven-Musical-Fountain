@@ -315,6 +315,27 @@ public final class FCWLib {
 //        return reverseLookupData(new FCW(17, c));
 //    }
     
+    public synchronized int reverseGetLevel(FCW f) {
+        String[] actions = reverseLookupData(f);
+        for(String s: actions) {
+            switch(s) {
+                case "1":
+                    return 1;
+                case "2":
+                    return 2;
+                case "3":
+                    return 3;
+                case "4":
+                    return 4;
+                case "5":
+                    return 5;
+                case "0":
+                    return 0;  
+            }
+        }
+        throw new IllegalArgumentException(f + " doesn't have a level!");
+    }
+    
     /**
      *
      * @param f
@@ -407,8 +428,11 @@ public final class FCWLib {
                 flags.add(value);
             }
         } 
-        if(data <= 6)
+        if(data > 0 && data <= 6)
             flags.add(data);
+        else if (data == 0) {
+            flags.add(0);
+        }
     }
 
 	/**

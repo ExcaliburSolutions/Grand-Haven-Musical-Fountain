@@ -454,7 +454,6 @@ public class CtlLibTest {
 "02:46.7005-048 009-016 007-048";
         String result = instance.readFile(file);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -469,7 +468,6 @@ public class CtlLibTest {
         SortedMap<Integer, ArrayList<FCW>> result = instance.parseCTL(input);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -485,7 +483,6 @@ public class CtlLibTest {
         boolean result = instance.saveFile(file, content);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

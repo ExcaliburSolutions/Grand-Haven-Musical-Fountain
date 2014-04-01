@@ -95,11 +95,11 @@ public class CtlLib {
      * @param input
      * @return
      */
-    public synchronized SortedMap<Integer, ArrayList<FCW>> parseCTL(String input){
+    public synchronized ConcurrentSkipListMap<Integer, ArrayList<FCW>> parseCTL(String input){
         //Split file into tokens of lines
         String[] lines = input.split(System.getProperty("line.separator"));
         //Create an Event[] to hold all events
-        SortedMap<Integer, ArrayList<FCW>> events = new ConcurrentSkipListMap<>();
+        ConcurrentSkipListMap<Integer, ArrayList<FCW>> events = new ConcurrentSkipListMap<>();
         // For each line,
         for(String line : lines){
             //Get the time signature

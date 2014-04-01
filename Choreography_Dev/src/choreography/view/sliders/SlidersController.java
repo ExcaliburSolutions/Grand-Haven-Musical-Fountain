@@ -154,12 +154,13 @@ public class SlidersController {
         assert r4B != null : "fx:id=\"r4B\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert r5A != null : "fx:id=\"r5A\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert r5B != null : "fx:id=\"r5B\" was not injected: check your FXML file 'Sliders.fxml'.";
-        assert getSp() != null : "fx:id=\"sp\" was not injected: check your FXML file 'Sliders.fxml'.";
+        assert sp != null : "fx:id=\"sp\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert swA != null : "fx:id=\"swA\" was not injected: check your FXML file 'Sliders.fxml'.";
         assert swB != null : "fx:id=\"swB\" was not injected: check your FXML file 'Sliders.fxml'.";
+        
         configureModules();
         allSliders = new Slider[]{r1A, r1B, r2A, r2B, r3A, r3B, r4A, r4B, r5A, 
-           r5B, mxA, mxB, candleA, candleB, swA, swB, ftC, bkC, pk, bz, getSp()};
+           r5B, mxA, mxB, candleA, candleB, swA, swB, ftC, bkC, pk, bz, sp};
         instance = this;
        
      // Listen for Slider value changes
@@ -763,141 +764,141 @@ public class SlidersController {
      		
      		
      	// Listen for Slider value changes
-     		pk.valueProperty().addListener(new ChangeListener<Number>() {
-     			@Override
-     			public void changed(ObservableValue<? extends Number> observable,
-     					Number oldValue, Number newValue) {
-     				final Timeline timeline = new Timeline();
-     				
-     				KeyValue kv2 = null;
-     				KeyValue kv3 = null;
-     				KeyValue kv4 = null;
-     				KeyValue kv5 = null;
-     				KeyValue kv6 = null;
-     				KeyValue kv7 = null;
-     				KeyValue kv8 = null;
-     				KeyValue kv9 = null;
-     				KeyValue kv10 = null;
-     				KeyValue kv11 = null;
-     				KeyValue kv12 = null;
-     				KeyValue kv13 = null;
-     				KeyValue kv14 = null;
-     				KeyValue kv15 = null;
-     				KeyValue kv16 = null;
-     				KeyValue kv17 = null;
-     				KeyValue kv18 = null;
-     				KeyValue kv19 = null;
-     				KeyValue kv20 = null;
-     				KeyValue kv21 = null;
-     				KeyValue kv22 = null;
-     				KeyValue kv23 = null;
-     				KeyValue kv24 = null;
-     				KeyValue kv25 = null;
-     				KeyValue kv26 = null;
-     				KeyValue kv27 = null;
-     				KeyValue kv28 = null;
-
-     				timeline.setCycleCount(1);
-     				if (newValue.doubleValue() > 0.0){
-     					
-     					FountainSimController.getInstance().getPeacock1().setVisible(true);
-     					FountainSimController.getInstance().getPeacock2().setVisible(true);
-     					FountainSimController.getInstance().getPeacock3().setVisible(true);
-     					FountainSimController.getInstance().getPeacock4().setVisible(true);
-     					FountainSimController.getInstance().getPeacock5().setVisible(true);
-     					FountainSimController.getInstance().getPeacock6().setVisible(true);
-     					FountainSimController.getInstance().getPeacock7().setVisible(true);
-     					FountainSimController.getInstance().getPeacock8().setVisible(true);
-     					FountainSimController.getInstance().getPeacock9().setVisible(true);
-     					
-     					kv2 = new KeyValue(FountainSimController.getInstance().getPeacock1().endXProperty(), (689+(102.2*newValue.doubleValue())));
-         				kv3 = new KeyValue(FountainSimController.getInstance().getPeacock1().endYProperty(), (5+(26*newValue.doubleValue())));
-         				
-         				kv4 = new KeyValue(FountainSimController.getInstance().getPeacock2().endXProperty(), (688+(66.4*newValue.doubleValue())));
-         				kv5 = new KeyValue(FountainSimController.getInstance().getPeacock2().endYProperty(), (17+(36.6*newValue.doubleValue())));
-
-         				kv6 = new KeyValue(FountainSimController.getInstance().getPeacock3().endXProperty(), (683+(38.4*newValue.doubleValue())));
-         				kv7 = new KeyValue(FountainSimController.getInstance().getPeacock3().endYProperty(), (28+(39.4*newValue.doubleValue())));
-         				
-         				kv8 = new KeyValue(FountainSimController.getInstance().getPeacock4().endXProperty(), (675+(18*newValue.doubleValue())));
-         				kv9 = new KeyValue(FountainSimController.getInstance().getPeacock4().endYProperty(), (37+(39.6*newValue.doubleValue())));
-         				
-         				kv10 = new KeyValue(FountainSimController.getInstance().getPeacock5().endXProperty(), (665+(0*newValue.doubleValue())));
-         				kv11 = new KeyValue(FountainSimController.getInstance().getPeacock5().endYProperty(), (40+(40*newValue.doubleValue())));
-         				
-         				kv12 = new KeyValue(FountainSimController.getInstance().getPeacock6().endXProperty(), (655+(-18*newValue.doubleValue())));
-         				kv13 = new KeyValue(FountainSimController.getInstance().getPeacock6().endYProperty(), (37+(39.6*newValue.doubleValue())));
-         				
-         				kv14 = new KeyValue(FountainSimController.getInstance().getPeacock7().endXProperty(), (647+(-39.4*newValue.doubleValue())));
-         				kv15 = new KeyValue(FountainSimController.getInstance().getPeacock7().endYProperty(), (28+(39.4*newValue.doubleValue())));
-         				
-         				kv16 = new KeyValue(FountainSimController.getInstance().getPeacock8().endXProperty(), (643+(-66.6*newValue.doubleValue())));
-         				kv17 = new KeyValue(FountainSimController.getInstance().getPeacock8().endYProperty(), (17+(36.6*newValue.doubleValue())));
-         				
-         				kv18 = new KeyValue(FountainSimController.getInstance().getPeacock9().endXProperty(), (642+(-101.4*newValue.doubleValue())));
-         				kv19 = new KeyValue(FountainSimController.getInstance().getPeacock9().endYProperty(), (5+(26*newValue.doubleValue())));
-         				
-
-
-     				}
-     				else{
-     					
-     					kv2 = new KeyValue(FountainSimController.getInstance().getPeacock1().endXProperty(), (689+(102.2*newValue.doubleValue())));
-         				kv3 = new KeyValue(FountainSimController.getInstance().getPeacock1().endYProperty(), (5+(26*newValue.doubleValue())));
-         				kv4 = new KeyValue(FountainSimController.getInstance().getPeacock2().endXProperty(), (688+(66.4*newValue.doubleValue())));
-         				kv5 = new KeyValue(FountainSimController.getInstance().getPeacock2().endYProperty(), (17+(36.6*newValue.doubleValue())));
-         				kv6 = new KeyValue(FountainSimController.getInstance().getPeacock3().endXProperty(), (683+(38.4*newValue.doubleValue())));
-         				kv7 = new KeyValue(FountainSimController.getInstance().getPeacock3().endYProperty(), (28+(39.4*newValue.doubleValue())));         				
-         				kv8 = new KeyValue(FountainSimController.getInstance().getPeacock4().endXProperty(), (675+(18*newValue.doubleValue())));
-         				kv9 = new KeyValue(FountainSimController.getInstance().getPeacock4().endYProperty(), (37+(39.6*newValue.doubleValue())));         				
-         				kv10 = new KeyValue(FountainSimController.getInstance().getPeacock5().endXProperty(), (665+(0*newValue.doubleValue())));
-         				kv11 = new KeyValue(FountainSimController.getInstance().getPeacock5().endYProperty(), (40+(40*newValue.doubleValue())));         				
-         				kv12 = new KeyValue(FountainSimController.getInstance().getPeacock6().endXProperty(), (655+(-18*newValue.doubleValue())));
-         				kv13 = new KeyValue(FountainSimController.getInstance().getPeacock6().endYProperty(), (37+(39.6*newValue.doubleValue())));         				
-         				kv14 = new KeyValue(FountainSimController.getInstance().getPeacock7().endXProperty(), (647+(-39.4*newValue.doubleValue())));
-         				kv15 = new KeyValue(FountainSimController.getInstance().getPeacock7().endYProperty(), (28+(39.4*newValue.doubleValue())));         				
-         				kv16 = new KeyValue(FountainSimController.getInstance().getPeacock8().endXProperty(), (643+(-66.6*newValue.doubleValue())));
-         				kv17 = new KeyValue(FountainSimController.getInstance().getPeacock8().endYProperty(), (17+(36.6*newValue.doubleValue())));         				
-         				kv18 = new KeyValue(FountainSimController.getInstance().getPeacock9().endXProperty(), (642+(-101.4*newValue.doubleValue())));
-         				kv19 = new KeyValue(FountainSimController.getInstance().getPeacock9().endYProperty(), (5+(26*newValue.doubleValue())));
-         				
-         				kv20 = new KeyValue(FountainSimController.getInstance().getPeacock1().visibleProperty(), false);
-         				kv21 = new KeyValue(FountainSimController.getInstance().getPeacock2().visibleProperty(), false);
-         				kv22 = new KeyValue(FountainSimController.getInstance().getPeacock3().visibleProperty(), false);
-         				kv23 = new KeyValue(FountainSimController.getInstance().getPeacock4().visibleProperty(), false);
-         				kv24 = new KeyValue(FountainSimController.getInstance().getPeacock5().visibleProperty(), false);
-         				kv25 = new KeyValue(FountainSimController.getInstance().getPeacock6().visibleProperty(), false);
-         				kv26 = new KeyValue(FountainSimController.getInstance().getPeacock7().visibleProperty(), false);
-         				kv27 = new KeyValue(FountainSimController.getInstance().getPeacock8().visibleProperty(), false);
-         				kv28 = new KeyValue(FountainSimController.getInstance().getPeacock9().visibleProperty(), false);
-
-     				}
-
-     				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv2, kv3, kv4, kv5, kv6, kv7, kv8,
-     						kv9, kv10, kv11, kv12, kv13, kv14, kv15, kv16, kv17, kv18, kv19, kv20, kv21,
-     						kv22, kv23, kv24, kv25, kv26, kv27, kv28);
-     				timeline.getKeyFrames().add(kf);
-     				timeline.play();  
-     				
-     			}
-     		});
+//     		pk.valueProperty().addListener(new ChangeListener<Number>() {
+//     			@Override
+//     			public void changed(ObservableValue<? extends Number> observable,
+//     					Number oldValue, Number newValue) {
+//     				final Timeline timeline = new Timeline();
+//     				
+//     				KeyValue kv2 = null;
+//     				KeyValue kv3 = null;
+//     				KeyValue kv4 = null;
+//     				KeyValue kv5 = null;
+//     				KeyValue kv6 = null;
+//     				KeyValue kv7 = null;
+//     				KeyValue kv8 = null;
+//     				KeyValue kv9 = null;
+//     				KeyValue kv10 = null;
+//     				KeyValue kv11 = null;
+//     				KeyValue kv12 = null;
+//     				KeyValue kv13 = null;
+//     				KeyValue kv14 = null;
+//     				KeyValue kv15 = null;
+//     				KeyValue kv16 = null;
+//     				KeyValue kv17 = null;
+//     				KeyValue kv18 = null;
+//     				KeyValue kv19 = null;
+//     				KeyValue kv20 = null;
+//     				KeyValue kv21 = null;
+//     				KeyValue kv22 = null;
+//     				KeyValue kv23 = null;
+//     				KeyValue kv24 = null;
+//     				KeyValue kv25 = null;
+//     				KeyValue kv26 = null;
+//     				KeyValue kv27 = null;
+//     				KeyValue kv28 = null;
+//
+//     				timeline.setCycleCount(1);
+//     				if (newValue.doubleValue() > 0.0){
+//     					
+//     					FountainSimController.getInstance().getPeacock1().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock2().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock3().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock4().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock5().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock6().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock7().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock8().setVisible(true);
+//     					FountainSimController.getInstance().getPeacock9().setVisible(true);
+//     					
+//     					kv2 = new KeyValue(FountainSimController.getInstance().getPeacock1().endXProperty(), (689+(102.2*newValue.doubleValue())));
+//         				kv3 = new KeyValue(FountainSimController.getInstance().getPeacock1().endYProperty(), (5+(26*newValue.doubleValue())));
+//         				
+//         				kv4 = new KeyValue(FountainSimController.getInstance().getPeacock2().endXProperty(), (688+(66.4*newValue.doubleValue())));
+//         				kv5 = new KeyValue(FountainSimController.getInstance().getPeacock2().endYProperty(), (17+(36.6*newValue.doubleValue())));
+//
+//         				kv6 = new KeyValue(FountainSimController.getInstance().getPeacock3().endXProperty(), (683+(38.4*newValue.doubleValue())));
+//         				kv7 = new KeyValue(FountainSimController.getInstance().getPeacock3().endYProperty(), (28+(39.4*newValue.doubleValue())));
+//         				
+//         				kv8 = new KeyValue(FountainSimController.getInstance().getPeacock4().endXProperty(), (675+(18*newValue.doubleValue())));
+//         				kv9 = new KeyValue(FountainSimController.getInstance().getPeacock4().endYProperty(), (37+(39.6*newValue.doubleValue())));
+//         				
+//         				kv10 = new KeyValue(FountainSimController.getInstance().getPeacock5().endXProperty(), (665+(0*newValue.doubleValue())));
+//         				kv11 = new KeyValue(FountainSimController.getInstance().getPeacock5().endYProperty(), (40+(40*newValue.doubleValue())));
+//         				
+//         				kv12 = new KeyValue(FountainSimController.getInstance().getPeacock6().endXProperty(), (655+(-18*newValue.doubleValue())));
+//         				kv13 = new KeyValue(FountainSimController.getInstance().getPeacock6().endYProperty(), (37+(39.6*newValue.doubleValue())));
+//         				
+//         				kv14 = new KeyValue(FountainSimController.getInstance().getPeacock7().endXProperty(), (647+(-39.4*newValue.doubleValue())));
+//         				kv15 = new KeyValue(FountainSimController.getInstance().getPeacock7().endYProperty(), (28+(39.4*newValue.doubleValue())));
+//         				
+//         				kv16 = new KeyValue(FountainSimController.getInstance().getPeacock8().endXProperty(), (643+(-66.6*newValue.doubleValue())));
+//         				kv17 = new KeyValue(FountainSimController.getInstance().getPeacock8().endYProperty(), (17+(36.6*newValue.doubleValue())));
+//         				
+//         				kv18 = new KeyValue(FountainSimController.getInstance().getPeacock9().endXProperty(), (642+(-101.4*newValue.doubleValue())));
+//         				kv19 = new KeyValue(FountainSimController.getInstance().getPeacock9().endYProperty(), (5+(26*newValue.doubleValue())));
+//         				
+//
+//
+//     				}
+//     				else{
+//     					
+//     					kv2 = new KeyValue(FountainSimController.getInstance().getPeacock1().endXProperty(), (689+(102.2*newValue.doubleValue())));
+//         				kv3 = new KeyValue(FountainSimController.getInstance().getPeacock1().endYProperty(), (5+(26*newValue.doubleValue())));
+//         				kv4 = new KeyValue(FountainSimController.getInstance().getPeacock2().endXProperty(), (688+(66.4*newValue.doubleValue())));
+//         				kv5 = new KeyValue(FountainSimController.getInstance().getPeacock2().endYProperty(), (17+(36.6*newValue.doubleValue())));
+//         				kv6 = new KeyValue(FountainSimController.getInstance().getPeacock3().endXProperty(), (683+(38.4*newValue.doubleValue())));
+//         				kv7 = new KeyValue(FountainSimController.getInstance().getPeacock3().endYProperty(), (28+(39.4*newValue.doubleValue())));         				
+//         				kv8 = new KeyValue(FountainSimController.getInstance().getPeacock4().endXProperty(), (675+(18*newValue.doubleValue())));
+//         				kv9 = new KeyValue(FountainSimController.getInstance().getPeacock4().endYProperty(), (37+(39.6*newValue.doubleValue())));         				
+//         				kv10 = new KeyValue(FountainSimController.getInstance().getPeacock5().endXProperty(), (665+(0*newValue.doubleValue())));
+//         				kv11 = new KeyValue(FountainSimController.getInstance().getPeacock5().endYProperty(), (40+(40*newValue.doubleValue())));         				
+//         				kv12 = new KeyValue(FountainSimController.getInstance().getPeacock6().endXProperty(), (655+(-18*newValue.doubleValue())));
+//         				kv13 = new KeyValue(FountainSimController.getInstance().getPeacock6().endYProperty(), (37+(39.6*newValue.doubleValue())));         				
+//         				kv14 = new KeyValue(FountainSimController.getInstance().getPeacock7().endXProperty(), (647+(-39.4*newValue.doubleValue())));
+//         				kv15 = new KeyValue(FountainSimController.getInstance().getPeacock7().endYProperty(), (28+(39.4*newValue.doubleValue())));         				
+//         				kv16 = new KeyValue(FountainSimController.getInstance().getPeacock8().endXProperty(), (643+(-66.6*newValue.doubleValue())));
+//         				kv17 = new KeyValue(FountainSimController.getInstance().getPeacock8().endYProperty(), (17+(36.6*newValue.doubleValue())));         				
+//         				kv18 = new KeyValue(FountainSimController.getInstance().getPeacock9().endXProperty(), (642+(-101.4*newValue.doubleValue())));
+//         				kv19 = new KeyValue(FountainSimController.getInstance().getPeacock9().endYProperty(), (5+(26*newValue.doubleValue())));
+//         				
+//         				kv20 = new KeyValue(FountainSimController.getInstance().getPeacock1().visibleProperty(), false);
+//         				kv21 = new KeyValue(FountainSimController.getInstance().getPeacock2().visibleProperty(), false);
+//         				kv22 = new KeyValue(FountainSimController.getInstance().getPeacock3().visibleProperty(), false);
+//         				kv23 = new KeyValue(FountainSimController.getInstance().getPeacock4().visibleProperty(), false);
+//         				kv24 = new KeyValue(FountainSimController.getInstance().getPeacock5().visibleProperty(), false);
+//         				kv25 = new KeyValue(FountainSimController.getInstance().getPeacock6().visibleProperty(), false);
+//         				kv26 = new KeyValue(FountainSimController.getInstance().getPeacock7().visibleProperty(), false);
+//         				kv27 = new KeyValue(FountainSimController.getInstance().getPeacock8().visibleProperty(), false);
+//         				kv28 = new KeyValue(FountainSimController.getInstance().getPeacock9().visibleProperty(), false);
+//
+//     				}
+//
+//     				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv2, kv3, kv4, kv5, kv6, kv7, kv8,
+//     						kv9, kv10, kv11, kv12, kv13, kv14, kv15, kv16, kv17, kv18, kv19, kv20, kv21,
+//     						kv22, kv23, kv24, kv25, kv26, kv27, kv28);
+//     				timeline.getKeyFrames().add(kf);
+//     				timeline.play();  
+//     				
+//     			}
+//     		});
      		
-     		ftC.valueProperty().addListener(new ChangeListener<Number>() {
-     			@Override
-     			public void changed(ObservableValue<? extends Number> observable,
-     					Number oldValue, Number newValue) {
-     				final Timeline timeline = new Timeline();
-     				timeline.setCycleCount(1);
-     				//timeline.setAutoReverse(true);
-     				final KeyValue kv1 = new KeyValue(FountainSimController.getInstance().getFrontCurtain().heightProperty(), ((40*newValue.doubleValue())));
-     				
-     				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
-     				timeline.getKeyFrames().add(kf);
-     				timeline.play();     				
-     				System.out.println(newValue);
-     			}
-     		});
-     		
+//     		ftC.valueProperty().addListener(new ChangeListener<Number>() {
+//     			@Override
+//     			public void changed(ObservableValue<? extends Number> observable,
+//     					Number oldValue, Number newValue) {
+//     				final Timeline timeline = new Timeline();
+//     				timeline.setCycleCount(1);
+//     				//timeline.setAutoReverse(true);
+//     				final KeyValue kv1 = new KeyValue(FountainSimController.getInstance().getFrontCurtain().heightProperty(), ((40*newValue.doubleValue())));
+//     				
+//     				final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
+//     				timeline.getKeyFrames().add(kf);
+//     				timeline.play();     				
+//     				System.out.println(newValue);
+//     			}
+//     		});
+                
      		bkC.valueProperty().addListener(new ChangeListener<Number>() {
      			@Override
      			public void changed(ObservableValue<? extends Number> observable,
@@ -1323,7 +1324,7 @@ public class SlidersController {
     public synchronized void setSlidersWithFcw(ArrayList<FCW> fcws) {
         for(FCW f: fcws) {
             if(!f.getIsWater()) {
-                return;
+                fcws.remove(f);
             }
         }
 //        resetAllSliders();
@@ -1544,4 +1545,5 @@ public class SlidersController {
         this.sp = sp;
     }
 }
+                   
 

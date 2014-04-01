@@ -7,12 +7,9 @@
 package choreography.view.timeline;
 
 import choreography.model.fcw.FCW;
-import choreography.model.fountain.Fountain;
-import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,7 +29,7 @@ public class Timeline {
    private static final long serialVersionUID = 7_242_109_851_591_362_314L;
    private static Timeline instance;
     private static final Logger LOG = Logger.getLogger(Timeline.class.getName());
-
+    private static final int BUFFERBOUNDARY = 200;
     /**
      *
      * @return
@@ -45,10 +42,10 @@ public class Timeline {
     }
    private int time;    
    private int numChannels;
-   private SortedMap<Integer, ArrayList<FCW>> timeline;
-   private SortedMap<Integer, ArrayList<FCW>> waterTimeline;
-   private SortedMap<Integer, ArrayList<FCW>> lightTimeline;
-   private SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray;
+   private ConcurrentSkipListMap<Integer, ArrayList<FCW>> timeline;
+   private ConcurrentSkipListMap<Integer, ArrayList<FCW>> waterTimeline;
+   private ConcurrentSkipListMap<Integer, ArrayList<FCW>> lightTimeline;
+   private ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> gtfoArray;
    private int[] lightChannelAddresses;
 
     private Timeline() {
@@ -62,7 +59,7 @@ public class Timeline {
         return gtfoArray;
     }
     
-    public void setGtfoArray(SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray) {
+    public void setGtfoArray(ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> gtfoArray) {
         this.gtfoArray = gtfoArray;
     }
 
@@ -82,11 +79,11 @@ public class Timeline {
             this.numChannels = numChannels;
         }
 
-	public void setWaterTimeline(SortedMap<Integer, ArrayList<FCW>> waterTimeline) {
+	public void setWaterTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> waterTimeline) {
             this.waterTimeline = waterTimeline;
         }
 
-	public void setLightTimeline(SortedMap<Integer, ArrayList<FCW>> lightTimeline) {
+	public void setLightTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> lightTimeline) {
             this.lightTimeline = lightTimeline;
             
         }
@@ -94,7 +91,7 @@ public class Timeline {
 	/**
      * @param timeline the timeline to set
      */
-    public void setTimeline(SortedMap<Integer, ArrayList<FCW>> timeline) {
+    public void setTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> timeline) {
         this.timeline = timeline;
         timeline.keySet().stream().forEach((i) -> {
             timeline.get(i).stream().forEach((f) -> {
@@ -259,8 +256,11 @@ public class Timeline {
 //    private void populateLightFcwArray() {
 
     void sendTimelineInstanceToSliders(int time) {
-        if(waterTimeline.containsKey(time))
-            SlidersController.getInstance().setSlidersWithFcw(waterTimeline.get(time));
+//        if(waterTimeline.containsKey(time)) {
+            Integer closestKey = waterTimeline.floorKey(time);
+            SlidersController.getInstance().setSlidersWithFcw(waterTimeline.get(closestKey));
+//        }
+            
     }
     
 //    public void updateColorsLists(int time){
@@ -279,6 +279,11 @@ public class Timeline {
         SortedMap<Integer, Integer> channel = gtfoArray.get(f.getAddr());
         setLightFcwWithRange(channel, start, end, f.getData());
         TimelineController.getInstance().rePaintLightTimeline();
+    }
+
+    void sendSubmapToSim(int tenthsTime) {
+        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, true, tenthsTime + BUFFERBOUNDARY, true));
+        
     }
     
 }

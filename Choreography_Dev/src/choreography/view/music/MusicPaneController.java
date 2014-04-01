@@ -125,6 +125,7 @@ public class MusicPaneController {
     	mediaPlayer.pause();
         ChoreographyController.getInstance().stopTimelineTimer();
         ChoreographyController.getInstance().stopSliderTimer();
+        TimelineController.getInstance().fireSliderChangeEvent();
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
@@ -133,14 +134,13 @@ public class MusicPaneController {
     	if (mediaPlayer.statusProperty().getValue()==Status.PAUSED || 
     			mediaPlayer.statusProperty().getValue()==Status.STOPPED ||
     			mediaPlayer.statusProperty().getValue()==Status.READY){
-    	try{
-            mediaPlayer.play();
-            playButton.setText("Pause");
-            ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
-            ChoreographyController.getInstance().startPollingSlidersAlgorithm();
-            ChoreographyController.getInstance().startPollingColorAlgorithm();
-
-            
+            try{
+                mediaPlayer.play();
+                playButton.setText("Pause");
+                ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
+                ChoreographyController.getInstance().startPollingSlidersAlgorithm();
+                ChoreographyController.getInstance().startPollingColorAlgorithm();
+                ChoreographyController.getInstance().startPlayingSim();
     	}
     	catch (Exception e){
             e.printStackTrace();
