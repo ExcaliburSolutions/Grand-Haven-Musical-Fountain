@@ -10,7 +10,6 @@ import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.music.MusicPaneController;
-import choreography.view.sliders.SlidersController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import java.net.URL;
@@ -21,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
@@ -43,45 +43,44 @@ public class SpecialoperationsController implements Initializable {
         }
         return instance;
     }
-    
-    @FXML
-    private TitledPane sweepControlsPane;
-    
-
     @FXML
     private CheckBox voiceCheckbox;
 
     @FXML
     private AnchorPane bSweepsPane;
 
+    @FXML
+    private ToggleButton independentSweeps;
 
     @FXML
-    private ToggleGroup SpecialOps;
+    private Button fadeDownButton;
 
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private ToggleGroup sweepGroup;
+
+    @FXML
+    private ToggleButton opposedSweeps;
+
+    @FXML
+    private Button fadeUpButton;
+
+    @FXML
+    private Button strobeButton;
+
+    @FXML
+    private ToggleButton parallelSweeps;
+
+    @FXML
+    private TitledPane sweepControlsPane;
 
     @FXML
     private AnchorPane aSweepsPane;
 
     @FXML
-    private ToggleButton resetButton;
-    @FXML
-    private ToggleGroup sweepGroup;
-    @FXML
-    private ToggleButton opposedSweeps;
-    @FXML
-    private ToggleButton parallelSweeps;
-    @FXML
-    private ToggleButton deleteButton;
-    @FXML
-    private CheckBox strobeCheckbox;
-    @FXML
-    private ToggleButton fadeUpButton;
-    @FXML
-    private ToggleGroup fadeGroup;
-    @FXML
-    private ToggleButton fadeDownButton;
-    @FXML
-    private ToggleButton independentSweeps;
+    private Button resetButton;
     
     private RangeSlider aSweeps;
     private RangeSlider bSweeps;
