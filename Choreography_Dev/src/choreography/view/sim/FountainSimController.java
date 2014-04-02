@@ -2,11 +2,13 @@ package choreography.view.sim;
 
 
 import choreography.io.FCWLib;
+import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentNavigableMap;
@@ -444,15 +446,20 @@ public class FountainSimController implements Initializable {
     
     public void playSim() {
         for(Integer i: bufferedFcws.keySet()) {
-            for(FCW f: bufferedFcws.get(i)) {
-                drawFcw(f);
+                drawFcw(bufferedFcws.get(i));
             }
-        }
         //timeline.play();
     }
 
-    private void drawFcw(FCW f) {
-        String[] actions = FCWLib.getInstance().reverseLookupData(f);
+    public void drawFcw(ArrayList<FCW> fcws) {
+//    	for(FCW f: fcws){
+//        String[] actions = FCWLib.getInstance().reverseLookupData(f);
+//    	}
+    	 Iterator<FCW> it = fcws.iterator();
+         while(it.hasNext()) {
+             FCW f = it.next();
+             String[] actions = FCWLib.getInstance().reverseLookupData(f);
+             double lagTime = LagTimeLibrary.getInstance().getLagTime(f)/10;             
         ArrayList<String> actionsList = new ArrayList<>();
         for(String s: actions) {
             actionsList.add(s);
@@ -462,120 +469,121 @@ public class FountainSimController implements Initializable {
             case 1:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing5A(level);
+                    drawRing5A(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing5B(level);
+                    drawRing5B(level, lagTime);
                 }
                 break;
             case 2:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing4A(level);
+                    drawRing4A(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing4B(level);
+                    drawRing4B(level, lagTime);
                 }
                 break;
             case 3:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing3A(level);
+                    drawRing3A(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing3B(level);
+                    drawRing3B(level, lagTime);
                 }
                 break;
             case 4:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing2A(level);
+                    drawRing2A(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing2B(level);
+                    drawRing2B(level, lagTime);
                 }
                 break;	
             case 5:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing1A(level);
+                    drawRing1A(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawRing1B(level);
+                    drawRing1B(level, lagTime);
                 }
                 break;
             case 6:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawSweepsA(level);
+                    drawSweepsA(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawSweepsB(level);
+                    drawSweepsB(level, lagTime);
                 }
                 break;
             case 7:
                 if(actionsList.contains("SPOUT")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawSpout(level);
+                    drawSpout(level, lagTime);
                 }
                 else if(actionsList.contains("BAZOOKA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawBazooka(level);
+                    drawBazooka(level, lagTime);
                 }
                 break;
             case 8:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawCandlesA(level);
+                    drawCandlesA(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawCandlesB(level);
+                    drawCandlesB(level, lagTime);
                 }
                 break;
             case 9:
                 if(actionsList.contains("FTCURT")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawFtCurtain(level);
+                    drawFtCurtain(level, lagTime);
                 }
                 else if(actionsList.contains("PEACOCK")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawPeacock(level);
+                    drawPeacock(level, lagTime);
                 }
                 else if(actionsList.contains("BKCURT")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawBkCurtain(level);
+                    drawBkCurtain(level, lagTime);
                 }
                 break;
             case 33:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawSweepsA(level);
+                    drawSweepsA(level, lagTime);
                 }
                 break;
             case 34:
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawSweepsB(level);
+                    drawSweepsB(level, lagTime);
                 }
                 break;
             case 48:
                 if(actionsList.contains("MODULEA")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawMultiA(level);
+                    drawMultiA(level, lagTime);
                 }
                 if(actionsList.contains("MODULEB")) {
                     int level = FCWLib.getInstance().reverseGetLevel(f);
-                    drawMultiB(level);
+                    drawMultiB(level, lagTime);
                 }
                 break;
         }
+       }
     }
 	
     public void updateColors(int colNum){
@@ -585,26 +593,26 @@ public class FountainSimController implements Initializable {
         //update the sim objects to those colors
     }
     
-    public void drawFtCurtain(int level) {
+    public void drawFtCurtain(int level, double lagTime) {
         final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(frontCurtain.heightProperty(), ((40*level)));
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1);
         timeline.getKeyFrames().add(kf);
         timeline.play();     				
     }
     
-    public void drawBkCurtain(int level){
+    public void drawBkCurtain(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(backCurtain.heightProperty(), ((40*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1);
         timeline.getKeyFrames().add(kf);
         timeline.play();     				
     }
     
-    public void drawRing1A(int level){
+    public void drawRing1A(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*level)));
@@ -612,24 +620,24 @@ public class FountainSimController implements Initializable {
         final KeyValue kv3 = new KeyValue(mod5ring1.heightProperty(), ((35*level)));
         final KeyValue kv4 = new KeyValue(mod7ring1.heightProperty(), ((35*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
         timeline.play(); 
     }
     
-    public void drawRing1B(int level){
+    public void drawRing1B(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*level)));
         final KeyValue kv3 = new KeyValue(mod6ring1.heightProperty(), ((35*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
         timeline.play();
     }
 
-    public void drawRing2A(int level){
+    public void drawRing2A(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring2.heightProperty(), ((35*level)));
@@ -637,24 +645,24 @@ public class FountainSimController implements Initializable {
         final KeyValue kv3 = new KeyValue(mod5ring2.heightProperty(), ((35*level)));
         final KeyValue kv4 = new KeyValue(mod7ring2.heightProperty(), ((35*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
         timeline.play();
     }
 
-    public void drawRing2B(int level){
+    public void drawRing2B(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring2.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring2.heightProperty(), ((35*level)));
         final KeyValue kv3 = new KeyValue(mod6ring2.heightProperty(), ((35*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
         timeline.play();
     }
 
-    public void drawRing3A(int level){
+    public void drawRing3A(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring3.heightProperty(), ((35*level)));
@@ -662,24 +670,24 @@ public class FountainSimController implements Initializable {
         final KeyValue kv3 = new KeyValue(mod5ring3.heightProperty(), ((35*level)));
         final KeyValue kv4 = new KeyValue(mod7ring3.heightProperty(), ((35*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
         timeline.play();
     }
 
-    public void drawRing3B(int level){
+    public void drawRing3B(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring3.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring3.heightProperty(), ((35*level)));
         final KeyValue kv3 = new KeyValue(mod6ring3.heightProperty(), ((35*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
         timeline.play();
     }
 
-    public void drawRing4A(int level){
+    public void drawRing4A(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			final KeyValue kv1 = new KeyValue(mod1ring4.heightProperty(), ((35*level)));
@@ -687,24 +695,24 @@ public class FountainSimController implements Initializable {
 			final KeyValue kv3 = new KeyValue(mod5ring4.heightProperty(), ((35*level)));
 			final KeyValue kv4 = new KeyValue(mod7ring4.heightProperty(), ((35*level)));
 
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4);
 			timeline.getKeyFrames().add(kf);
 			timeline.play();
     }
 
-    public void drawRing4B(int level){
+    public void drawRing4B(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			final KeyValue kv1 = new KeyValue(mod2ring4.heightProperty(), ((35*level)));
 			final KeyValue kv2 = new KeyValue(mod4ring4.heightProperty(), ((35*level)));
 			final KeyValue kv3 = new KeyValue(mod6ring4.heightProperty(), ((35*level)));
 
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3);
 			timeline.getKeyFrames().add(kf);
 			timeline.play();
     }
 
-    public void drawRing5A(int level){
+    public void drawRing5A(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring5.heightProperty(), ((35*level)));
@@ -712,33 +720,33 @@ public class FountainSimController implements Initializable {
         final KeyValue kv3 = new KeyValue(mod5ring5.heightProperty(), ((35*level)));
         final KeyValue kv4 = new KeyValue(mod7ring5.heightProperty(), ((35*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
 			timeline.play();
     }
 
-    public void drawRing5B(int level){
+    public void drawRing5B(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring5.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring5.heightProperty(), ((35*level)));
         final KeyValue kv3 = new KeyValue(mod6ring5.heightProperty(), ((35*level)));
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
         timeline.play();
     }
     
-    public void drawSpout(int level){
+    public void drawSpout(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			final KeyValue kv1 = new KeyValue(spoutRec.heightProperty(), ((40*level)));
 			
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1);
 			timeline.getKeyFrames().add(kf);
 			timeline.play(); 				
     }
     
-    public void drawBazooka(int level){
+    public void drawBazooka(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			KeyValue kv2 = null;
 			KeyValue kv3 = null;
@@ -770,12 +778,12 @@ public class FountainSimController implements Initializable {
 				
 			}
 
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv2, kv3, kv4, kv5, kv6, kv7);
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv2, kv3, kv4, kv5, kv6, kv7);
 			timeline.getKeyFrames().add(kf);
 			timeline.play();  
     }
     
-    public void drawPeacock(int level) {
+    public void drawPeacock(int level, double lagTime) {
         final Timeline timeline = new Timeline();
      				
         KeyValue kv2 = null;
@@ -882,7 +890,7 @@ public class FountainSimController implements Initializable {
 
         }
 
-        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv2, kv3, kv4, kv5, kv6, kv7, kv8,
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv2, kv3, kv4, kv5, kv6, kv7, kv8,
                         kv9, kv10, kv11, kv12, kv13, kv14, kv15, kv16, kv17, kv18, kv19, kv20, kv21,
                         kv22, kv23, kv24, kv25, kv26, kv27, kv28);
         timeline.getKeyFrames().add(kf);
@@ -890,7 +898,7 @@ public class FountainSimController implements Initializable {
      				
         }
     
-    public void drawSweepsA(int level){
+    public void drawSweepsA(int level, double lagTime){
     		final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
@@ -939,7 +947,7 @@ public class FountainSimController implements Initializable {
 			final KeyValue kv19 = new KeyValue(mod7sweep1.endYProperty(), ((35*level)));
 			final KeyValue kv20 = new KeyValue(mod7sweep2.endYProperty(), ((35*level)));
 
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv7, kv8, kv13, 
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv7, kv8, kv13, 
 																	kv14, kv14, kv19, kv20,
 																	kv25, kv26, kv27, kv28,
 																	kv29, kv30, kv31, kv32);
@@ -947,7 +955,7 @@ public class FountainSimController implements Initializable {
 			timeline.play();     				
     }
     
-    public void drawSweepsB(int level){
+    public void drawSweepsB(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
@@ -985,13 +993,13 @@ public class FountainSimController implements Initializable {
 			final KeyValue kv13 = new KeyValue(mod6sweep1.endYProperty(), ((35*level)));
 			final KeyValue kv14 = new KeyValue(mod6sweep2.endYProperty(), ((35*level)));
 			
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv7, kv8, kv13, 
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv7, kv8, kv13, 
 																	kv14, kv15, kv16, kv17, kv18, kv19, kv20);
 			timeline.getKeyFrames().add(kf);
 			timeline.play();
     }
     
-    public void drawMultiA(int level){
+    public void drawMultiA(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
@@ -1131,7 +1139,7 @@ public class FountainSimController implements Initializable {
 				kv19 = new KeyValue(mod5ring5.heightProperty(), ((35*(level-0))));
 				kv20 = new KeyValue(mod7ring5.heightProperty(), ((35*(level-0))));
 			}
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4,
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4,
 																	kv5, kv6, kv7, kv8,
 																	kv9, kv10, kv11, kv12,
 																	kv13, kv14, kv15, kv16,
@@ -1140,7 +1148,7 @@ public class FountainSimController implements Initializable {
 			timeline.play();
     }
 
-    public void drawMultiB(int level){
+    public void drawMultiB(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
@@ -1255,7 +1263,7 @@ public class FountainSimController implements Initializable {
 				kv18 = new KeyValue(mod4ring5.heightProperty(), ((35*(level-0))));
 				kv19 = new KeyValue(mod6ring5.heightProperty(), ((35*(level-0))));
 			}
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3,
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3,
 																	kv5, kv6, kv7,
 																	kv9, kv10, kv11,
 																	kv13, kv14, kv15,
@@ -1264,7 +1272,7 @@ public class FountainSimController implements Initializable {
 			timeline.play();
     }
     
-    public void drawCandlesA(int level){
+    public void drawCandlesA(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
@@ -1381,7 +1389,7 @@ public class FountainSimController implements Initializable {
 			final KeyValue kv23 = new KeyValue(mod7candle5.endYProperty(), ((35*level)));
 			final KeyValue kv24 = new KeyValue(mod7candle6.endYProperty(), ((35*level)));
 
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv5, kv6,
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4, kv5, kv6,
 																	kv7, kv8, kv9, kv10, kv11, kv12,
 																	kv13, kv14, kv15, kv16, kv17, kv18,
 																	kv19, kv20, kv21, kv22, kv23, kv24,
@@ -1392,7 +1400,7 @@ public class FountainSimController implements Initializable {
 			timeline.play();
     }
 
-    public void drawCandlesB(int level){
+    public void drawCandlesB(int level, double lagTime){
     	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 
@@ -1480,7 +1488,7 @@ public class FountainSimController implements Initializable {
 			final KeyValue kv18 = new KeyValue(mod6candle6.endYProperty(), ((35*level)));
 			
 
-			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4, kv5, kv6,
+			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4, kv5, kv6,
 																	kv7, kv8, kv9, kv10, kv11, kv12,
 																	kv13, kv14, kv15, kv16, kv17, kv18,
 																	kv25, kv26, kv27, kv28, kv29, kv30, kv31, kv32,
@@ -2584,7 +2592,7 @@ public class FountainSimController implements Initializable {
     }
 
     public void acceptFcw(FCW f) {
-        drawFcw(f);
+       // drawFcw(f);
     }
    
     public void disposeBuffer() {

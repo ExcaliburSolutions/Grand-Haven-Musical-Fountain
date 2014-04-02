@@ -417,6 +417,21 @@ public class ChoreographyController implements Initializable {
         }, 0l, 100l);
     }
     
+    public void startPollingSimAlgorithm() {
+        
+        timelineTimer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                	//TimelineController.getInstance().fireSubmapToSim();
+                    TimelineController.getInstance().fireSimChangeEvent();
+                    //FountainSimController.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
+                });
+            }
+        }, 0l, 100l);
+    }
+    
     public void startPollingColorAlgorithm() {
         
         timelineTimer.scheduleAtFixedRate(new TimerTask() {

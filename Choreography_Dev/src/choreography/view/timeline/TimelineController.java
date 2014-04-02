@@ -935,6 +935,10 @@ public class TimelineController implements Initializable {
     public void fireSliderChangeEvent() {
         Timeline.getInstance().sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
     }
+    
+    public void fireSimChangeEvent() {
+        Timeline.getInstance().sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime());
+    }
 
 	public String[] getLabelNames() {
 		return labelNames;

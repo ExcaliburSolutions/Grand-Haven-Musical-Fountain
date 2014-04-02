@@ -279,6 +279,14 @@ public class Timeline {
             
     }
     
+    void sendTimelineInstanceToSim(int time) {
+//      if(waterTimeline.containsKey(time)) {
+          Integer closestKey = waterTimeline.floorKey(time);
+          FountainSimController.getInstance().drawFcw(waterTimeline.get(closestKey));
+//      }
+          
+  }
+    
 //    public void updateColorsLists(int time){
 //    	for (int channel: gtfoArray.keySet()){
 //    		for()
