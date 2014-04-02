@@ -162,10 +162,11 @@ public class MusicPaneController {
     @FXML
     private void stopSong(ActionEvent event) {
     	mediaPlayer.stop();
-        playButton.setText("Play");
-        timeSlider.setValue(0.0);
         mediaPlayer.seek(Duration.ZERO);
+        timeSlider.setValue(0.0);
+        FountainSimController.getInstance().disposeBuffer();
         SlidersController.getInstance().resetAllSliders();
+        playButton.setText("Play");
     }
     
     private void getAllMusic(File fileChosen) {

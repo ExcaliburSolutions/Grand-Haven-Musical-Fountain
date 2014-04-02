@@ -680,7 +680,7 @@ public class FountainSimController implements Initializable {
     }
 
     public void drawRing4A(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			final KeyValue kv1 = new KeyValue(mod1ring4.heightProperty(), ((35*level)));
 			final KeyValue kv2 = new KeyValue(mod3ring4.heightProperty(), ((35*level)));
@@ -689,11 +689,11 @@ public class FountainSimController implements Initializable {
 
 			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();
+//			timeline.play();
     }
 
     public void drawRing4B(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			final KeyValue kv1 = new KeyValue(mod2ring4.heightProperty(), ((35*level)));
 			final KeyValue kv2 = new KeyValue(mod4ring4.heightProperty(), ((35*level)));
@@ -701,7 +701,7 @@ public class FountainSimController implements Initializable {
 
 			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();
+//			timeline.play();
     }
 
     public void drawRing5A(int level){
@@ -718,28 +718,28 @@ public class FountainSimController implements Initializable {
     }
 
     public void drawRing5B(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring5.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring5.heightProperty(), ((35*level)));
         final KeyValue kv3 = new KeyValue(mod6ring5.heightProperty(), ((35*level)));
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
-        timeline.play();
+//        timeline.play();
     }
     
     public void drawSpout(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			final KeyValue kv1 = new KeyValue(spoutRec.heightProperty(), ((40*level)));
 			
 			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
 			timeline.getKeyFrames().add(kf);
-			timeline.play(); 				
+//			timeline.play(); 				
     }
     
     public void drawBazooka(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			KeyValue kv2 = null;
 			KeyValue kv3 = null;
 			KeyValue kv4 = null;
@@ -772,7 +772,7 @@ public class FountainSimController implements Initializable {
 
 			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv2, kv3, kv4, kv5, kv6, kv7);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();  
+//			timeline.play();  
     }
     
     public void drawPeacock(int level) {
@@ -891,7 +891,7 @@ public class FountainSimController implements Initializable {
         }
     
     public void drawSweepsA(int level){
-    		final Timeline timeline = new Timeline();
+//    		final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
 			KeyValue kv25 = null;
@@ -944,11 +944,11 @@ public class FountainSimController implements Initializable {
 																	kv25, kv26, kv27, kv28,
 																	kv29, kv30, kv31, kv32);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();     				
+//			timeline.play();     				
     }
     
     public void drawSweepsB(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
 			KeyValue kv15 = null;
@@ -988,11 +988,11 @@ public class FountainSimController implements Initializable {
 			final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv7, kv8, kv13, 
 																	kv14, kv15, kv16, kv17, kv18, kv19, kv20);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();
+//			timeline.play();
     }
     
     public void drawMultiA(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
 			KeyValue kv1 = null;
@@ -1137,11 +1137,11 @@ public class FountainSimController implements Initializable {
 																	kv13, kv14, kv15, kv16,
 																	kv17, kv18, kv19, kv20);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();
+//			timeline.play();
     }
 
     public void drawMultiB(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
 			KeyValue kv1 = null;
@@ -1261,11 +1261,11 @@ public class FountainSimController implements Initializable {
 																	kv13, kv14, kv15,
 																	kv17, kv18, kv19);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();
+//			timeline.play();
     }
     
     public void drawCandlesA(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
 			KeyValue kv25 = null;
@@ -1389,11 +1389,11 @@ public class FountainSimController implements Initializable {
 																	kv33, kv34, kv35, kv36, kv37, kv38, kv39, kv40,
 																	kv41, kv42, kv43, kv44, kv45, kv46, kv47, kv48);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();
+//			timeline.play();
     }
 
     public void drawCandlesB(int level){
-    	final Timeline timeline = new Timeline();
+//    	final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 
 			KeyValue kv25 = null;
@@ -1487,7 +1487,7 @@ public class FountainSimController implements Initializable {
 																	kv33, kv34, kv35, kv36, kv37, kv38, kv39, kv40,
 																	kv41, kv42);
 			timeline.getKeyFrames().add(kf);
-			timeline.play();     			
+//			timeline.play();     			
     }
 
     
@@ -2580,7 +2580,7 @@ public class FountainSimController implements Initializable {
 
     public void acceptSubmapOfFcws(ConcurrentNavigableMap<Integer, ArrayList<FCW>> subMap) {
         bufferedFcws = subMap;
-        playSim();
+        
     }
 
     public void acceptFcw(FCW f) {

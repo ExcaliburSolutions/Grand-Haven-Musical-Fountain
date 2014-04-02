@@ -13,6 +13,7 @@ import choreography.io.MapLib;
 import choreography.model.fcw.FCW;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
+import choreography.view.sim.FountainSimController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 
@@ -408,7 +409,7 @@ public class ChoreographyController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                	TimelineController.getInstance().fireSubmapToSim();
+//                	TimelineController.getInstance().fireSubmapToSim();
 //                    TimelineController.getInstance().fireSliderChangeEvent();
 //                    Timeline.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
                 });
@@ -451,6 +452,7 @@ public class ChoreographyController implements Initializable {
 
     public void startPlayingSim() {
         TimelineController.getInstance().fireSubmapToSim();
+        FountainSimController.getInstance().playSim();
     }
     
 }

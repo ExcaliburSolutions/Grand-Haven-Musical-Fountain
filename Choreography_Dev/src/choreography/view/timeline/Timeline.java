@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Map.Entry;
 import java.util.SortedMap;
+import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Logger;
 
@@ -298,8 +299,10 @@ public class Timeline {
     }
 
     public void sendSubmapToSim(int tenthsTime) {
-//        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.tailMap(timeline.floorKey(tenthsTime)));
-        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, true, tenthsTime + BUFFERBOUNDARY, true));
+        int floorKey = timeline.floorKey(tenthsTime);
+        ConcurrentNavigableMap<Integer, ArrayList<FCW>> tailMap = timeline.tailMap(floorKey);
+        FountainSimController.getInstance().acceptSubmapOfFcws(tailMap);
+//        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, false, tenthsTime + BUFFERBOUNDARY, true));
     }
 
     private boolean checkForCollision(SortedMap<Integer, ArrayList<FCW>> timeline, int pointInTime, FCW query) {
