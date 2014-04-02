@@ -409,12 +409,12 @@ public class ChoreographyController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                	//TimelineController.getInstance().fireSubmapToSim();
-                    TimelineController.getInstance().fireSliderChangeEvent();
-                    //FountainSimController.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
+//                	TimelineController.getInstance().fireSubmapToSim();
+//                    TimelineController.getInstance().fireSliderChangeEvent();
+//                    Timeline.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
                 });
             }
-        }, 0l, 100l);
+        }, 0l, 20000l);
     }
     
     public void startPollingSimAlgorithm() {
@@ -467,6 +467,7 @@ public class ChoreographyController implements Initializable {
 
     public void startPlayingSim() {
         TimelineController.getInstance().fireSubmapToSim();
+        FountainSimController.getInstance().playSim();
     }
     
 }
