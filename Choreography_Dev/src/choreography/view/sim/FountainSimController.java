@@ -34,7 +34,7 @@ import javafx.util.Duration;
 public class FountainSimController implements Initializable {
 	
     private static FountainSimController instance;
-    private Timeline timeline;
+    //private Timeline timeline;
 
     @FXML
     private ResourceBundle resources;
@@ -448,7 +448,7 @@ public class FountainSimController implements Initializable {
                 drawFcw(f);
             }
         }
-        timeline.play();
+        //timeline.play();
     }
 
     private void drawFcw(FCW f) {
@@ -586,26 +586,26 @@ public class FountainSimController implements Initializable {
     }
     
     public void drawFtCurtain(int level) {
-//        final Timeline timeline = new Timeline();
+        final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(frontCurtain.heightProperty(), ((40*level)));
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();     				
+        timeline.play();     				
     }
     
     public void drawBkCurtain(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(backCurtain.heightProperty(), ((40*level)));
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();     				
+        timeline.play();     				
     }
     
     public void drawRing1A(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring1.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod3ring1.heightProperty(), ((35*level)));
@@ -614,11 +614,11 @@ public class FountainSimController implements Initializable {
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
-//        timeline.play(); 
+        timeline.play(); 
     }
     
     public void drawRing1B(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring1.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring1.heightProperty(), ((35*level)));
@@ -626,11 +626,11 @@ public class FountainSimController implements Initializable {
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();
+        timeline.play();
     }
 
     public void drawRing2A(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring2.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod3ring2.heightProperty(), ((35*level)));
@@ -639,11 +639,11 @@ public class FountainSimController implements Initializable {
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();
+        timeline.play();
     }
 
     public void drawRing2B(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring2.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring2.heightProperty(), ((35*level)));
@@ -651,11 +651,11 @@ public class FountainSimController implements Initializable {
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();
+        timeline.play();
     }
 
     public void drawRing3A(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring3.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod3ring3.heightProperty(), ((35*level)));
@@ -664,11 +664,11 @@ public class FountainSimController implements Initializable {
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();
+        timeline.play();
     }
 
     public void drawRing3B(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod2ring3.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod4ring3.heightProperty(), ((35*level)));
@@ -676,7 +676,7 @@ public class FountainSimController implements Initializable {
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();
+        timeline.play();
     }
 
     public void drawRing4A(int level){
@@ -705,7 +705,7 @@ public class FountainSimController implements Initializable {
     }
 
     public void drawRing5A(int level){
-//    	final Timeline timeline = new Timeline();
+    	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         final KeyValue kv1 = new KeyValue(mod1ring5.heightProperty(), ((35*level)));
         final KeyValue kv2 = new KeyValue(mod3ring5.heightProperty(), ((35*level)));
@@ -714,7 +714,7 @@ public class FountainSimController implements Initializable {
 
         final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv1, kv2, kv3, kv4);
         timeline.getKeyFrames().add(kf);
-//			timeline.play();
+			timeline.play();
     }
 
     public void drawRing5B(int level){
@@ -776,7 +776,7 @@ public class FountainSimController implements Initializable {
     }
     
     public void drawPeacock(int level) {
-//        final Timeline timeline = new Timeline();
+        final Timeline timeline = new Timeline();
      				
         KeyValue kv2 = null;
         KeyValue kv3 = null;
@@ -886,7 +886,7 @@ public class FountainSimController implements Initializable {
                         kv9, kv10, kv11, kv12, kv13, kv14, kv15, kv16, kv17, kv18, kv19, kv20, kv21,
                         kv22, kv23, kv24, kv25, kv26, kv27, kv28);
         timeline.getKeyFrames().add(kf);
-//        timeline.play();  
+        timeline.play();  
      				
         }
     
@@ -1509,7 +1509,7 @@ public class FountainSimController implements Initializable {
         //assert ring5Rec != null : "fx:id=\"ring5Rec\" was not injected: check your FXML file 'fountainSim.fxml'.";
         assert ring5Slider != null : "fx:id=\"ring5Slider\" was not injected: check your FXML file 'fountainSim.fxml'.";
                 
-        timeline = new Timeline();
+        //timeline = new Timeline();
         
         instance = this;
 		
@@ -2593,7 +2593,7 @@ public class FountainSimController implements Initializable {
     }
 
     private void stopSim() {
-        timeline.stop();
+        //timeline.stop();
     }
 	
 }

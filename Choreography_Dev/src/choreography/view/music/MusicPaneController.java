@@ -125,8 +125,8 @@ public class MusicPaneController {
     	mediaPlayer.pause();
         ChoreographyController.getInstance().stopTimelineTimer();
         ChoreographyController.getInstance().stopSliderTimer();
-        TimelineController.getInstance().fireSliderChangeEvent();
-        FountainSimController.getInstance().disposeBuffer();
+        //TimelineController.getInstance().fireSliderChangeEvent();
+        //FountainSimController.getInstance().disposeBuffer();
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
@@ -153,8 +153,8 @@ public class MusicPaneController {
             pauseSong(event);
             playButton.setText("Play");
 
-            ChoreographyController.getInstance().stopSliderTimer();
-            ChoreographyController.getInstance().stopTimelineTimer();
+//            ChoreographyController.getInstance().stopSliderTimer();
+//            ChoreographyController.getInstance().stopTimelineTimer();
     	}
     }
 
