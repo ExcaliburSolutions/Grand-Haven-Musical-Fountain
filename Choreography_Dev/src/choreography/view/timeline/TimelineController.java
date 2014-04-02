@@ -122,31 +122,31 @@ public class TimelineController implements Initializable {
         lightCM.getItems().add(lightCopy);
         lightCM.getItems().add(lightPaste);
         
-        waterCM.getItems().add(waterCopy);
-        waterCM.getItems().add(waterPaste);
+//        waterCM.getItems().add(waterCopy);
+//        waterCM.getItems().add(waterPaste);
         
         lightCopy.setDisable(true);
         lightPaste.setDisable(true);
         
-        waterCopy.setDisable(true);
-        waterPaste.setDisable(true);
-        
-        waterCopy.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            	waterPaste.setDisable(false);
-                System.out.println(copyAL.toString());
-                waterCopy.setDisable(true);
-            }
-    	});
-        
-        waterPaste.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            	copyWaterRec = oldRec;
-            	waterRecArray[copyWaterLocation].setFill(copyWaterRec.getFill());
-            }
-    	});
+//        waterCopy.setDisable(true);
+//        waterPaste.setDisable(true);
+//        
+//        waterCopy.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//            	waterPaste.setDisable(false);
+//                System.out.println(copyAL.toString());
+//                waterCopy.setDisable(true);
+//            }
+//    	});
+//        
+//        waterPaste.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//            	copyWaterRec = oldRec;
+//            	waterRecArray[copyWaterLocation].setFill(copyWaterRec.getFill());
+//            }
+//    	});
         
         lightCopy.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -416,6 +416,8 @@ public class TimelineController implements Initializable {
 //                    }
                     if (!copyAL.contains(lightRecArray[testI][testJ])){
                             copyAL.add(lightRecArray[testI][testJ]);
+                            colAL.add(testI);
+                            rowAL.add(testJ);
                     }
                     if (ChoreographyController.getInstance().getIsSelected()) {
                     	lightRecArray[testI][testJ].setOpacity(.50);
