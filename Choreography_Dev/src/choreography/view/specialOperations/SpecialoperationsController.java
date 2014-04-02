@@ -33,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 
 /**
@@ -146,6 +147,22 @@ public class SpecialoperationsController implements Initializable {
                 
                 for(int i = 0; i < colAL.size(); i++){
                 	TimelineController.getInstance().setLightRecArrayFade(rowAL.get(i), colAL.get(i), lg1);
+                }
+            }
+        });
+        
+        strobeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+            	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
+            	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
+            	
+            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
+                RadialGradient rad1 = new RadialGradient(0, .1, 12.5, 12.5, 20, false, CycleMethod.NO_CYCLE, stops1);
+                
+                for(int i = 0; i < colAL.size(); i++){
+                	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), rad1);
                 }
             }
         });
