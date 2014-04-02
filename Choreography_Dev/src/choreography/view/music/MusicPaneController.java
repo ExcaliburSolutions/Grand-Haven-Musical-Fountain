@@ -125,7 +125,7 @@ public class MusicPaneController {
         ChoreographyController.getInstance().stopTimelineTimer();
         ChoreographyController.getInstance().stopSliderTimer();
         TimelineController.getInstance().fireSliderChangeEvent();
-        FountainSimController.getInstance().disposeBuffer();
+//        FountainSimController.getInstance().disposeBuffer();
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction
@@ -159,7 +159,7 @@ public class MusicPaneController {
     	mediaPlayer.stop();
         mediaPlayer.seek(Duration.ZERO);
         timeSlider.setValue(0.0);
-        FountainSimController.getInstance().disposeBuffer();
+//        FountainSimController.getInstance().disposeBuffer();
         SlidersController.getInstance().resetAllSliders();
         playButton.setText("Play");
     }

@@ -213,7 +213,7 @@ public class CtlLib {
     }
 
     public synchronized boolean postDateSingleFcw(FCW f, SortedMap<Integer, ArrayList<FCW>> content, Integer timeIndex) {
-        int lag = LagTimeLibrary.getInstance().getLagTime(f);
+        int lag = LagTimeLibrary.getInstance().getLagTimeInTenths(f);
         if(lag != 0){
             if(content.containsKey(timeIndex - lag)) {
                 content.get(timeIndex - lag).add(f);
@@ -232,7 +232,7 @@ public class CtlLib {
             Iterator<FCW> it = content.get(timeIndex).iterator();
             while(it.hasNext()){
                 FCW f = it.next();
-                int lag = LagTimeLibrary.getInstance().getLagTime(f);
+                int lag = LagTimeLibrary.getInstance().getLagTimeInTenths(f);
                 if(lag != 0){
                     if(content.containsKey(timeIndex + lag)) {
                         content.get(timeIndex + lag).add(f);
