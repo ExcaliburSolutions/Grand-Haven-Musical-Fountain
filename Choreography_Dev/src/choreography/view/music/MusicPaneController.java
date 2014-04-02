@@ -126,6 +126,7 @@ public class MusicPaneController {
         ChoreographyController.getInstance().stopTimelineTimer();
         ChoreographyController.getInstance().stopSliderTimer();
         TimelineController.getInstance().fireSliderChangeEvent();
+        FountainSimController.getInstance().disposeBuffer();
     }
 
     // Handler for Button[Button[id=null, styleClass=button]] onAction

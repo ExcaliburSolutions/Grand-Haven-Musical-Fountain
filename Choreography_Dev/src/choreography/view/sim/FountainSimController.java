@@ -34,6 +34,7 @@ import javafx.util.Duration;
 public class FountainSimController implements Initializable {
 	
     private static FountainSimController instance;
+    //private Timeline timeline = new Timeline();
 
     @FXML
     private ResourceBundle resources;
@@ -431,9 +432,9 @@ public class FountainSimController implements Initializable {
 //
 //	}
 	
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
+//    public static void main(String[] args) {
+//        Application.launch(args);
+//    }
 	
     public static FountainSimController getInstance() {
         if (instance == null)
@@ -451,6 +452,65 @@ public class FountainSimController implements Initializable {
                 }
                 switch(f.getAddr()) {
                 
+                case 1:
+            		if(actionsList.contains("MODULEA")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing5A(level);
+            		}
+            		if(actionsList.contains("MODULEB")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing5B(level);
+            		}
+            		
+                case 2:
+            		if(actionsList.contains("MODULEA")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing4A(level);
+            		}
+            		if(actionsList.contains("MODULEB")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing4B(level);
+            		}
+            		
+                case 3:
+            		if(actionsList.contains("MODULEA")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing3A(level);
+            		}
+            		if(actionsList.contains("MODULEB")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing3B(level);
+            		}
+            		
+                case 4:
+            		if(actionsList.contains("MODULEA")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing2A(level);
+            		}
+            		if(actionsList.contains("MODULEB")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing2B(level);
+            		}
+            		
+                case 5:
+            		if(actionsList.contains("MODULEA")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing1A(level);
+            		}
+            		if(actionsList.contains("MODULEB")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawRing1B(level);
+            		}
+                case 6:
+            		if(actionsList.contains("MODULEA")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawSweepsA(level);
+            		}
+            		if(actionsList.contains("MODULEB")) {
+            			int level = FCWLib.getInstance().reverseGetLevel(f);
+            			drawSweepsB(level);
+            		}
+                
                 	case 7:
                 		if(actionsList.contains("SPOUT")) {
                 			int level = FCWLib.getInstance().reverseGetLevel(f);
@@ -459,6 +519,16 @@ public class FountainSimController implements Initializable {
                 		else if(actionsList.contains("BAZOOKA")) {
                 			int level = FCWLib.getInstance().reverseGetLevel(f);
                 			drawBazooka(level);
+                		}
+                		
+                	case 8:
+                		if(actionsList.contains("MODULEA")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawCandlesA(level);
+                		}
+                		if(actionsList.contains("MODULEB")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawCandlesB(level);
                 		}
                 		
                     case 9:
@@ -473,7 +543,26 @@ public class FountainSimController implements Initializable {
                         else if(actionsList.contains("BKCURT")) {
                             int level = FCWLib.getInstance().reverseGetLevel(f);
                             drawBkCurtain(level);
-                        }                       
+                        }
+                    case 33:
+                		if(actionsList.contains("MODULEA")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawSweepsA(level);
+                		}
+                    case 34:
+                		if(actionsList.contains("MODULEB")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawSweepsB(level);
+                		}
+                    case 48:
+                		if(actionsList.contains("MODULEA")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawMultiA(level);
+                		}
+                		if(actionsList.contains("MODULEB")) {
+                			int level = FCWLib.getInstance().reverseGetLevel(f);
+                			drawMultiB(level);
+                		}
                 }
             }
         }
@@ -2485,6 +2574,10 @@ public class FountainSimController implements Initializable {
 
     public void acceptFcw(FCW f) {
         throw new UnsupportedOperationException("Not supported yet.");
+    
+   
+    public void disposeBuffer(){
+    	bufferedFcws.clear();
     }
 	
 }
