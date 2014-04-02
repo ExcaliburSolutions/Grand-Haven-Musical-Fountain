@@ -491,27 +491,28 @@ public class TimelineController implements Initializable {
                     Duration duration = MusicPaneController.getInstance().getMediaPlayer().getTotalDuration();
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     
-                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
+//                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
                     System.out.println(Timeline.getInstance().getActionsAtTime(testI));
                     
-                    if (!oldRecHasValue){ //aka oldRed does not have a value
-                    	oldRec = waterRecArray[testI];
-                    	oldRecHasValue = true;
-                    }
-                    else{
+//                    if (!oldRecHasValue){ //aka oldRed does not have a value
+//                    	oldRec = waterRecArray[testI];
+//                    	oldRecHasValue = true;
+//                    }
+//                    else{
                     	if(Timeline.getInstance().getActionsAtTime(testI)){
-                            oldRec.setFill(Color.DARKBLUE);
-                            oldRec = waterRecArray[testI];
-                            waterRecArray[testI] = oldRec;
+//                    		rePaintWaterTimeline();
+//                            oldRec.setFill(Color.DARKBLUE);
+//                            oldRec = waterRecArray[testI];
+//                            waterRecArray[testI] = oldRec;
                     	}
                     	else{
-                            oldRec.setFill(Color.LIGHTGRAY);
-                            oldRec = waterRecArray[testI];
-                            waterRecArray[testI] = oldRec;
+//                            oldRec.setFill(Color.LIGHTGRAY);
+//                            oldRec = waterRecArray[testI];
+//                            waterRecArray[testI] = oldRec;
                     	}
                     	
                     	
-                    }
+//                    }
                 }
                 });
                 
