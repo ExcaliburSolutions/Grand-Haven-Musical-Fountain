@@ -195,7 +195,7 @@ public class MusicPaneController {
     	}
     	
     	FileChooser fc = new FileChooser();
-    	fc.setInitialDirectory(new File(System.getProperty("user.home")));
+    	fc.setInitialDirectory(new File(System.getProperty("user.dir")));
         fc.getExtensionFilters().setAll(new FileChooser.ExtensionFilter(
                 "Music Files", "*.wav", "*.flac"));
     	File file2 = fc.showOpenDialog(null);

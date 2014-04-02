@@ -278,8 +278,8 @@ public class ChoreographyController implements Initializable {
                 @Override
                 public void run() {
                     MapLib.openMap(new File("src/choreography/model/color/dmx.map"));
-//                    MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
-//                    CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
+                    MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
+                    CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
                 }
             });
         isSlidersLoaded = true;
@@ -292,6 +292,7 @@ public class ChoreographyController implements Initializable {
 
     private File selectSaveLocation() {
         FileChooser fc = new FileChooser();
+        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("CTL", "*.ctl"));
         fc.setInitialDirectory(new File(System.getProperty("user.home")));
         saveLocation = fc.showSaveDialog(null);
         isSaved = true;

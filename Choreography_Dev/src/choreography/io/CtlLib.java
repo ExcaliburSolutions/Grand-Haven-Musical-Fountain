@@ -44,7 +44,7 @@ public class CtlLib {
     public synchronized void openCtl() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open CTL File");
-        fc.setInitialFileName(System.getProperty("user.home"));
+        fc.setInitialFileName(System.getProperty("user.dir"));
         fc.getExtensionFilters().add(new ExtensionFilter("CTL Files", "*.ctl"));
         File ctlFile = fc.showOpenDialog(null);
         openCtl(ctlFile);
