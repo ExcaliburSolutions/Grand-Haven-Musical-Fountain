@@ -2482,5 +2482,9 @@ public class FountainSimController implements Initializable {
         bufferedFcws.putAll(subMap);
         playSim();
     }
+
+    public void acceptFcw(FCW f) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 	
 }

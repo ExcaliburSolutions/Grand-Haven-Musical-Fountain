@@ -144,10 +144,10 @@ public final class FCWLib {
         while(fileIn.hasNextLine()){
             String line = fileIn.nextLine();
             if(line.equals("|EndLightAddresses|")) {
-                    return;
+                return;
             } else {
-                    String[] tokens= line.split(", ");
-                            lightAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
+                String[] tokens= line.split(", ");
+                lightAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
             }
         }
     }
@@ -399,6 +399,10 @@ public final class FCWLib {
 
     public void cleanupActionsArrayList(FCW f, ArrayList<String> actions) {
         //        for(String action: actions) {
+        if(actions.size() > 1 && actions.contains("OFF")) {
+            actions.remove("OFF");
+        }
+        
         switch(f.getAddr()) {
             case 1:
                 actions.remove("SPOUT");
@@ -420,7 +424,10 @@ public final class FCWLib {
             case 36:
             case 37:
                 actions.remove("HOLDRIGHTOT");
-                
+                break;
+            case 40:
+                break;
+               
             
         }
 //        }

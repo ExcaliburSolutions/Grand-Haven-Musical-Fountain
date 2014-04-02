@@ -4,6 +4,7 @@ import choreography.io.FCWLib;
 import choreography.model.cannon.Cannon;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
+import choreography.view.sim.FountainSimController;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,7 +41,7 @@ class CannonSliderChangeListener<T extends Cannon> implements ChangeListener<Num
         String[] actions = new String[]{module, Integer.toString(level)};
         FCW f = FCWLib.getInstance().getFCW(name, actions);
         ChoreographyController.getInstance().setfcwOutput(f.toString());
-        
+        FountainSimController.getInstance().acceptFcw(f);
     }
 
     /**
