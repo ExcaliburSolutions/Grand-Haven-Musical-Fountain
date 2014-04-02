@@ -41,6 +41,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
+import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -119,7 +120,12 @@ public class TimelineController implements Initializable {
     public ArrayList<Integer> getRowAL(){
     	return this.rowAL;
     }
+    
     public void setLightRecArrayFade(int row, int col, LinearGradient c){
+    	lightRecArray[col][row].setFill(c);
+    }
+    
+    public void setLightRecArrayStrobe(int row, int col, RadialGradient c){
     	lightRecArray[col][row].setFill(c);
     }
     /**
