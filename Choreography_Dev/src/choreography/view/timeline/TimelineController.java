@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -38,9 +39,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -107,6 +110,17 @@ public class TimelineController implements Initializable {
         this.rowAL = new ArrayList<>();
         this.colAL = new ArrayList<>();
         this.copyAL = new ArrayList<>();
+    }
+    
+    public ArrayList<Integer> getColAL(){
+    	return this.colAL;
+    }
+    
+    public ArrayList<Integer> getRowAL(){
+    	return this.rowAL;
+    }
+    public void setLightRecArrayFade(int row, int col, LinearGradient c){
+    	lightRecArray[col][row].setFill(c);
     }
     /**
      * Initializes the controller class.
@@ -414,11 +428,11 @@ public class TimelineController implements Initializable {
 //                                        .getInstance()
 //                                        .getSelectedColor());
 //                    }
-                    if (!copyAL.contains(lightRecArray[testI][testJ])){
-                            copyAL.add(lightRecArray[testI][testJ]);
-                            colAL.add(testI);
-                            rowAL.add(testJ);
-                    }
+//                    if (!copyAL.contains(lightRecArray[testI][testJ])){
+//                            copyAL.add(lightRecArray[testI][testJ]);
+//                            colAL.add(testI);
+//                            rowAL.add(testJ);
+//                    }
                     if (ChoreographyController.getInstance().getIsSelected()) {
                     	lightRecArray[testI][testJ].setOpacity(.50);
                         if (!copyAL.contains(lightRecArray[testI][testJ])){
@@ -434,11 +448,11 @@ public class TimelineController implements Initializable {
 //                                ColorPaletteModel.getInstance().getSelectedIndex()));
                     }
                 });
-                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
-                    FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
-                    System.out.println(f + " " + start + " " + testI + 1);
-                });
+//                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
+//                    FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+//                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
+//                    System.out.println(f + " " + start + " " + testI + 1);
+//                });
             }
         }
 
