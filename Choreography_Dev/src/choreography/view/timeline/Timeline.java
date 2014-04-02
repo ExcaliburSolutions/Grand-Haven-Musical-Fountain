@@ -291,14 +291,15 @@ public class Timeline {
     }
     
 
-    void setLightFcw(FCW f, int start, int end) {
+    public void setLightFcw(FCW f, int start, int end) {
         SortedMap<Integer, Integer> channel = gtfoArray.get(f.getAddr());
         setLightFcwWithRange(channel, start, end, f.getData());
         TimelineController.getInstance().rePaintLightTimeline();
     }
 
-    void sendSubmapToSim(int tenthsTime) {
-        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.tailMap(tenthsTime));
+    public void sendSubmapToSim(int tenthsTime) {
+//        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.tailMap(timeline.floorKey(tenthsTime)));
+        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, true, tenthsTime + BUFFERBOUNDARY, true));
     }
 
     private boolean checkForCollision(SortedMap<Integer, ArrayList<FCW>> timeline, int pointInTime, FCW query) {

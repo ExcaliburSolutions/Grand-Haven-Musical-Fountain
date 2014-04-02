@@ -40,7 +40,7 @@
  * Portions Copyrighted 2014 Sun Microsystems, Inc.
  */
 
-package choreography.view.sim;
+package choreography;
 
 import javafx.application.Preloader;
 import javafx.application.Preloader.ProgressNotification;

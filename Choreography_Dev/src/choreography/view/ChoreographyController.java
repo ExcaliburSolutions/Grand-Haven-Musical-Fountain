@@ -147,6 +147,7 @@ public class ChoreographyController implements Initializable {
 //                progressIndicator.setProgress(-1);
                 MusicPaneController.getInstance().selectMusic();
 //                progressIndicator.setProgress(1);
+                TimelineController.getInstance().initializeTimelines();
                 openCTLMenuItem.setDisable(false);
             }
     		
@@ -407,7 +408,7 @@ public class ChoreographyController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-//                	TimelineController.getInstance().fireSubmapToSim();
+                	TimelineController.getInstance().fireSubmapToSim();
 //                    TimelineController.getInstance().fireSliderChangeEvent();
 //                    Timeline.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
                 });

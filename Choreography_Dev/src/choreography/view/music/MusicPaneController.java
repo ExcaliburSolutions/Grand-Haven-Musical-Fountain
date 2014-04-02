@@ -164,6 +164,7 @@ public class MusicPaneController {
     	mediaPlayer.stop();
         playButton.setText("Play");
         timeSlider.setValue(0.0);
+        mediaPlayer.seek(Duration.ZERO);
         SlidersController.getInstance().resetAllSliders();
     }
     
