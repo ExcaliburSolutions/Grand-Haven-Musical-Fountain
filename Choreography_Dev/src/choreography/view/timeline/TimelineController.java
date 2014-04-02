@@ -729,7 +729,33 @@ public class TimelineController implements Initializable {
             if(channel == 24){
                 FountainSimController.getInstance().getBackCurtain().setFill(color);
             }
-//            if(channel == )
+            if(channel == 25){
+                FountainSimController.getInstance().getPeacock1().setFill(color);
+                FountainSimController.getInstance().getPeacock2().setFill(color);
+                FountainSimController.getInstance().getPeacock3().setFill(color);
+                FountainSimController.getInstance().getPeacock4().setFill(color);
+            }
+            if(channel == 26 || channel == 41){
+                FountainSimController.getInstance().getPeacock5().setFill(color);
+                FountainSimController.getInstance().getPeacock6().setFill(color);
+                FountainSimController.getInstance().getPeacock7().setFill(color);
+                FountainSimController.getInstance().getPeacock8().setFill(color);
+                FountainSimController.getInstance().getPeacock9().setFill(color);
+            }
+            if(channel == 27 || channel == 230){
+            	FountainSimController.getInstance().getPeacock1().setFill(color);
+                FountainSimController.getInstance().getPeacock2().setFill(color);
+                FountainSimController.getInstance().getPeacock3().setFill(color);
+                FountainSimController.getInstance().getPeacock4().setFill(color);
+                FountainSimController.getInstance().getPeacock5().setFill(color);
+                FountainSimController.getInstance().getPeacock6().setFill(color);
+                FountainSimController.getInstance().getPeacock7().setFill(color);
+                FountainSimController.getInstance().getPeacock8().setFill(color);
+                FountainSimController.getInstance().getPeacock9().setFill(color);
+            }
+            if(channel == 200){
+                FountainSimController.getInstance().getFrontCurtain().setFill(color);
+            }
     	}
     }
     

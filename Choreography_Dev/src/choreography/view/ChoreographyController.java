@@ -407,11 +407,12 @@ public class ChoreographyController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
+                	TimelineController.getInstance().fireSubmapToSim();
 //                    TimelineController.getInstance().fireSliderChangeEvent();
 //                    Timeline.getInstance().drawSim(MusicPaneController.getInstance().getTenthsTime());
                 });
             }
-        }, 0l, 100l);
+        }, 0l, 20000l);
     }
     
     public void startPollingColorAlgorithm() {
