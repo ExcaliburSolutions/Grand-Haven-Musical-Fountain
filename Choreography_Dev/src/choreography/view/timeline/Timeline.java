@@ -299,10 +299,8 @@ public class Timeline {
     }
 
     public void sendSubmapToSim(int tenthsTime) {
-        int floorKey = timeline.floorKey(tenthsTime);
-        ConcurrentNavigableMap<Integer, ArrayList<FCW>> tailMap = timeline.tailMap(floorKey);
-        FountainSimController.getInstance().acceptSubmapOfFcws(tailMap);
-//        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, false, tenthsTime + BUFFERBOUNDARY, true));
+//        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.tailMap(timeline.floorKey(tenthsTime)));
+        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, true, MusicPaneController.getInstance().SONG_TIME, true));
     }
 
     private boolean checkForCollision(SortedMap<Integer, ArrayList<FCW>> timeline, int pointInTime, FCW query) {

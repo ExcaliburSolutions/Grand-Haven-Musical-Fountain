@@ -9,13 +9,16 @@ package choreography.view.specialOperations;
 import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
+import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +30,10 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 
 /**
  * FXML Controller class
@@ -110,6 +117,38 @@ public class SpecialoperationsController implements Initializable {
         bSweepsPane.getChildren().add(bSweeps); 
         aSweeps.setVisible(false);
         bSweeps.setVisible(false);
+        
+        fadeUpButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+            	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
+            	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
+            	
+            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
+                LinearGradient lg1 = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops1);
+                
+                for(int i = 0; i < colAL.size(); i++){
+                	TimelineController.getInstance().setLightRecArrayFade(rowAL.get(i), colAL.get(i), lg1);
+                }
+            }
+        });
+        
+        fadeDownButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+            	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
+            	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
+            	
+            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
+                LinearGradient lg1 = new LinearGradient(1, 0, 0, 0, true, CycleMethod.NO_CYCLE, stops1);
+                
+                for(int i = 0; i < colAL.size(); i++){
+                	TimelineController.getInstance().setLightRecArrayFade(rowAL.get(i), colAL.get(i), lg1);
+                }
+            }
+        });
         
         opposedSweeps.setOnMouseClicked(new EventHandler<MouseEvent>() {
 

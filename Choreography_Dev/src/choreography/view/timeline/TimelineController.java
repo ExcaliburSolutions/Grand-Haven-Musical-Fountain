@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -38,9 +39,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -107,6 +110,17 @@ public class TimelineController implements Initializable {
         this.rowAL = new ArrayList<>();
         this.colAL = new ArrayList<>();
         this.copyAL = new ArrayList<>();
+    }
+    
+    public ArrayList<Integer> getColAL(){
+    	return this.colAL;
+    }
+    
+    public ArrayList<Integer> getRowAL(){
+    	return this.rowAL;
+    }
+    public void setLightRecArrayFade(int row, int col, LinearGradient c){
+    	lightRecArray[col][row].setFill(c);
     }
     /**
      * Initializes the controller class.
@@ -414,11 +428,11 @@ public class TimelineController implements Initializable {
 //                                        .getInstance()
 //                                        .getSelectedColor());
 //                    }
-                    if (!copyAL.contains(lightRecArray[testI][testJ])){
-                            copyAL.add(lightRecArray[testI][testJ]);
-                            colAL.add(testI);
-                            rowAL.add(testJ);
-                    }
+//                    if (!copyAL.contains(lightRecArray[testI][testJ])){
+//                            copyAL.add(lightRecArray[testI][testJ]);
+//                            colAL.add(testI);
+//                            rowAL.add(testJ);
+//                    }
                     if (ChoreographyController.getInstance().getIsSelected()) {
                     	lightRecArray[testI][testJ].setOpacity(.50);
                         if (!copyAL.contains(lightRecArray[testI][testJ])){
@@ -434,11 +448,11 @@ public class TimelineController implements Initializable {
 //                                ColorPaletteModel.getInstance().getSelectedIndex()));
                     }
                 });
-                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
-                    FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
-                    System.out.println(f + " " + start + " " + testI + 1);
-                });
+//                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
+//                    FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+//                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
+//                    System.out.println(f + " " + start + " " + testI + 1);
+//                });
             }
         }
 
@@ -491,27 +505,28 @@ public class TimelineController implements Initializable {
                     Duration duration = MusicPaneController.getInstance().getMediaPlayer().getTotalDuration();
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     
-                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
+//                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
                     System.out.println(Timeline.getInstance().getActionsAtTime(testI));
                     
-                    if (!oldRecHasValue){ //aka oldRed does not have a value
-                    	oldRec = waterRecArray[testI];
-                    	oldRecHasValue = true;
-                    }
-                    else{
+//                    if (!oldRecHasValue){ //aka oldRed does not have a value
+//                    	oldRec = waterRecArray[testI];
+//                    	oldRecHasValue = true;
+//                    }
+//                    else{
                     	if(Timeline.getInstance().getActionsAtTime(testI)){
-                            oldRec.setFill(Color.DARKBLUE);
-                            oldRec = waterRecArray[testI];
-                            waterRecArray[testI] = oldRec;
+//                    		rePaintWaterTimeline();
+//                            oldRec.setFill(Color.DARKBLUE);
+//                            oldRec = waterRecArray[testI];
+//                            waterRecArray[testI] = oldRec;
                     	}
                     	else{
-                            oldRec.setFill(Color.LIGHTGRAY);
-                            oldRec = waterRecArray[testI];
-                            waterRecArray[testI] = oldRec;
+//                            oldRec.setFill(Color.LIGHTGRAY);
+//                            oldRec = waterRecArray[testI];
+//                            waterRecArray[testI] = oldRec;
                     	}
                     	
                     	
-                    }
+//                    }
                 }
                 });
                 
@@ -732,28 +747,28 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getBackCurtain().setFill(color);
             }
             if(channel == 25){
-                FountainSimController.getInstance().getPeacock1().setFill(color);
-                FountainSimController.getInstance().getPeacock2().setFill(color);
-                FountainSimController.getInstance().getPeacock3().setFill(color);
-                FountainSimController.getInstance().getPeacock4().setFill(color);
+                FountainSimController.getInstance().getPeacock1().setStroke(color);
+                FountainSimController.getInstance().getPeacock2().setStroke(color);
+                FountainSimController.getInstance().getPeacock3().setStroke(color);
+                FountainSimController.getInstance().getPeacock4().setStroke(color);
             }
             if(channel == 26 || channel == 41){
-                FountainSimController.getInstance().getPeacock5().setFill(color);
-                FountainSimController.getInstance().getPeacock6().setFill(color);
-                FountainSimController.getInstance().getPeacock7().setFill(color);
-                FountainSimController.getInstance().getPeacock8().setFill(color);
-                FountainSimController.getInstance().getPeacock9().setFill(color);
+                FountainSimController.getInstance().getPeacock5().setStroke(color);
+                FountainSimController.getInstance().getPeacock6().setStroke(color);
+                FountainSimController.getInstance().getPeacock7().setStroke(color);
+                FountainSimController.getInstance().getPeacock8().setStroke(color);
+                FountainSimController.getInstance().getPeacock9().setStroke(color);
             }
             if(channel == 27 || channel == 230){
-            	FountainSimController.getInstance().getPeacock1().setFill(color);
-                FountainSimController.getInstance().getPeacock2().setFill(color);
-                FountainSimController.getInstance().getPeacock3().setFill(color);
-                FountainSimController.getInstance().getPeacock4().setFill(color);
-                FountainSimController.getInstance().getPeacock5().setFill(color);
-                FountainSimController.getInstance().getPeacock6().setFill(color);
-                FountainSimController.getInstance().getPeacock7().setFill(color);
-                FountainSimController.getInstance().getPeacock8().setFill(color);
-                FountainSimController.getInstance().getPeacock9().setFill(color);
+            	FountainSimController.getInstance().getPeacock1().setStroke(color);
+                FountainSimController.getInstance().getPeacock2().setStroke(color);
+                FountainSimController.getInstance().getPeacock3().setStroke(color);
+                FountainSimController.getInstance().getPeacock4().setStroke(color);
+                FountainSimController.getInstance().getPeacock5().setStroke(color);
+                FountainSimController.getInstance().getPeacock6().setStroke(color);
+                FountainSimController.getInstance().getPeacock7().setStroke(color);
+                FountainSimController.getInstance().getPeacock8().setStroke(color);
+                FountainSimController.getInstance().getPeacock9().setStroke(color);
             }
             if(channel == 200){
                 FountainSimController.getInstance().getFrontCurtain().setFill(color);

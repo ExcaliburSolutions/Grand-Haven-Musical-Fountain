@@ -12,13 +12,12 @@ import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
-
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
-
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -125,7 +124,7 @@ public class MusicPaneController {
     	mediaPlayer.pause();
         ChoreographyController.getInstance().stopTimelineTimer();
         ChoreographyController.getInstance().stopSliderTimer();
-        TimelineController.getInstance().fireSliderChangeEvent();
+        //TimelineController.getInstance().fireSliderChangeEvent();
         FountainSimController.getInstance().disposeBuffer();
     }
 
@@ -135,26 +134,20 @@ public class MusicPaneController {
     	if (mediaPlayer.statusProperty().getValue()==Status.PAUSED || 
     			mediaPlayer.statusProperty().getValue()==Status.STOPPED ||
     			mediaPlayer.statusProperty().getValue()==Status.READY){
-            try{
-                mediaPlayer.play();
+            mediaPlayer.play();
                 playButton.setText("Pause");
                 ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
                 ChoreographyController.getInstance().startPollingSlidersAlgorithm();
                 ChoreographyController.getInstance().startPollingColorAlgorithm();
                 ChoreographyController.getInstance().startPlayingSim();
     	}
-    	catch (Exception e){
-            e.printStackTrace();
-            ChoreographyController.getInstance().setfcwOutput("Error playing music...");
-    	}
-    	}
     	
     	if (mediaPlayer.statusProperty().getValue()==Status.PLAYING){
             pauseSong(event);
             playButton.setText("Play");
 
-            ChoreographyController.getInstance().stopSliderTimer();
-            ChoreographyController.getInstance().stopTimelineTimer();
+//            ChoreographyController.getInstance().stopSliderTimer();
+//            ChoreographyController.getInstance().stopTimelineTimer();
     	}
     }
 
