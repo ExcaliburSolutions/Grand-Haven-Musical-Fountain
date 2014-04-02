@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import choreography.model.*;
+import choreography.view.sim.GrandHavenMusicalFountainPreloader;
 
 /**
  *
@@ -24,7 +25,8 @@ public class Main extends Application {
      * @param args
      */
     public static void main(String[] args) {
-		launch(args);
+	GrandHavenMusicalFountainPreloader.launch(args);	
+        launch(args);
 	}
 
     /**
@@ -42,10 +44,12 @@ public class Main extends Application {
     @Override
 	public void start(Stage primaryStage) {
         try {
+            
             this.setPrimaryStage(primaryStage);
             Main.primaryStage = primaryStage;
             primaryStage.setTitle("Grand Haven Musical Fountain Choreographer");
             fountain = Fountain.getInstance();
+            
 //                        EventBus.publish(new ResourceAvailable<Fountain>(fountain));
 //			EventBus.publish(new ResourceAvailable(fountain));
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("view/Choreography.fxml"));

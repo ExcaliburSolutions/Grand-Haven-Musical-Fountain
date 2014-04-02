@@ -298,7 +298,7 @@ public class Timeline {
     }
 
     void sendSubmapToSim(int tenthsTime) {
-        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.subMap(tenthsTime, true, tenthsTime + BUFFERBOUNDARY, true));
+        FountainSimController.getInstance().acceptSubmapOfFcws(timeline.tailMap(tenthsTime));
     }
 
     private boolean checkForCollision(SortedMap<Integer, ArrayList<FCW>> timeline, int pointInTime, FCW query) {

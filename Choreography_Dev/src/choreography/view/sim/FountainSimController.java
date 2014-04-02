@@ -414,7 +414,7 @@ public class FountainSimController implements Initializable {
     private static Stage principalStage;
     Timeline timelingRing1;
     
-    private ConcurrentSkipListMap<Integer, ArrayList<FCW>> 
+    private ConcurrentNavigableMap<Integer, ArrayList<FCW>> 
             bufferedFcws = new ConcurrentSkipListMap();
 
 	
@@ -2568,15 +2568,15 @@ public class FountainSimController implements Initializable {
     }
 
     public void acceptSubmapOfFcws(ConcurrentNavigableMap<Integer, ArrayList<FCW>> subMap) {
-        bufferedFcws.putAll(subMap);
+        bufferedFcws = subMap;
         playSim();
     }
 
     public void acceptFcw(FCW f) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    
+//        throw new UnsupportedOperationException("Not supported yet.");
+    }
    
-    public void disposeBuffer(){
+    public void disposeBuffer() {
     	bufferedFcws.clear();
     }
 	
