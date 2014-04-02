@@ -1,6 +1,5 @@
 package choreography.view.sim;
 
-
 import choreography.io.FCWLib;
 import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
