@@ -263,7 +263,7 @@ public class SpecialoperationsController implements Initializable {
                 opposedSweeps.setSelected(false);
                 independentSweeps.setSelected(false);
                 for(String s: actions) {
-                    sweepsActionSwitch(s);
+                    sweepsSpeedSwitch(s);
                 }
                 break;
             case 34:
@@ -271,77 +271,22 @@ public class SpecialoperationsController implements Initializable {
                 opposedSweeps.setSelected(true);
                 independentSweeps.setSelected(false);
                 for(String s: actions) {
-                    sweepsActionSwitch(s);
+                    sweepsSpeedSwitch(s);
                 }
                 break;
             case 35:
-                
+                for(String s: actions) {
+                    sweepsTravelSwitch(aSweeps, s);
+                    sweepsTravelSwitch(bSweeps, s);
+                }
+            break;
             case 36:
-                
+                for(String s: actions) {
+                    sweepsTravelSwitch(aSweeps, s);
+                }
             case 37:
                 for(String s: actions) {
-                switch(s){
-                    case "HOLDRIGHTLONG": 
-                        aSweeps.setHighValue(5);
-                        aSweeps.setLowValue(5);
-                        break;
-                    case "RIGHTLONGRIGHTSHORT": 
-                        aSweeps.setHighValue(5);
-                        aSweeps.setLowValue(4);
-                        break;
-                    case "RIGHTLONGCENTER": 
-                        aSweeps.setHighValue(5);
-                        aSweeps.setLowValue(3);
-                        break;
-                    case "RIGHTLONGLEFTSHORT": 
-                        aSweeps.setHighValue(5);
-                        aSweeps.setLowValue(2);
-                        break;
-                    case "RIGHTLONGLEFTLONG": 
-                        aSweeps.setHighValue(5);
-                        aSweeps.setLowValue(1);
-                        break;
-                    case "HOLDRIGHTSHORT": 
-                        aSweeps.setHighValue(4);
-                        aSweeps.setLowValue(4);
-                        break;
-                    case "RIGHTSHORTCENTER": 
-                        aSweeps.setHighValue(4);
-                        aSweeps.setLowValue(3);
-                        break;
-                    case "RIGHTSHORTLEFTSHORT": 
-                        setSweeps(aSweeps, 1, 3);
-                        break;
-                    case "RIGHTSHORTLEFTLONG": 
-                        aSweeps.setHighValue(1);
-                        aSweeps.setLowValue(4);
-                        break;
-                    case "HOLDCENTER": 
-                        aSweeps.setHighValue(3);
-                        aSweeps.setLowValue(3);
-                        break;
-                    case "CENTERLEFTSHORT": 
-                        aSweeps.setHighValue(3);
-                        aSweeps.setLowValue(2);
-                        break;
-                    case "CENTERLEFTLONG": 
-                        aSweeps.setHighValue(3);
-                        aSweeps.setLowValue(1);
-                        break;
-                    case "HOLDLEFTSHORT": 
-                        aSweeps.setHighValue(2);
-                        aSweeps.setLowValue(2);
-                        break;
-                    case "LEFTSHORTLEFTLONG": 
-                        aSweeps.setLowValue(1);
-                        aSweeps.setHighValue(2);
-                        break;
-                    case "HOLDLEFTLONG": 
-                        aSweeps.setLowValue(1);
-                        aSweeps.setHighValue(1);
-                        break;
-
-                }
+                    sweepsTravelSwitch(aSweeps, s);
                 }
             case 40:
                 for(String s: actions) {
@@ -366,7 +311,60 @@ public class SpecialoperationsController implements Initializable {
         }
     }
 
-    private void sweepsActionSwitch(String s) {
+    private void sweepsTravelSwitch(RangeSlider slider, String s) {
+        switch(s){
+            case "HOLDRIGHTLONG":
+                setSweeps(slider, 4, 4);
+                break;
+            case "RIGHTLONGRIGHTSHORT":
+                setSweeps(slider, 3, 4);
+                break;
+            case "RIGHTLONGCENTER":
+                setSweeps(slider, 2, 4);
+                break;
+            case "RIGHTLONGLEFTSHORT":
+                setSweeps(slider, 1, 4);
+                break;
+            case "RIGHTLONGLEFTLONG":
+                setSweeps(slider, 0, 4);
+                aSweeps.setHighValue(5);
+                aSweeps.setLowValue(1);
+                break;
+            case "HOLDRIGHTSHORT":
+                setSweeps(slider, 3, 3);
+                break;
+            case "RIGHTSHORTCENTER":
+                setSweeps(slider, 2, 3);
+                break;
+            case "RIGHTSHORTLEFTSHORT":
+                setSweeps(slider, 1, 3);
+                break;
+            case "RIGHTSHORTLEFTLONG":
+                setSweeps(slider, 0, 3);
+                break;
+            case "HOLDCENTER":
+                setSweeps(slider, 2, 2);
+                break;
+            case "CENTERLEFTSHORT":
+                setSweeps(slider, 1, 2);
+                break;
+            case "CENTERLEFTLONG":
+                setSweeps(slider, 0, 2);
+                break;
+            case "HOLDLEFTSHORT":
+                setSweeps(slider, 1, 1);
+                break;
+            case "LEFTSHORTLEFTLONG":
+                setSweeps(slider, 0, 1);
+                break;
+            case "HOLDLEFTLONG":
+                setSweeps(slider, 0, 0);
+                break;
+                
+        }
+    }
+
+    private void sweepsSpeedSwitch(String s) {
         if(s.equals("SHORT")) {
             setSweeps(aSweeps, 1, 3);
         }
