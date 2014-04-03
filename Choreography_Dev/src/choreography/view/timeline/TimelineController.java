@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -773,6 +774,57 @@ public class TimelineController implements Initializable {
             }
             if(channel == 200){
                 FountainSimController.getInstance().getFrontCurtain().setFill(color);
+            }
+            if(channel == 49){
+            	// Module A
+            	if (FountainSimController.getInstance().getMod1ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		System.out.println("A only");
+            	}
+            	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod5ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod7ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            }
+            if(channel == 50){
+            	// Module B
+            	if (FountainSimController.getInstance().getMod2ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		System.out.println("B only");
+            	}
+            	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod6ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            }
+            if(channel == 51){
+            	// Module A and B
+            	if (FountainSimController.getInstance().getMod1ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		System.out.println("A and B");
+            	}
+            	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod5ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod7ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod2ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
+            	if (FountainSimController.getInstance().getMod6ring1().getFill().equals(Color.LIGHTGRAY)){
+            		
+            	}
             }
     	}
     }
