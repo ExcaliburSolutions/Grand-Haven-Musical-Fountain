@@ -38,6 +38,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -119,6 +120,8 @@ public class ChoreographyController implements Initializable {
     private ToggleButton selectionButton;
     @FXML
     private Pane simPane;
+    @FXML
+    private ScrollPane beatMarkScrollPane;
 //    @FXML
 //    private ProgressIndicator progressIndicator;
     
