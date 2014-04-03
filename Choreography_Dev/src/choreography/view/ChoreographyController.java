@@ -201,23 +201,23 @@ public class ChoreographyController implements Initializable {
     		
 		});
         
-    	copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-
-				
-			}
-    		
-		});
+//    	copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent event) {
+//
+//				
+//			}
+//    		
+//		});
     	
-    	pasteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-
-				
-			}
-    		
-		});
+//    	pasteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent event) {
+//
+//				
+//			}
+//    		
+//		});
     	
         openCTLMenuItem.setOnAction(new EventHandler<ActionEvent> () {
 
@@ -288,13 +288,13 @@ public class ChoreographyController implements Initializable {
                 }
             });
         
-        setLagTimesMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent t) {
-//                    openLagTimeDialog();
-                }
-            });
+//        setLagTimesMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+//
+//                @Override
+//                public void handle(ActionEvent t) {
+////                    openLagTimeDialog();
+//                }
+//            });
         
         events = new ConcurrentSkipListMap<>();
         fcwOutput.setText("Choreographer has loaded!");
