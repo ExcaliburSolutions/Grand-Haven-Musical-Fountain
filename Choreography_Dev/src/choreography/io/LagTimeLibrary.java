@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class LagTimeLibrary {
     private static LagTimeLibrary instance;
     private final LagTimeTable lagTimeTableInstance;
-    private final File lagTimeDef = new File("LagTimeDef.txt");
+    private final File lagTimeDef = new File("src/choreography/model/lagtime/LagTimeDef.txt");
 
     /**
      *
