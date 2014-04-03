@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -279,8 +280,28 @@ public final class FCWLib {
     }
     
     public synchronized String reverseLookupAddress(FCW f) {
+        String name = "";
+        switch(f.getAddr()) {
+            case 1: break;
+            case 2: break;
+            case 3: break;
+            case 4: break;
+            case 5: break;
+            case 6: break;
+            case 8: break;
+            case 7:
+            case 9:
+                ArrayList<String> possible = new ArrayList<>(Arrays.asList(reverseLookupData(f)));
+                for(String s: possible) {
+                    if(!isLevel(s)) 
+                        name += s + " ";
+//                    possible.remove(s);
+                }
+                return name;
+        }
         for(Entry entry: waterAddress.entrySet()) {
             if((Integer)entry.getValue() == f.getAddr()) {
+//                String[] poss = reverseLookupData(f);
                 return (String)entry.getKey();
             }
         }
@@ -330,12 +351,16 @@ public final class FCWLib {
                 case "5":
                     return 5;
                 case "6":
-                	return 5;
+                    return 5;
                 case "0":
-                    return 0;  
+                    return 0;
             }
         }
         throw new IllegalArgumentException(f + " doesn't have a level!");
+    }
+    
+    public synchronized boolean isLevel(String s) {
+        return s.matches("-?\\d+");
     }
     
     /**
@@ -355,9 +380,16 @@ public final class FCWLib {
             case "TableC":
                 values = new Integer[]{32, 16, 8, 4, 2, 1};
                 break;
-            case "TableD":
+            case "TableD1":
                 values = new Integer[]{102, 96, 80, 64, 48, 32, 16, 8, 2, 1};
                 break;
+            case "TableD2":
+                values = new Integer[]{102, 80, 48, 16, 8};
+                break;
+            case "TableD3":
+                values = new Integer[]{2, 1};
+                break;
+                        
             case "TableE":
                 values = new Integer[]{8, 4, 2};
                 break;
@@ -406,15 +438,16 @@ public final class FCWLib {
         }
         
         switch(f.getAddr()) {
-            case 1:
-                actions.remove("SPOUT");
-                actions.remove("BAZOOKA");
             case 2:
             case 3:
             case 4:
             case 5:
             case 6:
             case 8:
+            case 1:
+                actions.remove("SPOUT");
+                actions.remove("BAZOOKA");
+            
                 break;
             case 7:
                 actions.remove("MODULEA");

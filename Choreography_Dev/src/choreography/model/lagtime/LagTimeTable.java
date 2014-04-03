@@ -125,6 +125,6 @@ public class LagTimeTable {
                 case "6": return lagTime *= level5;
             }
         }
-        throw new IllegalArgumentException("Invalid lag time! " + Arrays.toString(actions));
+        throw new IllegalArgumentException("Invalid lag time! " + f);
     }
 }

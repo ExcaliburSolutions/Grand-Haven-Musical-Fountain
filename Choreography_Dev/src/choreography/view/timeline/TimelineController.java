@@ -172,7 +172,7 @@ public class TimelineController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 lightPaste.setDisable(false);
-                System.out.println(copyAL.toString());
+//                System.out.println(copyAL.toString());
                 lightCopy.setDisable(true);
             }
     	});
@@ -507,12 +507,12 @@ public class TimelineController implements Initializable {
                         waterCM.show(waterRecArray[testI], me.getScreenX(), me.getScreenY());
                     }
 
-                    System.out.println("Col " + (testI));
+//                    System.out.println("Col " + (testI));
                     Duration duration = MusicPaneController.getInstance().getMediaPlayer().getTotalDuration();
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     
 //                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
-                    System.out.println(Timeline.getInstance().getActionsAtTime(testI));
+//                    System.out.println(Timeline.getInstance().getActionsAtTime(testI));
                     
 //                    if (!oldRecHasValue){ //aka oldRed does not have a value
 //                    	oldRec = waterRecArray[testI];
@@ -604,21 +604,13 @@ public class TimelineController implements Initializable {
                     colAtTime = colAtTime - 1;
             }
             for(FCW f: waterTimeline.get(i)) {
-                String name = FCWLib.getInstance().reverseLookupAddress(f);
-                String[] actions = FCWLib.getInstance().reverseLookupData(f);
-                for(String s: actions){
-                    if(!actionsList.contains(s)) {
-                        actionsList.add(waterTLWords(s));
-                    }
-                    else {
-                        
-                    }
-                }
+                actionsList.add(f.getPrettyString());
                 //TODO make mouse over info better
                 //TODO update sliders
             }
              waterRecArray[colAtTime].setFill(Color.AZURE);
                 Tooltip t = new Tooltip(actionsList.toString());
+                t.setAutoHide(true);
                 Tooltip.install(waterRecArray[colAtTime], t);
         }
 //        rePaintLightTimeline();

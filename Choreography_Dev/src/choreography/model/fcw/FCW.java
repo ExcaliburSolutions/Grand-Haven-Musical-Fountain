@@ -7,6 +7,7 @@
 package choreography.model.fcw;
 
 import choreography.io.FCWLib;
+import java.util.Arrays;
 
 /**
  *
@@ -71,5 +72,11 @@ public class FCW {
     
     public synchronized boolean getIsWater() {
         return isWater;
+    }
+    
+    public synchronized String getPrettyString() {
+        String name = FCWLib.getInstance().reverseLookupAddress(this);
+        String[] actions = FCWLib.getInstance().reverseLookupData(this);
+        return name + "=" + Arrays.toString(actions);
     }
 }
