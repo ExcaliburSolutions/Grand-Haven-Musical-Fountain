@@ -38,10 +38,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -62,6 +69,12 @@ public class ChoreographyController implements Initializable {
     private static ChoreographyController cc;
     
     private ConcurrentSkipListMap<Integer, ArrayList<FCW>> events;
+    
+    GridPane gridpaneBeatMarks;
+    
+    private int time;
+    
+    Rectangle[] beatMarkRecArray;
     
     @FXML
     private VBox csGUI;
@@ -119,6 +132,8 @@ public class ChoreographyController implements Initializable {
     private ToggleButton selectionButton;
     @FXML
     private Pane simPane;
+    @FXML
+    private ScrollPane beatMarkScrollPane;
 //    @FXML
 //    private ProgressIndicator progressIndicator;
     
@@ -140,6 +155,18 @@ public class ChoreographyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        progressIndicator = new ProgressIndicator();
+    	
+    	beatMarkScrollPane
+        .setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                 
+               if (ke.getCode() == KeyCode.SPACE){
+            	   beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.RED);
+                ke.consume();
+               }
+            }
+
+        });
     	
     	openMusicMenuItem.setOnAction(new EventHandler<ActionEvent> (){
 
@@ -470,5 +497,31 @@ public class ChoreographyController implements Initializable {
         TimelineController.getInstance().fireSubmapToSim();
         FountainSimController.getInstance().playSim();
     }
+    public ScrollPane getBeatMarkScrollPane(){
+    	return this.beatMarkScrollPane;
+    }
+    public void setBeatMarkGridPane(){
+    	gridpaneBeatMarks = new GridPane();
+    		
+    	time = MusicPaneController.SONG_TIME;
+    	
+    	gridpaneBeatMarks.setGridLinesVisible(true);
+    	beatMarkRecArray = new Rectangle[time];
+    	
+    	for (int i = 0; i < time; i++) {    		
+    		gridpaneBeatMarks.getColumnConstraints().add(new ColumnConstraints(26));
+            if (i < 1) { // because the array is not square this needs to be
+                                          // here
+            	gridpaneBeatMarks.getRowConstraints().add(new RowConstraints(26));
+            }
+            
+            beatMarkRecArray[i] = new Rectangle(25, 25, Color.LIGHTGREY);
+            gridpaneBeatMarks.add(beatMarkRecArray[i], i, 0);
+            
+    	}
+    	
+    	beatMarkScrollPane.setContent(gridpaneBeatMarks);
+    }
+    
     
 }

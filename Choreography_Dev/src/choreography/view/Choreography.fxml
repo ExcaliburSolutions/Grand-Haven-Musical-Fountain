@@ -12,7 +12,7 @@
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet application.css?>
 
-<VBox fx:id="csGUI" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="775.0" prefWidth="1329.0" spacing="0.0" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.ChoreographyController">
+<VBox fx:id="csGUI" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="780.0" prefWidth="1329.0" spacing="0.0" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.ChoreographyController">
   <children>
     <MenuBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="24.0" VBox.vgrow="NEVER">
       <menus>
@@ -99,7 +99,7 @@
         <URL value="@application.css" />
       </stylesheets>
     </MenuBar>
-    <Pane fx:id="simPane" maxHeight="-1.0" minHeight="-Infinity" prefHeight="250.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="ALWAYS">
+    <Pane fx:id="simPane" maxHeight="-1.0" minHeight="-Infinity" prefHeight="250.0" prefWidth="1190.0" style="-fx-background-color: black" VBox.vgrow="NEVER">
       <children>
         <fx:include source="sim/fountainSim.fxml" />
       </children>
@@ -122,9 +122,20 @@
             <URL value="@application.css" />
           </stylesheets>
         </fx:include>
+        <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-1.0" prefHeight="15.0" prefWidth="1329.0" visible="false">
+          <children>
+            <ScrollPane fx:id="beatMarkScrollPane" content="$null" hbarPolicy="NEVER" hmax="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="1220.0" vbarPolicy="NEVER" />
+          </children>
+          <padding>
+            <Insets />
+          </padding>
+          <VBox.margin>
+            <Insets bottom="-10.0" left="105.0" top="-10.0" />
+          </VBox.margin>
+        </HBox>
         <fx:include source="timeline/Timeline.fxml" alignment="TOP_LEFT" gridLinesVisible="false" maxHeight="-Infinity" maxWidth="-1.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="1190.0" VBox.vgrow="NEVER">
           <padding>
-            <Insets left="5.0" right="5.0" />
+            <Insets left="5.0" right="5.0" top="-1.0" />
           </padding>
           <stylesheets>
             <URL value="@application.css" />

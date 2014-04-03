@@ -253,6 +253,7 @@ public class TimelineController implements Initializable {
                 "FrontCurtain", "BackCurtain"});
         setLabelGridPane(getLabelNames());
         setTimelineGridPane();
+//        ChoreographyController.getInstance().setBeatMarkGridPane();
     }
     
     public void disableCopyPaste(){
