@@ -223,6 +223,7 @@ public class MusicPaneController {
             Timeline.getInstance().setTime(SONG_TIME);
             TimelineController.getInstance().setTimelineGridPane();
             TimelineController.getInstance().setWaterGridPane();
+            ChoreographyController.getInstance().setBeatMarkGridPane();
             numberLine.setMinWidth(getTime()*26);
             numberLine.setPrefWidth(getTime()*26);
             numberLine.setUpperBound(roundedTime);
@@ -271,6 +272,7 @@ public class MusicPaneController {
             timeSlider.setValue((mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeSlider.setValue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             waterTimeline.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
+            ChoreographyController.getInstance().getBeatMarkScrollPane().setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
             timeLabel.setHvalue( (mediaPlayer.getCurrentTime().toSeconds()/mediaPlayer.getTotalDuration().toSeconds())*100);
         } catch (Exception e) {
             System.out.println("Error updating song progress " + e);
