@@ -44,6 +44,7 @@ public class Main extends Application {
         try {
             
             this.setPrimaryStage(primaryStage);
+            
             Main.primaryStage = primaryStage;
             primaryStage.setTitle("Grand Haven Musical Fountain Choreographer");
             fountain = Fountain.getInstance();
@@ -57,6 +58,7 @@ public class Main extends Application {
             scene.getStylesheets().add(getClass().getResource("view/application.css").toExternalForm());
             primaryStage.setScene(scene);
             
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
