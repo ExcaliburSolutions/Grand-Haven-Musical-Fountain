@@ -320,8 +320,9 @@ public class Timeline {
                     String[] queryActions = FCWLib.getInstance().reverseLookupData(query);
                     for(String fAction:fActions) {
                         for(String queryAction: queryActions) {
-                            if(fAction.equals(queryAction)) {
+                            if(fAction.equals(queryAction) && !FCWLib.getInstance().isLevel(fAction)) {
                                 result = true;
+                                break;
                             }
                         }
                     }

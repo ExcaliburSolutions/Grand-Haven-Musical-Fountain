@@ -245,6 +245,8 @@ public class SpecialoperationsController implements Initializable {
             }
         });
         
+        instance = this;
+        
         //TODO Add Fadeup
         //TODO Add Fadedown
         //TODO Add Strobe
@@ -253,13 +255,153 @@ public class SpecialoperationsController implements Initializable {
 
     public void setSweeps(FCW f) {
         String[] actions = FCWLib.getInstance().reverseLookupData(f);
+        
         System.out.println(Arrays.toString(actions));
         switch(f.getAddr()) {
+            case 33:
+                parallelSweeps.setSelected(true);
+                opposedSweeps.setSelected(false);
+                independentSweeps.setSelected(false);
+                for(String s: actions) {
+                    sweepsActionSwitch(s);
+                }
+                break;
+            case 34:
+                parallelSweeps.setSelected(false);
+                opposedSweeps.setSelected(true);
+                independentSweeps.setSelected(false);
+                for(String s: actions) {
+                    sweepsActionSwitch(s);
+                }
+                break;
             case 35:
-//                aSweeps.setMin(value);
+                
             case 36:
+                
             case 37:
+                for(String s: actions) {
+                switch(s){
+                    case "HOLDRIGHTLONG": 
+                        aSweeps.setHighValue(5);
+                        aSweeps.setLowValue(5);
+                        break;
+                    case "RIGHTLONGRIGHTSHORT": 
+                        aSweeps.setHighValue(5);
+                        aSweeps.setLowValue(4);
+                        break;
+                    case "RIGHTLONGCENTER": 
+                        aSweeps.setHighValue(5);
+                        aSweeps.setLowValue(3);
+                        break;
+                    case "RIGHTLONGLEFTSHORT": 
+                        aSweeps.setHighValue(5);
+                        aSweeps.setLowValue(2);
+                        break;
+                    case "RIGHTLONGLEFTLONG": 
+                        aSweeps.setHighValue(5);
+                        aSweeps.setLowValue(1);
+                        break;
+                    case "HOLDRIGHTSHORT": 
+                        aSweeps.setHighValue(4);
+                        aSweeps.setLowValue(4);
+                        break;
+                    case "RIGHTSHORTCENTER": 
+                        aSweeps.setHighValue(4);
+                        aSweeps.setLowValue(3);
+                        break;
+                    case "RIGHTSHORTLEFTSHORT": 
+                        setSweeps(aSweeps, 1, 3);
+                        break;
+                    case "RIGHTSHORTLEFTLONG": 
+                        aSweeps.setHighValue(1);
+                        aSweeps.setLowValue(4);
+                        break;
+                    case "HOLDCENTER": 
+                        aSweeps.setHighValue(3);
+                        aSweeps.setLowValue(3);
+                        break;
+                    case "CENTERLEFTSHORT": 
+                        aSweeps.setHighValue(3);
+                        aSweeps.setLowValue(2);
+                        break;
+                    case "CENTERLEFTLONG": 
+                        aSweeps.setHighValue(3);
+                        aSweeps.setLowValue(1);
+                        break;
+                    case "HOLDLEFTSHORT": 
+                        aSweeps.setHighValue(2);
+                        aSweeps.setLowValue(2);
+                        break;
+                    case "LEFTSHORTLEFTLONG": 
+                        aSweeps.setLowValue(1);
+                        aSweeps.setHighValue(2);
+                        break;
+                    case "HOLDLEFTLONG": 
+                        aSweeps.setLowValue(1);
+                        aSweeps.setHighValue(1);
+                        break;
+
+                }
+                }
+            case 40:
+                for(String s: actions) {
+                    switch(s) {
+                        case "TOGETHER":
+                            parallelSweeps.setSelected(true);
+                            opposedSweeps.setSelected(false);
+                            independentSweeps.setSelected(false);
+                            break;
+                        case "OPPOSED":
+                            parallelSweeps.setSelected(false);
+                            opposedSweeps.setSelected(true);
+                            independentSweeps.setSelected(false);
+                            break;
+                        case "INDEPENDENT":
+                            parallelSweeps.setSelected(false);
+                            opposedSweeps.setSelected(false);
+                            independentSweeps.setSelected(true);
+                    }
+                }
+                
         }
+    }
+
+    private void sweepsActionSwitch(String s) {
+        if(s.equals("SHORT")) {
+            setSweeps(aSweeps, 1, 3);
+        }
+        if(s.equals("LONG")) {
+            setSweeps(aSweeps, 0, 4);
+        }
+        if(s.equals("LARGO")) {
+            
+        }
+        if(s.equals("ADAGIO")) {
+            
+        }
+        if(s.equals("ANDANTE")) {
+            
+        }
+        if(s.equals("MODERATO")) {
+            
+        }
+        if(s.equals("ALLEGRETO")) {
+            
+        }
+        if(s.equals("ALLEGRO")) {
+            
+        }
+        if(s.equals("PRESTO")) {
+            
+        }
+        if(s.equals("PLAYPAUSE")) {
+            
+        }
+    }
+
+    private void setSweeps(RangeSlider slider, int low, int high) {
+        slider.setHighValue(high);
+        slider.setLowValue(low);
     }
 
     private class SweepsEventHandlerImpl implements EventHandler<MouseEvent> {
@@ -311,9 +453,9 @@ public class SpecialoperationsController implements Initializable {
             FCW f;
             int low = (int)slider.getLowValue();
             int high = (int)slider.getHighValue();
-            System.out.println(low + " " + high);
+//            System.out.println(low + " " + high);
             action = buildSweepLimitString(low, actions, high);
-            System.out.println(action);
+//            System.out.println(action);
             if(opposed) {
                 f = FCWLib.getInstance().getFCW("SWEEPLIMITAB", new String[]{action});
             } else
