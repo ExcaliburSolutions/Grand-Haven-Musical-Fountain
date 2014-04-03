@@ -107,7 +107,7 @@ public class LagTimeTable {
         if(cannon.contains("SWEEP")) {
             return 0;
         }
-        double lagTime = 99.0; 
+        double lagTime = 1.0; 
         for(LagTime lt: delays) {
             if(lt.getDelayName().equalsIgnoreCase(cannon)) {
                 lagTime = lt.getDelayTime();

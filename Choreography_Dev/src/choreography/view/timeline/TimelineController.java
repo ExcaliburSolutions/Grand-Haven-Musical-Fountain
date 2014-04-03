@@ -696,6 +696,8 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getMod4candle6().setStroke(color);
                 FountainSimController.getInstance().getMod4sweep1().setStroke(color);
                 FountainSimController.getInstance().getMod4sweep2().setStroke(color);
+                FountainSimController.getInstance().getSpoutRec().setFill(color);
+
             }
             if(channel == 21){
                 FountainSimController.getInstance().getMod5ring1().setFill(color);
