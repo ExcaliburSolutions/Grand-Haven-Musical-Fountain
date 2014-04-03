@@ -326,6 +326,10 @@ public class Timeline {
                             }
                         }
                     }
+                    if(f.getAddr() == 54) {
+                        result = true;
+                        break;
+                    }
                 }
             }
         }
