@@ -4,6 +4,7 @@ import choreography.io.FCWLib;
 import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
 import choreography.model.lagtime.LagTimeTable;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +13,7 @@ import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -27,6 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -558,12 +561,51 @@ public class FountainSimController implements Initializable {
                     }
                     break;
                 case 33:
-                    if(actionsList.contains("MODULEA")) {
-                        int level = FCWLib.getInstance().reverseGetLevel(f);
-                        drawSweepsA(level, lagTime);
+                    if(actionsList.contains("ADAGIO")) {
+                        moveSweepsA(-30, 30);
+                    }
+                    if(actionsList.contains("MODERATO")) {
+                        moveSweepsA(-30, 30);
+                    }
+                    if(actionsList.contains("SHORT")) {
+                        moveSweepsA(-30, 30);
                     }
                     break;
                 case 34:
+                    if(actionsList.contains("MODERATO")) {
+                        moveSweepsB(-15, 15);
+                    }
+                    break;
+                case 35:
+                    if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
+                        moveSweepsA(-30, 15);
+                        moveSweepsB(-30, 15);
+                    }
+                    if(actionsList.contains("RIGHTSHORTLEFTSHORT")) {
+                        moveSweepsA(-15, 15);
+                        moveSweepsB(-15, 15);
+                    }
+                    if(actionsList.contains("RIGHTLONGLEFTLONG")) {
+                        moveSweepsA(-30, 15);
+                        moveSweepsB(-30, 15);
+                    }
+                    if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
+                        moveSweepsA(-30, 15);
+                        moveSweepsB(-30, 15);
+                    }
+                    break;
+                case 36:
+                    if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
+                        moveSweepsA(-30, 15);
+                    }
+                    break;
+                case 37:
+                    if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
+                        //int level = FCWLib.getInstance().reverseGetLevel(f);
+                        moveSweepsB(-30, 15);
+                    }
+                    break;
+                case 38:
                     if(actionsList.contains("MODULEB")) {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
                         drawSweepsB(level, lagTime);
@@ -944,7 +986,7 @@ public class FountainSimController implements Initializable {
 			final KeyValue kv19 = new KeyValue(mod7sweep1.endYProperty(), ((35*level)));
 			final KeyValue kv20 = new KeyValue(mod7sweep2.endYProperty(), ((35*level)));
 
-			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv7, kv8, kv13, 
+			final KeyFrame kf = new KeyFrame(Duration.seconds(.5), kv1, kv2, kv7, kv8, kv13, 
 																	kv14, kv14, kv19, kv20,
 																	kv25, kv26, kv27, kv28,
 																	kv29, kv30, kv31, kv32);
@@ -953,6 +995,7 @@ public class FountainSimController implements Initializable {
     }
     
     public void drawSweepsB(int level, double lagTime){
+		final Timeline timeline = new Timeline();
 			timeline.setCycleCount(1);
 			
 			KeyValue kv15 = null;
@@ -989,11 +1032,162 @@ public class FountainSimController implements Initializable {
 			final KeyValue kv13 = new KeyValue(mod6sweep1.endYProperty(), ((35*level)));
 			final KeyValue kv14 = new KeyValue(mod6sweep2.endYProperty(), ((35*level)));
 			
-			final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv7, kv8, kv13, 
+			final KeyFrame kf = new KeyFrame(Duration.seconds(.5), kv1, kv2, kv7, kv8, kv13, 
 																	kv14, kv15, kv16, kv17, kv18, kv19, kv20);
 			timeline.getKeyFrames().add(kf);
 			timeline.play();
     }
+    
+    public void moveSweepsA(double leftLimit, double rightLimit){
+		final Timeline timeline = new Timeline();
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.setAutoReverse(true);
+		
+		KeyValue kv25 = null;
+		KeyValue kv26 = null;
+		KeyValue kv27 = null;
+		KeyValue kv28 = null;
+		KeyValue kv29 = null;
+		KeyValue kv30 = null;
+		KeyValue kv31 = null;
+		KeyValue kv32 = null;
+	
+		mod1sweep1.setVisible(true);
+		mod1sweep2.setVisible(true);
+		mod3sweep1.setVisible(true);
+		mod3sweep2.setVisible(true);
+		mod5sweep1.setVisible(true);
+		mod5sweep2.setVisible(true);
+		mod7sweep1.setVisible(true);
+		mod7sweep2.setVisible(true);
+	
+//	if (level==0){
+//		kv25 = new KeyValue(mod1sweep1.visibleProperty(), false);
+//		kv26 = new KeyValue(mod1sweep2.visibleProperty(), false);
+//		
+//		kv27 = new KeyValue(mod3sweep1.visibleProperty(), false);
+//		kv28 = new KeyValue(mod3sweep2.visibleProperty(), false);
+//		
+//		kv29 = new KeyValue(mod5sweep1.visibleProperty(), false);
+//		kv30 = new KeyValue(mod5sweep2.visibleProperty(), false);
+//		
+//		kv31 = new KeyValue(mod7sweep1.visibleProperty(), false);
+//		kv32 = new KeyValue(mod7sweep2.visibleProperty(), false);
+//	}
+		
+	mod1sweep1.getTransforms().clear();
+	mod1sweep2.getTransforms().clear();
+	mod3sweep1.getTransforms().clear();
+	mod3sweep2.getTransforms().clear();
+	mod5sweep1.getTransforms().clear();
+	mod5sweep2.getTransforms().clear();
+	mod7sweep1.getTransforms().clear();
+	mod7sweep2.getTransforms().clear();
+
+
+	Rotate rotate1 = new Rotate(leftLimit,mod1sweep1.getStartX(),mod1sweep1.getStartY());
+	Rotate rotate2 = new Rotate(leftLimit,mod1sweep2.getStartX(),mod1sweep2.getStartY());
+	Rotate rotate3 = new Rotate(leftLimit,mod3sweep1.getStartX(),mod3sweep1.getStartY());
+	Rotate rotate4 = new Rotate(leftLimit,mod3sweep2.getStartX(),mod3sweep2.getStartY());
+	Rotate rotate5 = new Rotate(leftLimit,mod5sweep1.getStartX(),mod5sweep1.getStartY());
+	Rotate rotate6 = new Rotate(leftLimit,mod5sweep2.getStartX(),mod5sweep2.getStartY());
+	Rotate rotate7 = new Rotate(leftLimit,mod7sweep1.getStartX(),mod7sweep1.getStartY());
+	Rotate rotate8 = new Rotate(leftLimit,mod7sweep2.getStartX(),mod7sweep2.getStartY());
+
+	mod1sweep1.getTransforms().add(rotate1);
+	mod1sweep2.getTransforms().add(rotate2);
+	mod3sweep1.getTransforms().add(rotate3);
+	mod3sweep2.getTransforms().add(rotate4);
+	mod5sweep1.getTransforms().add(rotate5);
+	mod5sweep2.getTransforms().add(rotate6);
+	mod7sweep1.getTransforms().add(rotate7);
+	mod7sweep2.getTransforms().add(rotate8);
+	
+	final KeyValue kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
+	final KeyValue kv2 = new KeyValue(rotate2.angleProperty(), rightLimit);
+	
+	final KeyValue kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
+	final KeyValue kv8 = new KeyValue(rotate4.angleProperty(), rightLimit);
+	
+	final KeyValue kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
+	final KeyValue kv14 = new KeyValue(rotate6.angleProperty(), rightLimit);
+		
+	final KeyValue kv19 = new KeyValue(rotate7.angleProperty(), rightLimit);
+	final KeyValue kv20 = new KeyValue(rotate8.angleProperty(), rightLimit);
+
+		final KeyFrame kf = new KeyFrame(Duration.seconds(1), kv1, kv2, kv7, kv8, kv13, 
+																kv14, kv14, kv19, kv20,
+																kv25, kv26, kv27, kv28,
+																kv29, kv30, kv31, kv32);
+		timeline.getKeyFrames().add(kf);
+		timeline.play();     				
+}
+
+public void moveSweepsB(double leftLimit, double rightLimit){
+	final Timeline timeline = new Timeline();
+		timeline.setCycleCount(timeline.INDEFINITE);
+		timeline.setAutoReverse(true);
+		
+		KeyValue kv15 = null;
+		KeyValue kv16 = null;
+		KeyValue kv17 = null;
+		KeyValue kv18 = null;
+		KeyValue kv19 = null;
+		KeyValue kv20 = null;
+		
+		mod2sweep1.setVisible(true);
+		mod2sweep2.setVisible(true);
+		mod4sweep1.setVisible(true);
+		mod4sweep2.setVisible(true);
+		mod6sweep1.setVisible(true);
+		mod6sweep2.setVisible(true);
+
+//		if (level==0){
+//			kv15 = new KeyValue(mod2sweep1.visibleProperty(), false);
+//			kv16 = new KeyValue(mod2sweep2.visibleProperty(), false);
+//			
+//			kv17 = new KeyValue(mod4sweep1.visibleProperty(), false);
+//			kv18 = new KeyValue(mod4sweep2.visibleProperty(), false);
+//			
+//			kv19 = new KeyValue(mod6sweep1.visibleProperty(), false);
+//			kv20 = new KeyValue(mod6sweep2.visibleProperty(), false);
+//		}
+		mod2sweep1.getTransforms().clear();
+		mod2sweep2.getTransforms().clear();
+		mod4sweep1.getTransforms().clear();
+		mod4sweep2.getTransforms().clear();
+		mod6sweep1.getTransforms().clear();
+		mod6sweep2.getTransforms().clear();
+
+
+		Rotate rotate1 = new Rotate(leftLimit,mod2sweep1.getStartX(),mod2sweep1.getStartY());
+		Rotate rotate2 = new Rotate(leftLimit,mod2sweep2.getStartX(),mod2sweep2.getStartY());
+		Rotate rotate3 = new Rotate(leftLimit,mod4sweep1.getStartX(),mod4sweep1.getStartY());
+		Rotate rotate4 = new Rotate(leftLimit,mod4sweep2.getStartX(),mod4sweep2.getStartY());
+		Rotate rotate5 = new Rotate(leftLimit,mod6sweep1.getStartX(),mod6sweep1.getStartY());
+		Rotate rotate6 = new Rotate(leftLimit,mod6sweep2.getStartX(),mod6sweep2.getStartY());
+
+		mod2sweep1.getTransforms().add(rotate1);
+		mod2sweep2.getTransforms().add(rotate2);
+		mod4sweep1.getTransforms().add(rotate3);
+		mod4sweep2.getTransforms().add(rotate4);
+		mod6sweep1.getTransforms().add(rotate5);
+		mod6sweep2.getTransforms().add(rotate6);
+
+		final KeyValue kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
+		final KeyValue kv2 = new KeyValue(rotate2.angleProperty(), rightLimit);
+		
+		final KeyValue kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
+		final KeyValue kv8 = new KeyValue(rotate4.angleProperty(), rightLimit);
+		
+		final KeyValue kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
+		final KeyValue kv14 = new KeyValue(rotate6.angleProperty(), rightLimit);
+		
+		final KeyFrame kf = new KeyFrame(Duration.seconds(1), kv1, kv2, kv7, kv8, kv13, 
+																kv14, kv15, kv16, kv17, kv18, kv19, kv20);
+		timeline.getKeyFrames().add(kf);
+		timeline.play();
+}
     
     public void drawMultiA(int level, double lagTime){
     	final Timeline timeline = new Timeline();
