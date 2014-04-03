@@ -42,55 +42,28 @@
 
 package choreography.view.sliders;
 
-import choreography.io.FCWLib;
-import choreography.model.cannon.CannonEnum;
-import choreography.model.fcw.FCW;
-import choreography.view.music.MusicPaneController;
-import choreography.view.timeline.Timeline;
-import javafx.event.EventHandler;
-import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
-
 /**
  *
  * @author elementsking
  */
-public class SliderMouseReleasedEvent implements EventHandler<MouseEvent>{
+public enum ModuleEnum {
+    A ("MODULEA"),
+    B ("MODULEB");
     
-    private final CannonEnum cannonType;
-    private final ModuleEnum module;
-    private final CannonSliderChangeListener cscl;
-    private final Slider slider;
+    private final String module;
     
-    /**
-     *
-     * @param type
-     * @param module
-     * @param cscl
-     * @param s
-     */
-    public SliderMouseReleasedEvent(CannonEnum type, ModuleEnum module, CannonSliderChangeListener cscl, Slider s) {
-        this.cannonType = type;
+    private ModuleEnum(String module) {
         this.module = module;
-        this.cscl = cscl;
-        slider = s;
-    }
-
-    @Override
-    public void handle(MouseEvent event) {
-        if(event.isAltDown()) {
-//            event.copyFor(event.getSource(), slider);
-            String[] actions = new String[]{module.getReverse(module).getModule(), 
-                module.getModule(), Integer.toString(cscl.getLastNumber())};
-            FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
-            Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
-            slider.setValue(cscl.getLastNumber());
-        }
-        else {
-            String[] actions = new String[]{module.getModule(), Integer.toString(cscl.getLastNumber())};
-            FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
-            Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
-        }
     }
     
+    public ModuleEnum getReverse(ModuleEnum me) {
+        if(me.equals(A)) {
+            return B;
+        } else
+            return A;
+    }
+    
+    public String getModule() {
+        return module;
+    }
 }

@@ -273,7 +273,7 @@ public class AudioWaveformCreator {
                 if ( (capture.line != null) && (capture.line.isActive()) ) {
                     long milliseconds = (long)(capture.line.getMicrosecondPosition() / 1000);
                     seconds =  milliseconds / 1000.0;
-                    System.out.println(seconds);
+//                    System.out.println(seconds);
                 }
                 try { thread.sleep(100); } catch (Exception e) { break; }                              
                 while ((capture.line != null && !capture.line.isActive())) 
@@ -384,7 +384,7 @@ public class AudioWaveformCreator {
 
             long milliseconds = (long)((audioInputStream.getFrameLength() * 1000) / format.getFrameRate());
             duration = milliseconds / 1000.0;
-            System.out.println(duration);
+//            System.out.println(duration);
 
             try {
                 audioInputStream.reset();
@@ -415,11 +415,11 @@ public class AudioWaveformCreator {
 
     private void reportStatus(String msg) {
         if ((errStr = msg) != null) {
-            System.out.println(errStr);            
+//            System.out.println(errStr);            
         }
     }
 
     private static void printUsage() {
-        System.out.println("AudioWaveformCreator usage: java AudioWaveformCreator.class [path to audio file for generating the image] [path to save waveform image to]");
+//        System.out.println("AudioWaveformCreator usage: java AudioWaveformCreator.class [path to audio file for generating the image] [path to save waveform image to]");
     }
 }

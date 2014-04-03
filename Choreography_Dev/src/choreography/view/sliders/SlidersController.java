@@ -1240,32 +1240,32 @@ public class SlidersController {
      * @param s
      */
     public void setupCannonSliderChangeListener(ArrayList<? extends Cannon> list, 
-            ModuleGroup aB, CannonEnum ce, Slider s){
+            ModuleGroup aB, ModuleEnum me, CannonEnum ce, Slider s, Slider paired){
         
         list = aB.getCannonGroup(ce);
-        CannonSliderChangeListener<? extends Cannon> cs = new CannonSliderChangeListener<>(list, aB.toString());
+        CannonSliderChangeListener<? extends Cannon> cs = new CannonSliderChangeListener<>(list, me.getModule());
         s.valueProperty().addListener(cs);
-        SliderMouseReleasedEvent se = new SliderMouseReleasedEvent(ce, aB.toString(), cs);
+        SliderMouseReleasedEvent se = new SliderMouseReleasedEvent(ce, me, cs, paired);
         s.setOnMouseReleased(se);
     }
 
     private void setupAModule() {
-        setupCannonSliderChangeListener(rings1A, A, CannonEnum.RING1, r1A);
+        setupCannonSliderChangeListener(rings1A, A, ModuleEnum.A, CannonEnum.RING1, r1A, r1B);
 
-        setupCannonSliderChangeListener(rings2A, A, CannonEnum.RING2, r2A);
+        setupCannonSliderChangeListener(rings2A, A, ModuleEnum.A, CannonEnum.RING2, r2A, r2B);
 
-        setupCannonSliderChangeListener(rings3A, A, CannonEnum.RING3, r3A);
+        setupCannonSliderChangeListener(rings3A, A, ModuleEnum.A, CannonEnum.RING3, r3A, r3B);
 
-        setupCannonSliderChangeListener(rings4A, A, CannonEnum.RING4, r4A);
+        setupCannonSliderChangeListener(rings4A, A, ModuleEnum.A, CannonEnum.RING4, r4A, r4B);
 
-        setupCannonSliderChangeListener(rings5A, A, CannonEnum.RING5, r5A);
+        setupCannonSliderChangeListener(rings5A, A, ModuleEnum.A, CannonEnum.RING5, r5A, r5B);
 
-        setupCannonSliderChangeListener(multisA, A, CannonEnum.MULTI, mxA);
+        setupCannonSliderChangeListener(multisA, A, ModuleEnum.A, CannonEnum.MULTI, mxA, mxB);
 
-        setupCannonSliderChangeListener(candlesA, A, CannonEnum.CANDELABRA, 
-                candleA);
+        setupCannonSliderChangeListener(candlesA, A, ModuleEnum.A, CannonEnum.CANDELABRA, 
+                candleA, candleB);
 
-        setupCannonSliderChangeListener(sweepsA, A, CannonEnum.SWEEP, swA);
+        setupCannonSliderChangeListener(sweepsA, A, ModuleEnum.A, CannonEnum.SWEEP, swA, swB);
     }
 
 
@@ -1273,21 +1273,21 @@ public class SlidersController {
      * 
      */
     private void setupBModule() {
-        setupCannonSliderChangeListener(rings1B, B, CannonEnum.RING1, r1B);
+        setupCannonSliderChangeListener(rings1B, B, ModuleEnum.B, CannonEnum.RING1, r1B, r1A);
 
-        setupCannonSliderChangeListener(rings2B, B, CannonEnum.RING2, r2B);
+        setupCannonSliderChangeListener(rings2B, B, ModuleEnum.B, CannonEnum.RING2, r2B, r2A);
 
-        setupCannonSliderChangeListener(rings3B, B, CannonEnum.RING3, r3B);
+        setupCannonSliderChangeListener(rings3B, B, ModuleEnum.B, CannonEnum.RING3, r3B, r3A);
 
-        setupCannonSliderChangeListener(rings4B, B, CannonEnum.RING4, r4B);
+        setupCannonSliderChangeListener(rings4B, B, ModuleEnum.B, CannonEnum.RING4, r4B, r4A);
 
-        setupCannonSliderChangeListener(rings5B, B, CannonEnum.RING5, r5B);
+        setupCannonSliderChangeListener(rings5B, B, ModuleEnum.B, CannonEnum.RING5, r5B, r5A);
 
-        setupCannonSliderChangeListener(multisB, B, CannonEnum.MULTI, mxB);
+        setupCannonSliderChangeListener(multisB, B, ModuleEnum.B, CannonEnum.MULTI, mxB, mxA);
 
-        setupCannonSliderChangeListener(candlesB, B, CannonEnum.CANDELABRA, candleB);
+        setupCannonSliderChangeListener(candlesB, B, ModuleEnum.B, CannonEnum.CANDELABRA, candleB, candleA);
 
-        setupCannonSliderChangeListener(sweepsB, B, CannonEnum.SWEEP, swB);
+        setupCannonSliderChangeListener(sweepsB, B, ModuleEnum.B, CannonEnum.SWEEP, swB, swA);
     }
     
     private void setupIndependentCannons() {
@@ -1477,7 +1477,6 @@ public class SlidersController {
                     else if(action.equalsIgnoreCase("playpause")) {
                         
                     }
-                    break;
                 case 35:
                 case 36:
                 case 37:
