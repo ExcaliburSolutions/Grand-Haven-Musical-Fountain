@@ -4,6 +4,7 @@ import choreography.io.FCWLib;
 import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
 import choreography.model.lagtime.LagTimeTable;
+import choreography.view.music.MusicPaneController;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import javafx.scene.Group;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Rectangle;
@@ -562,17 +564,23 @@ public class FountainSimController implements Initializable {
                     break;
                 case 33:
                     if(actionsList.contains("ADAGIO")) {
-                        moveSweepsA(-30, 30);
+                        moveSweepsA(-15, 15);
                     }
                     if(actionsList.contains("MODERATO")) {
-                        moveSweepsA(-30, 30);
+                        moveSweepsA(-15, 15);
                     }
                     if(actionsList.contains("SHORT")) {
-                        moveSweepsA(-30, 30);
+                        moveSweepsA(-15, 15);
                     }
                     break;
                 case 34:
+                	if(actionsList.contains("ADAGIO")) {
+                        moveSweepsB(-15, 15);
+                    }
                     if(actionsList.contains("MODERATO")) {
+                        moveSweepsB(-15, 15);
+                    }
+                    if(actionsList.contains("SHORT")) {
                         moveSweepsB(-15, 15);
                     }
                     break;
@@ -586,12 +594,56 @@ public class FountainSimController implements Initializable {
                         moveSweepsB(-15, 15);
                     }
                     if(actionsList.contains("RIGHTLONGLEFTLONG")) {
-                        moveSweepsA(-30, 15);
-                        moveSweepsB(-30, 15);
+                        moveSweepsA(-30, 30);
+                        moveSweepsB(-30, 30);
                     }
-                    if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
-                        moveSweepsA(-30, 15);
-                        moveSweepsB(-30, 15);
+                    if(actionsList.contains("HOLDRIGHTLONG")) {
+                        moveSweepsA(30, 30);
+                        moveSweepsB(30, 30);
+                    }
+                    if(actionsList.contains("HOLDRIGHTSHORT")) {
+                        moveSweepsA(15, 15);
+                        moveSweepsB(15, 15);
+                    }
+                    if(actionsList.contains("HOLDLEFTLONG")) {
+                        moveSweepsA(-30, -30);
+                        moveSweepsB(-30, -30);
+                    }
+                    if(actionsList.contains("HOLDLEFTSHORT")) {
+                        moveSweepsA(-15, -15);
+                        moveSweepsB(-15, -15);
+                    }
+                    if(actionsList.contains("RIGHTLONGRIGHTSHORT")) {
+                        moveSweepsA(15, 30);
+                        moveSweepsB(15, 30);
+                    }
+                    if(actionsList.contains("RIGHTLONGCENTER")) {
+                        moveSweepsA(0, 30);
+                        moveSweepsB(0, 30);
+                    }
+                    if(actionsList.contains("RIGHTSHORTCENTER")) {
+                        moveSweepsA(0, 15);
+                        moveSweepsB(0, 15);
+                    }
+                    if(actionsList.contains("RIGHTLONGLEFTSHORT")) {
+                        moveSweepsA(-15, 30);
+                        moveSweepsB(-15, 30);
+                    }
+                    if(actionsList.contains("HOLDCENTER")) {
+                        moveSweepsA(0, 0);
+                        moveSweepsB(0, 0);
+                    }
+                    if(actionsList.contains("CENTERLEFTSHORT")) {
+                        moveSweepsA(-15, 0);
+                        moveSweepsB(-15, 0);
+                    }
+                    if(actionsList.contains("CENTERLEFTLONG")) {
+                        moveSweepsA(-30, 0);
+                        moveSweepsB(-30, 0);
+                    }
+                    if(actionsList.contains("LEFTSHORTLEFTLONG")) {
+                        moveSweepsA(-30, -15);
+                        moveSweepsB(-30, -15);
                     }
                     break;
                 case 36:
@@ -1040,7 +1092,12 @@ public class FountainSimController implements Initializable {
     
     public void moveSweepsA(double leftLimit, double rightLimit){
 		final Timeline timeline = new Timeline();
-		timeline.setCycleCount(Timeline.INDEFINITE);
+		if(MusicPaneController.getInstance().getMediaPlayer().statusProperty().getValue()== Status.PLAYING){
+			timeline.setCycleCount(timeline.INDEFINITE);
+		}
+		else{
+		timeline.setCycleCount(1);
+		}
 		timeline.setAutoReverse(true);
 		
 		KeyValue kv25 = null;
@@ -1125,7 +1182,12 @@ public class FountainSimController implements Initializable {
 
 public void moveSweepsB(double leftLimit, double rightLimit){
 	final Timeline timeline = new Timeline();
+	if(MusicPaneController.getInstance().getMediaPlayer().statusProperty().getValue()== Status.PLAYING){
 		timeline.setCycleCount(timeline.INDEFINITE);
+	}
+	else{
+	timeline.setCycleCount(1);
+	}
 		timeline.setAutoReverse(true);
 		
 		KeyValue kv15 = null;
