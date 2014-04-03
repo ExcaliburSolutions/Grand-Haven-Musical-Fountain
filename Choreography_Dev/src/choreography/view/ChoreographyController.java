@@ -160,13 +160,13 @@ public class ChoreographyController implements Initializable {
 //				selectButton.isPressed();
 				if (isSelected){
 					isSelected = false;
-					System.out.println("Off");
+//					System.out.println("Off");
 					TimelineController.getInstance().clearAllAL();
 					TimelineController.getInstance().disableCopyPaste();
 				}
 				else {
 					isSelected = true;
-					System.out.println("On");
+//					System.out.println("On");
 
 				}
 				
@@ -277,9 +277,9 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void run() {
-                    MapLib.openMap(new File("src/choreography/model/color/dmx.map"));
-                    MusicPaneController.getInstance().openMusicFile(new File("src/choreography/Reflections of Earth.wav"));
-                    CtlLib.getInstance().openCtl(new File("src/choreography/Reflections of Earth.ctl"));
+                    MapLib.openMap(new File("dmx.map"));
+                    MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth.wav"));
+                    CtlLib.getInstance().openCtl(new File("Reflections of Earth.ctl"));
                 }
             });
         isSlidersLoaded = true;

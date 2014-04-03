@@ -179,7 +179,7 @@ public class CtlLib {
 //                seconds = seconds - (minutes * 10);
 //                 totTime = minutes + ":" + seconds + "." + tenths;
                 totTime += String.format("%1$02d:%2$02d.%3$01d", minutes, seconds, tenths);
-                System.out.println(totTime);
+//                System.out.println(totTime);
                 commandsOutput.append(totTime);
                 for(FCW f: content.get(i)) {
                     commandsOutput.append(f);
