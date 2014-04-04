@@ -417,6 +417,8 @@ public class FountainSimController implements Initializable {
     private Rectangle spoutRec;
     
     private static Stage principalStage;
+    private int sweepType=1;
+    private double sweepSpeed;
     Timeline timelingRing1;
     
     private ConcurrentNavigableMap<Integer, ArrayList<FCW>> 
@@ -533,7 +535,7 @@ public class FountainSimController implements Initializable {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
                         drawSpout(level, lagTime);
                     }
-                    else if(actionsList.contains("BAZOOKA")) {
+                    if(actionsList.contains("BAZOOKA")) {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
                         drawBazooka(level, lagTime);
                     }
@@ -553,11 +555,11 @@ public class FountainSimController implements Initializable {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
                         drawFtCurtain(level, lagTime);
                     }
-                    else if(actionsList.contains("PEACOCK")) {
+                    if(actionsList.contains("PEACOCK")) {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
                         drawPeacock(level, lagTime);
                     }
-                    else if(actionsList.contains("BKCURT")) {
+                    if(actionsList.contains("BKCURT")) {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
                         drawBkCurtain(level, lagTime);
                     }
@@ -647,20 +649,111 @@ public class FountainSimController implements Initializable {
                     }
                     break;
                 case 36:
-                    if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
+                	if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
                         moveSweepsA(-30, 15);
+                    }
+                    if(actionsList.contains("RIGHTSHORTLEFTSHORT")) {
+                        moveSweepsA(-15, 15);
+                    }
+                    if(actionsList.contains("RIGHTLONGLEFTLONG")) {
+                        moveSweepsA(-30, 30);
+                    }
+                    if(actionsList.contains("HOLDRIGHTLONG")) {
+                        moveSweepsA(30, 30);
+                    }
+                    if(actionsList.contains("HOLDRIGHTSHORT")) {
+                        moveSweepsA(15, 15);
+                    }
+                    if(actionsList.contains("HOLDLEFTLONG")) {
+                        moveSweepsA(-30, -30);
+                    }
+                    if(actionsList.contains("HOLDLEFTSHORT")) {
+                        moveSweepsA(-15, -15);
+                    }
+                    if(actionsList.contains("RIGHTLONGRIGHTSHORT")) {
+                        moveSweepsA(15, 30);
+                    }
+                    if(actionsList.contains("RIGHTLONGCENTER")) {
+                        moveSweepsA(0, 30);
+                    }
+                    if(actionsList.contains("RIGHTSHORTCENTER")) {
+                        moveSweepsA(0, 15);
+                    }
+                    if(actionsList.contains("RIGHTLONGLEFTSHORT")) {
+                        moveSweepsA(-15, 30);
+                    }
+                    if(actionsList.contains("HOLDCENTER")) {
+                        moveSweepsA(0, 0);
+                    }
+                    if(actionsList.contains("CENTERLEFTSHORT")) {
+                        moveSweepsA(-15, 0);
+                    }
+                    if(actionsList.contains("CENTERLEFTLONG")) {
+                        moveSweepsA(-30, 0);
+                    }
+                    if(actionsList.contains("LEFTSHORTLEFTLONG")) {
+                        moveSweepsA(-30, -15);
                     }
                     break;
                 case 37:
-                    if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
-                        //int level = FCWLib.getInstance().reverseGetLevel(f);
+                	if(actionsList.contains("RIGHTSHORTLEFTLONG")) {
                         moveSweepsB(-30, 15);
+                    }
+                    if(actionsList.contains("RIGHTSHORTLEFTSHORT")) {
+                        moveSweepsB(-15, 15);
+                    }
+                    if(actionsList.contains("RIGHTLONGLEFTLONG")) {
+                        moveSweepsB(-30, 30);
+                    }
+                    if(actionsList.contains("HOLDRIGHTLONG")) {
+                        moveSweepsB(30, 30);
+                    }
+                    if(actionsList.contains("HOLDRIGHTSHORT")) {
+                        moveSweepsB(15, 15);
+                    }
+                    if(actionsList.contains("HOLDLEFTLONG")) {
+                        moveSweepsB(-30, -30);
+                    }
+                    if(actionsList.contains("HOLDLEFTSHORT")) {
+                        moveSweepsB(-15, -15);
+                    }
+                    if(actionsList.contains("RIGHTLONGRIGHTSHORT")) {
+                        moveSweepsB(15, 30);
+                    }
+                    if(actionsList.contains("RIGHTLONGCENTER")) {
+                        moveSweepsB(0, 30);
+                    }
+                    if(actionsList.contains("RIGHTSHORTCENTER")) {
+                        moveSweepsB(0, 15);
+                    }
+                    if(actionsList.contains("RIGHTLONGLEFTSHORT")) {
+                        moveSweepsB(-15, 30);
+                    }
+                    if(actionsList.contains("HOLDCENTER")) {
+                        moveSweepsB(0, 0);
+                    }
+                    if(actionsList.contains("CENTERLEFTSHORT")) {
+                        moveSweepsB(-15, 0);
+                    }
+                    if(actionsList.contains("CENTERLEFTLONG")) {
+                        moveSweepsB(-30, 0);
+                    }
+                    if(actionsList.contains("LEFTSHORTLEFTLONG")) {
+                        moveSweepsB(-30, -15);
                     }
                     break;
                 case 38:
                     if(actionsList.contains("MODULEB")) {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
                         drawSweepsB(level, lagTime);
+                    }
+                    break;
+                case 40:
+                    if(actionsList.contains("TOGETHER")) {
+                        setSweepType(1);
+                    }
+                    if(actionsList.contains("OPPOSED")) {
+                        setSweepType(2);
                     }
                     break;
                 case 48:
@@ -1108,6 +1201,14 @@ public class FountainSimController implements Initializable {
 		KeyValue kv30 = null;
 		KeyValue kv31 = null;
 		KeyValue kv32 = null;
+		KeyValue kv1 = null;
+		KeyValue kv2 = null;
+		KeyValue kv7 = null;
+		KeyValue kv8 = null;
+		KeyValue kv13 = null;
+		KeyValue kv14 = null;
+		KeyValue kv19 = null;
+		KeyValue kv20 = null;
 	
 		mod1sweep1.setVisible(true);
 		mod1sweep2.setVisible(true);
@@ -1141,7 +1242,7 @@ public class FountainSimController implements Initializable {
 	mod7sweep1.getTransforms().clear();
 	mod7sweep2.getTransforms().clear();
 
-
+	if (sweepType == 1){
 	Rotate rotate1 = new Rotate(leftLimit,mod1sweep1.getStartX(),mod1sweep1.getStartY());
 	Rotate rotate2 = new Rotate(leftLimit,mod1sweep2.getStartX(),mod1sweep2.getStartY());
 	Rotate rotate3 = new Rotate(leftLimit,mod3sweep1.getStartX(),mod3sweep1.getStartY());
@@ -1160,19 +1261,52 @@ public class FountainSimController implements Initializable {
 	mod7sweep1.getTransforms().add(rotate7);
 	mod7sweep2.getTransforms().add(rotate8);
 	
-	final KeyValue kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
-	final KeyValue kv2 = new KeyValue(rotate2.angleProperty(), rightLimit);
+	kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
+	kv2 = new KeyValue(rotate2.angleProperty(), rightLimit);
 	
-	final KeyValue kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
-	final KeyValue kv8 = new KeyValue(rotate4.angleProperty(), rightLimit);
+	kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
+	kv8 = new KeyValue(rotate4.angleProperty(), rightLimit);
 	
-	final KeyValue kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
-	final KeyValue kv14 = new KeyValue(rotate6.angleProperty(), rightLimit);
+	kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
+	kv14 = new KeyValue(rotate6.angleProperty(), rightLimit);
 		
-	final KeyValue kv19 = new KeyValue(rotate7.angleProperty(), rightLimit);
-	final KeyValue kv20 = new KeyValue(rotate8.angleProperty(), rightLimit);
+	kv19 = new KeyValue(rotate7.angleProperty(), rightLimit);
+	kv20 = new KeyValue(rotate8.angleProperty(), rightLimit);
+	}
+	
+	else {
+		Rotate rotate1 = new Rotate(leftLimit,mod1sweep1.getStartX(),mod1sweep1.getStartY());
+		Rotate rotate2 = new Rotate(rightLimit,mod1sweep2.getStartX(),mod1sweep2.getStartY());
+		Rotate rotate3 = new Rotate(leftLimit,mod3sweep1.getStartX(),mod3sweep1.getStartY());
+		Rotate rotate4 = new Rotate(rightLimit,mod3sweep2.getStartX(),mod3sweep2.getStartY());
+		Rotate rotate5 = new Rotate(leftLimit,mod5sweep1.getStartX(),mod5sweep1.getStartY());
+		Rotate rotate6 = new Rotate(rightLimit,mod5sweep2.getStartX(),mod5sweep2.getStartY());
+		Rotate rotate7 = new Rotate(leftLimit,mod7sweep1.getStartX(),mod7sweep1.getStartY());
+		Rotate rotate8 = new Rotate(rightLimit,mod7sweep2.getStartX(),mod7sweep2.getStartY());
 
-		final KeyFrame kf = new KeyFrame(Duration.seconds(1), kv1, kv2, kv7, kv8, kv13, 
+		mod1sweep1.getTransforms().add(rotate1);
+		mod1sweep2.getTransforms().add(rotate2);
+		mod3sweep1.getTransforms().add(rotate3);
+		mod3sweep2.getTransforms().add(rotate4);
+		mod5sweep1.getTransforms().add(rotate5);
+		mod5sweep2.getTransforms().add(rotate6);
+		mod7sweep1.getTransforms().add(rotate7);
+		mod7sweep2.getTransforms().add(rotate8);
+		
+		kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
+		kv2 = new KeyValue(rotate2.angleProperty(), leftLimit);
+		
+		kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
+		kv8 = new KeyValue(rotate4.angleProperty(), leftLimit);
+		
+		kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
+		kv14 = new KeyValue(rotate6.angleProperty(), leftLimit);
+			
+		kv19 = new KeyValue(rotate7.angleProperty(), rightLimit);
+		kv20 = new KeyValue(rotate8.angleProperty(), leftLimit);
+	}
+	
+		final KeyFrame kf = new KeyFrame(Duration.seconds(sweepSpeed), kv1, kv2, kv7, kv8, kv13, 
 																kv14, kv14, kv19, kv20,
 																kv25, kv26, kv27, kv28,
 																kv29, kv30, kv31, kv32);
@@ -1196,6 +1330,12 @@ public void moveSweepsB(double leftLimit, double rightLimit){
 		KeyValue kv18 = null;
 		KeyValue kv19 = null;
 		KeyValue kv20 = null;
+		KeyValue kv1 = null;
+		KeyValue kv2 = null;
+		KeyValue kv7 = null;
+		KeyValue kv8 = null;
+		KeyValue kv13 = null;
+		KeyValue kv14 = null;
 		
 		mod2sweep1.setVisible(true);
 		mod2sweep2.setVisible(true);
@@ -1221,7 +1361,7 @@ public void moveSweepsB(double leftLimit, double rightLimit){
 		mod6sweep1.getTransforms().clear();
 		mod6sweep2.getTransforms().clear();
 
-
+		if (sweepType == 1){
 		Rotate rotate1 = new Rotate(leftLimit,mod2sweep1.getStartX(),mod2sweep1.getStartY());
 		Rotate rotate2 = new Rotate(leftLimit,mod2sweep2.getStartX(),mod2sweep2.getStartY());
 		Rotate rotate3 = new Rotate(leftLimit,mod4sweep1.getStartX(),mod4sweep1.getStartY());
@@ -1236,16 +1376,41 @@ public void moveSweepsB(double leftLimit, double rightLimit){
 		mod6sweep1.getTransforms().add(rotate5);
 		mod6sweep2.getTransforms().add(rotate6);
 
-		final KeyValue kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
-		final KeyValue kv2 = new KeyValue(rotate2.angleProperty(), rightLimit);
+		kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
+		kv2 = new KeyValue(rotate2.angleProperty(), rightLimit);
 		
-		final KeyValue kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
-		final KeyValue kv8 = new KeyValue(rotate4.angleProperty(), rightLimit);
+		kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
+		kv8 = new KeyValue(rotate4.angleProperty(), rightLimit);
 		
-		final KeyValue kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
-		final KeyValue kv14 = new KeyValue(rotate6.angleProperty(), rightLimit);
+		kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
+		kv14 = new KeyValue(rotate6.angleProperty(), rightLimit);
+		}
+		else {
+			Rotate rotate1 = new Rotate(leftLimit,mod2sweep1.getStartX(),mod1sweep1.getStartY());
+			Rotate rotate2 = new Rotate(rightLimit,mod2sweep2.getStartX(),mod1sweep2.getStartY());
+			Rotate rotate3 = new Rotate(leftLimit,mod4sweep1.getStartX(),mod3sweep1.getStartY());
+			Rotate rotate4 = new Rotate(rightLimit,mod4sweep2.getStartX(),mod3sweep2.getStartY());
+			Rotate rotate5 = new Rotate(leftLimit,mod6sweep1.getStartX(),mod5sweep1.getStartY());
+			Rotate rotate6 = new Rotate(rightLimit,mod6sweep2.getStartX(),mod5sweep2.getStartY());
+
+			mod2sweep1.getTransforms().add(rotate1);
+			mod2sweep2.getTransforms().add(rotate2);
+			mod4sweep1.getTransforms().add(rotate3);
+			mod4sweep2.getTransforms().add(rotate4);
+			mod6sweep1.getTransforms().add(rotate5);
+			mod6sweep2.getTransforms().add(rotate6);
+			
+			kv1 = new KeyValue(rotate1.angleProperty(), rightLimit);
+			kv2 = new KeyValue(rotate2.angleProperty(), leftLimit);
+			
+			kv7 = new KeyValue(rotate3.angleProperty(), rightLimit);
+			kv8 = new KeyValue(rotate4.angleProperty(), leftLimit);
+			
+			kv13 = new KeyValue(rotate5.angleProperty(), rightLimit);
+			kv14 = new KeyValue(rotate6.angleProperty(), leftLimit);				
+		}
 		
-		final KeyFrame kf = new KeyFrame(Duration.seconds(1), kv1, kv2, kv7, kv8, kv13, 
+		final KeyFrame kf = new KeyFrame(Duration.seconds(sweepSpeed), kv1, kv2, kv7, kv8, kv13, 
 																kv14, kv15, kv16, kv17, kv18, kv19, kv20);
 		timeline.getKeyFrames().add(kf);
 		timeline.play();
@@ -2855,5 +3020,38 @@ public void moveSweepsB(double leftLimit, double rightLimit){
     private void stopSim() {
         timeline.stop();
     }
+
+	public int getSweepType() {
+		return sweepType;
+	}
+
+	public void setSweepType(int sweepType) {
+		this.sweepType = sweepType;
+	}
+	
+	public double getSweepSpeed() {
+		return sweepSpeed;
+	}
+
+	public void setSweepSpeed(int speed) {
+		switch(speed){
+		case 1:
+			sweepSpeed = .2;
+		case 2:
+			sweepSpeed = .4;
+		case 3:
+			sweepSpeed = .8;
+		case 4:
+			sweepSpeed = 1;
+		case 5:
+			sweepSpeed = 1.5;
+		case 6:
+			sweepSpeed = 2.5;
+		case 7:
+			sweepSpeed = 4.0;
+			 
+		}
+		
+	}
 	
 }
