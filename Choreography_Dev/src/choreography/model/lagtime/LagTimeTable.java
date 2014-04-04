@@ -116,7 +116,7 @@ public class LagTimeTable {
         }
         for(String action: actions) {
             switch(action) {
-                case "0": return 0;
+                case "0": return 0.4;
                 case "1": return lagTime *= level1;
                 case "2": return lagTime *= level2;
                 case "3": return lagTime *= level3;

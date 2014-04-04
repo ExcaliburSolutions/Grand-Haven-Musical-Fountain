@@ -568,25 +568,31 @@ public class FountainSimController implements Initializable {
                     }
                     break;
                 case 33:
-                    if(actionsList.contains("ADAGIO")) {
-                        moveLeftSweeps(-15, 15);
-                    }
-                    if(actionsList.contains("MODERATO")) {
-                        moveLeftSweeps(-15, 15);
-                    }
+//                    if(actionsList.contains("ADAGIO")) {
+//                        moveLeftSweeps(-15, 15);
+//                    }
+//                    if(actionsList.contains("MODERATO")) {
+//                        moveLeftSweeps(-15, 15);
+//                    }
                     if(actionsList.contains("SHORT")) {
                         moveLeftSweeps(-15, 15);
+                    }
+                    if(actionsList.contains("LONG")) {
+                        moveLeftSweeps(-30, 30);
                     }
                     break;
                 case 34:
-                	if(actionsList.contains("ADAGIO")) {
-                        moveRightSweeps(-15, 15);
-                    }
-                    if(actionsList.contains("MODERATO")) {
-                        moveRightSweeps(-15, 15);
-                    }
+//                	if(actionsList.contains("ADAGIO")) {
+//                        moveRightSweeps(-15, 15);
+//                    }
+//                    if(actionsList.contains("MODERATO")) {
+//                        moveRightSweeps(-15, 15);
+//                    }
                     if(actionsList.contains("SHORT")) {
                         moveRightSweeps(-15, 15);
+                    }
+                    if(actionsList.contains("LONG")) {
+                        moveRightSweeps(-30, 30);
                     }
                     break;
                 case 35:
