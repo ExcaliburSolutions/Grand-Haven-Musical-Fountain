@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import javax.swing.event.ChangeEvent;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -41,6 +43,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.LinearGradientBuilder;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 
@@ -109,7 +112,7 @@ public class SpecialoperationsController implements Initializable {
     private String cannon;
     private SweepsEventHandlerImpl aSweepsEventHandler;
     private SweepsEventHandlerImpl bSweepsEventHandler;
-    
+    private int selectedHZ;
     
     /**
      * Initializes the controller class.
@@ -142,6 +145,21 @@ public class SpecialoperationsController implements Initializable {
         
         ObservableList<Integer> observableList = FXCollections.observableList(list);
         strobeFrequency.setItems(observableList);
+        strobeFrequency.getSelectionModel().select(0);
+        
+//        strobeFrequency.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<Integer>>() {
+//
+//			@Override
+//			public void changed(
+//					ObservableValue<? extends SingleSelectionModel<Integer>> observable,
+//					SingleSelectionModel<Integer> oldValue,
+//					SingleSelectionModel<Integer> newValue) {
+//				
+//				selectedHZ = ;
+//				
+//			}
+//        	
+//        });
         
         fadeUpButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -182,12 +200,60 @@ public class SpecialoperationsController implements Initializable {
             	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
             	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
             	
-            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
-                RadialGradient rad1 = new RadialGradient(0, .1, 12.5, 12.5, 20, false, CycleMethod.NO_CYCLE, stops1);
+//            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
+//                RadialGradient rad1 = new RadialGradient(0, .1, 12.5, 12.5, 20, false, CycleMethod.NO_CYCLE, stops1);
                 
-                for(int i = 0; i < colAL.size(); i++){
-                	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), rad1);
+                Stop[] stops = new Stop[] { new Stop(.5, Color.LIGHTGRAY), new Stop(1, (Color) ColorPaletteController.getInstance().getSelectedColor())};
+                LinearGradient linearGradient_Med
+                    = LinearGradientBuilder.create()
+                    .startX(7)
+                    .startY(7)
+                    .endX(0)
+                    .endY(7)
+                    .proportional(false)
+                    .cycleMethod(CycleMethod.REPEAT)
+                    .stops(stops)
+                    .build();
+                
+                LinearGradient linearGradient_Low
+                = LinearGradientBuilder.create()
+                .startX(13)
+                .startY(13)
+                .endX(0)
+                .endY(13)
+                .proportional(false)
+                .cycleMethod(CycleMethod.REPEAT)
+                .stops(stops)
+                .build();
+                
+                LinearGradient linearGradient_High
+                 = LinearGradientBuilder.create()
+                 .startX(6)
+                 .startY(6)
+                 .endX(0)
+                 .endY(6)
+                 .proportional(false)
+                 .cycleMethod(CycleMethod.REPEAT)
+                 .stops(stops)
+                 .build();
+                
+                if(strobeFrequency.getSelectionModel().getSelectedItem() <= 85){
+                	for(int i = 0; i < colAL.size(); i++){
+                    	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), linearGradient_Low);
+                    }
                 }
+                else if (strobeFrequency.getSelectionModel().getSelectedItem() <= 170){
+                	for(int i = 0; i < colAL.size(); i++){
+                    	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), linearGradient_Med);
+                    }
+                }
+                else{
+                	for(int i = 0; i < colAL.size(); i++){
+                    	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), linearGradient_High);
+                    }
+                }
+                
+                
             }
         });
         

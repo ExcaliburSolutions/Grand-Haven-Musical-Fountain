@@ -126,7 +126,7 @@ public class TimelineController implements Initializable {
     	lightRecArray[col][row].setFill(c);
     }
     
-    public void setLightRecArrayStrobe(int row, int col, RadialGradient c){
+    public void setLightRecArrayStrobe(int row, int col, LinearGradient c){
     	lightRecArray[col][row].setFill(c);
     }
     /**
