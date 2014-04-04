@@ -459,9 +459,12 @@ public class FountainSimController implements Initializable {
 //    	}
     	 Iterator<FCW> it = fcws.iterator();
          while(it.hasNext()) {
-             FCW f = it.next();
-             String[] actions = FCWLib.getInstance().reverseLookupData(f);
-             double lagTime = LagTimeLibrary.getInstance().getLagTimeInSeconds(f);             
+            double lagTime = 0;
+            FCW f = it.next();
+            String[] actions = FCWLib.getInstance().reverseLookupData(f);
+            if(f.getIsWater() && f.getAddr() != 99) {
+                lagTime = LagTimeLibrary.getInstance().getLagTimeInSeconds(f);     
+            }
             ArrayList<String> actionsList = new ArrayList<>();
             for(String s: actions) {
                 actionsList.add(s);
