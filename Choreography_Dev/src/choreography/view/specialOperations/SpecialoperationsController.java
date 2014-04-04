@@ -168,11 +168,20 @@ public class SpecialoperationsController implements Initializable {
             	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
             	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
             	
-            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
-                LinearGradient lg1 = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops1);
-                
-                for(int i = 0; i < colAL.size(); i++){
-                	TimelineController.getInstance().setLightRecArrayFade(rowAL.get(i), colAL.get(i), lg1);
+            	ArrayList<Integer> colALcopy = new ArrayList<>();
+            	colALcopy.addAll(colAL);
+            	ArrayList<Integer> rowALcopy = new ArrayList<>();
+            	rowALcopy.addAll(rowAL);
+            	
+            	TimelineController.getInstance().clearAllAL();
+            	
+            	double size = colALcopy.size();
+            	double opScale = 1/size;
+            	double opacity = 0+opScale;
+            	
+                for(int i = 0; i < size; i++){
+                	TimelineController.getInstance().setLightRecArrayFade(rowALcopy.get(i), colALcopy.get(i), opacity);
+                	opacity = opacity + opScale;
                 }
             }
         });
@@ -184,11 +193,20 @@ public class SpecialoperationsController implements Initializable {
             	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
             	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
             	
-            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
-                LinearGradient lg1 = new LinearGradient(1, 0, 0, 0, true, CycleMethod.NO_CYCLE, stops1);
-                
-                for(int i = 0; i < colAL.size(); i++){
-                	TimelineController.getInstance().setLightRecArrayFade(rowAL.get(i), colAL.get(i), lg1);
+            	ArrayList<Integer> colALcopy = new ArrayList<>();
+            	colALcopy.addAll(colAL);
+            	ArrayList<Integer> rowALcopy = new ArrayList<>();
+            	rowALcopy.addAll(rowAL);
+            	
+            	TimelineController.getInstance().clearAllAL();
+            	
+            	double size = colALcopy.size();
+            	double opScale = 1/size;
+            	double opacity = 1;
+            	
+                for(int i = 0; i < size; i++){
+                	TimelineController.getInstance().setLightRecArrayFade(rowALcopy.get(i), colALcopy.get(i), opacity);
+                	opacity = opacity - opScale;
                 }
             }
         });
@@ -200,57 +218,77 @@ public class SpecialoperationsController implements Initializable {
             	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
             	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
             	
+            	int low = 4;
+            	int mid = 3;
+            	int high = 2;
+            	
 //            	Stop[] stops1 = new Stop[] { new Stop(0, Color.BLACK), new Stop(.65, (Color) ColorPaletteController.getInstance().getSelectedColor())};
 //                RadialGradient rad1 = new RadialGradient(0, .1, 12.5, 12.5, 20, false, CycleMethod.NO_CYCLE, stops1);
                 
-                Stop[] stops = new Stop[] { new Stop(.5, Color.LIGHTGRAY), new Stop(1, (Color) ColorPaletteController.getInstance().getSelectedColor())};
-                LinearGradient linearGradient_Med
-                    = LinearGradientBuilder.create()
-                    .startX(7)
-                    .startY(7)
-                    .endX(0)
-                    .endY(7)
-                    .proportional(false)
-                    .cycleMethod(CycleMethod.REPEAT)
-                    .stops(stops)
-                    .build();
-                
-                LinearGradient linearGradient_Low
-                = LinearGradientBuilder.create()
-                .startX(13)
-                .startY(13)
-                .endX(0)
-                .endY(13)
-                .proportional(false)
-                .cycleMethod(CycleMethod.REPEAT)
-                .stops(stops)
-                .build();
-                
-                LinearGradient linearGradient_High
-                 = LinearGradientBuilder.create()
-                 .startX(6)
-                 .startY(6)
-                 .endX(0)
-                 .endY(6)
-                 .proportional(false)
-                 .cycleMethod(CycleMethod.REPEAT)
-                 .stops(stops)
-                 .build();
+//                Stop[] stops = new Stop[] { new Stop(.5, Color.LIGHTGRAY), new Stop(1, (Color) ColorPaletteController.getInstance().getSelectedColor())};
+//                LinearGradient linearGradient_Med
+//                    = LinearGradientBuilder.create()
+//                    .startX(7)
+//                    .startY(7)
+//                    .endX(0)
+//                    .endY(7)
+//                    .proportional(false)
+//                    .cycleMethod(CycleMethod.REPEAT)
+//                    .stops(stops)
+//                    .build();
+//                
+//                LinearGradient linearGradient_Low
+//                = LinearGradientBuilder.create()
+//                .startX(13)
+//                .startY(13)
+//                .endX(0)
+//                .endY(13)
+//                .proportional(false)
+//                .cycleMethod(CycleMethod.REPEAT)
+//                .stops(stops)
+//                .build();
+//                
+//                LinearGradient linearGradient_High
+//                 = LinearGradientBuilder.create()
+//                 .startX(6)
+//                 .startY(6)
+//                 .endX(0)
+//                 .endY(6)
+//                 .proportional(false)
+//                 .cycleMethod(CycleMethod.REPEAT)
+//                 .stops(stops)
+//                 .build();
                 
                 if(strobeFrequency.getSelectionModel().getSelectedItem() <= 85){
                 	for(int i = 0; i < colAL.size(); i++){
-                    	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), linearGradient_Low);
+                		if(i % low == 0){
+                			TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), ColorPaletteController.getInstance().getSelectedColor());
+                		}
+                		else{
+                			TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), Color.LIGHTGRAY);
+                		}
+                    	
                     }
                 }
                 else if (strobeFrequency.getSelectionModel().getSelectedItem() <= 170){
                 	for(int i = 0; i < colAL.size(); i++){
-                    	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), linearGradient_Med);
-                    }
+                		if(i % mid == 0){
+                			TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), ColorPaletteController.getInstance().getSelectedColor());
+                		}
+                		else{
+                			TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), Color.LIGHTGRAY);
+                		}                    
+                	}
                 }
                 else{
                 	for(int i = 0; i < colAL.size(); i++){
-                    	TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), linearGradient_High);
-                    }
+                		if(i % high == 0){
+                			TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), ColorPaletteController.getInstance().getSelectedColor());
+                		}
+                		else{
+                			TimelineController.getInstance().setLightRecArrayStrobe(rowAL.get(i), colAL.get(i), Color.LIGHTGRAY);
+                		}                  
+                	}
                 }
                 
                 

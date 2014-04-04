@@ -122,11 +122,11 @@ public class TimelineController implements Initializable {
     	return this.rowAL;
     }
     
-    public void setLightRecArrayFade(int row, int col, LinearGradient c){
-    	lightRecArray[col][row].setFill(c);
+    public void setLightRecArrayFade(int row, int col, double opacity){
+    	lightRecArray[col][row].setOpacity(opacity);
     }
     
-    public void setLightRecArrayStrobe(int row, int col, LinearGradient c){
+    public void setLightRecArrayStrobe(int row, int col, Paint c){
     	lightRecArray[col][row].setFill(c);
     }
     /**
@@ -449,6 +449,7 @@ public class TimelineController implements Initializable {
                         rowAL.add(testJ);
                         }
                     } else {
+                    	lightRecArray[testI][testJ].setOpacity(1);
                     	lightRecArray[testI][testJ].setFill(ColorPaletteController
                                 .getInstance()
                                 .getSelectedColor());
@@ -538,39 +539,39 @@ public class TimelineController implements Initializable {
                 }
                 });
                 
-                waterRecArray[i].setOnDragDetected((MouseEvent me) -> {
-                	for(Rectangle rec: copyAL){
-                        rec.setOpacity(1);
-                    }
-                    copyAL.clear();
-                    colAL.clear();
-                
-                	if(ChoreographyController.getInstance().getIsSelected()){
-                		lightCopy.setDisable(false);
-                		waterRecArray[testI].startFullDrag();
-                        copyAL.add(waterRecArray[testI]);
-                        
-                        colAL.add(testI);
-                	}
-                	
-                	waterRecArray[testI].startFullDrag();
-                });
-                
-                waterRecArray[i].setOnMouseDragOver((MouseEvent me) -> {
-                  
-                  if (ChoreographyController.getInstance().getIsSelected()) {
-                	  waterRecArray[testI].setOpacity(.50);
-                      if (!copyAL.contains(waterRecArray[testI])){
-                          copyAL.add(waterRecArray[testI]);
-                          
-                          colAL.add(testI);
-                      }
-                  } else {
-                	  waterRecArray[testI].setFill(ColorPaletteController
-                              .getInstance()
-                              .getSelectedColor());
-                  }
-              });
+//                waterRecArray[i].setOnDragDetected((MouseEvent me) -> {
+//                	for(Rectangle rec: copyAL){
+//                        rec.setOpacity(1);
+//                    }
+//                    copyAL.clear();
+//                    colAL.clear();
+//                
+//                	if(ChoreographyController.getInstance().getIsSelected()){
+//                		lightCopy.setDisable(false);
+//                		waterRecArray[testI].startFullDrag();
+//                        copyAL.add(waterRecArray[testI]);
+//                        
+//                        colAL.add(testI);
+//                	}
+//                	
+//                	waterRecArray[testI].startFullDrag();
+//                });
+//                
+//                waterRecArray[i].setOnMouseDragOver((MouseEvent me) -> {
+//                  
+//                  if (ChoreographyController.getInstance().getIsSelected()) {
+//                	  waterRecArray[testI].setOpacity(.50);
+//                      if (!copyAL.contains(waterRecArray[testI])){
+//                          copyAL.add(waterRecArray[testI]);
+//                          
+//                          colAL.add(testI);
+//                      }
+//                  } else {
+//                	  waterRecArray[testI].setFill(ColorPaletteController
+//                              .getInstance()
+//                              .getSelectedColor());
+//                  }
+//              });
                 
         MusicPaneController.getInstance().getWaterPane().setContent(gridpaneWater);
     }
