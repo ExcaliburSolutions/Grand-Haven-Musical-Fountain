@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -31,7 +30,7 @@ public final class FCWLib {
 	
     private static FCWLib fcwLib;
     private static final Logger LOG = Logger.getLogger(FCWLib.class.getName());
-    private final File fcwInfo = new File("FCW_DEF.txt");
+    private final File fcwInfo = new File("src/choreography/model/fcw/FCW_DEF.txt");
     private HashMap<String, Integer> waterAddress;
     private HashMap<String, Integer> lightAddress;
     private HashMap<String, Integer> functionAddress;
