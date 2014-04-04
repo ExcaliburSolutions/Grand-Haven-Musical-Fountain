@@ -13,18 +13,20 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -89,6 +91,10 @@ public class SpecialoperationsController implements Initializable {
 
     @FXML
     private Button resetButton;
+    
+    @FXML private ChoiceBox<String> aSpeedSelector;
+    
+    @FXML private ChoiceBox<String> bSpeedSelector;
     
     private RangeSlider aSweeps;
     private RangeSlider bSweeps;
@@ -186,6 +192,7 @@ public class SpecialoperationsController implements Initializable {
                 bSweeps.setVisible(true);
                 aSweepsEventHandler.setOpposed(false);
                 bSweepsEventHandler.setOpposed(false);
+                bSpeedSelector.setVisible(true);
             }
         });
         
@@ -205,6 +212,37 @@ public class SpecialoperationsController implements Initializable {
         
         aSweeps.setOnMouseReleased(aSweepsEventHandler);
         bSweeps.setOnMouseReleased(bSweepsEventHandler);
+        
+        aSpeedSelector.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<String>> () {
+            @Override
+            public void changed(ObservableValue<? extends SingleSelectionModel<String>> observable, SingleSelectionModel<String> oldValue, SingleSelectionModel<String> newValue) {
+                if(independentSweeps.isSelected()) {
+                    String[] actions = new String[]{aSpeedSelector.getValue()};
+                    FCW f = FCWLib.getInstance().getFCW("SWEEPASPEED", actions);
+                    Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                    
+                }
+                else {
+                    String[] actions = new String[]{aSpeedSelector.getValue()};
+                    FCW f = FCWLib.getInstance().getFCW("SWEEPASPEED", actions);
+                    Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                    actions = new String[]{bSpeedSelector.getValue()};
+                    f = FCWLib.getInstance().getFCW("SWEEPBSPEED", actions);
+                    Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                }
+            }
+        });
+    
+        bSpeedSelector.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                String[] actions = new String[]{bSpeedSelector.getValue()};
+                FCW f = FCWLib.getInstance().getFCW("SWEEPBSPEED", actions);
+                Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+            }
+        });
+        
         
         voiceCheckbox.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -245,6 +283,8 @@ public class SpecialoperationsController implements Initializable {
             }
         });
         
+        initializeSweepSpeedSelectors();
+        
         instance = this;
         
         //TODO Add Fadeup
@@ -252,6 +292,13 @@ public class SpecialoperationsController implements Initializable {
         //TODO Add Strobe
         //TODO Modify 
     }    
+
+    public void initializeSweepSpeedSelectors() {
+        aSpeedSelector.getItems().clear(); bSpeedSelector.getItems().clear();
+        aSpeedSelector.getItems().addAll(FCWLib.getInstance().getSweepSpeeds());
+        bSpeedSelector.setVisible(false);
+        bSpeedSelector.getItems().addAll(FCWLib.getInstance().getSweepSpeeds());
+    }
 
     public void setSweeps(FCW f) {
         String[] actions = FCWLib.getInstance().reverseLookupData(f);
@@ -263,7 +310,7 @@ public class SpecialoperationsController implements Initializable {
                 opposedSweeps.setSelected(false);
                 independentSweeps.setSelected(false);
                 for(String s: actions) {
-                    sweepsSpeedSwitch(s);
+                    sweepsSpeedSwitch(aSpeedSelector, s);
                 }
                 break;
             case 34:
@@ -271,7 +318,7 @@ public class SpecialoperationsController implements Initializable {
                 opposedSweeps.setSelected(true);
                 independentSweeps.setSelected(false);
                 for(String s: actions) {
-                    sweepsSpeedSwitch(s);
+                    sweepsSpeedSwitch(aSpeedSelector, s);
                 }
                 break;
             case 35:
@@ -279,15 +326,25 @@ public class SpecialoperationsController implements Initializable {
                     sweepsTravelSwitch(aSweeps, s);
                     sweepsTravelSwitch(bSweeps, s);
                 }
-            break;
+                break;
             case 36:
                 for(String s: actions) {
                     sweepsTravelSwitch(aSweeps, s);
                 }
+                break;
             case 37:
                 for(String s: actions) {
                     sweepsTravelSwitch(aSweeps, s);
                 }
+                break;
+            case 38:
+                for(String s: actions) {
+                     sweepsSpeedSwitch(aSpeedSelector, s);
+                 }
+            case 39:
+                 for(String s: actions) {
+                     sweepsSpeedSwitch(bSpeedSelector, s);
+                 }
             case 40:
                 for(String s: actions) {
                     switch(s) {
@@ -364,37 +421,40 @@ public class SpecialoperationsController implements Initializable {
         }
     }
 
-    private void sweepsSpeedSwitch(String s) {
+    private void sweepsSpeedSwitch(ChoiceBox c, String s) {
         if(s.equals("SHORT")) {
             setSweeps(aSweeps, 1, 3);
         }
-        if(s.equals("LONG")) {
+        else if(s.equals("LONG")) {
             setSweeps(aSweeps, 0, 4);
         }
-        if(s.equals("LARGO")) {
-            
+        else {
+            c.getSelectionModel().select(s);
         }
-        if(s.equals("ADAGIO")) {
-            
-        }
-        if(s.equals("ANDANTE")) {
-            
-        }
-        if(s.equals("MODERATO")) {
-            
-        }
-        if(s.equals("ALLEGRETO")) {
-            
-        }
-        if(s.equals("ALLEGRO")) {
-            
-        }
-        if(s.equals("PRESTO")) {
-            
-        }
-        if(s.equals("PLAYPAUSE")) {
-            
-        }
+//        if(s.equals("LARGO")) {
+//            c.getSelectionModel().select(s);
+//        }
+//        if(s.equals("ADAGIO")) {
+//            
+//        }
+//        if(s.equals("ANDANTE")) {
+//            
+//        }
+//        if(s.equals("MODERATO")) {
+//            
+//        }
+//        if(s.equals("ALLEGRETO")) {
+//            
+//        }
+//        if(s.equals("ALLEGRO")) {
+//            
+//        }
+//        if(s.equals("PRESTO")) {
+//            
+//        }
+//        if(s.equals("PLAYPAUSE")) {
+//            
+//        }
     }
 
     private void setSweeps(RangeSlider slider, int low, int high) {
@@ -424,7 +484,7 @@ public class SpecialoperationsController implements Initializable {
         @Override
         public void handle(MouseEvent event) {
             String[] actions = new String[2];
-            String action;
+//            String action;
             FCW f = null;
             int tenths = MusicPaneController.getInstance().getTenthsTime();
             if(opposedSweeps.isSelected()) {

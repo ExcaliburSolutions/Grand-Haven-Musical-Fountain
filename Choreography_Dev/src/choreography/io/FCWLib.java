@@ -436,21 +436,21 @@ public final class FCWLib {
         if(actions.size() > 1 && actions.contains("OFF")) {
             actions.remove("OFF");
         }
-//        if(actions.size() > 1 && actions.contains("INDEPENDENT")) {
-//            actions.remove("INDEPENDENT");
-//        }
+        if(actions.size() > 1 && actions.contains("INDEPENDENT")) {
+            actions.remove("INDEPENDENT");
+        }
 //        if(actions.size() > 1 && actions.contains("0")) {
 //            actions.remove("0");
 //        }
-//        if(actions.size() > 1 && actions.contains("OFFRESET")) {
-//            actions.remove("OFFRESET");
-//        }
-//        if(actions.size() > 1 && actions.contains("STOP")) {
-//            actions.remove("STOP");
-//        }
-//        if(actions.size() > 1 && actions.contains("HOLDRIGHTOT")) {
-//            actions.remove("HOLDRIGHTOT");
-//        }
+        if(actions.size() > 1 && actions.contains("OFFRESET")) {
+            actions.remove("OFFRESET");
+        }
+        if(actions.size() > 1 && actions.contains("STOP")) {
+            actions.remove("STOP");
+        }
+        if(actions.size() > 1 && actions.contains("HOLDRIGHTOT")) {
+            actions.remove("HOLDRIGHTOT");
+        }
         
         switch(f.getAddr()) {
             case 2:
@@ -547,5 +547,12 @@ public final class FCWLib {
             }
         }
         return null;
+    }
+    
+    public String[] getSweepSpeeds() {
+        if(usesClassicColors) {
+            return tableCommands.get(("TableD1")).keySet().toArray(new String[1]);
+        }
+        return tableCommands.get("TableD2").keySet().toArray(new String[1]);
     }
 }

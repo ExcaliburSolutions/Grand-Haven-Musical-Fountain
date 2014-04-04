@@ -14,6 +14,7 @@ import choreography.model.fcw.FCW;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
+import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 
@@ -225,6 +226,7 @@ public class ChoreographyController implements Initializable {
                 public void handle(ActionEvent t) {
                     CtlLib.getInstance().openCtl();  
                     cc.setfcwOutput("CTL file has loaded!");
+                    SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                 }
             
         });

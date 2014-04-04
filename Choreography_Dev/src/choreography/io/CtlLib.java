@@ -3,6 +3,7 @@ package choreography.io;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.colorPalette.ColorPaletteModel;
+import choreography.view.specialOperations.SpecialoperationsController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -68,6 +69,8 @@ public class CtlLib {
             switch(version) {
                 case "ct0-382":
                     ColorPaletteModel.getInstance().setClassicColors(true);
+                    FCWLib.getInstance().usesClassicColors(true);
+                    SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                     break;
                 case "gvsuCapstone2014B":
                     isTimeCompensated = true;
