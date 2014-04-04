@@ -307,8 +307,8 @@ public class ChoreographyController implements Initializable {
                 @Override
                 public void run() {
                     MapLib.openMap(new File("dmx.map"));
-                    MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth.wav"));
-                    CtlLib.getInstance().openCtl(new File("Reflections of Earth.ctl"));
+                   MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth.wav"));
+                   CtlLib.getInstance().openCtl(new File("Reflections of Earth.ctl"));
                 }
             });
         isSlidersLoaded = true;
