@@ -26,6 +26,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
@@ -95,6 +96,8 @@ public class SpecialoperationsController implements Initializable {
     @FXML private ChoiceBox<String> aSpeedSelector;
     
     @FXML private ChoiceBox<String> bSpeedSelector;
+    
+    @FXML private ComboBox<Integer> strobeFrequency;
     
     private RangeSlider aSweeps;
     private RangeSlider bSweeps;
