@@ -13,12 +13,17 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
+
+import java.awt.List;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -104,7 +109,8 @@ public class SpecialoperationsController implements Initializable {
     private String cannon;
     private SweepsEventHandlerImpl aSweepsEventHandler;
     private SweepsEventHandlerImpl bSweepsEventHandler;
-
+    
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -127,6 +133,15 @@ public class SpecialoperationsController implements Initializable {
         bSweepsPane.getChildren().add(bSweeps); 
         aSweeps.setVisible(false);
         bSweeps.setVisible(false);
+        
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        for(int i = 0; i < 255; i++){
+        	list.add(i+1);
+        }
+        
+        ObservableList<Integer> observableList = FXCollections.observableList(list);
+        strobeFrequency.setItems(observableList);
         
         fadeUpButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
