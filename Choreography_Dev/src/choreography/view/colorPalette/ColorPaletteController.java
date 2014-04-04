@@ -29,6 +29,7 @@ public class ColorPaletteController implements Initializable {
 
     @FXML private static ColorPaletteController cpc;
     // HBox used to hold the colorPalette
+    private HBox colorRectanglePane;
     @FXML private HBox colorPalette;
     // Color picker used for the custom colors. 
     @FXML ColorPicker colorPicker;
@@ -78,6 +79,7 @@ public class ColorPaletteController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         rectangles = new Rectangle[32];
+        colorRectanglePane = new HBox(0.5);
         
         // Sets the first color to red and creates the event handler
         for(int index = 0; index < 16 ; index++) {
@@ -90,7 +92,7 @@ public class ColorPaletteController implements Initializable {
                     setSelectedColor(ColorPaletteModel.getInstance().getColor(index2 + 1));
             	}
             });
-            colorPalette.getChildren().add(rectangles[index]);
+            colorRectanglePane.getChildren().add(rectangles[index]);
         }
         
         
@@ -98,11 +100,11 @@ public class ColorPaletteController implements Initializable {
 
 				@Override
 				public void handle(ActionEvent event) {
-					int index = colorPalette.getChildren().size();{
+					int index = colorRectanglePane.getChildren().size();{
 					//	final int index2 = index;					
 						Color c = colorPicker.getValue();
 						Rectangle rectangle = rectangles[index] = new Rectangle(25, 25,c);														 
-						colorPalette.getChildren().add(rectangle);
+						colorRectanglePane.getChildren().add(rectangle);
 						ColorPaletteModel.getInstance().setColor(c, index);
 						
 	
@@ -144,6 +146,7 @@ public class ColorPaletteController implements Initializable {
                     } 
                 }
             });
+            colorPalette.getChildren().add(colorRectanglePane);
          cpc = this;
         } 
     
@@ -165,11 +168,12 @@ public class ColorPaletteController implements Initializable {
 
     void rePaint() {
         rectangles = new Rectangle[32];
-        colorPalette.getChildren().clear();
+        colorRectanglePane.getChildren().clear();
         Color[] colors = ColorPaletteModel.getInstance().getColors();
         
         // Sets the first color to red and creates the event handler
         for(int index = 0; index < colors.length; index++) {
+            colorPalette.getChildren().remove(colorRectanglePane);
             final int index2 = index;   
             rectangles[index] = new Rectangle(25, 25, ColorPaletteModel.getInstance().getColors()[index]);
             rectangles[index].setOnMouseClicked(new EventHandler<MouseEvent> (){
@@ -180,10 +184,11 @@ public class ColorPaletteController implements Initializable {
                     setSelectedColor(ColorPaletteModel.getInstance().getColor(index2 + 1));
             	}
             });
-            colorPalette.getChildren().add(rectangles[index]);
+            colorRectanglePane.getChildren().add(rectangles[index]);
         }
         for(int i = 0; i < colors.length; i++) {
             rectangles[i].setFill(colors[i]);
         }
+        colorPalette.getChildren().add(colorRectanglePane);
     } 
 }
