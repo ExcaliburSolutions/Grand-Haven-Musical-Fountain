@@ -101,7 +101,7 @@ public class ColorPaletteModel {
         classicMap.put(32, 3);
         classicMap.put(48, 10);
         classicMap.put(-1, 2);
-//        ColorPaletteController.getInstance().rePaint();
+        ColorPaletteController.getInstance().rePaint();
     }
     
     public ColorPaletteModel() {
@@ -165,6 +165,7 @@ public class ColorPaletteModel {
      */    
     public boolean changeColor(Color newColor, int index) {
     	if(index > 15) {
+            colors[index] = newColor;
             return true;
     	}
     	return false;  		 	

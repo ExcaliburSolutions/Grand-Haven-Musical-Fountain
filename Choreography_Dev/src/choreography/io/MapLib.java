@@ -43,11 +43,14 @@
 package choreography.io;
 
 import choreography.view.colorPalette.ColorPaletteModel;
+import choreography.view.music.MusicPaneController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -61,7 +64,7 @@ import javafx.stage.FileChooser;
  */
 public class MapLib {
     
-    public static void openMap() {
+    public static void openMap() throws FileNotFoundException {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open MAP File");
         fc.setInitialFileName(System.getProperty("user.home"));
@@ -70,22 +73,28 @@ public class MapLib {
         openMap(mapFile);
     }
     
-    public static void openMap(File file) {
-        ColorPaletteModel.getInstance().setColors(parseMap(readMap(file)));
+    public static void openMap(File file) throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        ColorPaletteModel.getInstance().setColors(parseMap(readMap(reader)));
                 //(parseMap(readMap(file)));
     }
     
-    public static String readMap(File file) {
+    public static void openMap(InputStream stream) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        ColorPaletteModel.getInstance().setColors(parseMap(readMap(reader)));
+    }
+    
+    public static String readMap(BufferedReader reader) {
         StringBuilder sb = new StringBuilder();
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try {
             String text;
-            while((text = br.readLine()) != null) {
+            while((text = reader.readLine()) != null) {
                 if(text.startsWith("//")) {
                     continue;
                 }
                 else {
                     sb.append(text);
-                    sb.append("\n");
+                    sb.append(System.lineSeparator());
                 }
             }
         } catch (FileNotFoundException ex) {
@@ -101,7 +110,14 @@ public class MapLib {
         ArrayList<Color> colors = new ArrayList<>(32);
         while(sc.hasNext()) {
             String line = sc.nextLine();
-            String colorHex = line.substring(0, (line.indexOf("/"))).trim();
+            int indexOfSlash = line.indexOf("/");
+            String colorHex = "";
+            if(indexOfSlash != -1) {
+                colorHex = line.substring(0, indexOfSlash).trim();
+            }
+            else {
+                colorHex = line.substring(0, 6).trim();
+            }
             colors.add(Color.web(colorHex));
         }
         colors.trimToSize();
@@ -109,6 +125,15 @@ public class MapLib {
     }
     
     public static void saveMap(File file) {
-        
+        throw new UnsupportedOperationException();
+    }
+
+    public static FilePayload createFilePayload() {
+        StringBuilder sb = new StringBuilder(32);
+        for(Color c: ColorPaletteModel.getInstance().getColors()) {
+            sb.append(c.toString().substring(2, c.toString().length()));
+            sb.append(System.lineSeparator());
+        }
+        return new FilePayload(MusicPaneController.getInstance().getMusicName() + ".map", sb.toString().getBytes());
     }
 }

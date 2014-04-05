@@ -7,17 +7,22 @@ package choreography.view.music;
 
 import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
+import choreography.io.FilePayload;
 import choreography.view.ChoreographyController;
 import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -207,7 +212,6 @@ public class MusicPaneController {
     	URL url = null;
         try {
                 url = file2.toURI().toURL();
-
         } catch (MalformedURLException ec) {
                 ec.printStackTrace();
         }
@@ -342,5 +346,25 @@ public class MusicPaneController {
 
     public Slider getTimeSlider() {
         return timeSlider;
+    }
+    
+    public String getMusicName() {
+        return music2.getName().substring(0, music2.getName().length() - 4);
+    }
+
+    public FilePayload createFilePayload() {
+        try {
+            File musicFile = new File(music2.getDirectoryFile());
+            FileInputStream input = new FileInputStream(musicFile);
+            int length = (int)musicFile.length();
+            byte[] musicFileBytes = new byte[length];
+            input.read(musicFileBytes);
+            return new FilePayload(music2.getName(), musicFileBytes);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MusicPaneController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MusicPaneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        throw new IllegalArgumentException("Unable to create music FilePayload");
     }
 }

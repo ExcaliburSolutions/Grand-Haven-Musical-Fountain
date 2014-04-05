@@ -30,7 +30,7 @@ public final class FCWLib {
 	
     private static FCWLib fcwLib;
     private static final Logger LOG = Logger.getLogger(FCWLib.class.getName());
-    private final File fcwInfo = new File("src/choreography/model/fcw/FCW_DEF.txt");
+    private final File fcwInfo = new File("FCW_DEF.txt");
     private HashMap<String, Integer> waterAddress;
     private HashMap<String, Integer> lightAddress;
     private HashMap<String, Integer> functionAddress;

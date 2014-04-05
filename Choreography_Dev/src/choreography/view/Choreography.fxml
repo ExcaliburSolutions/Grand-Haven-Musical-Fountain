@@ -23,20 +23,21 @@
                 <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
               </accelerator>
             </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#openGhmfFile" text="Open GHMF" fx:id="openGhmfMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#openMapFileMenuItemHandler" text="Open Color Map" fx:id="OpenColorMapMenuItem" />
             <MenuItem mnemonicParsing="false" text="Open Music..." fx:id="openMusicMenuItem">
               <accelerator>
                 <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
               </accelerator>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Open CTL..." fx:id="openCTLMenuItem" />
+            <MenuItem mnemonicParsing="false" text="(L) Open CTL..." fx:id="openCTLMenuItem" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Save" fx:id="saveMenuItem">
+            <MenuItem mnemonicParsing="false" text="Save GHMF" fx:id="saveMenuItem">
               <accelerator>
                 <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
               </accelerator>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" text="Save As…" fx:id="saveAsMenuItem">
+            <MenuItem mnemonicParsing="false" text="Save GHMF As…" fx:id="saveAsMenuItem">
               <accelerator>
                 <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
               </accelerator>
@@ -52,7 +53,7 @@
         <Menu mnemonicParsing="false" text="Edit" fx:id="editMenu">
           <items>
             <CheckMenuItem mnemonicParsing="false" text="Advanced Function" fx:id="advancedCheckMenuItem" />
-            <MenuItem id="addChannelsMenuItem" mnemonicParsing="false" onAction="#addChannels" text="Add Channels" visible="false" fx:id="addChannelsMenuItem" />
+            <MenuItem id="addChannelsMenuItem" mnemonicParsing="false" onAction="#addChannels" text="Add Channels" visible="true" fx:id="addChannelsMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#openLagTimeDialog" text="Set Lag Times" visible="false" fx:id="setLagTimesMenuItem" />
           </items>
         </Menu>

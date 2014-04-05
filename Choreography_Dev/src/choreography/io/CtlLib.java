@@ -3,12 +3,15 @@ package choreography.io;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.colorPalette.ColorPaletteModel;
+import choreography.view.music.MusicPaneController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.SortedMap;
@@ -41,8 +44,9 @@ public class CtlLib {
 
     /**
      *
+     * @throws java.io.IOException
      */
-    public synchronized void openCtl() {
+    public synchronized void openCtl() throws IOException {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open CTL File");
         fc.setInitialFileName(System.getProperty("user.dir"));
@@ -51,21 +55,27 @@ public class CtlLib {
         openCtl(ctlFile);
     }
     
-    public void openCtl(File file) {
-        ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(file)));
-        
+    public void openCtl(File file) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(reader)));
+    }
+    
+    public void openCtl(InputStream is) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(reader)));
     }
 
     /**
      *
+     * @param reader
      * @param file
      * @return
      */
-    public synchronized String readFile(File file){
+    public synchronized String readFile(BufferedReader reader) throws IOException{
         StringBuilder stringBuffer = new StringBuilder();
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
-            String version = bufferedReader.readLine();
+        try {
+            String version = reader.readLine();
             switch(version) {
                 case "ct0-382":
                     ColorPaletteModel.getInstance().setClassicColors(true);
@@ -80,7 +90,7 @@ public class CtlLib {
             }
             String text = null;
             
-            while ((text = bufferedReader.readLine()) != null) {
+            while ((text = reader.readLine()) != null) {
                 stringBuffer.append(text);
                 stringBuffer.append(System.getProperty("line.separator"));
             }
@@ -88,6 +98,7 @@ public class CtlLib {
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
+            reader.close();
         }
 
         return stringBuffer.toString();
@@ -129,9 +140,9 @@ public class CtlLib {
                 fcws.add(fcw);       
             }
             events.put(totalTimeinTenthSecs, fcws);
-            if(isTimeCompensated) {
-                    reversePostDate(events);
-            }
+        }
+        if(isTimeCompensated) {
+            reversePostDate(events);
         }
 //        System.out.println(events.toString());
         return events;
@@ -146,50 +157,7 @@ public class CtlLib {
     public synchronized boolean saveFile(File file, SortedMap<Integer, ArrayList<FCW>> content){
 //
         try (FileWriter fileWriter = new FileWriter(file)){
-            if(ChoreographyController.getInstance().getAdvanced()) {
-                fileWriter.write("gvsuCapstone2014A\n");
-            }
-            else {
-                fileWriter.write("gvsuCapstone2014B\n");
-            }
-            
-            for(Integer timeIndex: content.keySet()) {
-                Iterator<FCW> it = content.get(timeIndex).iterator();
-                while(it.hasNext()){
-                    FCW f = it.next();
-                    if(f.getIsWater()) {
-//                        System.out.println(f + " " + timeIndex);
-                        if(postDateSingleFcw(f, content, timeIndex)){ 
-                            it.remove();
-                        }
-                    }
-                    if(content.get(timeIndex).isEmpty()) {
-                        content.remove(timeIndex);
-                    }
-                }
-            }
-            StringBuilder commandsOutput = new StringBuilder();
-            for(Integer i: content.keySet()) {
-                String totTime = "";
-                int timeIndex = i;
-                if(i < 0) {
-                    totTime = "-";
-                    timeIndex = Math.abs(i);
-                }
-                int tenths = Math.abs(timeIndex % 10);
-                int seconds = Math.abs(timeIndex / 10 % 60);
-                int minutes = Math.abs(((timeIndex/10)-seconds) /60);
-//                seconds = seconds - (minutes * 10);
-//                 totTime = minutes + ":" + seconds + "." + tenths;
-                totTime += String.format("%1$02d:%2$02d.%3$01d", minutes, seconds, tenths);
-//                System.out.println(totTime);
-                commandsOutput.append(totTime);
-                for(FCW f: content.get(i)) {
-                    commandsOutput.append(f);
-                    commandsOutput.append(" ");
-                }
-                commandsOutput.append("\n");
-            }
+            StringBuilder commandsOutput = createCtlData(content);
             fileWriter.write(commandsOutput.toString());
             ChoreographyController.getInstance().setfcwOutput("Finished saving CTL!");
         return true;    
@@ -197,6 +165,54 @@ public class CtlLib {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    private StringBuilder createCtlData(SortedMap<Integer, ArrayList<FCW>> content) throws IOException {
+        StringBuilder commandsOutput = new StringBuilder();
+        if(ChoreographyController.getInstance().getAdvanced()) {
+            commandsOutput.append("gvsuCapstone2014A");
+            commandsOutput.append(System.lineSeparator());
+        }
+        else {
+            commandsOutput.append("gvsuCapstone2014B");
+            commandsOutput.append(System.lineSeparator());
+        }
+        for(Integer timeIndex: content.keySet()) {
+            Iterator<FCW> it = content.get(timeIndex).iterator();
+            while(it.hasNext()){
+                FCW f = it.next();
+                if(f.getIsWater()) {
+//                        System.out.println(f + " " + timeIndex);
+                    if(postDateSingleFcw(f, content, timeIndex)){
+                        it.remove();
+                    }
+                }
+                if(content.get(timeIndex).isEmpty()) {
+                    content.remove(timeIndex);
+                }
+            }
+        }
+        
+        for (Iterator<Integer> it = content.keySet().iterator(); it.hasNext();) {
+            Integer i = it.next();
+            String totTime = "";
+            int timeIndex = i;
+            if(i < 0) {
+                totTime = "-";
+                timeIndex = Math.abs(i);
+            }
+            int tenths = Math.abs(timeIndex % 10);
+            int seconds = Math.abs(timeIndex / 10 % 60);
+            int minutes = Math.abs(((timeIndex/10)-seconds) /60);
+            totTime += String.format("%1$02d:%2$02d.%3$01d", minutes, seconds, tenths);
+            commandsOutput.append(totTime);
+            for(FCW f: content.get(i)) {
+                commandsOutput.append(f);
+                commandsOutput.append(" ");
+            }
+            commandsOutput.append(System.lineSeparator());
+        }
+        return commandsOutput;
     }
 
     private synchronized void postDate(SortedMap<Integer, ArrayList<FCW>> content) {
@@ -217,15 +233,18 @@ public class CtlLib {
 
     public synchronized boolean postDateSingleFcw(FCW f, SortedMap<Integer, ArrayList<FCW>> content, Integer timeIndex) {
         int lag = LagTimeLibrary.getInstance().getLagTimeInTenths(f);
-        if(lag != 0){
-            if(content.containsKey(timeIndex - lag)) {
-                content.get(timeIndex - lag).add(f);
+        int adjustedTime = timeIndex - lag;
+        if(adjustedTime > 0) {
+            if(lag != 0){
+                if(content.containsKey(timeIndex - lag)) {
+                    content.get(timeIndex - lag).add(f);
+                }
+                else {
+                    content.put(timeIndex - lag, new ArrayList(10));
+                    content.get(timeIndex - lag).add(f);
+                }
+                return true;
             }
-            else {
-                content.put(timeIndex - lag, new ArrayList(10));
-                content.get(timeIndex - lag).add(f);
-            }
-            return true;
         }
         return false;
     }
@@ -250,5 +269,10 @@ public class CtlLib {
             }
         }
         return false;
+    }
+
+    public FilePayload createFilePayload(SortedMap<Integer, ArrayList<FCW>> timeline) throws IOException {
+        StringBuilder sb = createCtlData(timeline);
+        return new FilePayload(MusicPaneController.getInstance().getMusicName() + ".ctl", sb.toString().getBytes());
     }
 }

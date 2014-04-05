@@ -132,9 +132,7 @@ public class ColorPaletteController implements Initializable {
                     if(ColorPaletteModel.getInstance().changeColor(c, index2)) {
                         Rectangle rectangle = rectangles[index2];
                         rectangle.setFill(colorPicker.getValue());
-                        ColorPaletteModel.getInstance().setColor(c, index2);
-                        TimelineController.getInstance().rePaint();
-
+                        
                         rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                             @Override
@@ -142,7 +140,10 @@ public class ColorPaletteController implements Initializable {
                                 ColorPaletteModel.getInstance().setSelectedIndex(index2);
                                 setSelectedColor(c);
                             }
+                            
                         });
+                        
+                        TimelineController.getInstance().rePaint();
                     } 
                 }
             });
@@ -189,6 +190,7 @@ public class ColorPaletteController implements Initializable {
         for(int i = 0; i < colors.length; i++) {
             rectangles[i].setFill(colors[i]);
         }
-        colorPalette.getChildren().add(colorRectanglePane);
+        if(!ColorPaletteModel.getInstance().isClassicColors())
+            colorPalette.getChildren().add(colorRectanglePane);
     } 
 }

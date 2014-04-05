@@ -8,6 +8,7 @@ package choreography.view;
 
 import choreography.Main;
 import choreography.io.CtlLib;
+import choreography.io.GhmfLibrary;
 import choreography.io.LagTimeLibrary;
 import choreography.io.MapLib;
 import choreography.model.fcw.FCW;
@@ -17,7 +18,6 @@ import choreography.view.sim.FountainSimController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +27,8 @@ import java.util.SortedMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentSkipListMap;
+import choreography.io.FilePayload;
+import choreography.io.MarkLib;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -59,6 +61,9 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import customChannel.CustomChannel;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -135,6 +140,8 @@ public class ChoreographyController implements Initializable {
     private Pane simPane;
     @FXML
     private ScrollPane beatMarkScrollPane;
+    @FXML
+    private MenuItem openGhmfMenuItem;
 //    @FXML
 //    private ProgressIndicator progressIndicator;
     
@@ -224,9 +231,13 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void handle(ActionEvent t) {
-                    CtlLib.getInstance().openCtl();  
-                    cc.setfcwOutput("CTL file has loaded!");
-                    SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
+                    try {
+                        CtlLib.getInstance().openCtl();
+                        cc.setfcwOutput("CTL file has loaded!");
+                        SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             
         });
@@ -274,7 +285,7 @@ public class ChoreographyController implements Initializable {
                 @Override
                 public void handle(ActionEvent t) {
                     if(isSaved) {
-                        buildFcwOutputAndSave();
+                        saveGhmfZipFile();
                     } else {
                         saveAsMenuItem.getOnAction().handle(t);
                     }
@@ -285,7 +296,7 @@ public class ChoreographyController implements Initializable {
                 @Override
                 public void handle(ActionEvent t) {
                     saveLocation  = selectSaveLocation();
-                    buildFcwOutputAndSave();
+                    saveGhmfZipFile();
                     
                 }
             });
@@ -306,22 +317,35 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void run() {
-                    MapLib.openMap(new File("dmx.map"));
-                   MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth.wav"));
-                   CtlLib.getInstance().openCtl(new File("Reflections of Earth.ctl"));
+                    try {
+                        MapLib.openMap(new File("dmx.map"));
+                        MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth/Reflections of Earth.wav"));
+                        CtlLib.getInstance().openCtl(new File("Reflections of Earth/Reflections of Earth.ctl"));
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });
         isSlidersLoaded = true;
     }
 
-    private void buildFcwOutputAndSave() {
-        isSaved = CtlLib.getInstance().saveFile(saveLocation,
-                Timeline.getInstance().getTimeline());
+    private void saveGhmfZipFile() {
+        try {
+            FilePayload ctl = CtlLib.getInstance().createFilePayload(Timeline.getInstance().getTimeline());
+            FilePayload map = MapLib.createFilePayload();
+            FilePayload music = MusicPaneController.getInstance().createFilePayload();
+            FilePayload marks = MarkLib.createFilePayload();
+            isSaved = GhmfLibrary.writeGhmfZip(saveLocation, ctl, map, music, marks);
+        } catch (IOException ex) {
+            Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private File selectSaveLocation() {
         FileChooser fc = new FileChooser();
-        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("CTL", "*.ctl"));
+        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("GHMF", "*.ghmf"));
         fc.setInitialDirectory(new File(System.getProperty("user.home")));
         saveLocation = fc.showSaveDialog(null);
         isSaved = true;
@@ -492,7 +516,11 @@ public class ChoreographyController implements Initializable {
     }
     
     public void openMapFileMenuItemHandler() {
-        MapLib.openMap();
+        try {
+            MapLib.openMap();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void startPlayingSim() {
@@ -525,5 +553,36 @@ public class ChoreographyController implements Initializable {
     	beatMarkScrollPane.setContent(gridpaneBeatMarks);
     }
     
+    public Integer[] getBeatmarks() {
+        Integer[] beatMarksArray = new Integer[beatMarkRecArray.length];
+        for(int i = 0; i < beatMarkRecArray.length; i++) {
+            if(beatMarkRecArray[i].getFill() == Color.LIGHTGREY) {
+                beatMarksArray[i] = 0;
+            }
+            else {
+                beatMarksArray[i] = 1;
+            }
+        }
+        return beatMarksArray;
+    }
     
+    public void setBeatmarks(Integer[] beatmarksArray) {
+        for(int i = 0; i < beatmarksArray.length; i++) {
+            if(beatmarksArray[i] == 0) {
+                beatMarkRecArray[i].setFill(Color.LIGHTGREY);
+            }
+            else {
+                beatMarkRecArray[i].setFill(Color.BLACK);
+            }
+        }
+    }
+    
+//    public void rePaintBeatMarks() {
+//        for()
+//    }
+    
+    @FXML
+    public void openGhmfFile(ActionEvent event) {
+        GhmfLibrary.openGhmfFile();
+    }
 }
