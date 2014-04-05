@@ -89,15 +89,27 @@
             <URL value="@application.css" />
           </stylesheets>
         </fx:include>
-        <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-1.0" prefHeight="15.0" prefWidth="1329.0" visible="false">
+        <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-1.0" prefHeight="15.0" prefWidth="1329.0" visible="true">
           <children>
-            <ScrollPane fx:id="beatMarkScrollPane" content="$null" hbarPolicy="NEVER" hmax="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="1220.0" vbarPolicy="NEVER" />
+            <Label maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" text="Beat Marks:">
+              <font>
+                <Font name="System Bold Italic" size="10.0" />
+              </font>
+              <HBox.margin>
+                <Insets left="35.0" />
+              </HBox.margin>
+            </Label>
+            <ScrollPane fx:id="beatMarkScrollPane" content="$null" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hmax="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-1.0" prefHeight="15.0" prefViewportHeight="15.0" prefViewportWidth="1229.0" prefWidth="1229.0" vbarPolicy="NEVER">
+              <HBox.margin>
+                <Insets left="10.0" />
+              </HBox.margin>
+            </ScrollPane>
           </children>
           <padding>
             <Insets />
           </padding>
           <VBox.margin>
-            <Insets bottom="-10.0" left="105.0" top="-10.0" />
+            <Insets bottom="-10.0" top="-10.0" />
           </VBox.margin>
         </HBox>
         <fx:include source="timeline/Timeline.fxml" alignment="TOP_LEFT" gridLinesVisible="false" maxHeight="-Infinity" maxWidth="-1.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="1190.0" VBox.vgrow="NEVER">

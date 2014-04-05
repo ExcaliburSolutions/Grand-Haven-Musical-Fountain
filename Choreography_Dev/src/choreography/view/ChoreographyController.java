@@ -162,7 +162,7 @@ public class ChoreographyController implements Initializable {
             public void handle(KeyEvent ke) {
                  
                if (ke.getCode() == KeyCode.SPACE){
-            	   beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.RED);
+            	   beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.BLACK);
                 ke.consume();
                }
             }
