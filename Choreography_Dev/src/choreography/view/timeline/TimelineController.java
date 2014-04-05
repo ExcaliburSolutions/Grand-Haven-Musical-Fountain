@@ -264,10 +264,20 @@ public class TimelineController implements Initializable {
 
     public void setAdvancedTimelines() {
         //TODO Convert advanced channels below into numeric channels
-        channelAddresses = new Integer[]{110, 115, 120, 125, 130, 135, 140, 
+        channelAddresses = new Integer[]{49, 50, 190 ,250, 115, 120, 125, 130, 135, 140, 
                                         100, 105, 109, 200, 205, 
                                         230, 190, 109, 161, 166, 
                                         162, 167, };
+    }
+    
+    public int[] getSpecialChannels(){
+    	//all of the strobe, fades, and the initial 10
+    	int[] specialChannels = new int[] {17, 18, 19, 20, 21, 22, 23, 24, 27, 200, 101, 102, 103, 106, 107, 108, 111, 112, 113, 116, 117, 118, 121, 122, 123,
+    			126, 127, 128, 131, 132, 133, 136, 137, 138, 141, 142, 143, 191, 192, 193, 201, 202, 203, 206, 207, 208, 
+    			231, 232, 233, 251, 252, 253};
+    	
+    	return specialChannels;
+    	
     }
 //        final String[] labelNames = new String[] {"Custom Channel", "Module 1", "Module 2",
 //                        "Module 3", "Module 4", "Module 5", "Module 6", "Module 7",
@@ -293,7 +303,6 @@ public class TimelineController implements Initializable {
 //                        "L30-A Mod 6 Back Right", "L34-A Mod 7 Back Left",
 //                        "L33-A Mod 7 Back Center", "L35-A Mod 7 Back Right",
 //                        "L36-Voice 1", "Space for Voice 2", "Custom Channel" };
-    
     public void setLabelGridPane(String[] input) {
     	setLabelNames(input);
     	Set<Integer> addresses = new HashSet<>();

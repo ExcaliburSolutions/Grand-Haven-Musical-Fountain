@@ -4,11 +4,15 @@
 package choreography.io;
 
 import choreography.model.fcw.FCW;
+import choreography.view.timeline.TimelineController;
+
+import java.awt.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -553,5 +557,27 @@ public final class FCWLib {
             return tableCommands.get(("TableD1")).keySet().toArray(new String[1]);
         }
         return tableCommands.get("TableD2").keySet().toArray(new String[1]);
+    }
+    
+    public ArrayList<String> getAdvancedLightNames(){
+    	ArrayList<String> advancedOnlyLightNames = new ArrayList<>();
+
+    	String[] lightNames = lightAddress.keySet().toArray(new String[1]);
+    	
+    	boolean nope = false;
+    	int[] specialChannels = TimelineController.getInstance().getSpecialChannels();
+    	
+    	for(int i = 0; i < lightAddress.keySet().size(); i++){
+    		for(int j = 0; j < specialChannels.length; j++){
+    			if(!lightAddress.containsValue(specialChannels[j])){
+    				nope = true;
+    			}
+    		}
+    		if(nope = false){
+    			advancedOnlyLightNames.add(lightNames[i]);
+    		}
+    		nope = false;
+    	}
+    	return advancedOnlyLightNames;
     }
 }
