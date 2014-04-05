@@ -130,6 +130,8 @@ public class MusicPaneController {
         ChoreographyController.getInstance().stopTimelineTimer();
         ChoreographyController.getInstance().stopSliderTimer();
         TimelineController.getInstance().fireSliderChangeEvent();
+        FountainSimController.getInstance().pauseLeftSweep();
+        FountainSimController.getInstance().pauseRightSweep();
 //        FountainSimController.getInstance().disposeBuffer();
     }
 
@@ -140,6 +142,8 @@ public class MusicPaneController {
     			mediaPlayer.statusProperty().getValue()==Status.STOPPED ||
     			mediaPlayer.statusProperty().getValue()==Status.READY){
             mediaPlayer.play();
+            FountainSimController.getInstance().playLeftSweep();
+            FountainSimController.getInstance().playRightSweep();
                 playButton.setText("Pause");
                 ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
                 //ChoreographyController.getInstance().startPollingSlidersAlgorithm();

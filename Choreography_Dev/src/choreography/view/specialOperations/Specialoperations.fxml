@@ -23,8 +23,8 @@
 <Font size="9.0" />
 </font>
 </Label>
-<Label layoutX="10.0" text="A:" />
-<Label layoutX="10.0" layoutY="35.0" text="B:" />
+<Label layoutX="10.0" text="L:" />
+<Label layoutX="10.0" layoutY="35.0" text="R:" />
 <Group>
 <children>
 <ToggleButton fx:id="independentSweeps" layoutX="135.0" layoutY="64.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="31.0" text="...">

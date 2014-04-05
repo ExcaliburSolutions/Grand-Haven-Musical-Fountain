@@ -32,16 +32,19 @@
     </Group>
     <Group fx:id="bazooka">
       <children>
-        <Line fx:id="bazooka3" endX="300.0" endY="200.0" startX="200.0" startY="150.0" strokeWidth="10.0" visible="false">
+      <Line fx:id="bazooka3" endX="10.0" endY="10.0" startX="10.0" startY="10.0" strokeWidth="10.0" visible="false">
           <stroke>
             <Color blue="0.169" green="1.000" red="0.278" fx:id="x2" />
           </stroke>
         </Line>
+      <Line fx:id="bazooka1" endX="10.0" endY="10.0" startX="10.0" startY="10.0" stroke="$x2" strokeWidth="10.0" visible="false" />
+        
         <QuadCurve fx:id="bazookaB" controlY="200.0" endY="220.0" layoutX="5.0" layoutY="10.0" stroke="#dd0b0b" strokeType="INSIDE" strokeWidth="10.0" />
         <Line fx:id="bazooka5" endX="500.0" endY="235.0" smooth="false" startX="400.0" startY="225.0" stroke="$x2" strokeWidth="10.0" visible="false" />
-        <Line fx:id="bazooka2" endX="1220.0" endY="85.0" startX="1320.0" startY="10.0" stroke="$x2" strokeWidth="10.0" visible="false" />
-        <Line fx:id="bazooka4" endX="400.0" endY="225.0" startX="300.0" startY="200.0" stroke="$x2" strokeWidth="10.0" visible="false" />
-        <Line fx:id="bazooka1" endX="100.0" endY="85.0" startX="10.0" startY="10.0" stroke="$x2" strokeWidth="10.0" visible="false" />
+        <Line fx:id="bazooka4" endX="1320.0" endY="10.0" startX="1320.0" startY="10.0" stroke="$x2" strokeWidth="10.0" visible="false" />
+        <Line fx:id="bazooka2" endX="1320.0" endY="10.0" startX="1320.0" startY="10.0" stroke="$x2" strokeWidth="10.0" visible="false" />
+        
+        
       </children>
     </Group>
     <Group fx:id="mod1" layoutX="920.0">

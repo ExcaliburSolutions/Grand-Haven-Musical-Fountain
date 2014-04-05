@@ -122,11 +122,11 @@ public class TimelineController implements Initializable {
     	return this.rowAL;
     }
     
-    public void setLightRecArrayFade(int row, int col, LinearGradient c){
-    	lightRecArray[col][row].setFill(c);
+    public void setLightRecArrayFade(int row, int col, double opacity){
+    	lightRecArray[col][row].setOpacity(opacity);
     }
     
-    public void setLightRecArrayStrobe(int row, int col, LinearGradient c){
+    public void setLightRecArrayStrobe(int row, int col, Paint c){
     	lightRecArray[col][row].setFill(c);
     }
     /**
@@ -243,8 +243,8 @@ public class TimelineController implements Initializable {
             		lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
             	}
             	}
-			}
-    		
+			}    		
+
 		});
     }
 
@@ -264,10 +264,20 @@ public class TimelineController implements Initializable {
 
     public void setAdvancedTimelines() {
         //TODO Convert advanced channels below into numeric channels
-        channelAddresses = new Integer[]{110, 115, 120, 125, 130, 135, 140, 
+        channelAddresses = new Integer[]{49, 50, 190 ,250, 115, 120, 125, 130, 135, 140, 
                                         100, 105, 109, 200, 205, 
                                         230, 190, 109, 161, 166, 
                                         162, 167, };
+    }
+    
+    public int[] getSpecialChannels(){
+    	//all of the strobe, fades, and the initial 10
+    	int[] specialChannels = new int[] {17, 18, 19, 20, 21, 22, 23, 24, 27, 200, 101, 102, 103, 106, 107, 108, 111, 112, 113, 116, 117, 118, 121, 122, 123,
+    			126, 127, 128, 131, 132, 133, 136, 137, 138, 141, 142, 143, 191, 192, 193, 201, 202, 203, 206, 207, 208, 
+    			231, 232, 233, 251, 252, 253};
+    	
+    	return specialChannels;
+    	
     }
 //        final String[] labelNames = new String[] {"Custom Channel", "Module 1", "Module 2",
 //                        "Module 3", "Module 4", "Module 5", "Module 6", "Module 7",
@@ -293,7 +303,6 @@ public class TimelineController implements Initializable {
 //                        "L30-A Mod 6 Back Right", "L34-A Mod 7 Back Left",
 //                        "L33-A Mod 7 Back Center", "L35-A Mod 7 Back Right",
 //                        "L36-Voice 1", "Space for Voice 2", "Custom Channel" };
-    
     public void setLabelGridPane(String[] input) {
     	setLabelNames(input);
     	Set<Integer> addresses = new HashSet<>();
@@ -430,12 +439,7 @@ public class TimelineController implements Initializable {
                 }); 
                 // continues and ends the drag event
                 lightRecArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
-//                    if (startRow == testJ) {
-//                        lightRecArray[testI][testJ]
-//                                .setFill(ColorPaletteController
-//                                        .getInstance()
-//                                        .getSelectedColor());
-//                    }
+                    
 //                    if (!copyAL.contains(lightRecArray[testI][testJ])){
 //                            copyAL.add(lightRecArray[testI][testJ]);
 //                            colAL.add(testI);
@@ -449,18 +453,34 @@ public class TimelineController implements Initializable {
                         rowAL.add(testJ);
                         }
                     } else {
-                    	lightRecArray[testI][testJ].setFill(ColorPaletteController
-                                .getInstance()
-                                .getSelectedColor());
+                    	if (startRow == testJ) {
+                        	lightRecArray[testI][testJ].setOpacity(1);
+                            lightRecArray[testI][testJ]
+                                    .setFill(ColorPaletteController
+                                            .getInstance()
+                                            .getSelectedColor());
+                        }
+//                    	lightRecArray[testI][testJ].setOpacity(1);
+//                    	lightRecArray[testI][testJ].setFill(ColorPaletteController
+//                                .getInstance()
+//                                .getSelectedColor());
 //                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
 //                                ColorPaletteModel.getInstance().getSelectedIndex()));
                     }
                 });
-//                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
-//                    FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-//                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
-//                    System.out.println(f + " " + start + " " + testI + 1);
-//                });
+                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
+                	if (startRow != testJ){
+                		FCW f = new FCW(channelAddresses[startRow], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+                        Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                        System.out.println(f + " " + start + " " + testI + 1);
+                	}
+                	else{
+                		FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                    System.out.println(f + " " + start + " " + testI + 1);
+                	}
+                    
+                });
             }
         }
 
@@ -538,39 +558,39 @@ public class TimelineController implements Initializable {
                 }
                 });
                 
-                waterRecArray[i].setOnDragDetected((MouseEvent me) -> {
-                	for(Rectangle rec: copyAL){
-                        rec.setOpacity(1);
-                    }
-                    copyAL.clear();
-                    colAL.clear();
-                
-                	if(ChoreographyController.getInstance().getIsSelected()){
-                		lightCopy.setDisable(false);
-                		waterRecArray[testI].startFullDrag();
-                        copyAL.add(waterRecArray[testI]);
-                        
-                        colAL.add(testI);
-                	}
-                	
-                	waterRecArray[testI].startFullDrag();
-                });
-                
-                waterRecArray[i].setOnMouseDragOver((MouseEvent me) -> {
-                  
-                  if (ChoreographyController.getInstance().getIsSelected()) {
-                	  waterRecArray[testI].setOpacity(.50);
-                      if (!copyAL.contains(waterRecArray[testI])){
-                          copyAL.add(waterRecArray[testI]);
-                          
-                          colAL.add(testI);
-                      }
-                  } else {
-                	  waterRecArray[testI].setFill(ColorPaletteController
-                              .getInstance()
-                              .getSelectedColor());
-                  }
-              });
+//                waterRecArray[i].setOnDragDetected((MouseEvent me) -> {
+//                	for(Rectangle rec: copyAL){
+//                        rec.setOpacity(1);
+//                    }
+//                    copyAL.clear();
+//                    colAL.clear();
+//                
+//                	if(ChoreographyController.getInstance().getIsSelected()){
+//                		lightCopy.setDisable(false);
+//                		waterRecArray[testI].startFullDrag();
+//                        copyAL.add(waterRecArray[testI]);
+//                        
+//                        colAL.add(testI);
+//                	}
+//                	
+//                	waterRecArray[testI].startFullDrag();
+//                });
+//                
+//                waterRecArray[i].setOnMouseDragOver((MouseEvent me) -> {
+//                  
+//                  if (ChoreographyController.getInstance().getIsSelected()) {
+//                	  waterRecArray[testI].setOpacity(.50);
+//                      if (!copyAL.contains(waterRecArray[testI])){
+//                          copyAL.add(waterRecArray[testI]);
+//                          
+//                          colAL.add(testI);
+//                      }
+//                  } else {
+//                	  waterRecArray[testI].setFill(ColorPaletteController
+//                              .getInstance()
+//                              .getSelectedColor());
+//                  }
+//              });
                 
         MusicPaneController.getInstance().getWaterPane().setContent(gridpaneWater);
     }
@@ -653,6 +673,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod1candle6().setStroke(color);
                     FountainSimController.getInstance().getMod1sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod1sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka2().setStroke(color);
 
                     }
             if(channel == 18){
@@ -669,6 +690,8 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod2candle6().setStroke(color);
                     FountainSimController.getInstance().getMod2sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod2sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka4().setStroke(color);
+
                     }
             if(channel == 19){
                 FountainSimController.getInstance().getMod3ring1().setFill(color);
@@ -731,6 +754,8 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getMod6candle6().setStroke(color);
                 FountainSimController.getInstance().getMod6sweep1().setStroke(color);
                 FountainSimController.getInstance().getMod6sweep2().setStroke(color);
+                FountainSimController.getInstance().getBazooka3().setStroke(color);
+
             }
             if(channel == 23){
                 FountainSimController.getInstance().getMod7ring1().setFill(color);
@@ -746,6 +771,8 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getMod7candle6().setStroke(color);
                 FountainSimController.getInstance().getMod7sweep1().setStroke(color);
                 FountainSimController.getInstance().getMod7sweep2().setStroke(color);
+                FountainSimController.getInstance().getBazooka1().setStroke(color);
+
             }
             if(channel == 24){
                 FountainSimController.getInstance().getBackCurtain().setFill(color);
@@ -780,53 +807,225 @@ public class TimelineController implements Initializable {
             if(channel == 49){
             	// Module A
             	if (FountainSimController.getInstance().getMod1ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
-            		System.out.println("A only");
+            		FountainSimController.getInstance().getMod1ring1().setFill(color);
+                    FountainSimController.getInstance().getMod1ring2().setFill(color);
+                    FountainSimController.getInstance().getMod1ring3().setFill(color);
+                    FountainSimController.getInstance().getMod1ring4().setFill(color);
+                    FountainSimController.getInstance().getMod1ring5().setFill(color);
+                    FountainSimController.getInstance().getMod1candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod1sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod1sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod3ring1().setFill(color);
+                    FountainSimController.getInstance().getMod3ring2().setFill(color);
+                    FountainSimController.getInstance().getMod3ring3().setFill(color);
+                    FountainSimController.getInstance().getMod3ring4().setFill(color);
+                    FountainSimController.getInstance().getMod3ring5().setFill(color);
+                    FountainSimController.getInstance().getMod3candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod3sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod3sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod5ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod5ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod5ring1().setFill(color);
+                    FountainSimController.getInstance().getMod5ring2().setFill(color);
+                    FountainSimController.getInstance().getMod5ring3().setFill(color);
+                    FountainSimController.getInstance().getMod5ring4().setFill(color);
+                    FountainSimController.getInstance().getMod5ring5().setFill(color);
+                    FountainSimController.getInstance().getMod5candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod5sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod5sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod7ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod7ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod7ring1().setFill(color);
+                    FountainSimController.getInstance().getMod7ring2().setFill(color);
+                    FountainSimController.getInstance().getMod7ring3().setFill(color);
+                    FountainSimController.getInstance().getMod7ring4().setFill(color);
+                    FountainSimController.getInstance().getMod7ring5().setFill(color);
+                    FountainSimController.getInstance().getMod7candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod7sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod7sweep2().setStroke(color);
             	}
             }
             if(channel == 50){
             	// Module B
             	if (FountainSimController.getInstance().getMod2ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
-            		System.out.println("B only");
+            		FountainSimController.getInstance().getMod2ring1().setFill(color);
+                    FountainSimController.getInstance().getMod2ring2().setFill(color);
+                    FountainSimController.getInstance().getMod2ring3().setFill(color);
+                    FountainSimController.getInstance().getMod2ring4().setFill(color);
+                    FountainSimController.getInstance().getMod2ring5().setFill(color);
+                    FountainSimController.getInstance().getMod2candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod2sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod2sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod4ring1().setFill(color);
+                    FountainSimController.getInstance().getMod4ring2().setFill(color);
+                    FountainSimController.getInstance().getMod4ring3().setFill(color);
+                    FountainSimController.getInstance().getMod4ring4().setFill(color);
+                    FountainSimController.getInstance().getMod4ring5().setFill(color);
+                    FountainSimController.getInstance().getMod4candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod4sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod4sweep2().setStroke(color);
+                    FountainSimController.getInstance().getSpoutRec().setFill(color);
             	}
-            	if (FountainSimController.getInstance().getMod6ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod6ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod6ring1().setFill(color);
+                    FountainSimController.getInstance().getMod6ring2().setFill(color);
+                    FountainSimController.getInstance().getMod6ring3().setFill(color);
+                    FountainSimController.getInstance().getMod6ring4().setFill(color);
+                    FountainSimController.getInstance().getMod6ring5().setFill(color);
+                    FountainSimController.getInstance().getMod6candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod6sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod6sweep2().setStroke(color);
             	}
             }
             if(channel == 51){
             	// Module A and B
             	if (FountainSimController.getInstance().getMod1ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
-            		System.out.println("A and B");
+            		FountainSimController.getInstance().getMod1ring1().setFill(color);
+                    FountainSimController.getInstance().getMod1ring2().setFill(color);
+                    FountainSimController.getInstance().getMod1ring3().setFill(color);
+                    FountainSimController.getInstance().getMod1ring4().setFill(color);
+                    FountainSimController.getInstance().getMod1ring5().setFill(color);
+                    FountainSimController.getInstance().getMod1candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod1candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod1sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod1sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod3ring1().setFill(color);
+                    FountainSimController.getInstance().getMod3ring2().setFill(color);
+                    FountainSimController.getInstance().getMod3ring3().setFill(color);
+                    FountainSimController.getInstance().getMod3ring4().setFill(color);
+                    FountainSimController.getInstance().getMod3ring5().setFill(color);
+                    FountainSimController.getInstance().getMod3candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod3candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod3sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod3sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod5ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod5ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod5ring1().setFill(color);
+                    FountainSimController.getInstance().getMod5ring2().setFill(color);
+                    FountainSimController.getInstance().getMod5ring3().setFill(color);
+                    FountainSimController.getInstance().getMod5ring4().setFill(color);
+                    FountainSimController.getInstance().getMod5ring5().setFill(color);
+                    FountainSimController.getInstance().getMod5candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod5candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod5sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod5sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod7ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod7ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod7ring1().setFill(color);
+                    FountainSimController.getInstance().getMod7ring2().setFill(color);
+                    FountainSimController.getInstance().getMod7ring3().setFill(color);
+                    FountainSimController.getInstance().getMod7ring4().setFill(color);
+                    FountainSimController.getInstance().getMod7ring5().setFill(color);
+                    FountainSimController.getInstance().getMod7candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod7candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod7sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod7sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod2ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod2ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod2ring1().setFill(color);
+                    FountainSimController.getInstance().getMod2ring2().setFill(color);
+                    FountainSimController.getInstance().getMod2ring3().setFill(color);
+                    FountainSimController.getInstance().getMod2ring4().setFill(color);
+                    FountainSimController.getInstance().getMod2ring5().setFill(color);
+                    FountainSimController.getInstance().getMod2candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod2candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod2sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod2sweep2().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod4ring1().setFill(color);
+                    FountainSimController.getInstance().getMod4ring2().setFill(color);
+                    FountainSimController.getInstance().getMod4ring3().setFill(color);
+                    FountainSimController.getInstance().getMod4ring4().setFill(color);
+                    FountainSimController.getInstance().getMod4ring5().setFill(color);
+                    FountainSimController.getInstance().getMod4candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod4candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod4sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod4sweep2().setStroke(color);
+                    FountainSimController.getInstance().getSpoutRec().setFill(color);
             	}
-            	if (FountainSimController.getInstance().getMod6ring1().getFill().equals(Color.LIGHTGRAY)){
-            		
+            	if (FountainSimController.getInstance().getMod6ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getMod6ring1().setFill(color);
+                    FountainSimController.getInstance().getMod6ring2().setFill(color);
+                    FountainSimController.getInstance().getMod6ring3().setFill(color);
+                    FountainSimController.getInstance().getMod6ring4().setFill(color);
+                    FountainSimController.getInstance().getMod6ring5().setFill(color);
+                    FountainSimController.getInstance().getMod6candle1().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle2().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle3().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle4().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle5().setStroke(color);
+                    FountainSimController.getInstance().getMod6candle6().setStroke(color);
+                    FountainSimController.getInstance().getMod6sweep1().setStroke(color);
+                    FountainSimController.getInstance().getMod6sweep2().setStroke(color);
             	}
+                FountainSimController.getInstance().getBackCurtain().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain().setFill(color);
             }
     	}
     }

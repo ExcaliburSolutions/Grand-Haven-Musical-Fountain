@@ -9,9 +9,11 @@ package choreography.view;
 import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.GhmfLibrary;
+import choreography.io.FCWLib;
 import choreography.io.LagTimeLibrary;
 import choreography.io.MapLib;
 import choreography.model.fcw.FCW;
+import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
@@ -169,7 +171,7 @@ public class ChoreographyController implements Initializable {
             public void handle(KeyEvent ke) {
                  
                if (ke.getCode() == KeyCode.SPACE){
-            	   beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.RED);
+            	   beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.BLACK);
                 ke.consume();
                }
             }
@@ -246,7 +248,9 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void handle(ActionEvent event) {
-//                    ColorPaletteController.getInstance().setAdvancedFunction(true);
+
+                	String[] advancedOnlyLightNames = FCWLib.getInstance().getAdvancedLightNames().toArray(new String[1]);
+                	TimelineController.getInstance().setLabelGridPane(advancedOnlyLightNames);
                 }
             });
     	
