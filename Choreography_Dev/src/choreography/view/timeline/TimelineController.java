@@ -430,12 +430,7 @@ public class TimelineController implements Initializable {
                 }); 
                 // continues and ends the drag event
                 lightRecArray[i][j].setOnMouseDragOver((MouseEvent me) -> {
-//                    if (startRow == testJ) {
-//                        lightRecArray[testI][testJ]
-//                                .setFill(ColorPaletteController
-//                                        .getInstance()
-//                                        .getSelectedColor());
-//                    }
+                    
 //                    if (!copyAL.contains(lightRecArray[testI][testJ])){
 //                            copyAL.add(lightRecArray[testI][testJ]);
 //                            colAL.add(testI);
@@ -449,19 +444,34 @@ public class TimelineController implements Initializable {
                         rowAL.add(testJ);
                         }
                     } else {
-                    	lightRecArray[testI][testJ].setOpacity(1);
-                    	lightRecArray[testI][testJ].setFill(ColorPaletteController
-                                .getInstance()
-                                .getSelectedColor());
+                    	if (startRow == testJ) {
+                        	lightRecArray[testI][testJ].setOpacity(1);
+                            lightRecArray[testI][testJ]
+                                    .setFill(ColorPaletteController
+                                            .getInstance()
+                                            .getSelectedColor());
+                        }
+//                    	lightRecArray[testI][testJ].setOpacity(1);
+//                    	lightRecArray[testI][testJ].setFill(ColorPaletteController
+//                                .getInstance()
+//                                .getSelectedColor());
 //                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
 //                                ColorPaletteModel.getInstance().getSelectedIndex()));
                     }
                 });
-//                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
-//                    FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-//                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
-//                    System.out.println(f + " " + start + " " + testI + 1);
-//                });
+                lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
+                	if (startRow != testJ){
+                		FCW f = new FCW(channelAddresses[startRow], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+                        Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                        System.out.println(f + " " + start + " " + testI + 1);
+                	}
+                	else{
+                		FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                    System.out.println(f + " " + start + " " + testI + 1);
+                	}
+                    
+                });
             }
         }
 
