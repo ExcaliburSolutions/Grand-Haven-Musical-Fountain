@@ -313,6 +313,7 @@ public class SpecialoperationsController implements Initializable {
                     actions = new String[]{bSpeedSelector.getValue()};
                     f = FCWLib.getInstance().getFCW("SWEEPBSPEED", actions);
                     Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                    ChoreographyController.getInstance().setfcwOutput(f.toString());
                 }
             }
         });
