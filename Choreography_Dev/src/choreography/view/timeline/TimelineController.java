@@ -243,8 +243,39 @@ public class TimelineController implements Initializable {
             		lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
             	}
             	}
+            	
+            	transRowAL.add(0);
+            	ArrayList<Integer> start = new ArrayList<>();
+            	for(int i = 1; i < transRowAL.size(); i++){
+            		if(transRowAL.get(i) == 0){
+            			start.add(transRowAL.get(i-1));
+            			int startpt = start.get(0);
+            			int startOther = transColAL.get(i-1) - start.size()+1;
+            			int endpt = transColAL.get(i-1)+1;
+//            			FCW f = new FCW(channelAddresses[startpt], (Color)lightRecArray[transColAL.get(i-1)][transRowAL.get(i-1)].getFill());
+            			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+                        Timeline.getInstance().setLightFcw(f, startOther, endpt);
+                        System.out.println(f + " " + startOther + " " + endpt);
+                        start.clear();
+                        break;
+            		}
+            		if(transRowAL.get(i) != transRowAL.get(i-1)){
+            			start.add(transRowAL.get(i-1));
+            			int startpt = start.get(0);
+            			int startOther = transColAL.get(i-1) - start.size()+1;
+            			int endpt = transColAL.get(i-1)+1;
+            			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+                        Timeline.getInstance().setLightFcw(f, startOther, endpt);
+                        System.out.println(f + " " + startOther + " " + endpt);
+                        start.clear();
+            		}
+            		else{
+            			start.add(transRowAL.get(i -1));
+            		}
+            	}
 			}    		
 
+            
 		});
     }
 
@@ -469,7 +500,8 @@ public class TimelineController implements Initializable {
                     }
                 });
                 lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
-                	if (startRow != testJ){
+                	if (!ChoreographyController.getInstance().getIsSelected()){
+                		if (startRow != testJ){
                 		FCW f = new FCW(channelAddresses[startRow], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
                         Timeline.getInstance().setLightFcw(f, start, testI + 1);
                         System.out.println(f + " " + start + " " + testI + 1);
@@ -479,6 +511,8 @@ public class TimelineController implements Initializable {
                     Timeline.getInstance().setLightFcw(f, start, testI + 1);
                     System.out.println(f + " " + start + " " + testI + 1);
                 	}
+                	}
+                	
                     
                 });
             }
