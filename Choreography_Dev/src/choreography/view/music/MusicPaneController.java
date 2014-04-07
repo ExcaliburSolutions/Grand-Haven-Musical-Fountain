@@ -11,7 +11,7 @@ import choreography.io.FilePayload;
 import choreography.view.ChoreographyController;
 import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
-import choreography.view.timeline.Timeline;
+import choreography.model.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import java.io.File;
 import java.io.FileInputStream;
@@ -228,7 +228,7 @@ public class MusicPaneController {
             roundedTime = Double.parseDouble(f.format(getTime()));
             setTime(getTimeFactor() * Double.parseDouble(f.format(getTime())));
             SONG_TIME = (int) getTime();
-            Timeline.getInstance().setTime(SONG_TIME);
+            TimelineController.getInstance().getTimeline().setTime(SONG_TIME);
             TimelineController.getInstance().setTimelineGridPane();
             TimelineController.getInstance().setWaterGridPane();
             ChoreographyController.getInstance().setBeatMarkGridPane();
@@ -370,5 +370,18 @@ public class MusicPaneController {
             Logger.getLogger(MusicPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
         throw new IllegalArgumentException("Unable to create music FilePayload");
+    }
+
+    public void disposeMusic() {
+        mediaPlayer.dispose();
+        notFirst = false;
+    }
+
+    public void resetAll() {
+        disposeMusic();
+        songName.setText("");
+        songProgress.setText("");
+        waterTimeline.setContent(null);
+        timeSlider.setValue(0);
     }
 }

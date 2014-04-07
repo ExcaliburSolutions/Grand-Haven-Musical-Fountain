@@ -11,7 +11,7 @@ import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
-import choreography.view.timeline.Timeline;
+import choreography.model.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 
 import java.awt.List;
@@ -19,9 +19,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-
-import javax.swing.event.ChangeEvent;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,6 +27,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -46,6 +44,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.LinearGradientBuilder;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
+import javax.swing.event.ChangeEvent;
 
 /**
  * FXML Controller class
@@ -106,6 +105,8 @@ public class SpecialoperationsController implements Initializable {
     @FXML private ChoiceBox<String> bSpeedSelector;
     
     @FXML private ComboBox<Integer> strobeFrequency;
+    
+    @FXML private Accordion specialOpsPane;
     
     private RangeSlider aSweeps;
     private RangeSlider bSweeps;
@@ -282,6 +283,49 @@ public class SpecialoperationsController implements Initializable {
             }
         });
         
+        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+            	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
+            	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
+            	
+//            	ArrayList<Integer> colALcopy = new ArrayList<>();
+//            	colALcopy.addAll(colAL);
+//            	ArrayList<Integer> rowALcopy = new ArrayList<>();
+//            	rowALcopy.addAll(rowAL);
+//            	
+//            	TimelineController.getInstance().clearAllAL();
+//            	
+//            	double size = colALcopy.size();
+//            	double opScale = 1/size;
+//            	double opacity = 1;
+//            	
+            	if(ChoreographyController.getInstance().getIsSelected()){ // if deleting light
+            		for(int i = 0; i < colAL.size(); i++){
+                	if(i==0){
+                		TimelineController.getInstance().delete(colAL.get(i), rowAL.get(i),  colAL.size(), true);
+                	}
+                	else{
+                		TimelineController.getInstance().delete(colAL.get(i),rowAL.get(i));
+                	}
+//                	opacity = opacity - opScale;
+                	
+                }
+            	}
+            	else{//if deleting water
+            		int time = MusicPaneController.getInstance().getTenthsTime();
+            		TimelineController.getInstance().delete(time);
+            	}
+//            	if(MusicPaneController.getInstance().getWaterPane().isFocused()){
+////            		double time = MusicPaneController.getInstance().getMediaPlayer().getCurrentTime();
+//            		
+//            	}
+                
+            	
+            }
+        });
+        
         opposedSweeps.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -328,16 +372,16 @@ public class SpecialoperationsController implements Initializable {
                 if(independentSweeps.isSelected()) {
                     String[] actions = new String[]{aSpeedSelector.getValue()};
                     FCW f = FCWLib.getInstance().getFCW("SWEEPASPEED", actions);
-                    Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                    TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
                     
                 }
                 else {
                     String[] actions = new String[]{aSpeedSelector.getValue()};
                     FCW f = FCWLib.getInstance().getFCW("SWEEPASPEED", actions);
-                    Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                    TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
                     actions = new String[]{bSpeedSelector.getValue()};
                     f = FCWLib.getInstance().getFCW("SWEEPBSPEED", actions);
-                    Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                    TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
                     ChoreographyController.getInstance().setfcwOutput(f.toString());
                 }
             }
@@ -349,7 +393,7 @@ public class SpecialoperationsController implements Initializable {
             public void handle(MouseEvent event) {
                 String[] actions = new String[]{bSpeedSelector.getValue()};
                 FCW f = FCWLib.getInstance().getFCW("SWEEPBSPEED", actions);
-                Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+                TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
             }
         });
         
@@ -372,7 +416,7 @@ public class SpecialoperationsController implements Initializable {
                 String[] actions = AL.toArray(new String[1]);
                 FCW f = FCWLib.getInstance().getFCW("VOICE", actions);
                 int tenths = MusicPaneController.getInstance().getTenthsTime();
-                Timeline.getInstance().setWaterFcwAtPoint(tenths, f);
+                TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(tenths, f);
                 TimelineController.getInstance().rePaintWaterTimeline();
                 ChoreographyController.getInstance().setfcwOutput(f.toString());
             }
@@ -387,7 +431,7 @@ public class SpecialoperationsController implements Initializable {
                 String[] actions = AL.toArray(new String[1]);
                 FCW f = FCWLib.getInstance().getFCW("OFF", actions);
                 int tenths = MusicPaneController.getInstance().getTenthsTime();
-                Timeline.getInstance().setWaterFcwAtPoint(tenths, f);
+                TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(tenths, f);
                 TimelineController.getInstance().rePaintWaterTimeline();
                 ChoreographyController.getInstance().setfcwOutput(f.toString());
             }
@@ -572,6 +616,10 @@ public class SpecialoperationsController implements Initializable {
         slider.setLowValue(low);
     }
 
+    public void killSpecialOpsPane() {
+        specialOpsPane.setVisible(false);
+    }
+
     private class SweepsEventHandlerImpl implements EventHandler<MouseEvent> {
         
         String sweeps;
@@ -600,19 +648,19 @@ public class SpecialoperationsController implements Initializable {
             if(opposedSweeps.isSelected()) {
                 f = createFcw(actions);
                 FCW opposed = FCWLib.getInstance().getFCW("SWEEPTYPE", new String[]{"OPPOSED"});
-                Timeline.getInstance().setWaterFcwAtPoint(tenths, opposed);
+                TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(tenths, opposed);
             } else if(parallelSweeps.isSelected()) {
                 f = createFcw(actions);
                 FCW opposed = FCWLib.getInstance().getFCW("SWEEPTYPE", new String[]{"TOGETHER"});
-                Timeline.getInstance().setWaterFcwAtPoint(tenths, opposed);
+                TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(tenths, opposed);
             } else if(independentSweeps.isSelected()) {
                 f = createFcw(actions);
                 FCW opposed = FCWLib.getInstance().getFCW("SWEEPTYPE", new String[]{"INDEPENDENT"});
-                Timeline.getInstance().setWaterFcwAtPoint(tenths, opposed);
+                TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(tenths, opposed);
             }
 //            else { f = new FCW(0, 0); }
             ChoreographyController.getInstance().setfcwOutput(f.toString());
-            Timeline.getInstance().setWaterFcwAtPoint(tenths, f);
+            TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(tenths, f);
             TimelineController.getInstance().rePaintWaterTimeline();
         }
 

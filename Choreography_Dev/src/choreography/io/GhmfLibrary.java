@@ -8,11 +8,12 @@ package choreography.io;
 
 import choreography.view.music.MusicPaneController;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  *
@@ -43,32 +43,42 @@ public class GhmfLibrary {
     
     public static void readGhmfZip(ZipFile ghmfFile) throws IOException {
         Enumeration<? extends ZipEntry> entries = ghmfFile.entries();
+        InputStream ctl = null, map = null, music = null, marks = null;
+        File musicFile = null;
         
         while(entries.hasMoreElements()) {
             ZipEntry entry = entries.nextElement();
-            if(entry.getName().endsWith(".ctl")) {
-                InputStream input = ghmfFile.getInputStream(entry);
-                CtlLib.getInstance().openCtl(input);
+            if(entry != null) {
+                if(entry.getName().endsWith(".ctl")) ctl = ghmfFile.getInputStream(entry);
+                if(entry.getName().endsWith(".map")) map = ghmfFile.getInputStream(entry);
+                if(entry.getName().endsWith(".wav")) {
+                    music = ghmfFile.getInputStream(entry);
+                    String name = entry.getName().substring(entry.getName().lastIndexOf("/")+1, entry.getName().length());
+                    String suffix = name.substring(name.length() - 4, name.length());
+                    Path out = Files.createTempFile(name, suffix);
+                    Files.copy(music, out, REPLACE_EXISTING);
+                    musicFile = new File(out.toUri());
+                }
+                if(entry.getName().endsWith(".mark")) marks = ghmfFile.getInputStream(entry);
             }
-            else if(entry.getName().endsWith(".map")) {
-                InputStream input = ghmfFile.getInputStream(entry);
-                MapLib.openMap(input);
-            }
-            else if(entry.getName().endsWith(".wav")) {
-                InputStream input = ghmfFile.getInputStream(entry);
-                File musicFile = new File(ghmfFile.getName() + entry.getName());
-                MusicPaneController.getInstance().openMusicFile(musicFile);
-            }
-            else if(entry.getName().endsWith(".mark")) {
-                InputStream input = ghmfFile.getInputStream(entry);
-                MarkLib.readMarks(input);
-            }
+        }
+        
+        try {
+            MusicPaneController.getInstance().openMusicFile(musicFile);    
+
+            MapLib.openMap(map);
+            CtlLib.getInstance().openCtl(ctl);
+
+            MarkLib.readMarks(marks);
+        } catch (NullPointerException e){
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
     
     public static boolean writeGhmfZip(File zipLoc, FilePayload... buffers) throws IOException {
         try (ZipOutputStream output = new ZipOutputStream(new FileOutputStream(zipLoc))) {
             for(FilePayload buffer: buffers) {
+                buffer.setName(buffer.getName().replaceAll("\\d*$", ""));
                 ZipEntry entry = new ZipEntry(buffer.getName());
                 output.putNextEntry(entry);
                 output.write(buffer.getPayload());

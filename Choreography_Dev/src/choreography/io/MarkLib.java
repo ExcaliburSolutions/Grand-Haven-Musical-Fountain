@@ -9,6 +9,7 @@ package choreography.io;
 import choreography.view.ChoreographyController;
 import choreography.view.music.MusicPaneController;
 import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  *
@@ -27,7 +28,7 @@ public class MarkLib {
 
     public static FilePayload createFilePayload() {
         marks = ChoreographyController.getInstance().getBeatmarks();
-        return new FilePayload(MusicPaneController.getInstance().getMusicName() + ".marks", marks.toString().getBytes());
+        return new FilePayload(MusicPaneController.getInstance().getMusicName() + ".marks", Arrays.toString(marks).getBytes());
     }
     
     

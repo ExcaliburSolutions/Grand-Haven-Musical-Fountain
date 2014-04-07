@@ -5,44 +5,38 @@ import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.colorPalette.ColorPaletteController;
-import choreography.view.colorPalette.ColorPaletteEnum;
-import choreography.view.colorPalette.ColorPaletteModel;
+import choreography.model.color.ColorPaletteEnum;
+import choreography.model.color.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
-import choreography.view.timeline.Timeline;
-
+import choreography.view.sliders.SlidersController;
+import choreography.model.timeline.Timeline;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
-import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -79,7 +73,8 @@ public class TimelineController implements Initializable {
     int selectedCol = 0;
     int selectedRow = 0;
     private int start;
-    
+    Tooltip t;
+    private Timeline timeline;
 
     @FXML
     private GridPane timelineLabelPane;
@@ -108,6 +103,7 @@ public class TimelineController implements Initializable {
     final ContextMenu waterCM = new ContextMenu();
     
     public TimelineController() {
+        timeline = new Timeline();
         this.colorEnumArray = ColorPaletteEnum.values();
         this.rowAL = new ArrayList<>();
         this.colAL = new ArrayList<>();
@@ -128,6 +124,37 @@ public class TimelineController implements Initializable {
     
     public void setLightRecArrayStrobe(int row, int col, Paint c){
     	lightRecArray[col][row].setFill(c);
+    }
+    
+    public void delete( int col, int row){
+    	lightRecArray[col][row].setFill(Color.LIGHTGRAY);
+    	
+    }
+    
+    public void delete(int col, int row, int length, boolean first){
+    	if(first){
+    		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
+    		timeline.getGtfoMap().get(row).remove(col);//TODO ask frank about this
+    		FCW off = new FCW(channelAddresses[row], 0);
+    		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
+            timeline.setLightFcw(off, col, col+length);//not sure if length is needed?
+    	}
+    	
+    	
+    }
+    
+    public void delete(int waterCol){
+    	if (waterCol != 0){
+    		timeline.deleteActionAtTime(waterCol - 1);
+    		waterRecArray[waterCol-1].setFill(Color.LIGHTGRAY);
+    		t.uninstall(waterRecArray[waterCol-1], t);
+    	}
+    	else{
+    		timeline.deleteActionAtTime(waterCol);
+    		waterRecArray[waterCol].setFill(Color.LIGHTGRAY);
+    		t.uninstall(waterRecArray[waterCol], t);
+    	}
+    	    SlidersController.getInstance().resetAllSliders();
     }
     /**
      * Initializes the controller class.
@@ -243,8 +270,45 @@ public class TimelineController implements Initializable {
             		lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
             	}
             	}
+            	
+            	transRowAL.add(0);
+            	ArrayList<Integer> start = new ArrayList<>();
+            	for(int i = 1; i < transRowAL.size(); i++){
+            		if(transRowAL.get(i) == 0){
+            			//TODO copy and paste and then save and open to see if correct, will likely need to add offs
+            			start.add(transRowAL.get(i-1));
+            			int startpt = start.get(0);
+            			int startOther = transColAL.get(i-1) - start.size()+1;
+            			int endpt = transColAL.get(i-1)+1;
+//            			FCW f = new FCW(channelAddresses[startpt], (Color)lightRecArray[transColAL.get(i-1)][transRowAL.get(i-1)].getFill());
+            			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+            			FCW off = new FCW(channelAddresses[0], 0);
+                        timeline.setLightFcw(f, startOther, endpt);
+                        timeline.setLightFcw(off, endpt+1, endpt+2);
+                        System.out.println(f + " " + startOther + " " + endpt);
+                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
+                        start.clear();
+            		}
+            		if(transRowAL.get(i) != transRowAL.get(i-1)){
+            			start.add(transRowAL.get(i-1));
+            			int startpt = start.get(0);
+            			int startOther = transColAL.get(i-1) - start.size()+1;
+            			int endpt = transColAL.get(i-1)+1;
+            			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+            			FCW off = new FCW(channelAddresses[0], 0);
+                        timeline.setLightFcw(f, startOther, endpt);
+                        timeline.setLightFcw(off, endpt+1, endpt+2);
+                        System.out.println(f + " " + startOther + " " + endpt);
+                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
+                        start.clear();
+            		}
+            		else{
+            			start.add(transRowAL.get(i -1));
+            		}
+            	}
 			}    		
 
+            
 		});
     }
 
@@ -316,7 +380,7 @@ public class TimelineController implements Initializable {
 	}
     
     public void setLabelGridPaneWithCtl(){
-    	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
+    	Set<Integer> channelAddressesSet = timeline.getGtfoMap().keySet();
         channelAddresses = channelAddressesSet.toArray(new Integer[1]);
         labelNames = new String[channelAddresses.length];
         for(int i = 0; i < channelAddresses.length; i++) {
@@ -409,7 +473,7 @@ public class TimelineController implements Initializable {
                                             .getInstance()
                                             .getSelectedColor());
                             int address = channelAddresses[testJ];
-//                            Timeline.getInstance().setLightFcw(new FCW(address, 
+//                            timeline.setLightFcw(new FCW(address, 
 //                                ColorPaletteModel.getInstance().getSelectedIndex() + 1), testI, testJ);
                             start = testI;
                     }
@@ -464,21 +528,24 @@ public class TimelineController implements Initializable {
 //                    	lightRecArray[testI][testJ].setFill(ColorPaletteController
 //                                .getInstance()
 //                                .getSelectedColor());
-//                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
+//                        timeline.setLightFcwAtPoint(testI, new FCW(testI, 
 //                                ColorPaletteModel.getInstance().getSelectedIndex()));
                     }
                 });
                 lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
-                	if (startRow != testJ){
+                	if (!ChoreographyController.getInstance().getIsSelected()){
+                		if (startRow != testJ){
                 		FCW f = new FCW(channelAddresses[startRow], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-                        Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                        timeline.setLightFcw(f, start, testI + 1);
                         System.out.println(f + " " + start + " " + testI + 1);
                 	}
                 	else{
                 		FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                    timeline.setLightFcw(f, start, testI + 1);
                     System.out.println(f + " " + start + " " + testI + 1);
                 	}
+                	}
+                	
                     
                 });
             }
@@ -534,14 +601,14 @@ public class TimelineController implements Initializable {
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     
 //                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
-//                    System.out.println(Timeline.getInstance().getActionsAtTime(testI));
+//                    System.out.println(timeline.getActionsAtTime(testI));
                     
 //                    if (!oldRecHasValue){ //aka oldRed does not have a value
 //                    	oldRec = waterRecArray[testI];
 //                    	oldRecHasValue = true;
 //                    }
 //                    else{
-                    	if(Timeline.getInstance().getActionsAtTime(testI)){
+                    	if(timeline.getActionsAtTime(testI)){
 //                    		rePaintWaterTimeline();
 //                            oldRec.setFill(Color.DARKBLUE);
 //                            oldRec = waterRecArray[testI];
@@ -613,7 +680,7 @@ public class TimelineController implements Initializable {
      *
      */
     public void rePaintWaterTimeline() {
-        SortedMap<Integer, ArrayList<FCW>> waterTimeline = Timeline.getInstance().getWaterTimeline();
+        SortedMap<Integer, ArrayList<FCW>> waterTimeline = timeline.getWaterTimeline();
         for(Integer i: waterTimeline.keySet()){
             ArrayList<String> actionsList = new ArrayList<>();
 //            StringBuilder actionList = new StringBuilder();
@@ -631,7 +698,7 @@ public class TimelineController implements Initializable {
                 //TODO update sliders
             }
              waterRecArray[colAtTime].setFill(Color.AZURE);
-                Tooltip t = new Tooltip(actionsList.toString());
+                t = new Tooltip(actionsList.toString());
                 t.setAutoHide(true);
                 Tooltip.install(waterRecArray[colAtTime], t);
         }
@@ -639,11 +706,14 @@ public class TimelineController implements Initializable {
     }
 
     public void rePaintLightTimeline() {
-        SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
+        SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = timeline.getGtfoMap();
         for (int channel: gtfoArray.keySet()){
             for (int timeIndex: gtfoArray.get(channel).keySet()){
-                Integer gtfo = Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex);
+                Integer gtfo = timeline.getGtfoMap().get(channel).get(timeIndex);
                 Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
+                if(color.equals(Color.BLACK)){
+                	color = Color.LIGHTGRAY;
+                }
                 int row = lightRowLookupNumber(channel);
                 lightRecArray[timeIndex][row].setFill(color);
             }
@@ -651,7 +721,7 @@ public class TimelineController implements Initializable {
     }
     
     public void updateColors(int time){
-    	SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
+    	SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = timeline.getGtfoMap();
     	for (int channel: gtfoArray.keySet()){
             if(time == MusicPaneController.SONG_TIME)
                 time = time - 1;
@@ -1034,7 +1104,7 @@ public class TimelineController implements Initializable {
      * @param timeline the timeline to set
      */
     public void setTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> timeline) {
-       Timeline.getInstance().setTimeline(timeline);
+       this.timeline.setTimeline(timeline);
     }
 
     private int lightRowLookupNumber(int channel){
@@ -1201,11 +1271,11 @@ public class TimelineController implements Initializable {
     }
 
     public void fireSliderChangeEvent() {
-        Timeline.getInstance().sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
+        timeline.sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
     }
     
     public void fireSimChangeEvent() {
-        Timeline.getInstance().sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime());
+        timeline.sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime());
     }
 
 	public String[] getLabelNames() {
@@ -1217,13 +1287,25 @@ public class TimelineController implements Initializable {
 	}
         
         public void injectIntoGtfo(Integer[] newAddresses) {
-            SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = Timeline.getInstance().getGtfoMap();
+            SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = timeline.getGtfoMap();
             for(Integer i: newAddresses) {
                 gtfo.putIfAbsent(i, new ConcurrentSkipListMap<>());
             }
         }
 
     public void fireSubmapToSim() {
-        Timeline.getInstance().sendSubmapToSim(MusicPaneController.getInstance().getTenthsTime());
+        timeline.sendSubmapToSim(MusicPaneController.getInstance().getTenthsTime());
+    }
+
+    public void disposeTimeline() {
+        lightRecArray = null;
+        waterRecArray = null;
+        gridpaneLight.getChildren().clear();
+        gridpaneWater.getChildren().clear();
+        initializeTimelines();
+        timeline.getGtfoMap().clear();
+    }
+    public Timeline getTimeline() {
+        return timeline;
     }
 }

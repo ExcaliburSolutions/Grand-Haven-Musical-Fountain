@@ -40,9 +40,10 @@
  * Portions Copyrighted 2014 Sun Microsystems, Inc.
  */
 
-package choreography.view.colorPalette;
+package choreography.model.color;
 
 import choreography.io.MapLib;
+import choreography.view.colorPalette.ColorPaletteController;
 import java.io.File;
 import java.util.HashMap;
 import javafx.scene.paint.Color;
@@ -66,7 +67,7 @@ public class ColorPaletteModel {
             instance = new ColorPaletteModel();
         return instance;
     }
-
+    
     /**
      * @return the classicColors
      */
@@ -79,8 +80,6 @@ public class ColorPaletteModel {
      */
     public void setClassicColors(boolean aClassicColors) {
         classicColors = aClassicColors;
-//        colors = new Color[32];
-//        MapLib.openMap(new File("src/choreography/model/color/legacy.map"));
         classicMap = new HashMap<>();
         classicMap.put(1, 1);
         classicMap.put(2, 5);
@@ -108,25 +107,7 @@ public class ColorPaletteModel {
         colors = new Color[32];
         availableColors = 16;
         classicMap = new HashMap<>(32);
-//        colors[0] = Color.web(ColorPaletteEnum.RED.getColor()); // red
-//        colors[1] = Color.web(ColorPaletteEnum.ORANGE.getColor()); // orange
-//        colors[2] = Color.web(ColorPaletteEnum.YELLOW.getColor()); // yellow
-//        colors[3] = Color.web(ColorPaletteEnum.GREEN.getColor()); // green
-//        colors[4] = Color.web(ColorPaletteEnum.BLUE.getColor()); // blue
-//        colors[5] = Color.web(ColorPaletteEnum.VIOLET.getColor()); // violet
-//        colors[6] = Color.web(ColorPaletteEnum.LIGHTRED.getColor()); // lightRed
-//        colors[7] = Color.web(ColorPaletteEnum.LIGHTORANGE.getColor()); // lightOrange
-//        colors[8] = Color.web(ColorPaletteEnum.LIGHTYELLOW.getColor()); // lightYellow
-//        colors[9] = Color.web(ColorPaletteEnum.LIGHTGREEN.getColor()); // lightGreen
-//        colors[10] = Color.web(ColorPaletteEnum.LIGHTBLUE.getColor()); // lightBlue
-//        colors[11] = Color.web(ColorPaletteEnum.LIGHTVIOLET.getColor()); // lightViolet
-//        colors[12] = Color.web(ColorPaletteEnum.MAGENTA.getColor()); // magenta
-//        colors[13] = Color.web(ColorPaletteEnum.CYAN.getColor()); // cyan
-//        colors[14] = Color.web(ColorPaletteEnum.OFF.getColor()); // black/Off
-//        colors[15] = Color.web(ColorPaletteEnum.WHITE.getColor()); // white/On
-            	
-        
-        }
+    }
     
 
     /**
@@ -203,6 +184,11 @@ public class ColorPaletteModel {
 
     public void setColors(Color[] parseMap) {
         this.colors = parseMap;
+        ColorPaletteController.getInstance().rePaint();
+    }
+    
+    public void resetModel() {
+        instance = new ColorPaletteModel();
         ColorPaletteController.getInstance().rePaint();
     }
 

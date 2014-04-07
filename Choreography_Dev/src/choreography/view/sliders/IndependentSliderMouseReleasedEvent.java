@@ -47,7 +47,8 @@ import choreography.model.cannon.CannonEnum;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.music.MusicPaneController;
-import choreography.view.timeline.Timeline;
+import choreography.model.timeline.Timeline;
+import choreography.view.timeline.TimelineController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -76,7 +77,7 @@ public class IndependentSliderMouseReleasedEvent implements EventHandler<MouseEv
         ChoreographyController.getInstance().stopTimelineTimer();
         String[] actions = new String[]{Integer.toString(icscl.getLastNumber())};
         FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
-        Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+        TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
     }
 }
  

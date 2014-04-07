@@ -42,11 +42,13 @@
 
 package choreography.view.sliders;
 
+import choreography.model.fountain.ModuleEnum;
 import choreography.io.FCWLib;
 import choreography.model.cannon.CannonEnum;
 import choreography.model.fcw.FCW;
 import choreography.view.music.MusicPaneController;
-import choreography.view.timeline.Timeline;
+import choreography.model.timeline.Timeline;
+import choreography.view.timeline.TimelineController;
 import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
@@ -83,13 +85,15 @@ public class SliderMouseReleasedEvent implements EventHandler<MouseEvent>{
             String[] actions = new String[]{module.getReverse(module).getModule(), 
                 module.getModule(), Integer.toString(cscl.getLastNumber())};
             FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
-            Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+            TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(
+                    MusicPaneController.getInstance().getTenthsTime(), f);
             slider.setValue(cscl.getLastNumber());
         }
         else {
             String[] actions = new String[]{module.getModule(), Integer.toString(cscl.getLastNumber())};
             FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
-            Timeline.getInstance().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+            TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(
+                    MusicPaneController.getInstance().getTenthsTime(), f);
         }
     }
     

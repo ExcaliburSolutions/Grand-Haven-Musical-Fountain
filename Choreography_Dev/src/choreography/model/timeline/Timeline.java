@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 
-package choreography.view.timeline;
+package choreography.model.timeline;
 
 import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
+import choreography.view.timeline.TimelineController;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,21 +29,14 @@ public class Timeline {
     /**
     * 
     */
-	public static final int OFF = -5;
-   private static final long serialVersionUID = 7_242_109_851_591_362_314L;
-   private static Timeline instance;
+    public static final int OFF = -5;
+    private static final long serialVersionUID = 7_242_109_851_591_362_314L;
     private static final Logger LOG = Logger.getLogger(Timeline.class.getName());
     private static final int BUFFERBOUNDARY = 200;
     /**
      *
      * @return
      */
-    public static synchronized Timeline getInstance() {
-        if(instance == null) {
-            instance = new Timeline();
-        }
-        return instance;
-    }
    private int time;    
    private int numChannels;
    private ConcurrentSkipListMap<Integer, ArrayList<FCW>> timeline;
@@ -51,7 +45,7 @@ public class Timeline {
    private ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> gtfoArray;
    private int[] lightChannelAddresses;
 
-    private Timeline() {
+    public Timeline() {
         timeline = new ConcurrentSkipListMap<>();
         waterTimeline = new ConcurrentSkipListMap<>();
         lightTimeline = new ConcurrentSkipListMap<>();
@@ -272,7 +266,7 @@ public class Timeline {
     }
 //    private void populateLightFcwArray() {
 
-    void sendTimelineInstanceToSliders(int time) {
+    public void sendTimelineInstanceToSliders(int time) {
 //        if(waterTimeline.containsKey(time)) {
             Integer closestKey = waterTimeline.floorKey(time);
             SlidersController.getInstance().setSlidersWithFcw(waterTimeline.get(closestKey));
@@ -280,7 +274,7 @@ public class Timeline {
             
     }
     
-    void sendTimelineInstanceToSim(int time) {
+    public void sendTimelineInstanceToSim(int time) {
 //      if(waterTimeline.containsKey(time)) {
           Integer closestKey = waterTimeline.floorKey(time);
           FountainSimController.getInstance().drawFcw(waterTimeline.get(closestKey));
@@ -334,6 +328,10 @@ public class Timeline {
             }
         }
             return result;
+    }
+
+    public void deleteActionAtTime(int i) {
+        waterTimeline.remove(i);
     }
     
 }

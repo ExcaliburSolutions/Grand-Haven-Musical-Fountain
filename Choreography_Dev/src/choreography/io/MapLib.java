@@ -42,7 +42,8 @@
 
 package choreography.io;
 
-import choreography.view.colorPalette.ColorPaletteModel;
+import choreography.model.color.ColorPaletteModel;
+import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.music.MusicPaneController;
 import java.io.BufferedReader;
 import java.io.File;
@@ -63,6 +64,8 @@ import javafx.stage.FileChooser;
  * @author elementsking
  */
 public class MapLib {
+    
+    private static boolean mapLoaded;
     
     public static void openMap() throws FileNotFoundException {
         FileChooser fc = new FileChooser();
@@ -121,6 +124,8 @@ public class MapLib {
             colors.add(Color.web(colorHex));
         }
         colors.trimToSize();
+        
+        setMapLoaded(true);
         return colors.toArray(new Color[1]);
     }
     
@@ -135,5 +140,16 @@ public class MapLib {
             sb.append(System.lineSeparator());
         }
         return new FilePayload(MusicPaneController.getInstance().getMusicName() + ".map", sb.toString().getBytes());
+    }
+
+    public static void setMapLoaded(boolean b) {
+        mapLoaded = b;
+    }
+
+    /**
+     * @return the mapLoaded
+     */
+    public static boolean isMapLoaded() {
+        return mapLoaded;
     }
 }
