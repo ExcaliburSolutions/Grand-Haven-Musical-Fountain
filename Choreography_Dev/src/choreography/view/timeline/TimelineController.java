@@ -140,7 +140,7 @@ public class TimelineController implements Initializable {
     		lightRecArray[col][row].setFill(Color.LIGHTGREY);
     		FCW off = new FCW(channelAddresses[row], 0);
     		lightRecArray[col][row].setFill(Color.LIGHTGREY);
-            Timeline.getInstance().setLightFcw(off, col, col+length);
+            Timeline.getInstance().setLightFcw(off, col, col+length);//not sure if length is needed?
     	}
     	
     	
@@ -700,6 +700,9 @@ public class TimelineController implements Initializable {
             for (int timeIndex: gtfoArray.get(channel).keySet()){
                 Integer gtfo = Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex);
                 Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
+                if(color.equals(Color.BLACK)){
+                	color = Color.LIGHTGRAY;
+                }
                 int row = lightRowLookupNumber(channel);
                 lightRecArray[timeIndex][row].setFill(color);
             }
