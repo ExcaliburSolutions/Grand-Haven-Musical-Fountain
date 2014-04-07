@@ -329,5 +329,9 @@ public class Timeline {
         }
             return result;
     }
+
+    public void deleteActionAtTime(int i) {
+        waterTimeline.remove(i);
+    }
     
 }
