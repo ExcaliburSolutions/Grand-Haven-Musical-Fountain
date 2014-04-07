@@ -9,6 +9,8 @@ import choreography.model.color.ColorPaletteEnum;
 import choreography.model.color.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
+import choreography.view.sliders.SlidersController;
+import choreography.view.timeline.Timeline;
 import choreography.model.timeline.Timeline;
 
 import java.net.URL;
@@ -79,6 +81,7 @@ public class TimelineController implements Initializable {
     int selectedCol = 0;
     int selectedRow = 0;
     private int start;
+    Tooltip t;
     private Timeline timeline;
 
     @FXML
@@ -129,6 +132,37 @@ public class TimelineController implements Initializable {
     
     public void setLightRecArrayStrobe(int row, int col, Paint c){
     	lightRecArray[col][row].setFill(c);
+    }
+    
+    public void delete( int col, int row){
+    	lightRecArray[col][row].setFill(Color.LIGHTGRAY);
+    	
+    }
+    
+    public void delete(int col, int row, int length, boolean first){
+    	if(first){
+    		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
+    		Timeline.getInstance().getGtfoMap().get(row).remove(col);//TODO ask frank about this
+    		FCW off = new FCW(channelAddresses[row], 0);
+    		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
+            Timeline.getInstance().setLightFcw(off, col, col+length);//not sure if length is needed?
+    	}
+    	
+    	
+    }
+    
+    public void delete( int waterCol){
+    	if (waterCol != 0){
+    		Timeline.getInstance().deletActionAtTime(waterCol -1 );
+    		waterRecArray[waterCol-1].setFill(Color.LIGHTGRAY);
+    		t.uninstall(waterRecArray[waterCol-1], t);
+    	}
+    	else{
+    		Timeline.getInstance().deletActionAtTime(waterCol);
+    		waterRecArray[waterCol].setFill(Color.LIGHTGRAY);
+    		t.uninstall(waterRecArray[waterCol], t);
+    	}
+    	    SlidersController.getInstance().resetAllSliders();
     }
     /**
      * Initializes the controller class.
@@ -244,8 +278,45 @@ public class TimelineController implements Initializable {
             		lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
             	}
             	}
+            	
+            	transRowAL.add(0);
+            	ArrayList<Integer> start = new ArrayList<>();
+            	for(int i = 1; i < transRowAL.size(); i++){
+            		if(transRowAL.get(i) == 0){
+            			//TODO copy and paste and then save and open to see if correct, will likely need to add offs
+            			start.add(transRowAL.get(i-1));
+            			int startpt = start.get(0);
+            			int startOther = transColAL.get(i-1) - start.size()+1;
+            			int endpt = transColAL.get(i-1)+1;
+//            			FCW f = new FCW(channelAddresses[startpt], (Color)lightRecArray[transColAL.get(i-1)][transRowAL.get(i-1)].getFill());
+            			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+            			FCW off = new FCW(channelAddresses[0], 0);
+                        Timeline.getInstance().setLightFcw(f, startOther, endpt);
+                        Timeline.getInstance().setLightFcw(off, endpt+1, endpt+2);
+                        System.out.println(f + " " + startOther + " " + endpt);
+                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
+                        start.clear();
+            		}
+            		if(transRowAL.get(i) != transRowAL.get(i-1)){
+            			start.add(transRowAL.get(i-1));
+            			int startpt = start.get(0);
+            			int startOther = transColAL.get(i-1) - start.size()+1;
+            			int endpt = transColAL.get(i-1)+1;
+            			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+            			FCW off = new FCW(channelAddresses[0], 0);
+                        Timeline.getInstance().setLightFcw(f, startOther, endpt);
+                        Timeline.getInstance().setLightFcw(off, endpt+1, endpt+2);
+                        System.out.println(f + " " + startOther + " " + endpt);
+                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
+                        start.clear();
+            		}
+            		else{
+            			start.add(transRowAL.get(i -1));
+            		}
+            	}
 			}    		
 
+            
 		});
     }
 
@@ -470,7 +541,8 @@ public class TimelineController implements Initializable {
                     }
                 });
                 lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
-                	if (startRow != testJ){
+                	if (!ChoreographyController.getInstance().getIsSelected()){
+                		if (startRow != testJ){
                 		FCW f = new FCW(channelAddresses[startRow], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
                         timeline.setLightFcw(f, start, testI + 1);
                         System.out.println(f + " " + start + " " + testI + 1);
@@ -480,6 +552,8 @@ public class TimelineController implements Initializable {
                     timeline.setLightFcw(f, start, testI + 1);
                     System.out.println(f + " " + start + " " + testI + 1);
                 	}
+                	}
+                	
                     
                 });
             }
@@ -632,7 +706,7 @@ public class TimelineController implements Initializable {
                 //TODO update sliders
             }
              waterRecArray[colAtTime].setFill(Color.AZURE);
-                Tooltip t = new Tooltip(actionsList.toString());
+                t = new Tooltip(actionsList.toString());
                 t.setAutoHide(true);
                 Tooltip.install(waterRecArray[colAtTime], t);
         }
@@ -645,6 +719,9 @@ public class TimelineController implements Initializable {
             for (int timeIndex: gtfoArray.get(channel).keySet()){
                 Integer gtfo = timeline.getGtfoMap().get(channel).get(timeIndex);
                 Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
+                if(color.equals(Color.BLACK)){
+                	color = Color.LIGHTGRAY;
+                }
                 int row = lightRowLookupNumber(channel);
                 lightRecArray[timeIndex][row].setFill(color);
             }

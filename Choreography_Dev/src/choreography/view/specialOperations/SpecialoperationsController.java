@@ -283,6 +283,49 @@ public class SpecialoperationsController implements Initializable {
             }
         });
         
+        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+            	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
+            	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
+            	
+//            	ArrayList<Integer> colALcopy = new ArrayList<>();
+//            	colALcopy.addAll(colAL);
+//            	ArrayList<Integer> rowALcopy = new ArrayList<>();
+//            	rowALcopy.addAll(rowAL);
+//            	
+//            	TimelineController.getInstance().clearAllAL();
+//            	
+//            	double size = colALcopy.size();
+//            	double opScale = 1/size;
+//            	double opacity = 1;
+//            	
+            	if(ChoreographyController.getInstance().getIsSelected()){ // if deleting light
+            		for(int i = 0; i < colAL.size(); i++){
+                	if(i==0){
+                		TimelineController.getInstance().delete(colAL.get(i), rowAL.get(i),  colAL.size(), true);
+                	}
+                	else{
+                		TimelineController.getInstance().delete(colAL.get(i),rowAL.get(i));
+                	}
+//                	opacity = opacity - opScale;
+                	
+                }
+            	}
+            	else{//if deleting water
+            		int time = MusicPaneController.getInstance().getTenthsTime();
+            		TimelineController.getInstance().delete(time);
+            	}
+//            	if(MusicPaneController.getInstance().getWaterPane().isFocused()){
+////            		double time = MusicPaneController.getInstance().getMediaPlayer().getCurrentTime();
+//            		
+//            	}
+                
+            	
+            }
+        });
+        
         opposedSweeps.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
