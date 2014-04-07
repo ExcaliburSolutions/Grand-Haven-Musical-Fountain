@@ -68,8 +68,8 @@ public class GhmfLibrary {
 
             MapLib.openMap(map);
             CtlLib.getInstance().openCtl(ctl);
-
-            MarkLib.readMarks(marks);
+            if(marks != null) 
+                MarkLib.readMarks(marks);
         } catch (NullPointerException e){
             throw new IllegalArgumentException(e.getMessage());
         }

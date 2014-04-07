@@ -4,12 +4,14 @@
 package choreography.io;
 
 import choreography.model.fcw.FCW;
+import choreography.view.ChoreographyController;
 import choreography.view.timeline.TimelineController;
 
 import java.awt.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,7 +36,7 @@ public final class FCWLib {
 	
     private static FCWLib fcwLib;
     private static final Logger LOG = Logger.getLogger(FCWLib.class.getName());
-    private final File fcwInfo = new File("FCW_DEF.txt");
+    private File fcwInfo = null;
     private HashMap<String, Integer> waterAddress;
     private HashMap<String, Integer> lightAddress;
     private HashMap<String, Integer> functionAddress;
@@ -46,6 +48,7 @@ public final class FCWLib {
     private boolean usesClassicColors;
 
     private FCWLib(){
+        fcwInfo = new File(getClass().getResource("resources/FCW_DEF.txt").toString());
         waterAddress = new HashMap<>();
         lightAddress = new HashMap<>();
         functionTables = new HashMap<>();

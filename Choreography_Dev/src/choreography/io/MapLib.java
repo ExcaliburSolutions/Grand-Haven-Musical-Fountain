@@ -71,7 +71,7 @@ public class MapLib {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open MAP File");
         fc.setInitialFileName(System.getProperty("user.home"));
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CTL Files", "*.map"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("MAP Files", "*.map"));
         File mapFile = fc.showOpenDialog(null);
         openMap(mapFile);
     }

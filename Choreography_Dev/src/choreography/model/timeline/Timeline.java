@@ -111,8 +111,7 @@ public class Timeline {
      * @return the timeline
      */
     public SortedMap<Integer, ArrayList<FCW>> getTimeline() {
-//        collapseLightArray();
-//        collapseLightAndWaterMaps();
+        collapseTimelines();
         return timeline;
     }
 
@@ -332,6 +331,20 @@ public class Timeline {
 
     public void deleteActionAtTime(int i) {
         waterTimeline.remove(i);
+    }
+    
+    public SortedMap<Integer, ArrayList<FCW>> collapseTimelines() {
+        SortedMap<Integer, ArrayList<FCW>> result = new ConcurrentSkipListMap<>();
+        
+        result.putAll(waterTimeline);
+        
+        for(Integer channel: gtfoArray.keySet()) {
+            for(Entry<Integer, Integer> entry: gtfoArray.get(channel).entrySet()) {
+                insertIntoTimeline(timeline, entry.getKey(), new FCW(channel, entry.getValue()));
+            }
+        }
+        
+        return result;
     }
     
 }

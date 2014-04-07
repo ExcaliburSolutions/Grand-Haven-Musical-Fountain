@@ -81,6 +81,7 @@ public class CtlLib {
                 case "ct0-382":
                     ColorPaletteModel.getInstance().setClassicColors(true);
                     FCWLib.getInstance().usesClassicColors(true);
+                    ChoreographyController.getInstance().killFeaturesOnLegacy();
                     SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                     break;
                 case "gvsuCapstone2014B":

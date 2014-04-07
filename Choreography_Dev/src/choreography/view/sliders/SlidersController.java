@@ -8,11 +8,8 @@ package choreography.view.sliders;
  * Sample Skeleton for "Sliders.fxml" Controller Class
  * You can copy and paste this code into your favorite IDE
  **/
-import choreography.model.fountain.ModuleEnum;
 import choreography.Main;
 import choreography.io.FCWLib;
-import choreography.model.fountain.Fountain;
-import choreography.model.fountain.ModuleGroup;
 import choreography.model.cannon.Candelabra;
 import choreography.model.cannon.Cannon;
 import choreography.model.cannon.CannonEnum;
@@ -21,21 +18,25 @@ import choreography.model.cannon.Multi;
 import choreography.model.cannon.Ring;
 import choreography.model.cannon.Sweep;
 import choreography.model.fcw.FCW;
+import choreography.model.fountain.Fountain;
+import choreography.model.fountain.ModuleEnum;
+import choreography.model.fountain.ModuleGroup;
+import choreography.view.sim.FountainSimController;
+import choreography.view.specialOperations.SpecialoperationsController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.scene.control.Slider;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 
 import javafx.util.Duration;
-import choreography.view.sim.FountainSimController;
-import choreography.view.specialOperations.SpecialoperationsController;
 /**
  *
  * @author elementsking
@@ -133,6 +134,8 @@ public class SlidersController {
     @FXML
     private Slider swB;
     private Slider[] allSliders;
+    
+    @FXML private HBox slidersPane;
 
 
     @FXML
@@ -1542,6 +1545,14 @@ public class SlidersController {
      */
     public void setSp(Slider sp) {
         this.sp = sp;
+    }
+
+    public void killSlidersPane() {
+        slidersPane.setVisible(false);
+    }
+    
+    public void resurrectSlidersPane() {
+        slidersPane.setVisible(true);
     }
 }
                    

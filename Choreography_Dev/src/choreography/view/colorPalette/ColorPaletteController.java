@@ -185,12 +185,19 @@ public class ColorPaletteController implements Initializable {
                     }
                 });
                 colorRectanglePane.getChildren().add(rectangles[index]);
-            if(ColorPaletteModel.getInstance().isClassicColors()) {
-                for(int i = 0; i < colors.length; i++) {
-                    rectangles[i].setFill(colors[i]);
-                }
+            }
+            for(int i = 0; i < colors.length; i++) {
+                rectangles[i].setFill(colors[i]);
+            }
+            if(!ColorPaletteModel.getInstance().isClassicColors()) {
                 colorPalette.getChildren().add(colorRectanglePane);
             }
-        }
+            else  {
+                colorPalette.setVisible(false);
+            }
     } 
+
+    public void resurrectColorPalettePane() {
+        colorPalette.setVisible(true);
+    }
 }

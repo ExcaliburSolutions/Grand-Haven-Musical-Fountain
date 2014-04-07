@@ -6,10 +6,12 @@ package choreography.io;
 import choreography.model.fcw.FCW;
 import choreography.model.lagtime.LagTime;
 import choreography.model.lagtime.LagTimeTable;
+import choreography.view.ChoreographyController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,7 +26,7 @@ import java.util.logging.Logger;
 public class LagTimeLibrary {
     private static LagTimeLibrary instance;
     private final LagTimeTable lagTimeTableInstance;
-    private final File lagTimeDef = new File("LagTimeDef.txt");
+    private File lagTimeDef = null;
 
     /**
      *
@@ -58,6 +60,11 @@ public class LagTimeLibrary {
     }
 
     private LagTimeLibrary() throws FileNotFoundException {
+        try {
+            this.lagTimeDef = new File(getClass().getResource(ChoreographyController.WORKINGDIRECTORY + "/LagTimeDef.txt").toURI());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(LagTimeLibrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
         lagTimeTableInstance = LagTimeTable.getInstance();
         loadTimesFromFile();
     }
