@@ -282,6 +282,38 @@ public class SpecialoperationsController implements Initializable {
             }
         });
         
+        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+            	ArrayList<Integer> colAL = TimelineController.getInstance().getColAL();
+            	ArrayList<Integer> rowAL = TimelineController.getInstance().getRowAL();
+            	
+//            	ArrayList<Integer> colALcopy = new ArrayList<>();
+//            	colALcopy.addAll(colAL);
+//            	ArrayList<Integer> rowALcopy = new ArrayList<>();
+//            	rowALcopy.addAll(rowAL);
+//            	
+//            	TimelineController.getInstance().clearAllAL();
+//            	
+//            	double size = colALcopy.size();
+//            	double opScale = 1/size;
+//            	double opacity = 1;
+//            	
+                for(int i = 0; i < colAL.size(); i++){
+                	if(i==0){
+                		TimelineController.getInstance().delete(colAL.get(i), rowAL.get(i),  colAL.size(), true);
+                	}
+                	else{
+                		TimelineController.getInstance().delete(colAL.get(i),rowAL.get(i));
+                	}
+//                	opacity = opacity - opScale;
+                	
+                }
+            	
+            }
+        });
+        
         opposedSweeps.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override

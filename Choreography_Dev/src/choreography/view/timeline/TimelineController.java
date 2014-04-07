@@ -129,6 +129,22 @@ public class TimelineController implements Initializable {
     public void setLightRecArrayStrobe(int row, int col, Paint c){
     	lightRecArray[col][row].setFill(c);
     }
+    
+    public void delete( int col, int row){
+    	lightRecArray[col][row].setFill(Color.LIGHTGREY);
+    	
+    }
+    
+    public void delete(int col, int row, int length, boolean first){
+    	if(first){
+    		lightRecArray[col][row].setFill(Color.LIGHTGREY);
+    		FCW off = new FCW(channelAddresses[row], 0);
+    		lightRecArray[col][row].setFill(Color.LIGHTGREY);
+            Timeline.getInstance().setLightFcw(off, col, col+length);
+    	}
+    	
+    	
+    }
     /**
      * Initializes the controller class.
      * @param url
@@ -248,16 +264,19 @@ public class TimelineController implements Initializable {
             	ArrayList<Integer> start = new ArrayList<>();
             	for(int i = 1; i < transRowAL.size(); i++){
             		if(transRowAL.get(i) == 0){
+            			//TODO copy and paste and then save and open to see if correct
             			start.add(transRowAL.get(i-1));
             			int startpt = start.get(0);
             			int startOther = transColAL.get(i-1) - start.size()+1;
             			int endpt = transColAL.get(i-1)+1;
 //            			FCW f = new FCW(channelAddresses[startpt], (Color)lightRecArray[transColAL.get(i-1)][transRowAL.get(i-1)].getFill());
             			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+            			FCW off = new FCW(channelAddresses[0], 0);
                         Timeline.getInstance().setLightFcw(f, startOther, endpt);
+                        Timeline.getInstance().setLightFcw(off, endpt+1, endpt+2);
                         System.out.println(f + " " + startOther + " " + endpt);
+                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
                         start.clear();
-                        break;
             		}
             		if(transRowAL.get(i) != transRowAL.get(i-1)){
             			start.add(transRowAL.get(i-1));
@@ -265,8 +284,11 @@ public class TimelineController implements Initializable {
             			int startOther = transColAL.get(i-1) - start.size()+1;
             			int endpt = transColAL.get(i-1)+1;
             			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
+            			FCW off = new FCW(channelAddresses[0], 0);
                         Timeline.getInstance().setLightFcw(f, startOther, endpt);
+                        Timeline.getInstance().setLightFcw(off, endpt+1, endpt+2);
                         System.out.println(f + " " + startOther + " " + endpt);
+                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
                         start.clear();
             		}
             		else{
