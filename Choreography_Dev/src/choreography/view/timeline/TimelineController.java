@@ -1308,4 +1308,7 @@ public class TimelineController implements Initializable {
     public Timeline getTimeline() {
         return timeline;
     }
+    
+    public void killTimelines() {
+    }
 }

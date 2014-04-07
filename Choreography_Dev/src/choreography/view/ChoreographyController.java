@@ -332,12 +332,12 @@ public class ChoreographyController implements Initializable {
 
     private void saveGhmfZipFile() {
         try {
-            if(ColorPaletteModel.getInstance().isClassicColors()) {
-                Dialogs.create()
-                        .message("It is currently impossible to save legacy files.")
-                        .title("Cannot Save Legacy CTL")
-                        .showError();
-            }
+//            if(ColorPaletteModel.getInstance().isClassicColors()) {
+//                Dialogs.create()
+//                        .message("It is currently impossible to save legacy files.")
+//                        .title("Cannot Save Legacy CTL")
+//                        .showError();
+//            }
             FilePayload ctl = CtlLib.getInstance().createFilePayload(
                     TimelineController.getInstance().getTimeline().getTimeline());
             FilePayload map = MapLib.createFilePayload();
@@ -354,6 +354,7 @@ public class ChoreographyController implements Initializable {
         fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("GHMF", "*.ghmf"));
         fc.setInitialDirectory(new File(System.getProperty("user.home")));
         saveLocation = fc.showSaveDialog(null);
+        saveLocation = new File(saveLocation.getAbsoluteFile() + ".ghmf");
         isSaved = true;
         return saveLocation;
     }
