@@ -729,7 +729,7 @@ public class TimelineController implements Initializable {
             if(color.equals(Color.BLACK)) {
                 color = Color.LIGHTGRAY;
             }
-            if(channel == 17){
+            if(channel == 17 || channel == 110){
                     FountainSimController.getInstance().getMod1ring1().setFill(color);
                     FountainSimController.getInstance().getMod1ring2().setFill(color);
                     FountainSimController.getInstance().getMod1ring3().setFill(color);
@@ -746,7 +746,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getBazooka2().setStroke(color);
 
                     }
-            if(channel == 18){
+            if(channel == 18 || channel == 115){
                     FountainSimController.getInstance().getMod2ring1().setFill(color);
                     FountainSimController.getInstance().getMod2ring2().setFill(color);
                     FountainSimController.getInstance().getMod2ring3().setFill(color);
@@ -761,9 +761,8 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod2sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod2sweep2().setStroke(color);
                     FountainSimController.getInstance().getBazooka4().setStroke(color);
-
                     }
-            if(channel == 19){
+            if(channel == 19|| channel == 120){
                 FountainSimController.getInstance().getMod3ring1().setFill(color);
                 FountainSimController.getInstance().getMod3ring2().setFill(color);
                 FountainSimController.getInstance().getMod3ring3().setFill(color);
@@ -778,7 +777,7 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getMod3sweep1().setStroke(color);
                 FountainSimController.getInstance().getMod3sweep2().setStroke(color);
             }
-            if(channel == 20){
+            if(channel == 20|| channel == 125){
                 FountainSimController.getInstance().getMod4ring1().setFill(color);
                 FountainSimController.getInstance().getMod4ring2().setFill(color);
                 FountainSimController.getInstance().getMod4ring3().setFill(color);
@@ -795,7 +794,7 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getSpoutRec().setFill(color);
 
             }
-            if(channel == 21){
+            if(channel == 21|| channel == 130){
                 FountainSimController.getInstance().getMod5ring1().setFill(color);
                 FountainSimController.getInstance().getMod5ring2().setFill(color);
                 FountainSimController.getInstance().getMod5ring3().setFill(color);
@@ -810,7 +809,7 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getMod5sweep1().setStroke(color);
                 FountainSimController.getInstance().getMod5sweep2().setStroke(color);
             }
-            if(channel == 22){
+            if(channel == 22|| channel == 135){
                 FountainSimController.getInstance().getMod6ring1().setFill(color);
                 FountainSimController.getInstance().getMod6ring2().setFill(color);
                 FountainSimController.getInstance().getMod6ring3().setFill(color);
@@ -825,9 +824,8 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getMod6sweep1().setStroke(color);
                 FountainSimController.getInstance().getMod6sweep2().setStroke(color);
                 FountainSimController.getInstance().getBazooka3().setStroke(color);
-
             }
-            if(channel == 23){
+            if(channel == 23|| channel == 140){
                 FountainSimController.getInstance().getMod7ring1().setFill(color);
                 FountainSimController.getInstance().getMod7ring2().setFill(color);
                 FountainSimController.getInstance().getMod7ring3().setFill(color);
@@ -842,9 +840,8 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getMod7sweep1().setStroke(color);
                 FountainSimController.getInstance().getMod7sweep2().setStroke(color);
                 FountainSimController.getInstance().getBazooka1().setStroke(color);
-
             }
-            if(channel == 24){
+            if(channel == 24|| channel == 205){
                 FountainSimController.getInstance().getBackCurtain().setFill(color);
             }
             if(channel == 25){
@@ -874,6 +871,9 @@ public class TimelineController implements Initializable {
             if(channel == 200){
                 FountainSimController.getInstance().getFrontCurtain().setFill(color);
             }
+            if(channel == 190|| channel == 194 || channel == 195){
+                FountainSimController.getInstance().getSpoutRec().setFill(color);
+            }
             if(channel == 49){
             	// Module A
             	if (FountainSimController.getInstance().getMod1ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
@@ -890,6 +890,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod1candle6().setStroke(color);
                     FountainSimController.getInstance().getMod1sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod1sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka2().setStroke(color);
             	}
             	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
             		FountainSimController.getInstance().getMod3ring1().setFill(color);
@@ -935,6 +936,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod7candle6().setStroke(color);
                     FountainSimController.getInstance().getMod7sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod7sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka1().setStroke(color);
             	}
             }
             if(channel == 50){
@@ -953,6 +955,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod2candle6().setStroke(color);
                     FountainSimController.getInstance().getMod2sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod2sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka4().setStroke(color);
             	}
             	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
             		FountainSimController.getInstance().getMod4ring1().setFill(color);
@@ -984,9 +987,10 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod6candle6().setStroke(color);
                     FountainSimController.getInstance().getMod6sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod6sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka3().setStroke(color);
             	}
             }
-            if(channel == 51){
+            if(channel == 51 || channel == 250){
             	// Module A and B
             	if (FountainSimController.getInstance().getMod1ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
             		FountainSimController.getInstance().getMod1ring1().setFill(color);
@@ -1002,6 +1006,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod1candle6().setStroke(color);
                     FountainSimController.getInstance().getMod1sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod1sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka2().setStroke(color);
             	}
             	if (FountainSimController.getInstance().getMod3ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
             		FountainSimController.getInstance().getMod3ring1().setFill(color);
@@ -1047,6 +1052,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod7candle6().setStroke(color);
                     FountainSimController.getInstance().getMod7sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod7sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka1().setStroke(color);
             	}
             	if (FountainSimController.getInstance().getMod2ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
             		FountainSimController.getInstance().getMod2ring1().setFill(color);
@@ -1062,6 +1068,7 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod2candle6().setStroke(color);
                     FountainSimController.getInstance().getMod2sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod2sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka4().setStroke(color);
             	}
             	if (FountainSimController.getInstance().getMod4ring1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
             		FountainSimController.getInstance().getMod4ring1().setFill(color);
@@ -1093,9 +1100,25 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getMod6candle6().setStroke(color);
                     FountainSimController.getInstance().getMod6sweep1().setStroke(color);
                     FountainSimController.getInstance().getMod6sweep2().setStroke(color);
+                    FountainSimController.getInstance().getBazooka3().setStroke(color);
             	}
-                FountainSimController.getInstance().getBackCurtain().setFill(color);
-                FountainSimController.getInstance().getFrontCurtain().setFill(color);
+            	if (FountainSimController.getInstance().getPeacock1().getStroke().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getPeacock1().setStroke(color);
+                    FountainSimController.getInstance().getPeacock2().setStroke(color);
+                    FountainSimController.getInstance().getPeacock3().setStroke(color);
+                    FountainSimController.getInstance().getPeacock4().setStroke(color);
+                    FountainSimController.getInstance().getPeacock5().setStroke(color);
+                    FountainSimController.getInstance().getPeacock6().setStroke(color);
+                    FountainSimController.getInstance().getPeacock7().setStroke(color);
+                    FountainSimController.getInstance().getPeacock8().setStroke(color);
+                    FountainSimController.getInstance().getPeacock9().setStroke(color);
+            	}
+            	if (FountainSimController.getInstance().getFrontCurtain().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+                    FountainSimController.getInstance().getFrontCurtain().setFill(color);
+            	}
+            	if (FountainSimController.getInstance().getBackCurtain().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+                    FountainSimController.getInstance().getBackCurtain().setFill(color);
+            	}
             }
     	}
     }
@@ -1276,6 +1299,10 @@ public class TimelineController implements Initializable {
     
     public void fireSimChangeEvent() {
         timeline.sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime());
+    }
+    
+    public void fireSimClearEvent() {
+        FountainSimController.getInstance().clearSim();
     }
 
 	public String[] getLabelNames() {

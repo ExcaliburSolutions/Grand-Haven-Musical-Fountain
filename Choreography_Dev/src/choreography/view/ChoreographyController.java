@@ -302,7 +302,8 @@ public class ChoreographyController implements Initializable {
                     MusicPaneController.getInstance().disposeMusic();
                     MusicPaneController.getInstance().resetAll();
                     TimelineController.getInstance().disposeTimeline();
-                    FountainSimController.getInstance().disposeBuffer();
+                    FountainSimController.getInstance().clearSweeps();
+                    FountainSimController.getInstance().clearSim();
                     ColorPaletteModel.getInstance().resetModel();
                     MapLib.setMapLoaded(false);
                 }

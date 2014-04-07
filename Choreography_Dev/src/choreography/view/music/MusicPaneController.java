@@ -168,8 +168,10 @@ public class MusicPaneController {
     	mediaPlayer.stop();
         mediaPlayer.seek(Duration.ZERO);
         timeSlider.setValue(0.0);
+        TimelineController.getInstance().fireSimClearEvent();
 //        FountainSimController.getInstance().disposeBuffer();
         SlidersController.getInstance().resetAllSliders();
+        FountainSimController.getInstance().clearSweeps();
         playButton.setText("Play");
     }
     
