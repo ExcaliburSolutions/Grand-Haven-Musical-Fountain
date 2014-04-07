@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -43,8 +44,8 @@ public class FountainSimController implements Initializable {
 	
     private static FountainSimController instance;
    // private Timeline timeline;
-	Timeline timeline2 = new Timeline();
-	Timeline timeline3 = new Timeline();
+	Timeline leftSweepTimeline = new Timeline();
+	Timeline rightSweepTimeline = new Timeline();
 
 
     @FXML
@@ -424,7 +425,9 @@ public class FountainSimController implements Initializable {
     
     private static Stage principalStage;
     private int sweepType=1;
-    private double sweepSpeed;
+    private double leftSweepSpeed = 1;
+    private double rightSweepSpeed = 1;
+
     Timeline timelingRing1;
     
     private ConcurrentNavigableMap<Integer, ArrayList<FCW>> 
@@ -574,13 +577,7 @@ public class FountainSimController implements Initializable {
                     }
                     break;
                 case 33:
-//                    if(actionsList.contains("ADAGIO")) {
-//                        moveLeftSweeps(-15, 15);
-//                    }
-//                    if(actionsList.contains("MODERATO")) {
-//                        moveLeftSweeps(-15, 15);
-//                    }
-                    if(actionsList.contains("SHORT")) {
+                	if(actionsList.contains("SHORT")) {
                         moveLeftSweeps(-15, 15);
                     }
                     if(actionsList.contains("LONG")) {
@@ -596,51 +593,60 @@ public class FountainSimController implements Initializable {
                     	mod7sweep1.getTransforms().clear();
                     }
                     if(actionsList.contains("PLAYPAUSE")) {
-//                    	ObservableList<Transform> transList1 = mod1sweep1.getTransforms();
-//                    	ObservableList<Transform> transList2 = mod2sweep1.getTransforms();
-//                    	ObservableList<Transform> transList3 = mod3sweep1.getTransforms();
-//                    	ObservableList<Transform> transList4 = mod4sweep1.getTransforms();
-//                    	ObservableList<Transform> transList5 = mod5sweep1.getTransforms();
-//                    	ObservableList<Transform> transList6 = mod6sweep1.getTransforms();
-//                    	ObservableList<Transform> transList7 = mod7sweep1.getTransforms();
-//
-//                    	mod1sweep1.getTransforms().clear();
-//                    	mod2sweep1.getTransforms().clear();
-//                    	mod3sweep1.getTransforms().clear();
-//                    	mod4sweep1.getTransforms().clear();
-//                    	mod5sweep1.getTransforms().clear();
-//                    	mod6sweep1.getTransforms().clear();
-//                    	mod7sweep1.getTransforms().clear();
-//                        moveLeftSweeps(-30, 30);
                     	
-                    	if(timeline2.getStatus() == Animation.Status.PAUSED){
-                    		timeline2.pause();
+                    	if(leftSweepTimeline.getStatus() == Animation.Status.PAUSED){
+                    		leftSweepTimeline.pause();
                     	}
                     	else{
-                    		timeline2.play();
+                    		leftSweepTimeline.play();
                     	}
+                    }
+                	if(actionsList.contains("LARGO")) {
+//                		KeyFrame kf = timeline3.getKeyFrames().get(0);
+//                		Set<KeyValue> kv = kf.getValues();
+//                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
+//                		kv
+                		leftSweepTimeline.setRate(0.2);
+                		leftSweepSpeed = 2.0;
+                    }
+                	if(actionsList.contains("ADAGIO")) {
+                		leftSweepTimeline.setRate(0.5);
+                		leftSweepSpeed = 1.5;
+                    }
+                	if(actionsList.contains("ANDANTE")) {
+                		leftSweepTimeline.setRate(0.8);
+                		leftSweepSpeed = 1.2;
+                    }
+//                    if(actionsList.contains("MODERATO")) {
+//                		leftSweepTimeline.setRate(1.0);
+//                		leftSweepSpeed = 1.0;
+//                    }
+                    if(actionsList.contains("ALLEGRETO")) {
+                		leftSweepTimeline.setRate(1.3);
+                		leftSweepSpeed = 0.7;
+                    }
+                	if(actionsList.contains("ALLEGRO")) {
+                		leftSweepTimeline.setRate(1.5);
+                		leftSweepSpeed = 0.5;
+                    }
+                    if(actionsList.contains("PRESTO")) {
+                		leftSweepTimeline.setRate(1.8);
+                		leftSweepSpeed = 0.4;
                     }
                     break;
                 case 34:
-//                	if(actionsList.contains("ADAGIO")) {
-//                		KeyFrame kf = timeline3.getKeyFrames().get(0);
-//                		kf.
-//                    }
-//                    if(actionsList.contains("MODERATO")) {
-//                        moveRightSweeps(-15, 15);
-//                    }
-                    if(actionsList.contains("SHORT")) {
+                	if(actionsList.contains("SHORT")) {
                         moveRightSweeps(-15, 15);
                     }
                     if(actionsList.contains("LONG")) {
                         moveRightSweeps(-30, 30);
                     }
                     if(actionsList.contains("PLAYPAUSE")){
-                    	if(timeline3.getStatus() == Animation.Status.PAUSED){
-                    		timeline3.pause();
+                    	if(rightSweepTimeline.getStatus() == Animation.Status.PAUSED){
+                    		rightSweepTimeline.pause();
                     	}
                     	else{
-                    		timeline3.play();
+                    		rightSweepTimeline.play();
                     	}
                     }
                     if(actionsList.contains("OFFRESET")) {
@@ -651,6 +657,38 @@ public class FountainSimController implements Initializable {
                     	mod5sweep2.getTransforms().clear();
                     	mod6sweep2.getTransforms().clear();
                     	mod7sweep2.getTransforms().clear();
+                    }
+                	if(actionsList.contains("LARGO")) {
+//                		KeyFrame kf = timeline3.getKeyFrames().get(0);
+//                		Set<KeyValue> kv = kf.getValues();
+//                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
+//                		kv
+                		rightSweepTimeline.setRate(0.2);
+                		rightSweepSpeed = 2.0;
+                    }
+                	if(actionsList.contains("ADAGIO")) {
+                		rightSweepTimeline.setRate(0.5);
+                		rightSweepSpeed = 1.5;
+                    }
+                	if(actionsList.contains("ANDANTE")) {
+                		rightSweepTimeline.setRate(0.8);
+                		rightSweepSpeed = 1.2;
+                    }
+//                	if(actionsList.contains("MODERATO")) {
+//                		rightSweepTimeline.setRate(1.0);
+//                		rightSweepSpeed = 1.0;
+//                    }
+                	if(actionsList.contains("ALLEGRETO")) {
+                		rightSweepTimeline.setRate(1.3);
+                		rightSweepSpeed = 0.7;
+                    }
+                	if(actionsList.contains("ALLEGRO")) {
+                		rightSweepTimeline.setRate(1.5);
+                		rightSweepSpeed = 0.5;
+                    }
+                	if(actionsList.contains("PRESTO")) {
+                		rightSweepTimeline.setRate(1.8);
+                		rightSweepSpeed = 0.4;
                     }
                     break;
                 case 35:
@@ -901,9 +939,83 @@ public class FountainSimController implements Initializable {
                     }
                     break;
                 case 38:
-                    if(actionsList.contains("MODULEB")) {
-                        int level = FCWLib.getInstance().reverseGetLevel(f);
-                        drawSweepsB(level, lagTime);
+                	if(actionsList.contains("LARGO")) {
+//                		KeyFrame kf = timeline3.getKeyFrames().get(0);
+//                		Set<KeyValue> kv = kf.getValues();
+//                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
+//                		kv
+                		leftSweepTimeline.setRate(0.2);
+                		leftSweepSpeed = 0.2;
+                    }
+                	if(actionsList.contains("ANDANTE")) {
+                		leftSweepTimeline.setRate(0.8);
+                		leftSweepSpeed = 0.8;
+                    }
+                    if(actionsList.contains("ALLEGRETO")) {
+                		leftSweepTimeline.setRate(1.3);
+                		leftSweepSpeed = 1.3;
+                    }
+                    if(actionsList.contains("PRESTO")) {
+                		leftSweepTimeline.setRate(1.8);
+                		leftSweepSpeed = 1.8;
+                    }
+                    if(actionsList.contains("OFFRESET")) {
+                    	mod1sweep1.getTransforms().clear();
+                    	mod2sweep1.getTransforms().clear();
+                    	mod3sweep1.getTransforms().clear();
+                    	mod4sweep1.getTransforms().clear();
+                    	mod5sweep1.getTransforms().clear();
+                    	mod6sweep1.getTransforms().clear();
+                    	mod7sweep1.getTransforms().clear();
+                    }
+                    if(actionsList.contains("PLAYPAUSE")) {
+                    	
+                    	if(leftSweepTimeline.getStatus() == Animation.Status.PAUSED){
+                    		leftSweepTimeline.play();
+                    	}
+                    	else{
+                    		leftSweepTimeline.pause();
+                    	}
+                    }
+                    break;
+                case 39:
+                	if(actionsList.contains("LARGO")) {
+//                		KeyFrame kf = timeline3.getKeyFrames().get(0);
+//                		Set<KeyValue> kv = kf.getValues();
+//                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
+//                		kv
+                		rightSweepTimeline.setRate(0.2);
+                		rightSweepSpeed = 0.2;
+                    }
+                	if(actionsList.contains("ANDANTE")) {
+                		rightSweepTimeline.setRate(0.8);
+                		rightSweepSpeed = 0.8;
+                    }
+                    if(actionsList.contains("ALLEGRETO")) {
+                		rightSweepTimeline.setRate(1.3);
+                		rightSweepSpeed = 1.3;
+                    }
+                    if(actionsList.contains("PRESTO")) {
+                		rightSweepTimeline.setRate(1.8);
+                		rightSweepSpeed = 1.8;
+                    }
+                    if(actionsList.contains("OFFRESET")) {
+                    	mod1sweep2.getTransforms().clear();
+                    	mod2sweep2.getTransforms().clear();
+                    	mod3sweep2.getTransforms().clear();
+                    	mod4sweep2.getTransforms().clear();
+                    	mod5sweep2.getTransforms().clear();
+                    	mod6sweep2.getTransforms().clear();
+                    	mod7sweep2.getTransforms().clear();
+                    }
+                    if(actionsList.contains("PLAYPAUSE")) {
+                    	
+                    	if(rightSweepTimeline.getStatus() == Animation.Status.PAUSED){
+                    		rightSweepTimeline.play();
+                    	}
+                    	else{
+                    		rightSweepTimeline.pause();
+                    	}
                     }
                     break;
                 case 40:
@@ -1393,14 +1505,16 @@ public class FountainSimController implements Initializable {
     }
     
     public void moveLeftSweeps(double leftLimit, double rightLimit){
-		final Timeline timeline = new Timeline();
+		//final Timeline timeline = new Timeline();
+    	leftSweepTimeline = new Timeline();
+    	leftSweepTimeline.setDelay(Duration.seconds(.5));
 		if(MusicPaneController.getInstance().getMediaPlayer().statusProperty().getValue()== Status.PLAYING){
-			timeline.setCycleCount(timeline.INDEFINITE);
+			leftSweepTimeline.setCycleCount(leftSweepTimeline.INDEFINITE);
 		}
 		else{
-		timeline.setCycleCount(1);
+			leftSweepTimeline.setCycleCount(1);
 		}
-		timeline.setAutoReverse(true);
+		leftSweepTimeline.setAutoReverse(true);
 		
 		KeyValue kv25 = null;
 		KeyValue kv26 = null;
@@ -1510,24 +1624,26 @@ public class FountainSimController implements Initializable {
 //		kv20 = new KeyValue(rotate8.angleProperty(), leftLimit);
 //	}
 	
-		final KeyFrame kf = new KeyFrame(Duration.seconds(.5), kv1, kv2, kv7, kv8, kv13, 
+		final KeyFrame kf = new KeyFrame(Duration.seconds(leftSweepSpeed), kv1, kv2, kv7, kv8, kv13, 
 																kv14, kv14, kv19, kv20,
 																kv25, kv26, kv27, kv28,
 																kv29, kv30, kv31, kv32);
-		timeline.getKeyFrames().add(kf);
-		timeline2 = timeline;
-		timeline.play();     				
+		leftSweepTimeline.getKeyFrames().add(kf);
+		//leftSweepTimeline = timeline;
+		leftSweepTimeline.play();     				
 }
 
 public void moveRightSweeps(double leftLimit, double rightLimit){
-	final Timeline timeline = new Timeline();
+//	final Timeline timeline = new Timeline();
+	rightSweepTimeline = new Timeline();
+	//rightSweepTimeline.setDelay(Duration.seconds(.5));
 	if(MusicPaneController.getInstance().getMediaPlayer().statusProperty().getValue()== Status.PLAYING){
-		timeline.setCycleCount(timeline.INDEFINITE);
+		rightSweepTimeline.setCycleCount(rightSweepTimeline.INDEFINITE);
 	}
 	else{
-	timeline.setCycleCount(1);
+		rightSweepTimeline.setCycleCount(1);
 	}
-		timeline.setAutoReverse(true);
+	rightSweepTimeline.setAutoReverse(true);
 		
 		KeyValue kv15 = null;
 		KeyValue kv16 = null;
@@ -1621,11 +1737,11 @@ public void moveRightSweeps(double leftLimit, double rightLimit){
 //			kv14 = new KeyValue(rotate6.angleProperty(), leftLimit);				
 //		}
 //		
-		final KeyFrame kf = new KeyFrame(Duration.seconds(.5), kv1, kv2, kv7, kv8, kv13, 
+		final KeyFrame kf = new KeyFrame(Duration.seconds(rightSweepSpeed), kv1, kv2, kv7, kv8, kv13, 
 																kv14, kv15, kv16, kv17, kv18, kv19, kv20);
-		timeline.getKeyFrames().add(kf);
-		timeline3 = timeline;
-		timeline.play();
+		rightSweepTimeline.getKeyFrames().add(kf);
+		//rightSweepTimeline = timeline;
+		rightSweepTimeline.play();
 }
     
     public void drawMultiA(int level, double lagTime){
@@ -3230,19 +3346,19 @@ public void moveRightSweeps(double leftLimit, double rightLimit){
     }
 
     public void pauseLeftSweep() {
-        timeline2.pause();
+        leftSweepTimeline.pause();
     }
        
     public void playLeftSweep(){
-        timeline2.play();
+        leftSweepTimeline.play();
     }
     
     public void pauseRightSweep() {
-        timeline3.pause();
+        rightSweepTimeline.pause();
     }
     
     public void playRightSweep(){
-        timeline3.play();
+        rightSweepTimeline.play();
     }
     
     public int getSweepType() {
@@ -3253,45 +3369,97 @@ public void moveRightSweeps(double leftLimit, double rightLimit){
 		this.sweepType = sweepType;
 	}
 	
-	public double getSweepSpeed() {
-		return sweepSpeed;
-	}
+//	public double getSweepSpeed() {
+//		return sweepSpeed;
+//	}
 
 	public Timeline getTimeline2() {
-		return timeline2;
+		return leftSweepTimeline;
 	}
 
 	public void setTimeline2(Timeline timeline2) {
-		this.timeline2 = timeline2;
+		this.leftSweepTimeline = timeline2;
 	}
 
 	public Timeline getTimeline3() {
-		return timeline3;
+		return rightSweepTimeline;
 	}
 
 	public void setTimeline3(Timeline timeline3) {
-		this.timeline3 = timeline3;
+		this.rightSweepTimeline = timeline3;
 	}
 
-	public void setSweepSpeed(int speed) {
-		switch(speed){
-		case 1:
-			sweepSpeed = .2;
-		case 2:
-			sweepSpeed = .4;
-		case 3:
-			sweepSpeed = .8;
-		case 4:
-			sweepSpeed = 1;
-		case 5:
-			sweepSpeed = 1.5;
-		case 6:
-			sweepSpeed = 2.5;
-		case 7:
-			sweepSpeed = 4.0;
-			 
-		}
-		
+//	public void setSweepSpeed(double sweepSpeed) {
+////		switch(speed){
+////		case 1:
+////			sweepSpeed = .2;
+////		case 2:
+////			sweepSpeed = .4;
+////		case 3:
+////			sweepSpeed = .8;
+////		case 4:
+////			sweepSpeed = 1;
+////		case 5:
+////			sweepSpeed = 1.5;
+////		case 6:
+////			sweepSpeed = 2.5;
+////		case 7:
+////			sweepSpeed = 4.0;
+////			 
+////		}
+//		this.sweepSpeed = sweepSpeed;
+//	}
+
+	public double getLeftSweepSpeed() {
+		return leftSweepSpeed;
+	}
+
+	public void setLeftSweepSpeed(double leftSweepSpeed) {
+		this.leftSweepSpeed = leftSweepSpeed;
+	}
+
+	public double getRightSweepSpeed() {
+		return rightSweepSpeed;
+	}
+
+	public void setRightSweepSpeed(double rightSweepSpeed) {
+		this.rightSweepSpeed = rightSweepSpeed;
+	}
+	
+	public void clearSweeps(){
+//		leftSweepTimeline.stop();
+//		leftSweepTimeline.getKeyFrames().clear();
+//		rightSweepTimeline.stop();
+//		rightSweepTimeline.getKeyFrames().clear();
+		mod1sweep1.getTransforms().clear();
+    	mod2sweep1.getTransforms().clear();
+    	mod3sweep1.getTransforms().clear();
+    	mod4sweep1.getTransforms().clear();
+    	mod5sweep1.getTransforms().clear();
+    	mod6sweep1.getTransforms().clear();
+    	mod7sweep1.getTransforms().clear();
+    	mod1sweep2.getTransforms().clear();
+    	mod2sweep2.getTransforms().clear();
+    	mod3sweep2.getTransforms().clear();
+    	mod4sweep2.getTransforms().clear();
+    	mod5sweep2.getTransforms().clear();
+    	mod6sweep2.getTransforms().clear();
+    	mod7sweep2.getTransforms().clear();
+	}
+	
+	public void clearSim(){
+		drawBazooka(0, 0.5);
+		drawBkCurtain(0, 0.5);
+		drawCandlesA(0, 0.5);
+		drawCandlesB(0, 0.5);
+		drawFtCurtain(0, 0.5);
+		drawMultiA(0, 0.5);
+		drawMultiB(0, 0.5);
+		drawPeacock(0, 0.5);
+		drawSweepsA(0, 0.5);
+		drawSweepsB(0, 0.5);
+		drawSpout(0, 0.5);
+
 	}
 	
 }
