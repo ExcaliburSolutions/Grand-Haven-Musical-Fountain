@@ -24,6 +24,7 @@ import choreography.view.sim.FountainSimController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.TimelineController;
 import customChannel.CustomChannel;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +37,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,6 +52,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -60,6 +63,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
@@ -166,6 +170,17 @@ public class ChoreographyController implements Initializable {
             	   beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.BLACK);
                 ke.consume();
                }
+               
+               
+            }
+            
+
+        });
+    	
+    	beatMarkScrollPane
+        .setOnMousePressed(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent me){
+            	beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.LIGHTGRAY);
             }
 
         });
