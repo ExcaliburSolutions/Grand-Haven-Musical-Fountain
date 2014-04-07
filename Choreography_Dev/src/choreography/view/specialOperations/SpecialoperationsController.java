@@ -620,6 +620,10 @@ public class SpecialoperationsController implements Initializable {
         specialOpsPane.setVisible(false);
     }
 
+    public void resurrectSpecialOpsPane() {
+        specialOpsPane.setVisible(true);
+    }
+
     private class SweepsEventHandlerImpl implements EventHandler<MouseEvent> {
         
         String sweeps;
