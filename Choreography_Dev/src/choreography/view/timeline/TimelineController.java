@@ -134,7 +134,7 @@ public class TimelineController implements Initializable {
     public void delete(int col, int row, int length, boolean first){
     	if(first){
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
-    		timeline.getGtfoMap().get(row).remove(col);//TODO ask frank about this
+    		//timeline.getGtfoMap().get(row).remove(col);//TODO ask frank about this
     		FCW off = new FCW(channelAddresses[row], 0);
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
             timeline.setLightFcw(off, col, col+length);//not sure if length is needed?
@@ -711,7 +711,7 @@ public class TimelineController implements Initializable {
             for (int timeIndex: gtfoArray.get(channel).keySet()){
                 Integer gtfo = timeline.getGtfoMap().get(channel).get(timeIndex);
                 Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
-                if(color.equals(Color.BLACK)){
+                if(color == null || color.equals(Color.BLACK)){
                 	color = Color.LIGHTGRAY;
                 }
                 int row = lightRowLookupNumber(channel);
