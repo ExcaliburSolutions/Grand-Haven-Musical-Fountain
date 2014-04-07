@@ -6,6 +6,8 @@
 
 package choreography.view;
 
+
+
 import choreography.Main;
 import choreography.io.CtlLib;
 import choreography.io.FCWLib;
@@ -21,12 +23,14 @@ import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
+import choreography.view.sliders.SlidersController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.TimelineController;
 import customChannel.CustomChannel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -70,6 +74,8 @@ import org.controlsfx.dialog.Dialogs;
  * @author elementsking
  */
 public class ChoreographyController implements Initializable {
+    
+    public static final String WORKINGDIRECTORY = "";
     
     private static ChoreographyController cc;
     private ConcurrentSkipListMap<Integer, ArrayList<FCW>> events;
@@ -209,7 +215,11 @@ public class ChoreographyController implements Initializable {
                 public void handle(ActionEvent t) {
                     try {
                         if(!MapLib.isMapLoaded()) {
-                            MapLib.openMap(new File("default.map"));
+                            try {
+                                MapLib.openMap(new File(getClass().getResource(WORKINGDIRECTORY + "/default.map").toURI()));
+                            } catch (FileNotFoundException | URISyntaxException ex) {
+                                Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                         CtlLib.getInstance().openCtl();
                         cc.setfcwOutput("CTL file has loaded!");
@@ -217,7 +227,7 @@ public class ChoreographyController implements Initializable {
                             Dialogs.create().message("You've loaded a legacy file. "
                                             + "Currently, they are read-only.").showWarning();
                             
-                            SpecialoperationsController.getInstance().killSpecialOpsPane();
+                            killFeaturesOnLegacy();
                         }
                         SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                     } catch (IOException ex) {
@@ -306,6 +316,15 @@ public class ChoreographyController implements Initializable {
                     FountainSimController.getInstance().clearSim();
                     ColorPaletteModel.getInstance().resetModel();
                     MapLib.setMapLoaded(false);
+                    
+                    SlidersController.getInstance().resurrectSlidersPane();
+                    SpecialoperationsController.getInstance().resurrectSpecialOpsPane();
+                    try {
+                        MapLib.openMap(new File(getClass().getResource(WORKINGDIRECTORY + "/default.map").toURI()));
+                    } catch (FileNotFoundException | URISyntaxException ex) {
+                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ColorPaletteController.getInstance().resurrectColorPalettePane();
                 }
                 
             });
@@ -314,21 +333,13 @@ public class ChoreographyController implements Initializable {
         fcwOutput.setText("Choreographer has loaded!");
         openCTLMenuItem.setDisable(true);
         cc = this;
-//        Platform.runLater(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    try {
-//                        MapLib.openMap(new File("dmx.map"));
-//                        MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth/Reflections of Earth.wav"));
-//                        CtlLib.getInstance().openCtl(new File("Reflections of Earth/Reflections of Earth.ctl"));
-//                    } catch (FileNotFoundException ex) {
-//                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                }
-//            });
+    }
+
+    public void killFeaturesOnLegacy() {
+        SpecialoperationsController.getInstance().killSpecialOpsPane();
+        SlidersController.getInstance().killSlidersPane();
+        ColorPaletteModel.getInstance().setClassicColors(true);
+        ColorPaletteController.getInstance().rePaint();
     }
 
     private void saveGhmfZipFile() {
