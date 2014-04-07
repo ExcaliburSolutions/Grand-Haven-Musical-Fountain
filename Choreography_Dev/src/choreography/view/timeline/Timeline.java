@@ -300,6 +300,10 @@ public class Timeline {
     }
     
 
+    public void deletActionAtTime(int time){
+    	waterTimeline.remove(time);
+    }
+    
     public void setLightFcw(FCW f, int start, int end) {
         SortedMap<Integer, Integer> channel = gtfoArray.get(f.getAddr());
         setLightFcwWithRange(channel, start, end, f.getData());

@@ -9,6 +9,7 @@ import choreography.view.colorPalette.ColorPaletteEnum;
 import choreography.view.colorPalette.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
+import choreography.view.sliders.SlidersController;
 import choreography.view.timeline.Timeline;
 
 import java.net.URL;
@@ -79,7 +80,7 @@ public class TimelineController implements Initializable {
     int selectedCol = 0;
     int selectedRow = 0;
     private int start;
-    
+    Tooltip t;
 
     @FXML
     private GridPane timelineLabelPane;
@@ -131,19 +132,34 @@ public class TimelineController implements Initializable {
     }
     
     public void delete( int col, int row){
-    	lightRecArray[col][row].setFill(Color.LIGHTGREY);
+    	lightRecArray[col][row].setFill(Color.LIGHTGRAY);
     	
     }
     
     public void delete(int col, int row, int length, boolean first){
     	if(first){
-    		lightRecArray[col][row].setFill(Color.LIGHTGREY);
+    		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
+    		Timeline.getInstance().getGtfoMap().get(row).remove(col);//TODO ask frank about this
     		FCW off = new FCW(channelAddresses[row], 0);
-    		lightRecArray[col][row].setFill(Color.LIGHTGREY);
+    		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
             Timeline.getInstance().setLightFcw(off, col, col+length);//not sure if length is needed?
     	}
     	
     	
+    }
+    
+    public void delete( int waterCol){
+    	if (waterCol != 0){
+    		Timeline.getInstance().deletActionAtTime(waterCol -1 );
+    		waterRecArray[waterCol-1].setFill(Color.LIGHTGRAY);
+    		t.uninstall(waterRecArray[waterCol-1], t);
+    	}
+    	else{
+    		Timeline.getInstance().deletActionAtTime(waterCol);
+    		waterRecArray[waterCol].setFill(Color.LIGHTGRAY);
+    		t.uninstall(waterRecArray[waterCol], t);
+    	}
+    	    SlidersController.getInstance().resetAllSliders();
     }
     /**
      * Initializes the controller class.
@@ -264,7 +280,7 @@ public class TimelineController implements Initializable {
             	ArrayList<Integer> start = new ArrayList<>();
             	for(int i = 1; i < transRowAL.size(); i++){
             		if(transRowAL.get(i) == 0){
-            			//TODO copy and paste and then save and open to see if correct
+            			//TODO copy and paste and then save and open to see if correct, will likely need to add offs
             			start.add(transRowAL.get(i-1));
             			int startpt = start.get(0);
             			int startOther = transColAL.get(i-1) - start.size()+1;
@@ -687,7 +703,7 @@ public class TimelineController implements Initializable {
                 //TODO update sliders
             }
              waterRecArray[colAtTime].setFill(Color.AZURE);
-                Tooltip t = new Tooltip(actionsList.toString());
+                t = new Tooltip(actionsList.toString());
                 t.setAutoHide(true);
                 Tooltip.install(waterRecArray[colAtTime], t);
         }

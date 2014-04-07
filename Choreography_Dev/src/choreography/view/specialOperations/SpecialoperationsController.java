@@ -300,7 +300,8 @@ public class SpecialoperationsController implements Initializable {
 //            	double opScale = 1/size;
 //            	double opacity = 1;
 //            	
-                for(int i = 0; i < colAL.size(); i++){
+            	if(ChoreographyController.getInstance().getIsSelected()){ // if deleting light
+            		for(int i = 0; i < colAL.size(); i++){
                 	if(i==0){
                 		TimelineController.getInstance().delete(colAL.get(i), rowAL.get(i),  colAL.size(), true);
                 	}
@@ -310,6 +311,16 @@ public class SpecialoperationsController implements Initializable {
 //                	opacity = opacity - opScale;
                 	
                 }
+            	}
+            	else{//if deleting water
+            		int time = MusicPaneController.getInstance().getTenthsTime();
+            		TimelineController.getInstance().delete(time);
+            	}
+//            	if(MusicPaneController.getInstance().getWaterPane().isFocused()){
+////            		double time = MusicPaneController.getInstance().getMediaPlayer().getCurrentTime();
+//            		
+//            	}
+                
             	
             }
         });
