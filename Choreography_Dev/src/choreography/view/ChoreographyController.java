@@ -177,14 +177,6 @@ public class ChoreographyController implements Initializable {
 
         });
     	
-    	beatMarkScrollPane
-        .setOnMousePressed(new EventHandler<MouseEvent>() {
-        	public void handle(MouseEvent me){
-            	beatMarkRecArray[MusicPaneController.getInstance().getTenthsTime()].setFill(Color.LIGHTGRAY);
-            }
-
-        });
-    	
     	openMusicMenuItem.setOnAction(new EventHandler<ActionEvent> (){
 
             @Override
@@ -569,6 +561,13 @@ public class ChoreographyController implements Initializable {
             
             beatMarkRecArray[i] = new Rectangle(25, 25, Color.LIGHTGREY);
             gridpaneBeatMarks.add(beatMarkRecArray[i], i, 0);
+            int testI = i;
+            beatMarkRecArray[i]
+                    .setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+            	beatMarkRecArray[testI].setFill(Color.LIGHTGRAY);
+            }});
             
     	}
     	
