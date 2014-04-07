@@ -10,7 +10,20 @@
 
 <AnchorPane id="AnchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="1329.0" rotate="180.0" style="-fx-background-color: black;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.sim.FountainSimController">
   <children>
-    <Rectangle fx:id="backCurtain" arcHeight="5.0" arcWidth="5.0" fill="LIGHTGRAY" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="1310.0" x="10.0" y="40.0" />
+    <Rectangle fx:id="backCurtain1" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="20" y="40.0" />
+    <Rectangle fx:id="backCurtain2" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="112.14" y="40.0" />
+    <Rectangle fx:id="backCurtain3" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="204.28" y="40.0" />
+    <Rectangle fx:id="backCurtain4" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="296.42" y="40.0" />
+    <Rectangle fx:id="backCurtain5" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="388.56" y="40.0" />
+    <Rectangle fx:id="backCurtain6" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="480.70" y="40.0" />
+    <Rectangle fx:id="backCurtain7" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="572.84" y="40.0" />
+    <Rectangle fx:id="backCurtain8" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="664.98" y="40.0" />
+    <Rectangle fx:id="backCurtain9" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="757.12" y="40.0" />
+    <Rectangle fx:id="backCurtain10" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="849.26" y="40.0" />
+    <Rectangle fx:id="backCurtain11" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="941.40" y="40.0" />
+    <Rectangle fx:id="backCurtain12" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="1033.54" y="40.0" />
+    <Rectangle fx:id="backCurtain13" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="1125.68" y="40.0" />
+    <Rectangle fx:id="backCurtain14" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.65" stroke="LIGHTGRAY" strokeType="INSIDE" width="92.14" x="1217.82" y="40.0" />
     <Group fx:id="peacock">
       <children>
         <Line fx:id="peacock3" endX="683.0" endY="28.0" startX="683.0" startY="28.0" strokeLineCap="ROUND" strokeWidth="10.0" visible="false">
@@ -125,7 +138,20 @@
         <Slider fx:id="ring1Slider" layoutX="-5.0" layoutY="17.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
       </children>
     </Group>
-    <Rectangle fx:id="frontCurtain" arcHeight="5.0" arcWidth="5.0" fill="LIGHTGRAY" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="1310.0" x="10.0" />
+    <Rectangle fx:id="frontCurtain1" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="35" />
+    <Rectangle fx:id="frontCurtain2" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="125.0" />
+    <Rectangle fx:id="frontCurtain3" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="215.0" />
+    <Rectangle fx:id="frontCurtain4" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="305.0" />
+    <Rectangle fx:id="frontCurtain5" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="395.0" />
+    <Rectangle fx:id="frontCurtain6" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="485.0" />
+    <Rectangle fx:id="frontCurtain7" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="575.0" />
+    <Rectangle fx:id="frontCurtain8" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="665.0" />
+    <Rectangle fx:id="frontCurtain9" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="755.0" />
+    <Rectangle fx:id="frontCurtain10" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="845.0" />
+    <Rectangle fx:id="frontCurtain11" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="935.0" />
+    <Rectangle fx:id="frontCurtain12" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="1025.0" />
+    <Rectangle fx:id="frontCurtain13" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="1115.0" />
+    <Rectangle fx:id="frontCurtain14" arcHeight="0.0" arcWidth="0.0" fill="LIGHTGRAY" opacity="0.35" stroke="LIGHTGRAY" strokeType="INSIDE" width="90.0" x="1205.0" />
     <Group fx:id="candleSweepGroup1" layoutY="3.0">
       <children>
         <Line fx:id="mod1candle6" endX="1260.0" endY="0.0" startX="1130.0" strokeLineCap="ROUND" strokeWidth="3.0" visible="false">

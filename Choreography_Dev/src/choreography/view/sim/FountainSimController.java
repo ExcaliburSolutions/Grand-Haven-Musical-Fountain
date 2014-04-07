@@ -247,10 +247,88 @@ public class FountainSimController implements Initializable {
     private Line peacock9;
     
     @FXML
-    private Rectangle frontCurtain;
+    private Rectangle frontCurtain1;
     
     @FXML
-    private Rectangle backCurtain;
+    private Rectangle frontCurtain2;
+    
+    @FXML
+    private Rectangle frontCurtain3;
+    
+    @FXML
+    private Rectangle frontCurtain4;
+
+    @FXML
+    private Rectangle frontCurtain5;
+    
+    @FXML
+    private Rectangle frontCurtain6;
+    
+    @FXML
+    private Rectangle frontCurtain7;
+    
+    @FXML
+    private Rectangle frontCurtain8;
+    
+    @FXML
+    private Rectangle frontCurtain9;
+    
+    @FXML
+    private Rectangle frontCurtain10;
+    
+    @FXML
+    private Rectangle frontCurtain11;
+    
+    @FXML
+    private Rectangle frontCurtain12;
+    
+    @FXML
+    private Rectangle frontCurtain13;
+    
+    @FXML
+    private Rectangle frontCurtain14;
+    
+    @FXML
+    private Rectangle backCurtain1;
+    
+    @FXML
+    private Rectangle backCurtain2;
+    
+    @FXML
+    private Rectangle backCurtain3;
+    
+    @FXML
+    private Rectangle backCurtain4;
+
+    @FXML
+    private Rectangle backCurtain5;
+    
+    @FXML
+    private Rectangle backCurtain6;
+    
+    @FXML
+    private Rectangle backCurtain7;
+    
+    @FXML
+    private Rectangle backCurtain8;
+    
+    @FXML
+    private Rectangle backCurtain9;
+    
+    @FXML
+    private Rectangle backCurtain10;
+    
+    @FXML
+    private Rectangle backCurtain11;
+    
+    @FXML
+    private Rectangle backCurtain12;
+    
+    @FXML
+    private Rectangle backCurtain13;
+    
+    @FXML
+    private Rectangle backCurtain14;
     
     @FXML
     private Line mod1sweep1;
@@ -578,12 +656,6 @@ public class FountainSimController implements Initializable {
                     }
                     break;
                 case 33:
-                	if(actionsList.contains("SHORT")) {
-                        moveLeftSweeps(-15, 15);
-                    }
-                    if(actionsList.contains("LONG")) {
-                        moveLeftSweeps(-30, 30);
-                    }
                     if(actionsList.contains("OFFRESET")) {
                     	mod1sweep1.getTransforms().clear();
                     	mod2sweep1.getTransforms().clear();
@@ -608,15 +680,15 @@ public class FountainSimController implements Initializable {
 //                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
 //                		kv
                 		leftSweepTimeline.setRate(0.2);
-                		leftSweepSpeed = 2.0;
+                		leftSweepSpeed = 4.0;
                     }
                 	if(actionsList.contains("ADAGIO")) {
                 		leftSweepTimeline.setRate(0.5);
-                		leftSweepSpeed = 1.5;
+                		leftSweepSpeed = 3.0;
                     }
                 	if(actionsList.contains("ANDANTE")) {
                 		leftSweepTimeline.setRate(0.8);
-                		leftSweepSpeed = 1.2;
+                		leftSweepSpeed = 2.5;
                     }
 //                    if(actionsList.contains("MODERATO")) {
 //                		leftSweepTimeline.setRate(1.0);
@@ -624,24 +696,24 @@ public class FountainSimController implements Initializable {
 //                    }
                     if(actionsList.contains("ALLEGRETO")) {
                 		leftSweepTimeline.setRate(1.3);
-                		leftSweepSpeed = 0.7;
+                		leftSweepSpeed = 1.8;
                     }
                 	if(actionsList.contains("ALLEGRO")) {
                 		leftSweepTimeline.setRate(1.5);
-                		leftSweepSpeed = 0.5;
+                		leftSweepSpeed = 1.6;
                     }
                     if(actionsList.contains("PRESTO")) {
                 		leftSweepTimeline.setRate(1.8);
-                		leftSweepSpeed = 0.4;
+                		leftSweepSpeed = 1.5;
+                    }
+                    if(actionsList.contains("SHORT")) {
+                        moveLeftSweeps(-15, 15);
+                    }
+                    if(actionsList.contains("LONG")) {
+                        moveLeftSweeps(-30, 30);
                     }
                     break;
                 case 34:
-                	if(actionsList.contains("SHORT")) {
-                        moveRightSweeps(-15, 15);
-                    }
-                    if(actionsList.contains("LONG")) {
-                        moveRightSweeps(-30, 30);
-                    }
                     if(actionsList.contains("PLAYPAUSE")){
                     	if(rightSweepTimeline.getStatus() == Animation.Status.PAUSED){
                     		rightSweepTimeline.pause();
@@ -665,15 +737,15 @@ public class FountainSimController implements Initializable {
 //                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
 //                		kv
                 		rightSweepTimeline.setRate(0.2);
-                		rightSweepSpeed = 2.0;
+                		rightSweepSpeed = 4.0;
                     }
                 	if(actionsList.contains("ADAGIO")) {
                 		rightSweepTimeline.setRate(0.5);
-                		rightSweepSpeed = 1.5;
+                		rightSweepSpeed = 3.0;
                     }
                 	if(actionsList.contains("ANDANTE")) {
                 		rightSweepTimeline.setRate(0.8);
-                		rightSweepSpeed = 1.2;
+                		rightSweepSpeed = 2.5;
                     }
 //                	if(actionsList.contains("MODERATO")) {
 //                		rightSweepTimeline.setRate(1.0);
@@ -681,15 +753,21 @@ public class FountainSimController implements Initializable {
 //                    }
                 	if(actionsList.contains("ALLEGRETO")) {
                 		rightSweepTimeline.setRate(1.3);
-                		rightSweepSpeed = 0.7;
+                		rightSweepSpeed = 1.8;
                     }
                 	if(actionsList.contains("ALLEGRO")) {
                 		rightSweepTimeline.setRate(1.5);
-                		rightSweepSpeed = 0.5;
+                		rightSweepSpeed = 1.6;
                     }
                 	if(actionsList.contains("PRESTO")) {
                 		rightSweepTimeline.setRate(1.8);
-                		rightSweepSpeed = 0.4;
+                		rightSweepSpeed = 1.5;
+                    }
+                	if(actionsList.contains("SHORT")) {
+                        moveRightSweeps(-15, 15);
+                    }
+                    if(actionsList.contains("LONG")) {
+                        moveRightSweeps(-30, 30);
                     }
                     break;
                 case 35:
@@ -946,15 +1024,15 @@ public class FountainSimController implements Initializable {
 //                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
 //                		kv
                 		leftSweepTimeline.setRate(0.2);
-                		leftSweepSpeed = 0.2;
+                		leftSweepSpeed = 4.0;
                     }
                 	if(actionsList.contains("ANDANTE")) {
                 		leftSweepTimeline.setRate(0.8);
-                		leftSweepSpeed = 0.8;
+                		leftSweepSpeed = 3.0;
                     }
                     if(actionsList.contains("ALLEGRETO")) {
                 		leftSweepTimeline.setRate(1.3);
-                		leftSweepSpeed = 1.3;
+                		leftSweepSpeed = 2.25;
                     }
                     if(actionsList.contains("PRESTO")) {
                 		leftSweepTimeline.setRate(1.8);
@@ -986,15 +1064,15 @@ public class FountainSimController implements Initializable {
 //                		KeyValue[] kvArray = (KeyValue[]) kv.toArray();
 //                		kv
                 		rightSweepTimeline.setRate(0.2);
-                		rightSweepSpeed = 0.2;
+                		rightSweepSpeed = 4.0;
                     }
                 	if(actionsList.contains("ANDANTE")) {
                 		rightSweepTimeline.setRate(0.8);
-                		rightSweepSpeed = 0.8;
+                		rightSweepSpeed = 3.0;
                     }
                     if(actionsList.contains("ALLEGRETO")) {
                 		rightSweepTimeline.setRate(1.3);
-                		rightSweepSpeed = 1.3;
+                		rightSweepSpeed = 2.25;
                     }
                     if(actionsList.contains("PRESTO")) {
                 		rightSweepTimeline.setRate(1.8);
@@ -1066,8 +1144,24 @@ public class FountainSimController implements Initializable {
     public void drawFtCurtain(int level, double lagTime) {
         final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
-        final KeyValue kv1 = new KeyValue(frontCurtain.heightProperty(), ((40*level)));
-        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1);
+        final KeyValue kv1 = new KeyValue(frontCurtain1.heightProperty(), ((40*level)));
+        final KeyValue kv2 = new KeyValue(frontCurtain2.heightProperty(), ((40*level)));
+        final KeyValue kv3 = new KeyValue(frontCurtain3.heightProperty(), ((40*level)));
+        final KeyValue kv4 = new KeyValue(frontCurtain4.heightProperty(), ((40*level)));
+        final KeyValue kv5 = new KeyValue(frontCurtain5.heightProperty(), ((40*level)));
+        final KeyValue kv6 = new KeyValue(frontCurtain6.heightProperty(), ((40*level)));
+        final KeyValue kv7 = new KeyValue(frontCurtain7.heightProperty(), ((40*level)));
+        final KeyValue kv8 = new KeyValue(frontCurtain8.heightProperty(), ((40*level)));
+        final KeyValue kv9 = new KeyValue(frontCurtain9.heightProperty(), ((40*level)));
+        final KeyValue kv10 = new KeyValue(frontCurtain10.heightProperty(), ((40*level)));
+        final KeyValue kv11 = new KeyValue(frontCurtain11.heightProperty(), ((40*level)));
+        final KeyValue kv12 = new KeyValue(frontCurtain12.heightProperty(), ((40*level)));
+        final KeyValue kv13 = new KeyValue(frontCurtain13.heightProperty(), ((40*level)));
+        final KeyValue kv14 = new KeyValue(frontCurtain14.heightProperty(), ((40*level)));
+        
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4, kv5,
+        															kv6, kv7, kv8, kv9, kv10,
+        															kv11, kv12, kv13, kv14);
         timeline.getKeyFrames().add(kf);
         timeline.play();     				
     }
@@ -1075,9 +1169,25 @@ public class FountainSimController implements Initializable {
     public void drawBkCurtain(int level, double lagTime){
     	final Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
-        final KeyValue kv1 = new KeyValue(backCurtain.heightProperty(), ((40*level)));
+       // final KeyValue kv1 = new KeyValue(backCurtain.heightProperty(), ((40*level)));
+        final KeyValue kv1 = new KeyValue(backCurtain1.heightProperty(), ((40*level)));
+        final KeyValue kv2 = new KeyValue(backCurtain2.heightProperty(), ((40*level)));
+        final KeyValue kv3 = new KeyValue(backCurtain3.heightProperty(), ((40*level)));
+        final KeyValue kv4 = new KeyValue(backCurtain4.heightProperty(), ((40*level)));
+        final KeyValue kv5 = new KeyValue(backCurtain5.heightProperty(), ((40*level)));
+        final KeyValue kv6 = new KeyValue(backCurtain6.heightProperty(), ((40*level)));
+        final KeyValue kv7 = new KeyValue(backCurtain7.heightProperty(), ((40*level)));
+        final KeyValue kv8 = new KeyValue(backCurtain8.heightProperty(), ((40*level)));
+        final KeyValue kv9 = new KeyValue(backCurtain9.heightProperty(), ((40*level)));
+        final KeyValue kv10 = new KeyValue(backCurtain10.heightProperty(), ((40*level)));
+        final KeyValue kv11 = new KeyValue(backCurtain11.heightProperty(), ((40*level)));
+        final KeyValue kv12 = new KeyValue(backCurtain12.heightProperty(), ((40*level)));
+        final KeyValue kv13 = new KeyValue(backCurtain13.heightProperty(), ((40*level)));
+        final KeyValue kv14 = new KeyValue(backCurtain14.heightProperty(), ((40*level)));
 
-        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1);
+        final KeyFrame kf = new KeyFrame(Duration.seconds(lagTime), kv1, kv2, kv3, kv4, kv5,
+				kv6, kv7, kv8, kv9, kv10,
+				kv11, kv12, kv13, kv14);
         timeline.getKeyFrames().add(kf);
         timeline.play();     				
     }
@@ -2872,21 +2982,21 @@ public void moveRightSweeps(double leftLimit, double rightLimit){
             this.peacock9 = peacock9;
     }
 
-    public Rectangle getFrontCurtain() {
-            return frontCurtain;
-    }
+//    public Rectangle getFrontCurtain() {
+//            return frontCurtain;
+//    }
+//
+//    public void setFrontCurtain(Rectangle frontCurtain) {
+//            this.frontCurtain = frontCurtain;
+//    }
 
-    public void setFrontCurtain(Rectangle frontCurtain) {
-            this.frontCurtain = frontCurtain;
-    }
-
-    public Rectangle getBackCurtain() {
-            return backCurtain;
-    }
-
-    public void setBackCurtain(Rectangle backCurtain) {
-            this.backCurtain = backCurtain;
-    }
+//    public Rectangle getBackCurtain() {
+//            return backCurtain;
+//    }
+//
+//    public void setBackCurtain(Rectangle backCurtain) {
+//            this.backCurtain = backCurtain;
+//    }
 
     public Line getMod1sweep1() {
             return mod1sweep1;
@@ -3344,7 +3454,231 @@ public void moveRightSweeps(double leftLimit, double rightLimit){
             this.spoutRec = spoutRec;
     }
 
-    public void acceptSubmapOfFcws(ConcurrentNavigableMap<Integer, ArrayList<FCW>> subMap) {
+    public Rectangle getFrontCurtain1() {
+		return frontCurtain1;
+	}
+
+	public void setFrontCurtain1(Rectangle frontCurtain1) {
+		this.frontCurtain1 = frontCurtain1;
+	}
+
+	public Rectangle getFrontCurtain2() {
+		return frontCurtain2;
+	}
+
+	public void setFrontCurtain2(Rectangle frontCurtain2) {
+		this.frontCurtain2 = frontCurtain2;
+	}
+
+	public Rectangle getFrontCurtain3() {
+		return frontCurtain3;
+	}
+
+	public void setFrontCurtain3(Rectangle frontCurtain3) {
+		this.frontCurtain3 = frontCurtain3;
+	}
+
+	public Rectangle getFrontCurtain4() {
+		return frontCurtain4;
+	}
+
+	public void setFrontCurtain4(Rectangle frontCurtain4) {
+		this.frontCurtain4 = frontCurtain4;
+	}
+
+	public Rectangle getFrontCurtain5() {
+		return frontCurtain5;
+	}
+
+	public void setFrontCurtain5(Rectangle frontCurtain5) {
+		this.frontCurtain5 = frontCurtain5;
+	}
+
+	public Rectangle getFrontCurtain6() {
+		return frontCurtain6;
+	}
+
+	public void setFrontCurtain6(Rectangle frontCurtain6) {
+		this.frontCurtain6 = frontCurtain6;
+	}
+
+	public Rectangle getFrontCurtain7() {
+		return frontCurtain7;
+	}
+
+	public void setFrontCurtain7(Rectangle frontCurtain7) {
+		this.frontCurtain7 = frontCurtain7;
+	}
+
+	public Rectangle getFrontCurtain8() {
+		return frontCurtain8;
+	}
+
+	public void setFrontCurtain8(Rectangle frontCurtain8) {
+		this.frontCurtain8 = frontCurtain8;
+	}
+
+	public Rectangle getFrontCurtain9() {
+		return frontCurtain9;
+	}
+
+	public void setFrontCurtain9(Rectangle frontCurtain9) {
+		this.frontCurtain9 = frontCurtain9;
+	}
+
+	public Rectangle getFrontCurtain10() {
+		return frontCurtain10;
+	}
+
+	public void setFrontCurtain10(Rectangle frontCurtain10) {
+		this.frontCurtain10 = frontCurtain10;
+	}
+
+	public Rectangle getFrontCurtain11() {
+		return frontCurtain11;
+	}
+
+	public void setFrontCurtain11(Rectangle frontCurtain11) {
+		this.frontCurtain11 = frontCurtain11;
+	}
+
+	public Rectangle getFrontCurtain12() {
+		return frontCurtain12;
+	}
+
+	public void setFrontCurtain12(Rectangle frontCurtain12) {
+		this.frontCurtain12 = frontCurtain12;
+	}
+
+	public Rectangle getFrontCurtain13() {
+		return frontCurtain13;
+	}
+
+	public void setFrontCurtain13(Rectangle frontCurtain13) {
+		this.frontCurtain13 = frontCurtain13;
+	}
+
+	public Rectangle getFrontCurtain14() {
+		return frontCurtain14;
+	}
+
+	public void setFrontCurtain14(Rectangle frontCurtain14) {
+		this.frontCurtain14 = frontCurtain14;
+	}
+
+	public Rectangle getBackCurtain1() {
+		return backCurtain1;
+	}
+
+	public void setBackCurtain1(Rectangle backCurtain1) {
+		this.backCurtain1 = backCurtain1;
+	}
+
+	public Rectangle getBackCurtain2() {
+		return backCurtain2;
+	}
+
+	public void setBackCurtain2(Rectangle backCurtain2) {
+		this.backCurtain2 = backCurtain2;
+	}
+
+	public Rectangle getBackCurtain3() {
+		return backCurtain3;
+	}
+
+	public void setBackCurtain3(Rectangle backCurtain3) {
+		this.backCurtain3 = backCurtain3;
+	}
+
+	public Rectangle getBackCurtain4() {
+		return backCurtain4;
+	}
+
+	public void setBackCurtain4(Rectangle backCurtain4) {
+		this.backCurtain4 = backCurtain4;
+	}
+
+	public Rectangle getBackCurtain5() {
+		return backCurtain5;
+	}
+
+	public void setBackCurtain5(Rectangle backCurtain5) {
+		this.backCurtain5 = backCurtain5;
+	}
+
+	public Rectangle getBackCurtain6() {
+		return backCurtain6;
+	}
+
+	public void setBackCurtain6(Rectangle backCurtain6) {
+		this.backCurtain6 = backCurtain6;
+	}
+
+	public Rectangle getBackCurtain7() {
+		return backCurtain7;
+	}
+
+	public void setBackCurtain7(Rectangle backCurtain7) {
+		this.backCurtain7 = backCurtain7;
+	}
+
+	public Rectangle getBackCurtain8() {
+		return backCurtain8;
+	}
+
+	public void setBackCurtain8(Rectangle backCurtain8) {
+		this.backCurtain8 = backCurtain8;
+	}
+
+	public Rectangle getBackCurtain9() {
+		return backCurtain9;
+	}
+
+	public void setBackCurtain9(Rectangle backCurtain9) {
+		this.backCurtain9 = backCurtain9;
+	}
+
+	public Rectangle getBackCurtain10() {
+		return backCurtain10;
+	}
+
+	public void setBackCurtain10(Rectangle backCurtain10) {
+		this.backCurtain10 = backCurtain10;
+	}
+
+	public Rectangle getBackCurtain11() {
+		return backCurtain11;
+	}
+
+	public void setBackCurtain11(Rectangle backCurtain11) {
+		this.backCurtain11 = backCurtain11;
+	}
+
+	public Rectangle getBackCurtain12() {
+		return backCurtain12;
+	}
+
+	public void setBackCurtain12(Rectangle backCurtain12) {
+		this.backCurtain12 = backCurtain12;
+	}
+
+	public Rectangle getBackCurtain13() {
+		return backCurtain13;
+	}
+
+	public void setBackCurtain13(Rectangle backCurtain13) {
+		this.backCurtain13 = backCurtain13;
+	}
+
+	public Rectangle getBackCurtain14() {
+		return backCurtain14;
+	}
+
+	public void setBackCurtain14(Rectangle backCurtain14) {
+		this.backCurtain14 = backCurtain14;
+	}
+
+	public void acceptSubmapOfFcws(ConcurrentNavigableMap<Integer, ArrayList<FCW>> subMap) {
         bufferedFcws = subMap;
         
     }

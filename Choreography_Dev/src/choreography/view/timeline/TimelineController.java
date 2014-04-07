@@ -134,7 +134,7 @@ public class TimelineController implements Initializable {
     public void delete(int col, int row, int length, boolean first){
     	if(first){
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
-    		timeline.getGtfoMap().get(row).remove(col);//TODO ask frank about this
+    		//timeline.getGtfoMap().get(row).remove(col);//TODO ask frank about this
     		FCW off = new FCW(channelAddresses[row], 0);
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
             timeline.setLightFcw(off, col, col+length);//not sure if length is needed?
@@ -711,7 +711,7 @@ public class TimelineController implements Initializable {
             for (int timeIndex: gtfoArray.get(channel).keySet()){
                 Integer gtfo = timeline.getGtfoMap().get(channel).get(timeIndex);
                 Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
-                if(color.equals(Color.BLACK)){
+                if(color == null || color.equals(Color.BLACK)){
                 	color = Color.LIGHTGRAY;
                 }
                 int row = lightRowLookupNumber(channel);
@@ -842,7 +842,37 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getBazooka1().setStroke(color);
             }
             if(channel == 24|| channel == 205){
-                FountainSimController.getInstance().getBackCurtain().setFill(color);
+                //FountainSimController.getInstance().getBackCurtain().setFill(color);
+            	FountainSimController.getInstance().getBackCurtain1().setFill(color);
+        		FountainSimController.getInstance().getBackCurtain2().setFill(color);
+                FountainSimController.getInstance().getBackCurtain3().setFill(color);
+                FountainSimController.getInstance().getBackCurtain4().setFill(color);
+                FountainSimController.getInstance().getBackCurtain5().setFill(color);
+                FountainSimController.getInstance().getBackCurtain6().setFill(color);
+                FountainSimController.getInstance().getBackCurtain9().setFill(color);
+                FountainSimController.getInstance().getBackCurtain10().setFill(color);
+                FountainSimController.getInstance().getBackCurtain11().setFill(color);
+                FountainSimController.getInstance().getBackCurtain12().setFill(color);
+                FountainSimController.getInstance().getBackCurtain13().setFill(color);
+                FountainSimController.getInstance().getBackCurtain14().setFill(color);
+                
+                FountainSimController.getInstance().getBackCurtain1().setStroke(color);
+        		FountainSimController.getInstance().getBackCurtain2().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain3().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain4().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain5().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain6().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain9().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain10().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain11().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain12().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain13().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain14().setStroke(color);
+                
+                FountainSimController.getInstance().getBackCurtain7().setFill(color);
+                FountainSimController.getInstance().getBackCurtain8().setFill(color);
+                FountainSimController.getInstance().getBackCurtain7().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain8().setStroke(color);
             }
             if(channel == 25){
                 FountainSimController.getInstance().getPeacock1().setStroke(color);
@@ -869,8 +899,21 @@ public class TimelineController implements Initializable {
                 FountainSimController.getInstance().getPeacock9().setStroke(color);
             }
             if(channel == 200){
-                FountainSimController.getInstance().getFrontCurtain().setFill(color);
-            }
+            	FountainSimController.getInstance().getFrontCurtain1().setFill(color);
+        		FountainSimController.getInstance().getFrontCurtain2().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain3().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain4().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain5().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain6().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain7().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain8().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain9().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain10().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain11().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain12().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain13().setFill(color);
+                FountainSimController.getInstance().getFrontCurtain14().setFill(color);        
+                }
             if(channel == 190|| channel == 194 || channel == 195){
                 FountainSimController.getInstance().getSpoutRec().setFill(color);
             }
@@ -1113,12 +1156,238 @@ public class TimelineController implements Initializable {
                     FountainSimController.getInstance().getPeacock8().setStroke(color);
                     FountainSimController.getInstance().getPeacock9().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getFrontCurtain().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
-                    FountainSimController.getInstance().getFrontCurtain().setFill(color);
+            	//if (FountainSimController.getInstance().getFrontCurtain1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+                   
+            	//}
+            	if (FountainSimController.getInstance().getBackCurtain1().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
+            		FountainSimController.getInstance().getBackCurtain1().setFill(color);
+            		FountainSimController.getInstance().getBackCurtain2().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain3().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain4().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain5().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain6().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain9().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain10().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain11().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain12().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain13().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain14().setFill(color);
+                    
+                    FountainSimController.getInstance().getBackCurtain1().setStroke(color);
+            		FountainSimController.getInstance().getBackCurtain2().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain3().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain4().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain5().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain6().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain9().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain10().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain11().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain12().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain13().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain14().setStroke(color);
+                    
+                    FountainSimController.getInstance().getBackCurtain7().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain8().setFill(color);
+                    FountainSimController.getInstance().getBackCurtain7().setStroke(color);
+                    FountainSimController.getInstance().getBackCurtain8().setStroke(color);
             	}
-            	if (FountainSimController.getInstance().getBackCurtain().getFill().equals(Color.LIGHTGRAY)&& !color.equals(Color.LIGHTGRAY)){
-                    FountainSimController.getInstance().getBackCurtain().setFill(color);
-            	}
+            	 FountainSimController.getInstance().getFrontCurtain1().setFill(color);
+         		 FountainSimController.getInstance().getFrontCurtain2().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain3().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain4().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain5().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain6().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain7().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain8().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain9().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain10().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain11().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain12().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain13().setFill(color);
+                 FountainSimController.getInstance().getFrontCurtain14().setFill(color);
+                 
+                 FountainSimController.getInstance().getFrontCurtain1().setStroke(color);
+         		 FountainSimController.getInstance().getFrontCurtain2().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain3().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain4().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain5().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain6().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain7().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain8().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain9().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain10().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain11().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain12().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain13().setStroke(color);
+                 FountainSimController.getInstance().getFrontCurtain14().setStroke(color);
+            }
+            if (channel == 160){
+            	FountainSimController.getInstance().getFrontCurtain2().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain4().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain6().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain8().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain10().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain12().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain14().setFill(color);
+            	
+            	FountainSimController.getInstance().getFrontCurtain2().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain4().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain6().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain8().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain10().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain12().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain14().setStroke(color);
+            }
+            if (channel == 170){
+            	FountainSimController.getInstance().getFrontCurtain1().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain3().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain5().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain7().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain9().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain11().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain13().setFill(color);
+
+            	FountainSimController.getInstance().getFrontCurtain1().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain3().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain5().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain7().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain9().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain11().setStroke(color);
+            	FountainSimController.getInstance().getFrontCurtain13().setStroke(color);
+            }
+            if (channel == 161){
+            	FountainSimController.getInstance().getFrontCurtain14().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain14().setStroke(color);
+            }
+            if (channel == 162){
+            	FountainSimController.getInstance().getFrontCurtain12().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain12().setStroke(color);
+            }
+            if (channel == 163){
+            	FountainSimController.getInstance().getFrontCurtain10().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain10().setStroke(color);
+            }
+            if (channel == 164 || channel == 214){
+            	FountainSimController.getInstance().getFrontCurtain8().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain8().setStroke(color);
+            }
+            if (channel == 165){
+            	FountainSimController.getInstance().getFrontCurtain6().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain6().setStroke(color);
+            }
+            if (channel == 166){
+            	FountainSimController.getInstance().getFrontCurtain4().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain4().setStroke(color);
+            }
+            if (channel == 167){
+            	FountainSimController.getInstance().getFrontCurtain2().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain2().setStroke(color);
+            }
+            if (channel == 171){
+            	FountainSimController.getInstance().getFrontCurtain13().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain13().setStroke(color);
+            }
+            if (channel == 172){
+            	FountainSimController.getInstance().getFrontCurtain11().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain11().setStroke(color);
+            }
+            if (channel == 173){
+            	FountainSimController.getInstance().getFrontCurtain9().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain9().setStroke(color);
+            }
+            if (channel == 174 || channel == 224){
+            	FountainSimController.getInstance().getFrontCurtain7().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain7().setStroke(color);
+            }
+            if (channel == 175){
+            	FountainSimController.getInstance().getFrontCurtain5().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain5().setStroke(color);
+            }
+            if (channel == 176){
+            	FountainSimController.getInstance().getFrontCurtain3().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain3().setStroke(color);
+            }
+            if (channel == 177){
+            	FountainSimController.getInstance().getFrontCurtain1().setFill(color);
+            	FountainSimController.getInstance().getFrontCurtain1().setStroke(color);
+            }
+            if (channel == 210){
+        		FountainSimController.getInstance().getBackCurtain2().setFill(color);
+                FountainSimController.getInstance().getBackCurtain4().setFill(color);
+                FountainSimController.getInstance().getBackCurtain6().setFill(color);
+                FountainSimController.getInstance().getBackCurtain10().setFill(color);
+                FountainSimController.getInstance().getBackCurtain12().setFill(color);
+                FountainSimController.getInstance().getBackCurtain14().setFill(color);
+                
+        		FountainSimController.getInstance().getBackCurtain2().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain4().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain6().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain10().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain12().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain14().setStroke(color);
+            }
+            if (channel == 220){
+            	FountainSimController.getInstance().getBackCurtain1().setFill(color);
+                FountainSimController.getInstance().getBackCurtain3().setFill(color);
+                FountainSimController.getInstance().getBackCurtain5().setFill(color);
+                FountainSimController.getInstance().getBackCurtain9().setFill(color);
+                FountainSimController.getInstance().getBackCurtain11().setFill(color);
+                FountainSimController.getInstance().getBackCurtain13().setFill(color);
+                
+                FountainSimController.getInstance().getBackCurtain1().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain3().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain5().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain9().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain11().setStroke(color);
+                FountainSimController.getInstance().getBackCurtain13().setStroke(color);
+            }
+            if (channel == 211){
+                FountainSimController.getInstance().getBackCurtain14().setFill(color);
+                FountainSimController.getInstance().getBackCurtain14().setStroke(color);
+            }
+            if (channel == 212){
+                FountainSimController.getInstance().getBackCurtain12().setFill(color);
+                FountainSimController.getInstance().getBackCurtain12().setStroke(color);
+            }
+            if (channel == 213){
+                FountainSimController.getInstance().getBackCurtain10().setFill(color);
+                FountainSimController.getInstance().getBackCurtain10().setStroke(color);
+            }
+            if (channel == 215){
+                FountainSimController.getInstance().getBackCurtain6().setFill(color);
+                FountainSimController.getInstance().getBackCurtain6().setStroke(color);
+            }
+            if (channel == 216){
+                FountainSimController.getInstance().getBackCurtain4().setFill(color);
+                FountainSimController.getInstance().getBackCurtain4().setStroke(color);
+            }
+            if (channel == 217){
+                FountainSimController.getInstance().getBackCurtain2().setFill(color);
+                FountainSimController.getInstance().getBackCurtain2().setStroke(color);
+            }
+            if (channel == 221){
+                FountainSimController.getInstance().getBackCurtain13().setFill(color);
+                FountainSimController.getInstance().getBackCurtain13().setStroke(color);
+            }
+            if (channel == 222){
+                FountainSimController.getInstance().getBackCurtain11().setFill(color);
+                FountainSimController.getInstance().getBackCurtain11().setStroke(color);
+            }
+            if (channel == 223){
+                FountainSimController.getInstance().getBackCurtain9().setFill(color);
+                FountainSimController.getInstance().getBackCurtain9().setStroke(color);
+            }
+            if (channel == 225){
+                FountainSimController.getInstance().getBackCurtain5().setFill(color);
+                FountainSimController.getInstance().getBackCurtain5().setStroke(color);
+            }
+            if (channel == 226){
+                FountainSimController.getInstance().getBackCurtain3().setFill(color);
+                FountainSimController.getInstance().getBackCurtain3().setStroke(color);
+            }
+            if (channel == 227){
+                FountainSimController.getInstance().getBackCurtain1().setFill(color);
+                FountainSimController.getInstance().getBackCurtain1().setStroke(color);
             }
     	}
     }
