@@ -166,29 +166,31 @@ public class ColorPaletteController implements Initializable {
     }
 
     public void rePaint() {
-        rectangles = new Rectangle[32];
-        colorRectanglePane.getChildren().clear();
-        Color[] colors = ColorPaletteModel.getInstance().getColors();
         
-        // Sets the first color to red and creates the event handler
-        for(int index = 0; index < colors.length; index++) {
-            colorPalette.getChildren().remove(colorRectanglePane);
-            final int index2 = index;   
-            rectangles[index] = new Rectangle(25, 25, ColorPaletteModel.getInstance().getColors()[index]);
-            rectangles[index].setOnMouseClicked(new EventHandler<MouseEvent> (){
-            	
-                    @Override
-            	public void handle(MouseEvent e) {
-            		ColorPaletteModel.getInstance().setSelectedIndex(index2);
-                    setSelectedColor(ColorPaletteModel.getInstance().getColor(index2 + 1));
-            	}
-            });
-            colorRectanglePane.getChildren().add(rectangles[index]);
+//            rectangles = new Rectangle[32];
+            colorRectanglePane.getChildren().clear();
+            Color[] colors = ColorPaletteModel.getInstance().getColors();
+        
+            // Sets the first color to red and creates the event handler
+            for(int index = 0; index < colors.length; index++) {
+                colorPalette.getChildren().remove(colorRectanglePane);
+                final int index2 = index;   
+                rectangles[index] = new Rectangle(25, 25, ColorPaletteModel.getInstance().getColors()[index]);
+                rectangles[index].setOnMouseClicked(new EventHandler<MouseEvent> (){
+
+                        @Override
+                    public void handle(MouseEvent e) {
+                            ColorPaletteModel.getInstance().setSelectedIndex(index2);
+                        setSelectedColor(ColorPaletteModel.getInstance().getColor(index2 + 1));
+                    }
+                });
+                colorRectanglePane.getChildren().add(rectangles[index]);
+            if(ColorPaletteModel.getInstance().isClassicColors()) {
+                for(int i = 0; i < colors.length; i++) {
+                    rectangles[i].setFill(colors[i]);
+                }
+                colorPalette.getChildren().add(colorRectanglePane);
+            }
         }
-        for(int i = 0; i < colors.length; i++) {
-            rectangles[i].setFill(colors[i]);
-        }
-        if(ColorPaletteModel.getInstance().isClassicColors())
-            colorPalette.getChildren().add(colorRectanglePane);
     } 
 }

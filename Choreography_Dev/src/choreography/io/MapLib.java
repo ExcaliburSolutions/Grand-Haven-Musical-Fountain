@@ -93,7 +93,6 @@ public class MapLib {
             String text;
             while((text = reader.readLine()) != null) {
                 if(text.startsWith("//")) {
-                    continue;
                 }
                 else {
                     sb.append(text);
@@ -113,15 +112,18 @@ public class MapLib {
         ArrayList<Color> colors = new ArrayList<>(32);
         while(sc.hasNext()) {
             String line = sc.nextLine();
-            int indexOfSlash = line.indexOf("/");
-            String colorHex = "";
-            if(indexOfSlash != -1) {
-                colorHex = line.substring(0, indexOfSlash).trim();
+            if(line != null) {
+                int indexOfSlash = line.indexOf("/");
+                String colorHex = "";
+                if(indexOfSlash != -1) {
+                    colorHex = line.substring(0, indexOfSlash).trim();
+                }
+                else {
+                    colorHex = line.substring(0, 6).trim();
+                }
+                colors.add(Color.web(colorHex));
             }
-            else {
-                colorHex = line.substring(0, 6).trim();
-            }
-            colors.add(Color.web(colorHex));
+            
         }
         colors.trimToSize();
         

@@ -44,6 +44,7 @@ package choreography.model.color;
 
 import choreography.io.MapLib;
 import choreography.view.colorPalette.ColorPaletteController;
+import choreography.view.timeline.TimelineController;
 import java.io.File;
 import java.util.HashMap;
 import javafx.scene.paint.Color;
@@ -99,7 +100,6 @@ public class ColorPaletteModel {
         classicMap.put(16, 4);
         classicMap.put(32, 3);
         classicMap.put(48, 10);
-        classicMap.put(-1, 2);
         ColorPaletteController.getInstance().rePaint();
     }
     

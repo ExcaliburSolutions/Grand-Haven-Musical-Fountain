@@ -5,6 +5,7 @@ import choreography.view.ChoreographyController;
 import choreography.model.color.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.specialOperations.SpecialoperationsController;
+import choreography.view.timeline.TimelineController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
