@@ -2,7 +2,7 @@ package choreography.io;
 
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
-import choreography.view.colorPalette.ColorPaletteModel;
+import choreography.model.color.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import java.io.BufferedReader;
@@ -169,7 +169,11 @@ public class CtlLib {
 
     private StringBuilder createCtlData(SortedMap<Integer, ArrayList<FCW>> content) throws IOException {
         StringBuilder commandsOutput = new StringBuilder();
-        if(ChoreographyController.getInstance().getAdvanced()) {
+        if(ColorPaletteModel.getInstance().isClassicColors()) {
+            commandsOutput.append("ct0-382");
+            commandsOutput.append(System.lineSeparator());
+        }
+        else if(ChoreographyController.getInstance().getAdvanced()) {
             commandsOutput.append("gvsuCapstone2014A");
             commandsOutput.append(System.lineSeparator());
         }

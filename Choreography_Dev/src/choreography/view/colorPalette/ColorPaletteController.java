@@ -1,5 +1,7 @@
 package choreography.view.colorPalette;
 
+import choreography.io.MapLib;
+import choreography.model.color.ColorPaletteModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,7 +40,6 @@ public class ColorPaletteController implements Initializable {
     @FXML private int selectedColorIndex;
     @FXML private Button addRec;
     @FXML private Button changeButton;
-
     
     /**
      * @return cpc the current colorPalette
@@ -49,6 +50,7 @@ public class ColorPaletteController implements Initializable {
                     cpc = new ColorPaletteController();
             return cpc;
     }
+    
     
     /**
     * @return selectedColor current instance of the selected color
@@ -95,30 +97,26 @@ public class ColorPaletteController implements Initializable {
             colorRectanglePane.getChildren().add(rectangles[index]);
         }
         
-        
             addRec.setOnAction(new EventHandler<ActionEvent> () {
 
-				@Override
-				public void handle(ActionEvent event) {
-					int index = colorRectanglePane.getChildren().size();{
-					//	final int index2 = index;					
-						Color c = colorPicker.getValue();
-						Rectangle rectangle = rectangles[index] = new Rectangle(25, 25,c);														 
-						colorRectanglePane.getChildren().add(rectangle);
-						ColorPaletteModel.getInstance().setColor(c, index);
-						
-	
-					
-				
-	          		rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    int index = colorRectanglePane.getChildren().size();
+                        //	final int index2 = index;					
+                    Color c = colorPicker.getValue();
+                    Rectangle rectangle = rectangles[index] = new Rectangle(25, 25,c);														 
+                    colorRectanglePane.getChildren().add(rectangle);
+                    ColorPaletteModel.getInstance().setColor(c, index);
+                    
+                    rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-						@Override
-						public void handle(MouseEvent event) { 
-							ColorPaletteModel.getInstance().setSelectedIndex(index);							
-		                   setSelectedColor(c);
-						}} 
-					);}
-				} 
+                        @Override
+                        public void handle(MouseEvent event) { 
+                                ColorPaletteModel.getInstance().setSelectedIndex(index);							
+                                setSelectedColor(c);
+                        }
+                });
+                } 
             });
             
        
@@ -167,7 +165,7 @@ public class ColorPaletteController implements Initializable {
        
     }
 
-    void rePaint() {
+    public void rePaint() {
         rectangles = new Rectangle[32];
         colorRectanglePane.getChildren().clear();
         Color[] colors = ColorPaletteModel.getInstance().getColors();
@@ -190,7 +188,7 @@ public class ColorPaletteController implements Initializable {
         for(int i = 0; i < colors.length; i++) {
             rectangles[i].setFill(colors[i]);
         }
-        if(!ColorPaletteModel.getInstance().isClassicColors())
+        if(ColorPaletteModel.getInstance().isClassicColors())
             colorPalette.getChildren().add(colorRectanglePane);
     } 
 }

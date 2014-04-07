@@ -5,11 +5,11 @@ import choreography.io.FCWLib;
 import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.colorPalette.ColorPaletteController;
-import choreography.view.colorPalette.ColorPaletteEnum;
-import choreography.view.colorPalette.ColorPaletteModel;
+import choreography.model.color.ColorPaletteEnum;
+import choreography.model.color.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
-import choreography.view.timeline.Timeline;
+import choreography.model.timeline.Timeline;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class TimelineController implements Initializable {
     int selectedCol = 0;
     int selectedRow = 0;
     private int start;
-    
+    private Timeline timeline;
 
     @FXML
     private GridPane timelineLabelPane;
@@ -108,6 +108,7 @@ public class TimelineController implements Initializable {
     final ContextMenu waterCM = new ContextMenu();
     
     public TimelineController() {
+        timeline = new Timeline();
         this.colorEnumArray = ColorPaletteEnum.values();
         this.rowAL = new ArrayList<>();
         this.colAL = new ArrayList<>();
@@ -316,7 +317,7 @@ public class TimelineController implements Initializable {
 	}
     
     public void setLabelGridPaneWithCtl(){
-    	Set<Integer> channelAddressesSet = Timeline.getInstance().getGtfoMap().keySet();
+    	Set<Integer> channelAddressesSet = timeline.getGtfoMap().keySet();
         channelAddresses = channelAddressesSet.toArray(new Integer[1]);
         labelNames = new String[channelAddresses.length];
         for(int i = 0; i < channelAddresses.length; i++) {
@@ -471,12 +472,12 @@ public class TimelineController implements Initializable {
                 lightRecArray[i][j].setOnMouseDragReleased((MouseEvent me) -> {
                 	if (startRow != testJ){
                 		FCW f = new FCW(channelAddresses[startRow], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-                        Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                        timeline.setLightFcw(f, start, testI + 1);
                         System.out.println(f + " " + start + " " + testI + 1);
                 	}
                 	else{
                 		FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-                    Timeline.getInstance().setLightFcw(f, start, testI + 1);
+                    timeline.setLightFcw(f, start, testI + 1);
                     System.out.println(f + " " + start + " " + testI + 1);
                 	}
                     
@@ -541,7 +542,7 @@ public class TimelineController implements Initializable {
 //                    	oldRecHasValue = true;
 //                    }
 //                    else{
-                    	if(Timeline.getInstance().getActionsAtTime(testI)){
+                    	if(timeline.getActionsAtTime(testI)){
 //                    		rePaintWaterTimeline();
 //                            oldRec.setFill(Color.DARKBLUE);
 //                            oldRec = waterRecArray[testI];
@@ -613,7 +614,7 @@ public class TimelineController implements Initializable {
      *
      */
     public void rePaintWaterTimeline() {
-        SortedMap<Integer, ArrayList<FCW>> waterTimeline = Timeline.getInstance().getWaterTimeline();
+        SortedMap<Integer, ArrayList<FCW>> waterTimeline = timeline.getWaterTimeline();
         for(Integer i: waterTimeline.keySet()){
             ArrayList<String> actionsList = new ArrayList<>();
 //            StringBuilder actionList = new StringBuilder();
@@ -639,10 +640,10 @@ public class TimelineController implements Initializable {
     }
 
     public void rePaintLightTimeline() {
-        SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
+        SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = timeline.getGtfoMap();
         for (int channel: gtfoArray.keySet()){
             for (int timeIndex: gtfoArray.get(channel).keySet()){
-                Integer gtfo = Timeline.getInstance().getGtfoMap().get(channel).get(timeIndex);
+                Integer gtfo = timeline.getGtfoMap().get(channel).get(timeIndex);
                 Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
                 int row = lightRowLookupNumber(channel);
                 lightRecArray[timeIndex][row].setFill(color);
@@ -651,7 +652,7 @@ public class TimelineController implements Initializable {
     }
     
     public void updateColors(int time){
-    	SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = Timeline.getInstance().getGtfoMap();
+    	SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = timeline.getGtfoMap();
     	for (int channel: gtfoArray.keySet()){
             if(time == MusicPaneController.SONG_TIME)
                 time = time - 1;
@@ -1034,7 +1035,7 @@ public class TimelineController implements Initializable {
      * @param timeline the timeline to set
      */
     public void setTimeline(ConcurrentSkipListMap<Integer, ArrayList<FCW>> timeline) {
-       Timeline.getInstance().setTimeline(timeline);
+       this.timeline.setTimeline(timeline);
     }
 
     private int lightRowLookupNumber(int channel){
@@ -1201,11 +1202,11 @@ public class TimelineController implements Initializable {
     }
 
     public void fireSliderChangeEvent() {
-        Timeline.getInstance().sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
+        timeline.sendTimelineInstanceToSliders(MusicPaneController.getInstance().getTenthsTime());
     }
     
     public void fireSimChangeEvent() {
-        Timeline.getInstance().sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime());
+        timeline.sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime());
     }
 
 	public String[] getLabelNames() {
@@ -1217,13 +1218,25 @@ public class TimelineController implements Initializable {
 	}
         
         public void injectIntoGtfo(Integer[] newAddresses) {
-            SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = Timeline.getInstance().getGtfoMap();
+            SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = timeline.getGtfoMap();
             for(Integer i: newAddresses) {
                 gtfo.putIfAbsent(i, new ConcurrentSkipListMap<>());
             }
         }
 
     public void fireSubmapToSim() {
-        Timeline.getInstance().sendSubmapToSim(MusicPaneController.getInstance().getTenthsTime());
+        timeline.sendSubmapToSim(MusicPaneController.getInstance().getTenthsTime());
+    }
+
+    public void disposeTimeline() {
+        lightRecArray = null;
+        waterRecArray = null;
+        gridpaneLight.getChildren().clear();
+        gridpaneWater.getChildren().clear();
+        initializeTimelines();
+        timeline.getGtfoMap().clear();
+    }
+    public Timeline getTimeline() {
+        return timeline;
     }
 }

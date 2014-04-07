@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../application.css?>
 
-<Accordion prefHeight="157.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="choreography.view.specialOperations.SpecialoperationsController">
+<Accordion fx:id="specialOpsPane" prefHeight="157.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="choreography.view.specialOperations.SpecialoperationsController">
   <panes>
     <TitledPane fx:id="sweepControlsPane" animated="true" text="Sweep Controls">
       <content>

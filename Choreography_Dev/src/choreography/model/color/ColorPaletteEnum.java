@@ -40,7 +40,7 @@
  * Portions Copyrighted 2014 Sun Microsystems, Inc.
  */
 
-package choreography.view.colorPalette;
+package choreography.model.color;
 
 /**
  *

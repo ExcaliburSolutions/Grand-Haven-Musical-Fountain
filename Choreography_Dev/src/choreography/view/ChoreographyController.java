@@ -8,19 +8,24 @@ package choreography.view;
 
 import choreography.Main;
 import choreography.io.CtlLib;
-import choreography.io.GhmfLibrary;
 import choreography.io.FCWLib;
+import choreography.io.FilePayload;
+import choreography.io.GhmfLibrary;
 import choreography.io.LagTimeLibrary;
 import choreography.io.MapLib;
+import choreography.io.MarkLib;
+import choreography.model.color.ColorPaletteModel;
 import choreography.model.fcw.FCW;
+import choreography.model.timeline.Timeline;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
 import choreography.view.specialOperations.SpecialoperationsController;
-import choreography.view.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
+import customChannel.CustomChannel;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,9 +34,8 @@ import java.util.SortedMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentSkipListMap;
-import choreography.io.FilePayload;
-import choreography.io.MarkLib;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,7 +43,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -57,15 +60,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
-
-import customChannel.CustomChannel;
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -75,13 +72,9 @@ import java.util.logging.Logger;
 public class ChoreographyController implements Initializable {
     
     private static ChoreographyController cc;
-    
     private ConcurrentSkipListMap<Integer, ArrayList<FCW>> events;
-    
     GridPane gridpaneBeatMarks;
-    
     private int time;
-    
     Rectangle[] beatMarkRecArray;
     
     @FXML
@@ -150,7 +143,6 @@ public class ChoreographyController implements Initializable {
     private File saveLocation;
     private boolean isSaved;
     private boolean isAdvanced;
-    private boolean isSlidersLoaded;
     private boolean isSelected = false;
 	boolean isFirst = true;
     Timer timelineTimer = new Timer("progressTimer", true);
@@ -210,38 +202,28 @@ public class ChoreographyController implements Initializable {
 			}
     		
 		});
-        
-//    	copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//
-//				
-//			}
-//    		
-//		});
-    	
-//    	pasteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//
-//				
-//			}
-//    		
-//		});
     	
         openCTLMenuItem.setOnAction(new EventHandler<ActionEvent> () {
 
                 @Override
                 public void handle(ActionEvent t) {
                     try {
+                        if(!MapLib.isMapLoaded()) {
+                            MapLib.openMap(new File("default.map"));
+                        }
                         CtlLib.getInstance().openCtl();
                         cc.setfcwOutput("CTL file has loaded!");
+                        if(ColorPaletteModel.getInstance().isClassicColors()) {
+                            Dialogs.create().message("You've loaded a legacy file. "
+                                            + "Currently, they are read-only.").showWarning();
+                            
+                            SpecialoperationsController.getInstance().killSpecialOpsPane();
+                        }
                         SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                     } catch (IOException ex) {
                         Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            
         });
         
         advancedCheckMenuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -313,31 +295,51 @@ public class ChoreographyController implements Initializable {
 //                }
 //            });
         
+        newItemMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    MusicPaneController.getInstance().disposeMusic();
+                    MusicPaneController.getInstance().resetAll();
+                    TimelineController.getInstance().disposeTimeline();
+                    FountainSimController.getInstance().disposeBuffer();
+                    ColorPaletteModel.getInstance().resetModel();
+                    MapLib.setMapLoaded(false);
+                }
+                
+            });
+        
         events = new ConcurrentSkipListMap<>();
         fcwOutput.setText("Choreographer has loaded!");
         openCTLMenuItem.setDisable(true);
         cc = this;
-        Platform.runLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
-                        MapLib.openMap(new File("dmx.map"));
-                        MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth/Reflections of Earth.wav"));
-                        CtlLib.getInstance().openCtl(new File("Reflections of Earth/Reflections of Earth.ctl"));
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            });
-        isSlidersLoaded = true;
+//        Platform.runLater(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    try {
+//                        MapLib.openMap(new File("dmx.map"));
+//                        MusicPaneController.getInstance().openMusicFile(new File("Reflections of Earth/Reflections of Earth.wav"));
+//                        CtlLib.getInstance().openCtl(new File("Reflections of Earth/Reflections of Earth.ctl"));
+//                    } catch (FileNotFoundException ex) {
+//                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            });
     }
 
     private void saveGhmfZipFile() {
         try {
-            FilePayload ctl = CtlLib.getInstance().createFilePayload(Timeline.getInstance().getTimeline());
+            if(ColorPaletteModel.getInstance().isClassicColors()) {
+                Dialogs.create()
+                        .message("It is currently impossible to save legacy files.")
+                        .title("Cannot Save Legacy CTL")
+                        .showError();
+            }
+            FilePayload ctl = CtlLib.getInstance().createFilePayload(
+                    TimelineController.getInstance().getTimeline().getTimeline());
             FilePayload map = MapLib.createFilePayload();
             FilePayload music = MusicPaneController.getInstance().createFilePayload();
             FilePayload marks = MarkLib.createFilePayload();
@@ -502,10 +504,6 @@ public class ChoreographyController implements Initializable {
             }
         }, 0l, 100l);
     }
-
-    public void setSlidersLoaded(boolean b) {
-        isSlidersLoaded = b;
-    }
  
     public boolean getIsSelected(){
 	return isSelected;
@@ -523,6 +521,9 @@ public class ChoreographyController implements Initializable {
         try {
             MapLib.openMap();
         } catch (FileNotFoundException ex) {
+            Dialogs.create().title("Invalid MAP file")
+                    .message("You've selected an invalid MAP file. "
+                            + "Please try again.").showError();
             Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

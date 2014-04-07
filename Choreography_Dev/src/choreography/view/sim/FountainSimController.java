@@ -5,6 +5,7 @@ import choreography.io.LagTimeLibrary;
 import choreography.model.fcw.FCW;
 import choreography.model.lagtime.LagTimeTable;
 import choreography.view.music.MusicPaneController;
+import choreography.view.timeline.TimelineController;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -425,7 +426,7 @@ public class FountainSimController implements Initializable {
     private static Stage principalStage;
     private int sweepType=1;
     private double sweepSpeed;
-    Timeline timelingRing1;
+    Timeline timelineRing1;
     
     private ConcurrentNavigableMap<Integer, ArrayList<FCW>> 
             bufferedFcws = new ConcurrentSkipListMap();
@@ -932,7 +933,7 @@ public class FountainSimController implements Initializable {
     }
 	
     public void updateColors(int colNum){
-        choreography.view.timeline.Timeline.getInstance().getGtfoMap();
+        TimelineController.getInstance().getTimeline().getGtfoMap();
         //lookup colors for for all existing channels at given time...
 
         //update the sim objects to those colors
@@ -3225,8 +3226,7 @@ public void moveRightSweeps(double leftLimit, double rightLimit){
     }
    
     public void disposeBuffer() {
-       // stopSim();
-    	bufferedFcws.clear();
+       
     }
 
     public void pauseLeftSweep() {
@@ -3293,5 +3293,29 @@ public void moveRightSweeps(double leftLimit, double rightLimit){
 		}
 		
 	}
+        
+        public void resetAll() {
+            drawBazooka(0, 0);
+            drawBkCurtain(0, 0);
+            drawCandlesA(0, 0);
+            drawCandlesB(0, 0);
+            drawFtCurtain(0, 0);
+            drawMultiA(0, 0);
+            drawMultiB(0, 0);
+            drawPeacock(0, 0);
+            drawRing1A(0, 0);
+            drawRing1B(0, 0);
+            drawRing2A(0, 0);
+            drawRing2B(0, 0);
+            drawRing3A(0, 0);
+            drawRing3B(0, 0);
+            drawRing4A(0, 0);
+            drawRing4B(0, 0);
+            drawRing5A(0, 0);
+            drawRing5B(0, 0);
+            drawSpout(0, 0);
+            drawSweepsA(0, 0);
+            drawSweepsB(0, 0);
+        }
 	
 }
