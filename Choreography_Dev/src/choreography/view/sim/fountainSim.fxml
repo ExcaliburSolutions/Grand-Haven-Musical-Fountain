@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="1329.0" rotate="180.0" style="-fx-background-color: black;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="choreography.view.sim.FountainSimController">
   <children>
-    <Rectangle fx:id="backCurtain" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="1310.0" x="10.0" y="40.0" />
+    <Rectangle fx:id="backCurtain" arcHeight="5.0" arcWidth="5.0" fill="LIGHTGRAY" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="1310.0" x="10.0" y="40.0" />
     <Group fx:id="peacock">
       <children>
         <Line fx:id="peacock3" endX="683.0" endY="28.0" startX="683.0" startY="28.0" strokeLineCap="ROUND" strokeWidth="10.0" visible="false">
@@ -125,7 +125,7 @@
         <Slider fx:id="ring1Slider" layoutX="-5.0" layoutY="17.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
       </children>
     </Group>
-    <Rectangle fx:id="frontCurtain" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="1310.0" x="10.0" />
+    <Rectangle fx:id="frontCurtain" arcHeight="5.0" arcWidth="5.0" fill="LIGHTGRAY" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="1310.0" x="10.0" />
     <Group fx:id="candleSweepGroup1" layoutY="3.0">
       <children>
         <Line fx:id="mod1candle6" endX="1260.0" endY="0.0" startX="1130.0" strokeLineCap="ROUND" strokeWidth="3.0" visible="false">
