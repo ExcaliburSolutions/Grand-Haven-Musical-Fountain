@@ -1033,11 +1033,23 @@ public class FountainSimController implements Initializable {
                 case 48:
                     if(actionsList.contains("MODULEA")) {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
-                        drawMultiA(level, lagTime);
+                        if(level == 6){
+                        drawMultiA(level-1, lagTime);
+                        drawSweepsA(level-1, lagTime);
+                        }
+                        else {
+                        	drawMultiA(level, lagTime);
+                        }
                     }
                     if(actionsList.contains("MODULEB")) {
                         int level = FCWLib.getInstance().reverseGetLevel(f);
-                        drawMultiB(level, lagTime);
+                        if(level == 6){
+                            drawMultiB(level-1, lagTime);
+                            drawSweepsB(level-1, lagTime);
+                            }
+                            else {
+                            	drawMultiB(level, lagTime);
+                            }
                     }
                     break;
             }
