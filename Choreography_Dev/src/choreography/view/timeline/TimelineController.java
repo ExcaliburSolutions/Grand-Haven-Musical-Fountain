@@ -10,41 +10,33 @@ import choreography.model.color.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
-import choreography.view.timeline.Timeline;
 import choreography.model.timeline.Timeline;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
-import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -142,23 +134,23 @@ public class TimelineController implements Initializable {
     public void delete(int col, int row, int length, boolean first){
     	if(first){
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
-    		Timeline.getInstance().getGtfoMap().get(row).remove(col);//TODO ask frank about this
+    		timeline.getGtfoMap().get(row).remove(col);//TODO ask frank about this
     		FCW off = new FCW(channelAddresses[row], 0);
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
-            Timeline.getInstance().setLightFcw(off, col, col+length);//not sure if length is needed?
+            timeline.setLightFcw(off, col, col+length);//not sure if length is needed?
     	}
     	
     	
     }
     
-    public void delete( int waterCol){
+    public void delete(int waterCol){
     	if (waterCol != 0){
-    		Timeline.getInstance().deletActionAtTime(waterCol -1 );
+    		timeline.deleteActionAtTime(waterCol - 1);
     		waterRecArray[waterCol-1].setFill(Color.LIGHTGRAY);
     		t.uninstall(waterRecArray[waterCol-1], t);
     	}
     	else{
-    		Timeline.getInstance().deletActionAtTime(waterCol);
+    		timeline.deleteActionAtTime(waterCol);
     		waterRecArray[waterCol].setFill(Color.LIGHTGRAY);
     		t.uninstall(waterRecArray[waterCol], t);
     	}
@@ -291,8 +283,8 @@ public class TimelineController implements Initializable {
 //            			FCW f = new FCW(channelAddresses[startpt], (Color)lightRecArray[transColAL.get(i-1)][transRowAL.get(i-1)].getFill());
             			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
             			FCW off = new FCW(channelAddresses[0], 0);
-                        Timeline.getInstance().setLightFcw(f, startOther, endpt);
-                        Timeline.getInstance().setLightFcw(off, endpt+1, endpt+2);
+                        timeline.setLightFcw(f, startOther, endpt);
+                        timeline.setLightFcw(off, endpt+1, endpt+2);
                         System.out.println(f + " " + startOther + " " + endpt);
                         System.out.println(off + " " + endpt+1 + " " + endpt+2);
                         start.clear();
@@ -304,8 +296,8 @@ public class TimelineController implements Initializable {
             			int endpt = transColAL.get(i-1)+1;
             			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
             			FCW off = new FCW(channelAddresses[0], 0);
-                        Timeline.getInstance().setLightFcw(f, startOther, endpt);
-                        Timeline.getInstance().setLightFcw(off, endpt+1, endpt+2);
+                        timeline.setLightFcw(f, startOther, endpt);
+                        timeline.setLightFcw(off, endpt+1, endpt+2);
                         System.out.println(f + " " + startOther + " " + endpt);
                         System.out.println(off + " " + endpt+1 + " " + endpt+2);
                         start.clear();
@@ -481,7 +473,7 @@ public class TimelineController implements Initializable {
                                             .getInstance()
                                             .getSelectedColor());
                             int address = channelAddresses[testJ];
-//                            Timeline.getInstance().setLightFcw(new FCW(address, 
+//                            timeline.setLightFcw(new FCW(address, 
 //                                ColorPaletteModel.getInstance().getSelectedIndex() + 1), testI, testJ);
                             start = testI;
                     }
@@ -536,7 +528,7 @@ public class TimelineController implements Initializable {
 //                    	lightRecArray[testI][testJ].setFill(ColorPaletteController
 //                                .getInstance()
 //                                .getSelectedColor());
-//                        Timeline.getInstance().setLightFcwAtPoint(testI, new FCW(testI, 
+//                        timeline.setLightFcwAtPoint(testI, new FCW(testI, 
 //                                ColorPaletteModel.getInstance().getSelectedIndex()));
                     }
                 });
@@ -609,7 +601,7 @@ public class TimelineController implements Initializable {
                     MusicPaneController.getInstance().getMediaPlayer().seek(Duration.seconds((((double)testI+1)/10)));
                     
 //                    waterRecArray[testI].setFill(Color.LIGHTBLUE);
-//                    System.out.println(Timeline.getInstance().getActionsAtTime(testI));
+//                    System.out.println(timeline.getActionsAtTime(testI));
                     
 //                    if (!oldRecHasValue){ //aka oldRed does not have a value
 //                    	oldRec = waterRecArray[testI];
