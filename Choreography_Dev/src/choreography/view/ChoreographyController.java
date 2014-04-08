@@ -248,8 +248,9 @@ public class ChoreographyController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
 
-                	String[] advancedOnlyLightNames = FCWLib.getInstance().getAdvancedLightNames().toArray(new String[1]);
-                	TimelineController.getInstance().setLabelGridPane(advancedOnlyLightNames);
+                    Integer[] advancedOnlyLightNames = FCWLib.getInstance().getAdvancedLightNames();
+                    TimelineController.getInstance().setLabelGridPane(advancedOnlyLightNames);
+                    
                 }
             });
     	
@@ -326,11 +327,7 @@ public class ChoreographyController implements Initializable {
                     
                     SlidersController.getInstance().resurrectSlidersPane();
                     SpecialoperationsController.getInstance().resurrectSpecialOpsPane();
-                    try {
-                        MapLib.openMap(new File(getClass().getResource(WORKINGDIRECTORY + "/default.map").toURI()));
-                    } catch (FileNotFoundException | URISyntaxException ex) {
-                        Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    MapLib.openMap(getClass().getResourceAsStream("/resources/default.map"));
                     ColorPaletteController.getInstance().resurrectColorPalettePane();
                 }
                 
