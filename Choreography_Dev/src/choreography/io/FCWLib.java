@@ -8,16 +8,26 @@ import choreography.view.ChoreographyController;
 import choreography.view.timeline.TimelineController;
 
 import java.awt.List;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +46,7 @@ public final class FCWLib {
 	
     private static FCWLib fcwLib;
     private static final Logger LOG = Logger.getLogger(FCWLib.class.getName());
-    private File fcwInfo = null;
+    private InputStream fcwInfo;
     private HashMap<String, Integer> waterAddress;
     private HashMap<String, Integer> lightAddress;
     private HashMap<String, Integer> functionAddress;
@@ -48,7 +58,7 @@ public final class FCWLib {
     private boolean usesClassicColors;
 
     private FCWLib(){
-        fcwInfo = new File(getClass().getResource("resources/FCW_DEF.txt").toString());
+        fcwInfo = this.getClass().getResourceAsStream("/resources/FCW_DEF.txt");
         waterAddress = new HashMap<>();
         lightAddress = new HashMap<>();
         functionTables = new HashMap<>();
@@ -78,38 +88,33 @@ public final class FCWLib {
     public synchronized void setFcwLib(FCWLib aFcwLib) {
         fcwLib = aFcwLib;
     }
+    
+    public synchronized void readFCWInfoFromFile(InputStream fcwInfo) {
+        readFCWInfoFromFile(new BufferedReader(new InputStreamReader(fcwInfo)));
+    }
 	
     /**
      *
      * @param fcwInfo
      */
-    public synchronized void readFCWInfoFromFile(File fcwInfo){
-        try {
-            Scanner fileIn = new Scanner(new FileReader(fcwInfo));
-            fileIn.useDelimiter("|");
-
-            fileIn.findWithinHorizon("|WaterAddresses|", 0);
-            fileIn.nextLine();
-            readWaterAddressesFromFile(fileIn);
-
-            fileIn.findWithinHorizon("|LightAddresses|", 0);
-            fileIn.nextLine();
-            readLightAddressesFromFile(fileIn);
-
-            fileIn.findWithinHorizon("|Functions|", 0);
-            fileIn.nextLine();
-            readFunctionsFromFile(fileIn);
-
-            fileIn.findWithinHorizon("|Tables|", 0);
-            fileIn.nextLine();
-            readAddressTableFromFile(fileIn);
-
-            fileIn.findWithinHorizon("|Commands|", 0);
-            fileIn.nextLine();
-            readTableCommandsFromFile(fileIn);
-        } catch (FileNotFoundException e) {
-            LOG.log(Level.SEVERE, "FCW_DEF.txt Not Found!");
-        }
+    public synchronized void readFCWInfoFromFile(BufferedReader fcwInfo){
+        Scanner fileIn = new Scanner(fcwInfo);
+        fileIn.useDelimiter("|");
+        fileIn.findWithinHorizon("|WaterAddresses|", 0);
+        fileIn.nextLine();
+        readWaterAddressesFromFile(fileIn);
+        fileIn.findWithinHorizon("|LightAddresses|", 0);
+        fileIn.nextLine();
+        readLightAddressesFromFile(fileIn);
+        fileIn.findWithinHorizon("|Functions|", 0);
+        fileIn.nextLine();
+        readFunctionsFromFile(fileIn);
+        fileIn.findWithinHorizon("|Tables|", 0);
+        fileIn.nextLine();
+        readAddressTableFromFile(fileIn);
+        fileIn.findWithinHorizon("|Commands|", 0);
+        fileIn.nextLine();
+        readTableCommandsFromFile(fileIn);
     }
 
     private synchronized void readFunctionsFromFile(Scanner fileIn) {
@@ -562,25 +567,17 @@ public final class FCWLib {
         return tableCommands.get("TableD2").keySet().toArray(new String[1]);
     }
     
-    public ArrayList<String> getAdvancedLightNames(){
-    	ArrayList<String> advancedOnlyLightNames = new ArrayList<>();
-
-    	String[] lightNames = lightAddress.keySet().toArray(new String[1]);
-    	
-    	boolean nope = false;
-    	int[] specialChannels = TimelineController.getInstance().getSpecialChannels();
-    	
-    	for(int i = 0; i < lightAddress.keySet().size(); i++){
-    		for(int j = 0; j < specialChannels.length; j++){
-    			if(!lightAddress.containsValue(specialChannels[j])){
-    				nope = true;
-    			}
-    		}
-    		if(nope = false){
-    			advancedOnlyLightNames.add(lightNames[i]);
-    		}
-    		nope = false;
-    	}
-    	return advancedOnlyLightNames;
+    public Integer[] getAdvancedLightNames(){
+        Collection<Integer> output = lightAddress.values();
+    	//get exclude list
+        Integer[] excluded = TimelineController.getInstance().getSpecialChannels();
+        for(Integer exclusion: excluded) {
+            if(output.contains(exclusion)) {
+                output.remove(exclusion);
+            }
+        }
+        Integer[] outputArray = output.toArray(new Integer[1]);
+        Arrays.sort(outputArray);
+        return outputArray;
     }
 }

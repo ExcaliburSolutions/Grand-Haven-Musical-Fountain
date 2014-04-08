@@ -7,10 +7,12 @@ import choreography.model.fcw.FCW;
 import choreography.model.lagtime.LagTime;
 import choreography.model.lagtime.LagTimeTable;
 import choreography.view.ChoreographyController;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +28,7 @@ import java.util.logging.Logger;
 public class LagTimeLibrary {
     private static LagTimeLibrary instance;
     private final LagTimeTable lagTimeTableInstance;
-    private File lagTimeDef = null;
+    private String filename;
 
     /**
      *
@@ -60,17 +62,16 @@ public class LagTimeLibrary {
     }
 
     private LagTimeLibrary() throws FileNotFoundException {
-        try {
-            this.lagTimeDef = new File(getClass().getResource(ChoreographyController.WORKINGDIRECTORY + "/LagTimeDef.txt").toURI());
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(LagTimeLibrary.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         lagTimeTableInstance = LagTimeTable.getInstance();
-        loadTimesFromFile();
+        filename = "/resources/LagTimeDef.txt";
+        loadTimesFromFile(new BufferedReader(
+            new InputStreamReader(
+            this.getClass().getResourceAsStream(filename))));
     }
 
-    private void loadTimesFromFile() throws IllegalArgumentException, FileNotFoundException {
-        try (Scanner fileIn = new Scanner(lagTimeDef)){
+    private void loadTimesFromFile(BufferedReader reader) throws IllegalArgumentException, FileNotFoundException {
+        try (Scanner fileIn = new Scanner(reader)){
             ArrayList<LagTime> delayTimes = new ArrayList<>();
             while(fileIn.hasNext()) {
                 String line = fileIn.nextLine();
@@ -79,8 +80,6 @@ public class LagTimeLibrary {
                 delayTimes.add(lt);
             }
             LagTimeTable.setLagTimes(delayTimes);
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("Cannot find lagTimeDef file");
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Your LagTimeDef.txt file "
                     + "may be corrupted. Please see the manual to find "
@@ -112,7 +111,7 @@ public class LagTimeLibrary {
      * @throws FileNotFoundException
      */
     public void saveLagTimes(ArrayList<LagTime> dataTable) throws IllegalArgumentException, FileNotFoundException {
-        try(FileWriter fileOut = new FileWriter(lagTimeDef)) {
+        try(FileWriter fileOut = new FileWriter(new File(filename))) {
             Collections.sort(dataTable, new Comparator<LagTime>() {
 
                 @Override
@@ -127,6 +126,9 @@ public class LagTimeLibrary {
         } catch(IOException e){
             
         }
-        loadTimesFromFile();
+        loadTimesFromFile(
+                new BufferedReader(
+                new InputStreamReader(
+                    getClass().getResourceAsStream(filename))));
     }
 }

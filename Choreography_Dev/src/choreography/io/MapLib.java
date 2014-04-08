@@ -82,7 +82,7 @@ public class MapLib {
                 //(parseMap(readMap(file)));
     }
     
-    public static void openMap(InputStream stream) {
+    public synchronized static void openMap(InputStream stream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         ColorPaletteModel.getInstance().setColors(parseMap(readMap(reader)));
     }

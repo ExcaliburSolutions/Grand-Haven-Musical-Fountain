@@ -208,11 +208,7 @@ public class MusicPaneController {
     		mediaPlayer.dispose();    		
     	}
     	if(!MapLib.isMapLoaded()) {
-                try {
-                    MapLib.openMap(new File(getClass().getResource(WORKINGDIRECTORY + "/default.map").toURI()));
-                } catch (FileNotFoundException | URISyntaxException ex) {
-                    Logger.getLogger(MusicPaneController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            MapLib.openMap(this.getClass().getResourceAsStream("/resources/default.map"));
         }
     	FileChooser fc = new FileChooser();
     	fc.setInitialDirectory(new File(System.getProperty("user.dir")));
