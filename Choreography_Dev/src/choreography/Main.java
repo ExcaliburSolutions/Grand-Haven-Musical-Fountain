@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import choreography.model.*;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -42,7 +43,8 @@ public class Main extends Application {
     @Override
 	public void start(Stage primaryStage) {
         try {
-            
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/ghmf_cs_logo.png")));
+            primaryStage.setIconified(true);
             this.setPrimaryStage(primaryStage);
             
             Main.primaryStage = primaryStage;
