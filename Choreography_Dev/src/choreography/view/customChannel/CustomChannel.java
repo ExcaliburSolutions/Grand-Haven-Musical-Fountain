@@ -1,4 +1,4 @@
-package customChannel;
+package choreography.view.customChannel;
 
 import choreography.io.FCWLib;
 import choreography.view.timeline.TimelineController;
