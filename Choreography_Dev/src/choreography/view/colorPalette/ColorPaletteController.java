@@ -189,9 +189,9 @@ public class ColorPaletteController implements Initializable {
             for(int i = 0; i < colors.length; i++) {
                 rectangles[i].setFill(colors[i]);
             }
-//            if(!ColorPaletteModel.getInstance().isClassicColors()) {
-//                colorPalette.getChildren().add(colorRectanglePane);
-//            }
+            if(!ColorPaletteModel.getInstance().isClassicColors()) {
+                colorPalette.getChildren().add(colorRectanglePane);
+            }
 //            else  {
 //                colorPalette.setVisible(false);
 //            }

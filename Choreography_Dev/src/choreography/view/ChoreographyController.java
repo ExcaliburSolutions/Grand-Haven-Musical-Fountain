@@ -18,7 +18,6 @@ import choreography.io.MapLib;
 import choreography.io.MarkLib;
 import choreography.model.color.ColorPaletteModel;
 import choreography.model.fcw.FCW;
-import choreography.model.timeline.Timeline;
 import choreography.view.colorPalette.ColorPaletteController;
 import choreography.view.lagtime.LagTimeGUIController;
 import choreography.view.music.MusicPaneController;
@@ -27,11 +26,9 @@ import choreography.view.sliders.SlidersController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.TimelineController;
 import customChannel.CustomChannel;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -41,7 +38,6 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -67,7 +63,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
@@ -188,6 +183,7 @@ public class ChoreographyController implements Initializable {
             @Override
             public void handle(ActionEvent arg0) {
 //                progressIndicator.setProgress(-1);
+                loadDefaultMap();
                 MusicPaneController.getInstance().selectMusic();
 //                progressIndicator.setProgress(1);
                 TimelineController.getInstance().initializeTimelines();
@@ -197,22 +193,22 @@ public class ChoreographyController implements Initializable {
     	});
     	
     	selectionButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
+            @Override
+            public void handle(ActionEvent event) {
 //				selectButton.isPressed();
-				if (isSelected){
-					isSelected = false;
+                if (isSelected){
+                    isSelected = false;
 //					System.out.println("Off");
-					TimelineController.getInstance().clearAllAL();
-					TimelineController.getInstance().disableCopyPaste();
-				}
-				else {
-					isSelected = true;
+                    TimelineController.getInstance().clearAllAL();
+                    TimelineController.getInstance().disableCopyPaste();
+                }
+                else {
+                    isSelected = true;
 //					System.out.println("On");
 
-				}
-				
-			}
+                }
+
+            }
     		
 		});
     	
@@ -221,13 +217,7 @@ public class ChoreographyController implements Initializable {
                 @Override
                 public void handle(ActionEvent t) {
                     try {
-                        if(!MapLib.isMapLoaded()) {
-                            try {
-                                MapLib.openMap(new File(getClass().getResource("/resources/default.map").toURI()));
-                            } catch (FileNotFoundException | URISyntaxException ex) {
-                                Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+                        loadDefaultMap();
                         CtlLib.getInstance().openCtl();
                         cc.setfcwOutput("CTL file has loaded!");
                         if(ColorPaletteModel.getInstance().isClassicColors()) {
@@ -239,6 +229,8 @@ public class ChoreographyController implements Initializable {
                         SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                     } catch (IOException ex) {
                         Logger.getLogger(ChoreographyController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (NullPointerException e) {
+                        
                     }
                 }
         });
@@ -338,6 +330,13 @@ public class ChoreographyController implements Initializable {
         fcwOutput.setText("Choreographer has loaded!");
         openCTLMenuItem.setDisable(true);
         cc = this;
+    }
+    
+    public void loadDefaultMap() {
+        boolean isMap = MapLib.isMapLoaded();
+        if(!isMap) {
+            MapLib.openMap(getClass().getResourceAsStream("/resources/default.map"));
+        }
     }
 
     public void killFeaturesOnLegacy() {
