@@ -474,6 +474,10 @@ public final class FCWLib {
                 break;
             case 40:
                 break;
+            case 48:
+                actions.remove("SPOUT");
+                actions.remove("BAZOOKA");
+                break;
                
             
         }
