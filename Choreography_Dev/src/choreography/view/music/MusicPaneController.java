@@ -360,7 +360,7 @@ public class MusicPaneController {
     }
     
     public String getMusicName() {
-        return music2.getName().substring(0, music2.getName().length() - 4);
+        return music2.getName().substring(0, music2.getName().length() - 4).replaceAll("\\d*$", "");
     }
 
     public FilePayload createFilePayload() {
