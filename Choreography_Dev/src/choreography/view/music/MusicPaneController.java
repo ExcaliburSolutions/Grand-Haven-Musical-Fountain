@@ -207,17 +207,15 @@ public class MusicPaneController {
     	if (notFirst){
     		mediaPlayer.dispose();    		
     	}
-    	if(!MapLib.isMapLoaded()) {
-            MapLib.openMap(this.getClass().getResourceAsStream("/resources/default.map"));
-        }
     	FileChooser fc = new FileChooser();
     	fc.setInitialDirectory(new File(System.getProperty("user.dir")));
         fc.getExtensionFilters().setAll(new FileChooser.ExtensionFilter(
                 "Music Files", "*.wav", "*.flac"));
     	File file2 = fc.showOpenDialog(null);
     	openMusicFile(file2);
+        playButton.setDisable(false);
         
-    	}
+    }
     	
     public void loadMusicFile(File file2) {
     	URL url = null;
