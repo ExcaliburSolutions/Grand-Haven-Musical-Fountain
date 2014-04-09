@@ -14,6 +14,7 @@ import choreography.model.timeline.Timeline;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
@@ -108,6 +109,7 @@ public class TimelineController implements Initializable {
         this.rowAL = new ArrayList<>();
         this.colAL = new ArrayList<>();
         this.copyAL = new ArrayList<>();
+        this.channelAddresses = new Integer[1];
     }
     
     public ArrayList<Integer> getColAL(){
@@ -367,16 +369,17 @@ public class TimelineController implements Initializable {
     	Set<Integer> addresses = new HashSet<>();
     	for(String in: input) {
             Integer addr = FCWLib.getInstance().lookupAddress(in);
-    		 addresses.add(addr);
+            addresses.add(addr);
     	}
-    	channelAddresses = addresses.toArray(new Integer[1]);
+    	setChannelAddresses(addresses);
         injectIntoGtfo(channelAddresses);
     	setLabelGridPane(channelAddresses);
-	}
+        rePaintLightTimeline();
+    }
     
     public void setLabelGridPaneWithCtl(){
     	Set<Integer> channelAddressesSet = timeline.getGtfoMap().keySet();
-        channelAddresses = channelAddressesSet.toArray(new Integer[1]);
+        setChannelAddresses(channelAddressesSet);
         labelNames = new String[channelAddresses.length];
         for(int i = 0; i < channelAddresses.length; i++) {
             labelNames[i] = FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]);
@@ -385,8 +388,18 @@ public class TimelineController implements Initializable {
         setTimelineGridPane();
         rePaintLightTimeline();
     }
+
+    public void setChannelAddresses(Set<Integer> channelAddressesSet) {
+        ArrayList<Integer> okChannels = new ArrayList<>();
+        for(Integer query: channelAddressesSet) {
+            if(!checkForCollisions(query)) {
+                okChannels.add(query);
+            }
+        }
+        channelAddresses = channelAddressesSet.toArray(new Integer[1]);
+    }
     	
-	public void setLabelGridPane(Integer[] input) {
+    public void setLabelGridPane(Integer[] input) {
         timelineLabelPane = new GridPane();
     	timelineLabelPane.setGridLinesVisible(true);
     	Label[] labelArray = new Label[input.length];
@@ -1568,20 +1581,20 @@ public class TimelineController implements Initializable {
         FountainSimController.getInstance().clearSim();
     }
 
-	public String[] getLabelNames() {
-		return labelNames;
-	}
+    public String[] getLabelNames() {
+            return labelNames;
+    }
 
-	public void setLabelNames(String[] labelNames) {
-		this.labelNames = labelNames;
-	}
-        
-        public void injectIntoGtfo(Integer[] newAddresses) {
-            SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = timeline.getGtfoMap();
-            for(Integer i: newAddresses) {
-                gtfo.putIfAbsent(i, new ConcurrentSkipListMap<>());
-            }
+    public void setLabelNames(String[] labelNames) {
+            this.labelNames = labelNames;
+    }
+
+    public void injectIntoGtfo(Integer[] newAddresses) {
+        SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = timeline.getGtfoMap();
+        for(Integer i: newAddresses) {
+            gtfo.putIfAbsent(i, new ConcurrentSkipListMap<>());
         }
+    }
 
     public void fireSubmapToSim() {
         timeline.sendSubmapToSim(MusicPaneController.getInstance().getTenthsTime());
@@ -1592,7 +1605,7 @@ public class TimelineController implements Initializable {
         waterRecArray = null;
         gridpaneLight.getChildren().clear();
         gridpaneWater.getChildren().clear();
-        initializeTimelines();
+//        initializeTimelines();
         timeline.getGtfoMap().clear();
     }
     public Timeline getTimeline() {
@@ -1600,5 +1613,14 @@ public class TimelineController implements Initializable {
     }
     
     public void killTimelines() {
+    }
+    
+    public boolean checkForCollisions(Integer query) {
+        for(Integer channel: channelAddresses) {
+            if(Objects.equals(query, channel)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
