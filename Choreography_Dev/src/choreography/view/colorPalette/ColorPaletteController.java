@@ -180,7 +180,7 @@ public class ColorPaletteController implements Initializable {
 
                         @Override
                     public void handle(MouseEvent e) {
-                            ColorPaletteModel.getInstance().setSelectedIndex(index2);
+                        ColorPaletteModel.getInstance().setSelectedIndex(index2);
                         setSelectedColor(ColorPaletteModel.getInstance().getColor(index2 + 1));
                     }
                 });
@@ -189,12 +189,12 @@ public class ColorPaletteController implements Initializable {
             for(int i = 0; i < colors.length; i++) {
                 rectangles[i].setFill(colors[i]);
             }
-            if(!ColorPaletteModel.getInstance().isClassicColors()) {
-                colorPalette.getChildren().add(colorRectanglePane);
-            }
-            else  {
-                colorPalette.setVisible(false);
-            }
+//            if(!ColorPaletteModel.getInstance().isClassicColors()) {
+//                colorPalette.getChildren().add(colorRectanglePane);
+//            }
+//            else  {
+//                colorPalette.setVisible(false);
+//            }
     } 
 
     public void resurrectColorPalettePane() {
