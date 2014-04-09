@@ -26,7 +26,7 @@ import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.TimelineController;
-import customChannel.CustomChannel;
+import choreography.view.customChannel.CustomChannel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
