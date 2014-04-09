@@ -14,6 +14,7 @@ import choreography.model.timeline.Timeline;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -562,7 +563,8 @@ public class TimelineController implements Initializable {
     }
 
     public void clearAllAL(){
-    	for(Rectangle rec: copyAL){
+        for (Iterator<Rectangle> it = copyAL.iterator(); it.hasNext();) {
+            Rectangle rec = it.next();
             rec.setOpacity(1);
         }
     	copyAL.clear();
@@ -1605,7 +1607,7 @@ public class TimelineController implements Initializable {
         waterRecArray = null;
         gridpaneLight.getChildren().clear();
         gridpaneWater.getChildren().clear();
-//        initializeTimelines();
+        initializeTimelines();
         timeline.getGtfoMap().clear();
     }
     public Timeline getTimeline() {
