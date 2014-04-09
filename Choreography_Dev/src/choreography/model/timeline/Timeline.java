@@ -50,6 +50,7 @@ public class Timeline {
         waterTimeline = new ConcurrentSkipListMap<>();
         lightTimeline = new ConcurrentSkipListMap<>();
         gtfoArray = new ConcurrentSkipListMap<>();
+        waterTimeline.putIfAbsent(0, new ArrayList<>());
     }
     
     public SortedMap<Integer, SortedMap<Integer, Integer>> getGtfoMap() {
@@ -275,7 +276,10 @@ public class Timeline {
     
     public void sendTimelineInstanceToSim(int time) {
 //      if(waterTimeline.containsKey(time)) {
-          Integer closestKey = waterTimeline.floorKey(time);
+        Integer closestKey = waterTimeline.floorKey(time);
+        if(time == 0) {
+            closestKey = time;
+        }
           FountainSimController.getInstance().drawFcw(waterTimeline.get(closestKey));
 //      }
           
@@ -333,9 +337,9 @@ public class Timeline {
         waterTimeline.remove(i);
     }
     
-    public SortedMap<Integer, ArrayList<FCW>> collapseTimelines() {
-        SortedMap<Integer, ArrayList<FCW>> result = new ConcurrentSkipListMap<>();
-        
+    public void collapseTimelines() {
+        ConcurrentSkipListMap<Integer, ArrayList<FCW>> result = new ConcurrentSkipListMap<>();
+        timeline.clear();
         result.putAll(waterTimeline);
         
         for(Integer channel: gtfoArray.keySet()) {
@@ -343,8 +347,17 @@ public class Timeline {
                 insertIntoTimeline(timeline, entry.getKey(), new FCW(channel, entry.getValue()));
             }
         }
+       timeline = result;
+    }
+    
+    public void removeIntermediateColors() {
+        int start = 0;
         
-        return result;
+        for(Integer channel:gtfoArray.keySet()) {
+            for(Integer timeIndex: gtfoArray.get(channel).keySet()) {
+                
+            }
+        }
     }
     
 }

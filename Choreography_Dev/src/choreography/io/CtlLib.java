@@ -5,7 +5,6 @@ import choreography.view.ChoreographyController;
 import choreography.model.color.ColorPaletteModel;
 import choreography.view.music.MusicPaneController;
 import choreography.view.specialOperations.SpecialoperationsController;
-import choreography.view.timeline.TimelineController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,6 +21,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  *
+ * This class is responsible for reading and writing CTL files in the format
+ * <Time Signature><FCW>...<FCW> Upon reading the CTL, it sets a number of options
+ * 
  * @author elementsking
  */
 public class CtlLib {
@@ -29,8 +31,9 @@ public class CtlLib {
     private static CtlLib instance;
     
     /**
-     *
-     * @return
+     * Returns an instance of CtlLib. Controls instantiation and access to the 
+     * class
+     * @return CtlLib
      */
     public static synchronized CtlLib getInstance() {
         if(instance == null)
@@ -44,7 +47,8 @@ public class CtlLib {
     }
 
     /**
-     *
+     * Method throws up a Open File dialog to select a CTL file
+     * 
      * @throws java.io.IOException
      */
     public synchronized void openCtl() throws IOException {
@@ -56,21 +60,34 @@ public class CtlLib {
         openCtl(ctlFile);
     }
     
+    /**
+     *  Wraps the CTL file in a buffered reader and sets the event timeline
+     * 
+     * @param file
+     * @throws IOException 
+     */
     public void openCtl(File file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(reader)));
     }
     
+    /**
+     * Wraps the incoming zipEntryInputStream in a buffered reader and sets 
+     * event timeline
+     * @param is
+     * @throws IOException 
+     */
     public void openCtl(InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         ChoreographyController.getInstance().setEventTimeline(parseCTL(readFile(reader)));
     }
 
     /**
-     *
-     * @param reader
-     * @param file
-     * @return
+     * Reads the CTL contents from the file into memory and sets options based on
+     * its contents.
+     * 
+     * @param reader A reader wrapped around the ctl data
+     * @return the contents of the CTL file
      */
     public synchronized String readFile(BufferedReader reader) throws IOException{
         StringBuilder stringBuffer = new StringBuilder();
@@ -81,13 +98,12 @@ public class CtlLib {
                 case "ct0-382":
                     ColorPaletteModel.getInstance().setClassicColors(true);
                     FCWLib.getInstance().usesClassicColors(true);
-                    ChoreographyController.getInstance().killFeaturesOnLegacy();
                     SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                     break;
-                case "gvsuCapstone2014B":
-                    isTimeCompensated = true;
                 case "gvsuCapstone2014A":
                     ChoreographyController.getInstance().setAdvanced(true);
+                case "gvsuCapstone2014B":
+                    isTimeCompensated = true;
                     break;
             }
             String text = null;
@@ -107,9 +123,10 @@ public class CtlLib {
     }
 
     /**
-     *
-     * @param input
-     * @return
+     * Parses the input into timeIndex and an ArrayList of FCW commands.
+     * 
+     * @param input contents of the CTL file
+     * @return A map containing <timeIndex, ArrayList<FCW>>
      */
     public synchronized ConcurrentSkipListMap<Integer, ArrayList<FCW>> parseCTL(String input){
         //Split file into tokens of lines
@@ -146,12 +163,12 @@ public class CtlLib {
         if(isTimeCompensated) {
             reversePostDate(events);
         }
-//        System.out.println(events.toString());
         return events;
     }
 
     /**
-     *
+     * Writes the CTL data from memory into a file.
+     * 
      * @param file
      * @param content
      * @return 
@@ -168,7 +185,14 @@ public class CtlLib {
             return false;
         }
     }
-
+    /**
+     * Puts a version header at the top of the file. Iterates through the timeline
+     * and builds lines of <MM:ss.t000-000 111-111 222-222>
+     * 
+     * @param content the timeline you want to save
+     * @return a string holding that data in the ctl format
+     * @throws IOException 
+     */
     private StringBuilder createCtlData(SortedMap<Integer, ArrayList<FCW>> content) throws IOException {
         StringBuilder commandsOutput = new StringBuilder();
         if(ColorPaletteModel.getInstance().isClassicColors()) {
@@ -221,6 +245,11 @@ public class CtlLib {
         return commandsOutput;
     }
 
+    /**
+     * Moves water CTLs back by timeIndex before exporting
+     * 
+     * @param content the CTLs to post date
+     */
     private synchronized void postDate(SortedMap<Integer, ArrayList<FCW>> content) {
         for(Integer timeIndex: content.keySet()) {
             Iterator<FCW> it = content.get(timeIndex).iterator();
@@ -237,6 +266,14 @@ public class CtlLib {
         }
     }
 
+    /**
+     * post dates a single FCW by lag time
+     * 
+     * @param f the FCW
+     * @param content the timeline
+     * @param timeIndex the point at which the fcw currently exists
+     * @return whether the fcw was moved or not
+     */
     public synchronized boolean postDateSingleFcw(FCW f, SortedMap<Integer, ArrayList<FCW>> content, Integer timeIndex) {
         int lag = LagTimeLibrary.getInstance().getLagTimeInTenths(f);
         int adjustedTime = timeIndex - lag;
@@ -254,29 +291,43 @@ public class CtlLib {
         }
         return false;
     }
-
+    
+    /**
+     * moves FCWs forward when opening a file
+     * 
+     * @param content the timeline
+     * @return whether the move was successful or not
+     */
     private boolean reversePostDate(SortedMap<Integer, ArrayList<FCW>> content) {
         for(Integer timeIndex: content.keySet()) {
             Iterator<FCW> it = content.get(timeIndex).iterator();
             while(it.hasNext()){
                 FCW f = it.next();
-                int lag = LagTimeLibrary.getInstance().getLagTimeInTenths(f);
-                if(lag != 0){
-                    if(content.containsKey(timeIndex + lag)) {
-                        content.get(timeIndex + lag).add(f);
+                if(f.getIsWater()) {
+                    int lag = LagTimeLibrary.getInstance().getLagTimeInTenths(f);
+                    if(lag != 0){
+                        if(content.containsKey(timeIndex + lag)) {
+                            content.get(timeIndex + lag).add(f);
+                        }
+                        else {
+                            content.put(timeIndex + lag, new ArrayList(10));
+                            content.get(timeIndex + lag).add(f);
+                        }
+                        return true;
                     }
-                    else {
-                        content.put(timeIndex + lag, new ArrayList(10));
-                        content.get(timeIndex + lag).add(f);
-                    }
-                    return true;
                 }
-        
             }
         }
         return false;
     }
-
+    
+    /**
+     * Creates a FilePayload for output as a ZipEntry
+     * 
+     * @param timeline
+     * @return FilePayload(songName, ctlData) containing the CTL data
+     * @throws IOException 
+     */
     public FilePayload createFilePayload(SortedMap<Integer, ArrayList<FCW>> timeline) throws IOException {
         StringBuilder sb = createCtlData(timeline);
         return new FilePayload(MusicPaneController.getInstance().getMusicName() + ".ctl", sb.toString().getBytes());
