@@ -25,7 +25,7 @@ import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.TimelineController;
-import customChannel.CustomChannel;
+import choreography.view.customChannel.CustomChannel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -178,7 +178,7 @@ public class ChoreographyController implements Initializable {
 
         });
     	
-    	openMusicMenuItem.setOnAction(new EventHandler<ActionEvent> (){
+    	openMusicMenuItem.setOnAction(new EventHandler<ActionEvent>(){
 
             @Override
             public void handle(ActionEvent arg0) {
@@ -310,7 +310,8 @@ public class ChoreographyController implements Initializable {
 
                 @Override
                 public void handle(ActionEvent event) {
-                    MusicPaneController.getInstance().disposeMusic();
+//                    MusicPaneController.getInstance().disposeMusic();
+                    stopSliderTimer();
                     MusicPaneController.getInstance().resetAll();
                     TimelineController.getInstance().disposeTimeline();
                     FountainSimController.getInstance().clearSweeps();
