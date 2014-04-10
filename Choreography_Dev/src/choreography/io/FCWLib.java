@@ -22,22 +22,33 @@ import java.util.logging.Logger;
  * using an intermediate table. Then, looks in that table and retrieves the 
  * appropriate command code.
  * 
- * @author madridf
+ * @author Frank Madrid
  *
  */
 public final class FCWLib {
-	
+	// An instance of the fcwLib
     private static FCWLib fcwLib;
+    // Logger used for an old implementation of an event logger
     private static final Logger LOG = Logger.getLogger(FCWLib.class.getName());
+    // The input stream used for the reading of the CTL files
     private InputStream fcwInfo;
+    // Used to store the water addresses <name of address, channel # of address>
     private HashMap<String, Integer> waterAddress;
+    // Used to store the light addresses <name of address, channel # of address>
     private HashMap<String, Integer> lightAddress;
+    // Used to store the function addresses <name of address, channel # of address>
     private HashMap<String, Integer> functionAddress;
+    // Used to store the light timeline names
     private String[] lightNames;
+    // Used to store the water timeline names
     private String[] waterNames;
+    // Used to store the function names
     private String[] functionNames;
+    // Used to store the function tables
     private HashMap<HashSet<Integer>, String> functionTables;
+    // Used to store the table commands <Name of table, <Command name, Command address>>
     private HashMap<String, HashMap<String, Integer>> tableCommands;
+    // Used to check if classic colors are used (legacy colors)
     private boolean usesClassicColors;
 
     private FCWLib(){
@@ -91,18 +102,23 @@ public final class FCWLib {
     public synchronized void readFCWInfoFromFile(BufferedReader fcwInfo){
         Scanner fileIn = new Scanner(fcwInfo);
         fileIn.useDelimiter("|");
+        // Jumps to the water addresses section of the file
         fileIn.findWithinHorizon("|WaterAddresses|", 0);
         fileIn.nextLine();
         readWaterAddressesFromFile(fileIn);
+        // Jumps to the light addresses section of the file
         fileIn.findWithinHorizon("|LightAddresses|", 0);
         fileIn.nextLine();
         readLightAddressesFromFile(fileIn);
+        // Jumps to the functions section of the file
         fileIn.findWithinHorizon("|Functions|", 0);
         fileIn.nextLine();
         readFunctionsFromFile(fileIn);
+        // Jumps to the tables section of the file
         fileIn.findWithinHorizon("|Tables|", 0);
         fileIn.nextLine();
         readAddressTableFromFile(fileIn);
+        // Jumps to the commands section of the file
         fileIn.findWithinHorizon("|Commands|", 0);
         fileIn.nextLine();
         readTableCommandsFromFile(fileIn);
@@ -114,13 +130,13 @@ public final class FCWLib {
      */
     private synchronized void readFunctionsFromFile(Scanner fileIn) {
         String line = null;
-        while(fileIn.hasNextLine()) {
-            line = fileIn.nextLine();
-            if(line.equals("|EndFunctions|")) {
-                    return;
+        while(fileIn.hasNextLine()) { // while we aren't EOF
+            line = fileIn.nextLine(); //get the next legitmate line
+            if(line.equals("|EndFunctions|")) { //If we hit end of table
+                    return; //Exit
             } else {
-                    String[] tokens = line.split(", ");
-                    functionAddress.put(tokens[0].trim(), new Integer(tokens[1].trim()));
+                    String[] tokens = line.split(", "); //split into components
+                    functionAddress.put(tokens[0].trim(), new Integer(tokens[1].trim())); // add them to the map
             }
         }
 
@@ -135,7 +151,7 @@ public final class FCWLib {
         while(fileIn.hasNextLine()){ //while we aren't EOF
             line = fileIn.nextLine(); //get the next legitmate line
             if(line.equals("|EndWaterAddresses|")) { //If we hit end of table
-                    return; //GTFO
+                    return; //Exit
             } else { 
                     String[] tokens= line.split(", "); //split into components
                     waterAddress.put(tokens[0].trim(), new Integer(tokens[1].trim())); //add them

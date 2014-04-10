@@ -24,7 +24,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * This class is responsible for reading and writing CTL files in the format
  * <Time Signature><FCW>...<FCW> Upon reading the CTL, it sets a number of options
  * 
- * @author elementsking
+ * @author Frank Madrid
  */
 public class CtlLib {
     
@@ -40,6 +40,8 @@ public class CtlLib {
             instance = new CtlLib();
         return instance;
     }
+    
+    // Used to flag if the time is compensated within the CTL file or not
     private boolean isTimeCompensated;
     
     private CtlLib(){
