@@ -25,10 +25,12 @@ import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
 import choreography.view.specialOperations.SpecialoperationsController;
 import choreography.view.timeline.TimelineController;
-import customChannel.CustomChannel;
+import choreography.view.customChannel.CustomChannel;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -38,12 +40,16 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -55,17 +61,26 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
+
+import com.sun.javafx.scene.control.skin.FXVK.Type;
 
 /**
  * FXML Controller class
@@ -614,4 +629,92 @@ public class ChoreographyController implements Initializable {
     public void openGhmfFile(ActionEvent event) {
         GhmfLibrary.openGhmfFile();
     }
+    
+    @FXML
+    public void aboutDialogueBox() {
+    	Dialogs.create().title("About GHMF Choreography Studio")
+        .message("The Grand Valley State University senior project team, Excalibur Solutions, created the GHMF Choreography Studio on April 15, 2014. "
+                + System.lineSeparator() + System.lineSeparator() 
+                + "This software is used to create light shows for the Grand Haven "
+                + "Musical Fountain located in Grand Haven Michigan.  ")
+                .masthead("About").showInformation();
+    }
+    
+    @FXML
+    public void userManual() {
+    	Stage stage = new Stage();
+    	Scene scene;
+////    	scene = new Scene(new Browser(), 750, 500, Color.web("#666970"));
+////        stage.setScene(scene);
+////        stage.setTitle("Web View");
+//////        scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
+////        stage.show();
+//    	File f = new File("/resources/User_Manual_v10.htm");
+//    	// ..
+//    	final WebView webview = new WebView();
+//    	try {
+//			webview.getEngine().load(f.toURI().toURL().toString());
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    }
+    	// Names the browser window
+    	 stage.setTitle("Help - User Manual");
+    	 
+    	    MyBrowser myBrowser = new MyBrowser();
+    	    scene = new Scene(myBrowser, 640, 480);
+    	 
+    	    stage.setScene(scene);
+    	    // Opens the browser 
+    	    stage.show();
+    }
+
+    class MyBrowser extends Region{
+    	 
+        final String userManualHtml = "User_Manual_v10.htm";
+     
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+             
+        public MyBrowser(){
+        	// Points to the location of the htm file for the manual
+            URL urlHello = getClass().getResource("/resources/User_Manual_v10.htm");
+            webEngine.load(urlHello.toExternalForm());
+            // Adds the browser to the scene
+            getChildren().add(webView);
+        }
+    }
 }
+    
+//class Browser extends Region{
+//	
+//	final WebView browser = new WebView();
+//	final WebEngine webEngine = browser.getEngine();
+//
+//	public Browser() {
+////		URL manual = getClass().getResource("/resources/User_Manual_v10.htm").toExternalForm();
+//		webEngine.load("http://google.com");
+//		getChildren().add(browser);
+//	}
+//	
+//	   private Node createSpacer() {
+//	        Region spacer = new Region();
+//	        HBox.setHgrow(spacer, Priority.ALWAYS);
+//	        return spacer;
+//	    }
+//	 
+//	    @Override protected void layoutChildren() {
+//	        double w = getWidth();
+//	        double h = getHeight();
+//	        layoutInArea(browser,0,0,w,h,0, HPos.CENTER, VPos.CENTER);
+//	    }
+//	 
+//	    @Override protected double computePrefWidth(double height) {
+//	        return 750;
+//	    }
+//	 
+//	    @Override protected double computePrefHeight(double width) {
+//	        return 500;
+//	    }
+//}}
