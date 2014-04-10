@@ -297,6 +297,8 @@ public class Timeline {
     
 
     public void setLightFcw(FCW f, int start, int end) {
+        insertIntoTimeline(lightTimeline, start, f);
+        insertIntoTimeline(lightTimeline, end, new FCW(f.getAddr(), 0));
         SortedMap<Integer, Integer> channel = gtfoArray.get(f.getAddr());
         setLightFcwWithRange(channel, start, end, f.getData());
         TimelineController.getInstance().rePaintLightTimeline();
@@ -340,12 +342,12 @@ public class Timeline {
         ConcurrentSkipListMap<Integer, ArrayList<FCW>> result = new ConcurrentSkipListMap<>();
         timeline.clear();
         result.putAll(waterTimeline);
-        
-        for(Integer channel: gtfoArray.keySet()) {
-            for(Entry<Integer, Integer> entry: gtfoArray.get(channel).entrySet()) {
-                insertIntoTimeline(timeline, entry.getKey(), new FCW(channel, entry.getValue()));
-            }
-        }
+        result.putAll(lightTimeline);
+//        for(Integer channel: gtfoArray.keySet()) {
+//            for(Entry<Integer, Integer> entry: gtfoArray.get(channel).entrySet()) {
+//                insertIntoTimeline(timeline, entry.getKey(), new FCW(channel, entry.getValue()));
+//            }
+//        }
        timeline = result;
     }
     

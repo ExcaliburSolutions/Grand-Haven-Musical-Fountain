@@ -551,7 +551,7 @@ public class TimelineController implements Initializable {
                 	else{
                 		FCW f = new FCW(channelAddresses[testJ], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
                     timeline.setLightFcw(f, start, testI + 1);
-                    System.out.println(f + " " + start + " " + testI + 1);
+//                    System.out.println(f + " " + start + " " + testI + 1);
                 	}
                 	}
                 	
