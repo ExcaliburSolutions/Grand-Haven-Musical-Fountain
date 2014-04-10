@@ -664,7 +664,7 @@ public class ChoreographyController implements Initializable {
     	 stage.setTitle("Help - User Manual");
     	 
     	    MyBrowser myBrowser = new MyBrowser();
-    	    scene = new Scene(myBrowser, 640, 480);
+    	    scene = new Scene(myBrowser, 800, 600);
     	 
     	    stage.setScene(scene);
     	    // Opens the browser 
