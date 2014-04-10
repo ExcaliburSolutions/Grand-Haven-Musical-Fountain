@@ -1,17 +1,26 @@
+/**
+ * Sample Skeleton for "MusicPane.fxml" Controller Class
+ * You can copy and paste this code into your favorite IDE
+ **/
+
 package choreography.view.music;
 
 import SimpleJavaFXPlayer.AudioWaveformCreator;
 import SimpleJavaFXPlayer.Music;
 import choreography.io.FilePayload;
+import choreography.io.MapLib;
 import choreography.view.ChoreographyController;
 import choreography.view.sim.FountainSimController;
 import choreography.view.sliders.SlidersController;
+import choreography.model.timeline.Timeline;
+import static choreography.view.ChoreographyController.WORKINGDIRECTORY;
 import choreography.view.timeline.TimelineController;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
@@ -36,12 +45,8 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 /**
- * This class coordinates the mediaPlayer and integrates it into the application.
- * It also controls the syncing between all Timeline panes and the SONGTIME.
- * 
- * @author Steven Merdzinski
- * @author Frank Madrid II
- * @author Max Morell
+ *
+ * @author elementsking
  */
 public class MusicPaneController {
     
@@ -55,10 +60,9 @@ public class MusicPaneController {
     Music music2;
     private boolean notFirst = false;
     final DecimalFormat f = new DecimalFormat("0.0");
-    private File musicFileLocation;
 
     /**
-     * 
+     *
      */
     public static final int H_PIXEL_SIZE = 15;
 
@@ -104,14 +108,13 @@ public class MusicPaneController {
     private NumberAxis labelAxis, numberLine;
     
     @FXML
-    private Button playButton, resetButton;
+    private Button playButton;
     
     
 
     /**
-     * Controls access to instance and constructor
-     * 
-     * @return the MusicPaneController instance
+     *
+     * @return
      */
     public static MusicPaneController getInstance() {
     	if(instance == null)
@@ -123,13 +126,9 @@ public class MusicPaneController {
         this.timeFactor = 10;
     }
 
-    /**
-     * Pauses music, kills all timers, pauses sweeps, and tells sliders to change.
-     * 
-     * @param event 
-     */
+    // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
-    public void pauseSong(ActionEvent event) {
+    void pauseSong(ActionEvent event) {
     	mediaPlayer.pause();
         ChoreographyController.getInstance().stopTimelineTimer();
         ChoreographyController.getInstance().stopSliderTimer();
@@ -139,27 +138,22 @@ public class MusicPaneController {
 //        FountainSimController.getInstance().disposeBuffer();
     }
 
-    /**
-     * Plays music, starts sweeps, starts polling algorithms, and resets sliders.
-     * 
-     * @param event 
-     */
+    // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
-    public void playSong(ActionEvent event) {
+    void playSong(ActionEvent event) {
     	if (mediaPlayer.statusProperty().getValue()==Status.PAUSED || 
     			mediaPlayer.statusProperty().getValue()==Status.STOPPED ||
     			mediaPlayer.statusProperty().getValue()==Status.READY){
-            SlidersController.getInstance().resetAllSliders();
             mediaPlayer.play();
             FountainSimController.getInstance().playLeftSweep();
             FountainSimController.getInstance().playRightSweep();
-            playButton.setText("Pause");
-            ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
-            //ChoreographyController.getInstance().startPollingSlidersAlgorithm();
-            ChoreographyController.getInstance().startPollingSimAlgorithm();
-            ChoreographyController.getInstance().startPollingColorAlgorithm();
-            //ChoreographyController.getInstance().startPlayingSim();
-                
+                playButton.setText("Pause");
+                ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
+                //ChoreographyController.getInstance().startPollingSlidersAlgorithm();
+                ChoreographyController.getInstance().startPollingSimAlgorithm();
+                ChoreographyController.getInstance().startPollingColorAlgorithm();
+                //ChoreographyController.getInstance().startPlayingSim();
+                SlidersController.getInstance().resetAllSliders();
     	}
     	
     	if (mediaPlayer.statusProperty().getValue()==Status.PLAYING){
@@ -171,14 +165,9 @@ public class MusicPaneController {
     	}
     }
 
-    /**
-     * Kills the music, sets slider and music time to 0, 
-     * and clears the sim, sliders, and sweeps.
-     * 
-     * @param event 
-     */
+    // Handler for Button[Button[id=null, styleClass=button]] onAction
     @FXML
-    public void stopSong(ActionEvent event) {
+    private void stopSong(ActionEvent event) {
     	mediaPlayer.stop();
         mediaPlayer.seek(Duration.ZERO);
         timeSlider.setValue(0.0);
@@ -189,43 +178,34 @@ public class MusicPaneController {
         playButton.setText("Play");
     }
     
-//    /**
-//     * Loads music from file into memory and initializes songLabel
-//     * @param fileChosen 
-//     */
-//    private void getAllMusic(File fileChosen) {
-//        
-//    }
+    private void getAllMusic(File fileChosen) {
+        music2.setName(fileChosen.getName());
+        music2.setDirectoryFile(fileChosen.getAbsolutePath());
+        songName.setText(music2.getName());
+    }
     
-    /** 
-     * @return the media player
+    /**
+     *
+     * @return
      */
     public MediaPlayer getMediaPlayer(){
     	return mediaPlayer;
     }
     
-    /**
-     * 
-     * @return the waterTimeline pane
-     */
     public ScrollPane getWaterPane(){
     	return waterTimeline;
     }
     
-    /**
-     * 
-     * @return the time label
-     */
-    public ScrollPane getTimeLabel(){
+    public ScrollPane getLabelPane(){
     	return timeLabel;
     }
     
     /**
-     * Throws up FileChooser and loads music into mediaPlayer
+     *
      */
     public void selectMusic() {
     	if (notFirst){
-            mediaPlayer.dispose();    		
+    		mediaPlayer.dispose();    		
     	}
     	FileChooser fc = new FileChooser();
     	fc.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -233,14 +213,10 @@ public class MusicPaneController {
                 "Music Files", "*.wav", "*.flac"));
     	File file2 = fc.showOpenDialog(null);
     	openMusicFile(file2);
-        
+        playButton.setDisable(false);
         
     }
     	
-    /**
-     * Initializes the music pane with music length, time, name, and number line after load.
-     * @param file2 the music file
-     */
     public void loadMusicFile(File file2) {
     	URL url = null;
         try {
@@ -250,7 +226,7 @@ public class MusicPaneController {
         }
 		
         try {
-            AudioWaveformCreator awc = new AudioWaveformCreator(url, "/resources/out.png");
+            AudioWaveformCreator awc = new AudioWaveformCreator(url, "out.png");
 
             setTime(awc.getTime());
             DecimalFormat f = new DecimalFormat("0.0");
@@ -266,10 +242,6 @@ public class MusicPaneController {
             numberLine.setUpperBound(roundedTime);
             numberLine.setVisible(true);
             songProgress.setText("0/"+roundedTime);
-            
-            music2.setName(file2.getName());
-            music2.setDirectoryFile(file2.getAbsolutePath());
-            songName.setText(music2.getName());
         } catch (Exception ex) {
 
                 ex.printStackTrace();
@@ -277,15 +249,12 @@ public class MusicPaneController {
         notFirst = true;
     }
 
-    /**
-     * Loads music file and enables play button.
-     * @param file2 
-     */
     public void openMusicFile(File file2) {
-        musicFileLocation = file2.getAbsoluteFile();
         music2 = new Music();
-//        getAllMusic(file2);
-        music2.setDirectoryFile(file2.getAbsolutePath());
+        if (file2 != null){
+            getAllMusic(file2);
+            music2.setDirectoryFile(file2.getAbsolutePath());
+        }
         
         loadMusicFile(file2);
         
@@ -296,14 +265,12 @@ public class MusicPaneController {
         songName.setText(music2.getName());
         mediaPlayer.play();
         mediaPlayer.pause();
-        playButton.setDisable(false);
-        resetButton.setDisable(false);
 //        updateProgressTimer();
 //        ChoreographyController.getInstance().startPollingTimeSliderAlgorithm();
     }
 
     /**
-     * Sets song progress, duration, timeline, time label, and time slider value.
+     *
      */
     public void updateProgress() {
         final DecimalFormat f = new DecimalFormat("0.0");
@@ -329,7 +296,7 @@ public class MusicPaneController {
     
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    public void initialize() {
+    void initialize() {
         assert colorPicker != null : "fx:id=\"colorPicker\" was not injected: check your FXML file 'MusicPane.fxml'.";
         assert musicPane != null : "fx:id=\"musicPane\" was not injected: check your FXML file 'MusicPane.fxml'.";
         assert songName != null : "fx:id=\"songName\" was not injected: check your FXML file 'MusicPane.fxml'.";
@@ -367,24 +334,16 @@ public class MusicPaneController {
     }
 
     /**
-     * @return the time in seconds
+     * @return the time
      */
     public double getTime() {
         return time;
     }
-    
-    /**
-     * 
-     * @param time in seconds
-     */
+
     public void setTime(double time) {
         this.time = time;
     }
     
-    /**
-     * 
-     * @return the current time in tenths of a second
-     */
     public int getTenthsTime() {
         double wholeTime = timeSlider.getValue() /100 * time;
 //        double inter = wholeTime * 10;
@@ -393,25 +352,20 @@ public class MusicPaneController {
 //        System.out.println(wholeTime + " " + tenths);
         return tenths;
     }
+
+    public Slider getTimeSlider() {
+        return timeSlider;
+    }
     
-    /**
-     * 
-     * @return the song name without extension or trailing numbers
-     */
     public String getMusicName() {
-        String name = music2.getName().substring(0, music2.getName().length() - 4);
-        String sansNumbers = name.replaceAll("\\d*$", "");
-        return sansNumbers;
+        return music2.getName().substring(0, music2.getName().length() - 4).replaceAll("\\d*$", "");
     }
 
-    /**
-     * 
-     * @return a FilePayload(songName, songBytes)
-     */
     public FilePayload createFilePayload() {
         try {
-            FileInputStream input = new FileInputStream(musicFileLocation);
-            int length = (int)musicFileLocation.length();
+            File musicFile = new File(music2.getDirectoryFile());
+            FileInputStream input = new FileInputStream(musicFile);
+            int length = (int)musicFile.length();
             byte[] musicFileBytes = new byte[length];
             input.read(musicFileBytes);
             return new FilePayload(music2.getName(), musicFileBytes);
@@ -423,18 +377,16 @@ public class MusicPaneController {
         throw new IllegalArgumentException("Unable to create music FilePayload");
     }
 
-    /**
-     * Kills mediaPlayer, sets notFirst, resets songName, songProgress, 
-     * waterTimeline, timeSlider to 0, and disables playButton.
-     */
-    public void resetAll() {
+    public void disposeMusic() {
         mediaPlayer.dispose();
         notFirst = false;
-        songName.setText("No Music Selected");
+    }
+
+    public void resetAll() {
+        disposeMusic();
+        songName.setText("");
         songProgress.setText("");
         waterTimeline.setContent(null);
         timeSlider.setValue(0);
-        playButton.setDisable(true);
-        resetButton.setDisable(true);
     }
 }
