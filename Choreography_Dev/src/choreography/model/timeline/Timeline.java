@@ -41,23 +41,23 @@ public class Timeline {
    private ConcurrentSkipListMap<Integer, ArrayList<FCW>> timeline;
    private final ConcurrentSkipListMap<Integer, ArrayList<FCW>> waterTimeline;
    private ConcurrentSkipListMap<Integer, ArrayList<FCW>> lightTimeline;
-   private ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> gtfoArray;
+   private ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> channelColorMap;
    private int[] lightChannelAddresses;
 
     public Timeline() {
         timeline = new ConcurrentSkipListMap<>();
         waterTimeline = new ConcurrentSkipListMap<>();
         lightTimeline = new ConcurrentSkipListMap<>();
-        gtfoArray = new ConcurrentSkipListMap<>();
+        channelColorMap = new ConcurrentSkipListMap<>();
         waterTimeline.putIfAbsent(0, new ArrayList<>());
     }
     
     public SortedMap<Integer, SortedMap<Integer, Integer>> getGtfoMap() {
-        return gtfoArray;
+        return channelColorMap;
     }
     
-    public void setGtfoArray(ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> gtfoArray) {
-        this.gtfoArray = gtfoArray;
+    public void setChannelColorMap(ConcurrentSkipListMap<Integer, SortedMap<Integer, Integer>> channelColorMap) {
+        this.channelColorMap = channelColorMap;
     }
 
 	public int getTime() {
@@ -100,9 +100,9 @@ public class Timeline {
         time = (int)(MusicPaneController.SONG_TIME * 10); //tenths of a second
         numChannels = countUChannels(lightTimeline);
 //        lightFCWColorMap = new LinkedHashMap<>(numChannels);
-        gtfoArray = new ConcurrentSkipListMap<>(); //new//new int[time][numChannels];
-        startAndEndPoints(gtfoArray);
-        fillTheSpaces(gtfoArray);
+        channelColorMap = new ConcurrentSkipListMap<>(); //new//new int[time][numChannels];
+        startAndEndPoints(channelColorMap);
+        fillTheSpaces(channelColorMap);
 //        populateLightFcwArray();
 //        TimelineController.getInstance().rePaint();
     }
@@ -285,7 +285,7 @@ public class Timeline {
   }
     
 //    public void updateColorsLists(int time){
-//    	for (int channel: gtfoArray.keySet()){
+//    	for (int channel: channelColorMap.keySet()){
 //    		for()
 //    	}
 //    	FountainSimController.getInstance().getFrontCurtain().setFill(arg0);
@@ -295,11 +295,18 @@ public class Timeline {
     	return waterTimeline.containsKey(time);
     }
     
-
+    /**
+     * Adds start and end commands to light timeline. Fills channelColorMap
+ with data and repaints timeline.
+     * 
+     * @param f the new FCW
+     * @param start the point where the light turns on
+     * @param end the point where the light should turn off
+     */
     public void setLightFcw(FCW f, int start, int end) {
         insertIntoTimeline(lightTimeline, start, f);
         insertIntoTimeline(lightTimeline, end, new FCW(f.getAddr(), 0));
-        SortedMap<Integer, Integer> channel = gtfoArray.get(f.getAddr());
+        SortedMap<Integer, Integer> channel = channelColorMap.get(f.getAddr());
         setLightFcwWithRange(channel, start, end, f.getData());
         TimelineController.getInstance().rePaintLightTimeline();
     }
@@ -343,22 +350,22 @@ public class Timeline {
         timeline.clear();
         result.putAll(waterTimeline);
         result.putAll(lightTimeline);
-//        for(Integer channel: gtfoArray.keySet()) {
-//            for(Entry<Integer, Integer> entry: gtfoArray.get(channel).entrySet()) {
+//        for(Integer channel: channelColorMap.keySet()) {
+//            for(Entry<Integer, Integer> entry: channelColorMap.get(channel).entrySet()) {
 //                insertIntoTimeline(timeline, entry.getKey(), new FCW(channel, entry.getValue()));
 //            }
 //        }
        timeline = result;
     }
     
-    public void removeIntermediateColors() {
-        int start = 0;
-        
-        for(Integer channel:gtfoArray.keySet()) {
-            for(Integer timeIndex: gtfoArray.get(channel).keySet()) {
-                
-            }
-        }
-    }
+//    public void removeIntermediateColors() {
+//        int start = 0;
+//        
+//        for(Integer channel:channelColorMap.keySet()) {
+//            for(Integer timeIndex: channelColorMap.get(channel).keySet()) {
+//                
+//            }
+//        }
+//    }
     
 }

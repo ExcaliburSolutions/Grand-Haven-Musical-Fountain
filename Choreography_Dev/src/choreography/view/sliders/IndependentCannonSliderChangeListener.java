@@ -9,7 +9,6 @@ import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.music.MusicPaneController;
 import choreography.view.sim.FountainSimController;
-import choreography.model.timeline.Timeline;
 import choreography.view.timeline.TimelineController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,16 +19,16 @@ import javafx.beans.value.ObservableValue;
  */
 public class IndependentCannonSliderChangeListener implements ChangeListener<Number>{
 
-	private IndependentCannon cannon;
-	private String name;
+	private final IndependentCannon cannon;
+	private final String name;
         private int lastNumber;
 
 	/**
 	 * @param cannon
 	 */
 	public IndependentCannonSliderChangeListener(IndependentCannon cannon) {
-		this.cannon = cannon;
-		name = cannon.getName();
+            this.cannon = cannon;
+            name = cannon.getName();
 	}
 
     /**
@@ -49,7 +48,7 @@ public class IndependentCannonSliderChangeListener implements ChangeListener<Num
             ChoreographyController.getInstance().setfcwOutput(
                 f.toString());
             TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(
-            MusicPaneController.getInstance().getTenthsTime(), f);
+                MusicPaneController.getInstance().getTenthsTime(), f);
             FountainSimController.getInstance().acceptFcw(f);
 	}
 
