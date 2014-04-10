@@ -1,6 +1,3 @@
-/**
- * 
- */
 package choreography.io;
 
 import choreography.model.fcw.FCW;
@@ -60,6 +57,8 @@ public final class FCWLib {
     }	
 	
     /**
+     * Controls access to constructor and instance
+     * 
      * @return the fcwLib
      */
     public static synchronized FCWLib getInstance() {
@@ -75,12 +74,18 @@ public final class FCWLib {
         fcwLib = aFcwLib;
     }
     
+    /**
+     * Coordinates actions to read the FCW information from disk into memory
+     * 
+     * @param fcwInfo 
+     */
     public synchronized void readFCWInfoFromFile(InputStream fcwInfo) {
         readFCWInfoFromFile(new BufferedReader(new InputStreamReader(fcwInfo)));
     }
 	
     /**
-     *
+     * Searches for and reads fcw info from the file.
+     * 
      * @param fcwInfo
      */
     public synchronized void readFCWInfoFromFile(BufferedReader fcwInfo){
@@ -103,6 +108,10 @@ public final class FCWLib {
         readTableCommandsFromFile(fileIn);
     }
 
+    /**
+     * Reads function addresses from file
+     * @param fileIn 
+     */
     private synchronized void readFunctionsFromFile(Scanner fileIn) {
         String line = null;
         while(fileIn.hasNextLine()) {
@@ -118,7 +127,7 @@ public final class FCWLib {
     }
 
     /**
-     *
+     * Reads all water addresses from the file into memory
      * @param fileIn
      */
     public synchronized void readWaterAddressesFromFile(Scanner fileIn) {
@@ -135,7 +144,7 @@ public final class FCWLib {
     }
 
     /**
-     *
+     * Reads light addresses from file
      * @param fileIn
      */
     public synchronized void readLightAddressesFromFile(Scanner fileIn) {
@@ -151,7 +160,7 @@ public final class FCWLib {
     }
 
     /**
-     *
+     * Reads the table which maps addresses to tables into memory.
      * @param fileIn
      */
     public synchronized void readAddressTableFromFile(Scanner fileIn) {
@@ -171,7 +180,7 @@ public final class FCWLib {
     }
 
     /**
-     *
+     * Reads the tables into memory and adds them to the table of tables of commands.
      * @param fileIn
      */
     public synchronized void readTableCommandsFromFile(Scanner fileIn) {
@@ -202,7 +211,7 @@ public final class FCWLib {
 
     /**
      *
-     * @return
+     * @return all of the light names currently recognized by the program
      */
     public synchronized String[] getLightTable() {
             return lightNames;
@@ -210,7 +219,7 @@ public final class FCWLib {
 
     /**
      *
-     * @return
+     * @return all of the water address names recognized by the program
      */
     public synchronized String[] getWaterTable() {
             return waterNames;
@@ -221,8 +230,9 @@ public final class FCWLib {
      * return an FCW with the appropriate address and data.
      * 
      * @param cannon Must be of CannonEnum, but in String form.
-     * @param actions An array of 
-     * @return 
+     * @param actions An array containing the strings representing actions 
+     * which the cannon will perform
+     * @return the FCW representing the information sent
      */
     public synchronized FCW getFCW(String cannon, String[] actions) {
 
@@ -232,12 +242,22 @@ public final class FCWLib {
 
         addr = searchAddresses(cannon);
         table = searchFunctionTables(addr);
-        data = getCommandsForAction(actions, table, data);
+        data = getCommandsForAction(actions, table);
 
         return new FCW(addr, data); //get rid of this crap!
     }
 
-    private synchronized int getCommandsForAction(String[] actions, String table, int data) {
+    /**
+     * Gets values for string representation of commands and creates the data 
+     * section of the FCW
+     * 
+     * @param actions the actions to search for
+     * @param table the table containing the appropriate commands
+     * @param data the variable to store the result in
+     * @return 
+     */
+    private synchronized int getCommandsForAction(String[] actions, String table) {
+        int data = 0;
         for (String action : actions) {
             action = action.toUpperCase();
             int value = tableCommands.get(table).get(action);
@@ -246,6 +266,12 @@ public final class FCWLib {
         return data;
     }
 
+    /**
+     * Searches the address tables for the cannon
+     * 
+     * @param cannon the cannon you are searching for
+     * @return the address of the cannon
+     */
     private synchronized int searchAddresses(String cannon) {
         if(waterAddress.containsKey(cannon)) {
                 return searchWaterAddresses(cannon);
@@ -257,6 +283,11 @@ public final class FCWLib {
                         + "a water or light address");
     }
 
+    /**
+     * Searches function tables for an address
+     * @param addr the address you are querying for
+     * @return the name of the table the address maps to
+     */
     private synchronized String searchFunctionTables(int addr) {
         String table = null;
         for(HashSet<Integer> hs : functionTables.keySet()){
@@ -269,7 +300,7 @@ public final class FCWLib {
     }
 
     private synchronized int searchWaterAddresses(String cannon) throws IllegalArgumentException {
-		return waterAddress.get(cannon); //get it!
+        return waterAddress.get(cannon); //get it!
     }
     
     private synchronized int searchLightAddresses(String cannon) throws IllegalArgumentException {
