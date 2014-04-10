@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package choreography.io;
 
 /**
- *
- * @author elementsking
+ * Used to get information out of a file. 
+ * @author Frank Madrid
  */
 public class FilePayload {
     private String name;
@@ -20,14 +14,14 @@ public class FilePayload {
     }
 
     /**
-     * @return the name
+     * @return name the name of the file
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return the payload
+     * @return payload the payload of the file
      */
     public byte[] getPayload() {
         return payload;
