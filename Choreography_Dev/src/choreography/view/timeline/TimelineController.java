@@ -137,7 +137,9 @@ public class TimelineController implements Initializable {
     public void delete(int col, int row, int length, boolean first){
     	if(first){
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
-    		//timeline.getGtfoMap().get(row).remove(col);//TODO ask frank about this
+    		if(timeline.getGtfoMap().containsKey(row)){
+//    			   timeline.getGtfoMap().get(row).remove(row, value);//TODO ask frank about this
+    		}
     		FCW off = new FCW(channelAddresses[row], 0);
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
             timeline.setLightFcw(off, col, col+length);//not sure if length is needed?
@@ -267,11 +269,10 @@ public class TimelineController implements Initializable {
             	if(!outOfBounds){
             		for(int i = 0; i < colAL.size(); i++){
             		
-            		int newCol = transColAL.get(i) - colAL.get(i);
-            		int newRow = transRowAL.get(i) - rowAL.get(i);
-            		
-            		lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
-            	}
+            			int newCol = transColAL.get(i) - colAL.get(i);
+            			int newRow = transRowAL.get(i) - rowAL.get(i);
+            			lightRecArray[colAL.get(i) + newCol][rowAL.get(i) + newRow].setFill(copyAL.get(i).getFill());
+            		}
             	}
             	
             	transRowAL.add(0);
@@ -285,24 +286,24 @@ public class TimelineController implements Initializable {
             			int endpt = transColAL.get(i-1)+1;
 //            			FCW f = new FCW(channelAddresses[startpt], (Color)lightRecArray[transColAL.get(i-1)][transRowAL.get(i-1)].getFill());
             			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-            			FCW off = new FCW(channelAddresses[0], 0);
+            			FCW off = new FCW(channelAddresses[startpt], 0);
                         timeline.setLightFcw(f, startOther, endpt);
-                        timeline.setLightFcw(off, endpt+1, endpt+2);
+                        timeline.setLightFcw(off, startOther, endpt); //TODO causes stray boxes, might not be needed
                         System.out.println(f + " " + startOther + " " + endpt);
-                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
+                        System.out.println(off + " " + endpt + " " + (endpt+1));
                         start.clear();
             		}
-            		if(transRowAL.get(i) != transRowAL.get(i-1)){
+            		else if(transRowAL.get(i) != transRowAL.get(i-1)){
             			start.add(transRowAL.get(i-1));
             			int startpt = start.get(0);
             			int startOther = transColAL.get(i-1) - start.size()+1;
             			int endpt = transColAL.get(i-1)+1;
             			FCW f = new FCW(channelAddresses[startpt], ColorPaletteModel.getInstance().getSelectedIndex() + 1);
-            			FCW off = new FCW(channelAddresses[0], 0);
+            			FCW off = new FCW(channelAddresses[startpt], 0);
                         timeline.setLightFcw(f, startOther, endpt);
-                        timeline.setLightFcw(off, endpt+1, endpt+2);
+                        timeline.setLightFcw(off, startOther, endpt);
                         System.out.println(f + " " + startOther + " " + endpt);
-                        System.out.println(off + " " + endpt+1 + " " + endpt+2);
+                        System.out.println(off + " " + endpt + " " + (endpt+1));
                         start.clear();
             		}
             		else{
