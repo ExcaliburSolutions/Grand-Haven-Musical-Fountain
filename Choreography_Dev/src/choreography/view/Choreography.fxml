@@ -59,7 +59,8 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help" fx:id="helpMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" fx:id="aboutMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#aboutDialogueBox" text="About" fx:id="aboutMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#userManual" text="Help" />
           </items>
         </Menu>
       </menus>
