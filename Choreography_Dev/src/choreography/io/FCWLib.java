@@ -348,7 +348,7 @@ public final class FCWLib {
                 case "5":
                     return 5;
                 case "6":
-                    return 5;
+                    return 6;
                 case "0":
                     return 0;
             }
