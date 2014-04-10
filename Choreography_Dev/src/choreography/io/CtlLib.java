@@ -187,7 +187,7 @@ public class CtlLib {
     }
     /**
      * Puts a version header at the top of the file. Iterates through the timeline
-     * and builds lines of <MM:ss.t000-000 111-111 222-222>
+     * and builds lines of <MM:SS.T000-000 111-111 222-222>
      * 
      * @param content the timeline you want to save
      * @return a string holding that data in the ctl format

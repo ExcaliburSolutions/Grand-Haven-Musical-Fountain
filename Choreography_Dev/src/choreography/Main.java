@@ -50,16 +50,11 @@ public class Main extends Application {
             Main.primaryStage = primaryStage;
             primaryStage.setTitle("Grand Haven Musical Fountain Choreographer");
             fountain = Fountain.getInstance();
-            
-//          EventBus.publish(new ResourceAvailable<Fountain>(fountain));
-//          EventBus.publish(new ResourceAvailable(fountain));
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("view/Choreography.fxml"));
             root = (VBox)fxml.load();
-//          HBox sliders = (HBox)FXMLLoader.load(getClass().getResource("sliders/Sliders.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("view/application.css").toExternalForm());
             primaryStage.setScene(scene);
-            
             primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {

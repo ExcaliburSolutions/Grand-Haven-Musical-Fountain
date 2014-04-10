@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package choreography.io;
 
+import choreography.view.ChoreographyController;
 import choreography.view.music.MusicPaneController;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,11 +18,16 @@ import java.util.zip.ZipOutputStream;
 import javafx.stage.FileChooser;
 
 /**
- *
+ * This class is responsible for writing and reading .zip format proprietary files
+ * containing a map, ctl, wav, (mandatory) and marks (optional) files 
+ * 
  * @author elementsking
  */
 public class GhmfLibrary {
     
+    /**
+     * Opens a FileChooser and reads it
+     */
     public static void openGhmfFile() {
         try {
             FileChooser fc = new FileChooser();
@@ -41,6 +41,14 @@ public class GhmfLibrary {
         }
     }
     
+    /**
+     * Opens the zip and reads the contents into memory. It organizes the other
+     * IO classes to perform the necessary operations. Needs access to a temp file
+     * for reading music files because JavaFX mediaPlayer doesn't support InputStreams
+     * 
+     * @param ghmfFile
+     * @throws IOException 
+     */
     public static void readGhmfZip(ZipFile ghmfFile) throws IOException {
         Enumeration<? extends ZipEntry> entries = ghmfFile.entries();
         InputStream ctl = null, map = null, music = null, marks = null;
@@ -69,13 +77,20 @@ public class GhmfLibrary {
             MapLib.openMap(map);
             CtlLib.getInstance().openCtl(ctl);
             if(marks != null) 
-                MarkLib.readMarks(marks);
+                ChoreographyController.getInstance().setBeatmarks(MarkLib.readMarks(marks));
         } catch (NullPointerException e){
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException("Your GHMF archive was corrupted or missing files.");
         }
     }
     
-    public static boolean writeGhmfZip(File zipLoc, FilePayload... buffers) throws IOException {
+    /**
+     * Marshals FilePayloads and writes them to a zip archive.
+     * 
+     * @param zipLoc - the location where it will be saved
+     * @param buffers - the FilePayLoads which will be written to disk
+     * @return Whether the operation was successful or not 
+     */
+    public static boolean writeGhmfZip(File zipLoc, FilePayload... buffers) {
         try (ZipOutputStream output = new ZipOutputStream(new FileOutputStream(zipLoc))) {
             for(FilePayload buffer: buffers) {
                 buffer.setName(buffer.getName().replaceAll("\\d*$", ""));
@@ -84,7 +99,10 @@ public class GhmfLibrary {
                 output.write(buffer.getPayload());
                 output.closeEntry();
             }
+            return true;
+        } catch(IOException e) {
+            return false;
         }
-        return true;
+        
     }
 }
