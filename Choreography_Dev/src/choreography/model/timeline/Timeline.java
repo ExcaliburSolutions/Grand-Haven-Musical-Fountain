@@ -280,7 +280,6 @@ public class Timeline {
             closestKey = time;
         }
           FountainSimController.getInstance().drawFcw(waterTimeline.get(closestKey));
-//      }
           
   }
     
@@ -348,24 +347,17 @@ public class Timeline {
     public void collapseTimelines() {
         ConcurrentSkipListMap<Integer, ArrayList<FCW>> result = new ConcurrentSkipListMap<>();
         timeline.clear();
-        result.putAll(waterTimeline);
-        result.putAll(lightTimeline);
-//        for(Integer channel: channelColorMap.keySet()) {
-//            for(Entry<Integer, Integer> entry: channelColorMap.get(channel).entrySet()) {
-//                insertIntoTimeline(timeline, entry.getKey(), new FCW(channel, entry.getValue()));
-//            }
-//        }
-       timeline = result;
+        insertFcwsIntoTimeline(lightTimeline);
+        insertFcwsIntoTimeline(waterTimeline);
+        timeline = result;
     }
-    
-//    public void removeIntermediateColors() {
-//        int start = 0;
-//        
-//        for(Integer channel:channelColorMap.keySet()) {
-//            for(Integer timeIndex: channelColorMap.get(channel).keySet()) {
-//                
-//            }
-//        }
-//    }
+
+    public void insertFcwsIntoTimeline(SortedMap<Integer, ArrayList<FCW>> srcTimeline) {
+        for(Integer timeIndex: srcTimeline.keySet()) {
+            for(FCW f: srcTimeline.get(timeIndex)) {
+                insertIntoTimeline(timeline, timeIndex, f);
+            }
+        }
+    }
     
 }

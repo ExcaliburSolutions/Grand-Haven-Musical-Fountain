@@ -77,7 +77,8 @@ public class IndependentSliderMouseReleasedEvent implements EventHandler<MouseEv
         ChoreographyController.getInstance().stopTimelineTimer();
         String[] actions = new String[]{Integer.toString(icscl.getLastNumber())};
         FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
-        TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(MusicPaneController.getInstance().getTenthsTime(), f);
+        TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(
+                MusicPaneController.getInstance().getTenthsTime(), f);
     }
 }
  

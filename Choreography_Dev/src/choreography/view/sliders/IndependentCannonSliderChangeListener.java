@@ -47,13 +47,17 @@ public class IndependentCannonSliderChangeListener implements ChangeListener<Num
             FCW f = FCWLib.getInstance().getFCW(name, actions);
             ChoreographyController.getInstance().setfcwOutput(
                 f.toString());
-//            TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(
-//                MusicPaneController.getInstance().getTenthsTime(), f);
+            TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(
+                MusicPaneController.getInstance().getTenthsTime(), f);
             FountainSimController.getInstance().acceptFcw(f);
 	}
 
     public int getLastNumber() {
         return lastNumber;
+    }
+
+    String getName() {
+        return name;
     }
 
 }

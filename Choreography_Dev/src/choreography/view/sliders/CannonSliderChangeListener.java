@@ -23,7 +23,10 @@ class CannonSliderChangeListener<T extends Cannon> implements ChangeListener<Num
     public CannonSliderChangeListener(ArrayList<T> list, String module) {
         this.module = module;
         cannons = new ArrayList<>();
-        cannons.addAll(list);
+        for(T c : list) {
+            cannons.add(c);
+        }
+        
         name = list.get(0).getName();
     }
     
@@ -34,6 +37,7 @@ class CannonSliderChangeListener<T extends Cannon> implements ChangeListener<Num
         for(T c : cannons){
             c.setLevel(level);
         } 
+        System.out.println();
         String[] actions = new String[]{module, Integer.toString(level)};
         FCW f = FCWLib.getInstance().getFCW(name, actions);
         ChoreographyController.getInstance().setfcwOutput(f.toString());

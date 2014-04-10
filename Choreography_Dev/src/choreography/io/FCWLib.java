@@ -258,7 +258,7 @@ public final class FCWLib {
 
         addr = searchAddresses(cannon);
         table = searchFunctionTables(addr);
-        data = getCommandsForAction(actions, table);
+        data = getCommandsForAction(actions, table, data);
 
         return new FCW(addr, data); //get rid of this crap!
     }
@@ -272,8 +272,8 @@ public final class FCWLib {
      * @param data the variable to store the result in
      * @return 
      */
-    private synchronized int getCommandsForAction(String[] actions, String table) {
-        int data = 0;
+    private synchronized int getCommandsForAction(String[] actions, String table, int data) {
+//        int data = 0;
         for (String action : actions) {
             action = action.toUpperCase();
             int value = tableCommands.get(table).get(action);

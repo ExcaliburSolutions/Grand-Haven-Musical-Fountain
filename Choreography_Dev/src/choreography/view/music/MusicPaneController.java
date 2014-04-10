@@ -60,6 +60,7 @@ public class MusicPaneController {
     Music music2;
     private boolean notFirst = false;
     final DecimalFormat f = new DecimalFormat("0.0");
+    
 
     /**
      *
@@ -108,7 +109,7 @@ public class MusicPaneController {
     private NumberAxis labelAxis, numberLine;
     
     @FXML
-    private Button playButton;
+    private Button playButton, resetButton;
     
     
 
@@ -214,7 +215,7 @@ public class MusicPaneController {
     	File file2 = fc.showOpenDialog(null);
     	openMusicFile(file2);
         playButton.setDisable(false);
-        
+        resetButton.setDisable(false);
     }
     	
     public void loadMusicFile(File file2) {
