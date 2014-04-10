@@ -133,8 +133,9 @@ public class CtlLib {
         String[] lines = input.split(System.getProperty("line.separator"));
         //Create an Event[] to hold all events
         ConcurrentSkipListMap<Integer, ArrayList<FCW>> events = new ConcurrentSkipListMap<>();
+        try {
         // For each line,
-        for(String line : lines){
+        for (String line : lines) {
             //Get the time signature
             String totalTime = line.substring(0, 7);
             //Get the minutes
@@ -150,18 +151,23 @@ public class CtlLib {
             //break the commands into tokens
             String[] commandTokens = commands.split(" ");
             //create a new FCW for the command token
-            FCW fcw =null; ArrayList<FCW> fcws = new ArrayList<>();
-            for(String command: commandTokens){
+            FCW fcw = null;
+            ArrayList<FCW> fcws = new ArrayList<>();
+            for (String command : commandTokens) {
                 String[] tokens = command.split("-");
-                fcw = new FCW(Integer.parseInt(tokens[0]), 
-                    Integer.parseInt(tokens[1]));
-                
-                fcws.add(fcw);       
+                fcw = new FCW(Integer.parseInt(tokens[0]),
+                        Integer.parseInt(tokens[1]));
+
+                fcws.add(fcw);
             }
             events.put(totalTimeinTenthSecs, fcws);
         }
-        if(isTimeCompensated) {
+        if (isTimeCompensated) {
             reversePostDate(events);
+        }
+        } catch(StringIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Your CTL file may be corrupted..."
+                    + " Check the manual.");
         }
         return events;
     }
