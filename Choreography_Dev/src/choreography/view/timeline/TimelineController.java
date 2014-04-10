@@ -367,7 +367,36 @@ public class TimelineController implements Initializable {
 //                        "L33-A Mod 7 Back Center", "L35-A Mod 7 Back Right",
 //                        "L36-Voice 1", "Space for Voice 2", "Custom Channel" };
     public void setLabelGridPane(String[] input) {
-    	setLabelNames(input);
+    	String[] base10 = new String[]{"Module1", "Module2", "Module3", 
+                "Module4", "Module5", "Module6", "Module7", "PeacockAB", 
+                "FrontCurtain", "BackCurtain"};
+    	ArrayList<String> channels = new ArrayList<String>();
+    	for(String base: base10){
+    		channels.add(base);
+    	}
+//    	if(input.length <=10 ){
+//    		setLabelNames(base10);
+//    	}
+//    	else{
+		for (int i = 0; i < input.length; i++) {
+			for (String base : base10) {
+				if (input[i].equals(base)) {
+
+				} else {
+					if(!channels.contains(input[i])){
+						channels.add(input[i]);
+					}
+					
+				}
+			}
+		}
+
+		String[]channelsArray = channels.toArray(new String[1]);
+		
+		setLabelNames(channelsArray);
+//    	}
+    	
+//    	setLabelNames(input);
     	Set<Integer> addresses = new HashSet<>();
     	for(String in: input) {
             Integer addr = FCWLib.getInstance().lookupAddress(in);
@@ -386,6 +415,35 @@ public class TimelineController implements Initializable {
         for(int i = 0; i < channelAddresses.length; i++) {
             labelNames[i] = FCWLib.getInstance().reverseLookupAddress(channelAddresses[i]);
         }
+        
+        String[] base10 = new String[]{"Module1", "Module2", "Module3", 
+                "Module4", "Module5", "Module6", "Module7", "PeacockAB", 
+                "FrontCurtain", "BackCurtain"};
+    	ArrayList<String> channels = new ArrayList<String>();
+    	for(String base: base10){
+    		channels.add(base);
+    	}
+		for (int i = 0; i < labelNames.length; i++) {
+			for (String base : base10) {
+				if (labelNames[i].equals(base)) {
+
+				} else {
+					if(!channels.contains(labelNames[i])){
+						channels.add(labelNames[i]);
+					}
+				}
+			}
+		}
+
+		labelNames = channels.toArray(new String[1]);
+		
+		Set<Integer> addresses = new HashSet<>();
+    	for(String in: labelNames) {
+            Integer addr = FCWLib.getInstance().lookupAddress(in);
+            addresses.add(addr);
+    	}
+    	
+    	setChannelAddresses(addresses);
         setLabelGridPane(channelAddresses);
         setTimelineGridPane();
         rePaintLightTimeline();

@@ -1,3 +1,5 @@
+
+
 package choreography;
 	
 import choreography.model.fountain.Fountain;
@@ -11,9 +13,11 @@ import choreography.model.*;
 import javafx.scene.image.Image;
 
 /**
- *
- * @author elementsking
+ * The Main class calls of the needed methods and classes 
+ * that are needed for the program to run.
+ * @author Frank Madrid
  */
+
 public class Main extends Application {
 	
 	private static Fountain fountain;
@@ -21,7 +25,7 @@ public class Main extends Application {
 	private static Stage primaryStage;
 
     /**
-     *
+     * The main method that is used for the program. 
      * @param args
      */
     public static void main(String[] args) {
@@ -29,15 +33,16 @@ public class Main extends Application {
     }
 
     /**
-     *
-     * @return
+     * Returns fountain which is what is used for the program.
+     * @return fountain
      */
     public static Fountain getFountain() {
 		return fountain;
 	}
 
     /**
-     *
+     * The start method uses the primary stage created by the main
+     * method to make the program. 
      * @param primaryStage
      */
     @Override
@@ -48,7 +53,7 @@ public class Main extends Application {
             this.setPrimaryStage(primaryStage);
             
             Main.primaryStage = primaryStage;
-            primaryStage.setTitle("Grand Haven Musical Fountain Choreographer");
+            primaryStage.setTitle("GHMF Choreography Studio");
             fountain = Fountain.getInstance();
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("view/Choreography.fxml"));
             root = (VBox)fxml.load();
@@ -63,6 +68,7 @@ public class Main extends Application {
     }
 	
 	/**
+	 * Returns the primary stage for the program to use throughout the program. 
      * @return the primaryStage
      */
 	public static Stage getPrimaryStage() {
@@ -70,6 +76,8 @@ public class Main extends Application {
     }
 
 	/**
+	 * Sets the primary stage for the program to use. Able to be called
+	 * from other classes. 
      * @param primaryStage the primaryStage to set
      */
     public void setPrimaryStage(Stage primaryStage) {
