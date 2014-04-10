@@ -1577,7 +1577,12 @@ public class TimelineController implements Initializable {
     }
     
     public void fireSimChangeEvent() {
+    	if (MusicPaneController.getInstance().getTenthsTime() == 0){
         timeline.sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime());
+    	}
+    	else {
+            timeline.sendTimelineInstanceToSim(MusicPaneController.getInstance().getTenthsTime()+10);
+    	}
     }
     
     public void fireSimClearEvent() {

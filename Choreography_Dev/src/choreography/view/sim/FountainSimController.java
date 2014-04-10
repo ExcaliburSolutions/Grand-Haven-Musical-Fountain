@@ -1130,6 +1130,10 @@ public class FountainSimController implements Initializable {
                             }
                     }
                     break;
+                case 99:
+                    clearSim();
+                    clearSweeps();
+                    break;
             }
        }
     }
