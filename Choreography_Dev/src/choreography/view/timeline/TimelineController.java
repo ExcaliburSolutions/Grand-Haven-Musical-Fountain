@@ -137,8 +137,8 @@ public class TimelineController implements Initializable {
     public void delete(int col, int row, int length, boolean first){
     	if(first){
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
-    		if(timeline.getGtfoMap().containsKey(row)){
-//    			   timeline.getGtfoMap().get(row).remove(row, value);//TODO ask frank about this
+    		if(timeline.getChannelColorMap().containsKey(row)){
+//    			   tgetChannelColorMaptGtfoMap().get(row).remove(row, value);//TODO ask frank about this
     		}
     		FCW off = new FCW(channelAddresses[row], 0);
     		lightRecArray[col][row].setFill(Color.LIGHTGRAY);
@@ -409,7 +409,7 @@ public class TimelineController implements Initializable {
     }
     
     public void setLabelGridPaneWithCtl(){
-    	Set<Integer> channelAddressesSet = timeline.getGtfoMap().keySet();
+    	Set<Integer> channelAddressesSet = timeline.getChannelColorMap().keySet();
         setChannelAddresses(channelAddressesSet);
         labelNames = new String[channelAddresses.length];
         for(int i = 0; i < channelAddresses.length; i++) {
@@ -774,23 +774,23 @@ public class TimelineController implements Initializable {
     }
 
     public void rePaintLightTimeline() {
-        SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = timeline.getGtfoMap();
-        for (int channel: gtfoArray.keySet()){
-            for (int timeIndex: gtfoArray.get(channel).keySet()){
-                Integer gtfo = timeline.getGtfoMap().get(channel).get(timeIndex);
-                Paint color = ColorPaletteModel.getInstance().getColor(gtfo);
-                if(color == null || color.equals(Color.BLACK)){
-                	color = Color.LIGHTGRAY;
+        SortedMap<Integer, SortedMap<Integer, Integer>> channelColorMap = timeline.getChannelColorMap();
+        for (int channel: channelColorMap.keySet()){
+            for (int timeIndex: channelColorMap.get(channel).keySet()){
+                 Integer color = timeline.getChannelColorMap().get(channel).get(timeIndex);
+                Paint paintColor = ColorPaletteModel.getInstance().getColor(color);
+                if(paintColor == null || paintColor.equals(Color.BLACK)){
+                	paintColor = Color.LIGHTGRAY;
                 }
                 int row = lightRowLookupNumber(channel);
-                lightRecArray[timeIndex][row].setFill(color);
+                lightRecArray[timeIndex][row].setFill(paintColor);
             }
         }
     }
     
     public void updateColors(int time){
-    	SortedMap<Integer, SortedMap<Integer, Integer>> gtfoArray = timeline.getGtfoMap();
-    	for (int channel: gtfoArray.keySet()){
+    	SortedMap<Integer, SortedMap<Integer, Integer>> channelColorMap = timeline.getChannelColorMap();
+    	for (int channel: channelColorMap.keySet()){
             if(time == MusicPaneController.SONG_TIME)
                 time = time - 1;
             Paint color = lightRecArray[time][lightRowLookupNumber(channel)].getFill();
@@ -1656,7 +1656,7 @@ public class TimelineController implements Initializable {
     }
 
     public void injectIntoGtfo(Integer[] newAddresses) {
-        SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = timeline.getGtfoMap();
+        SortedMap<Integer, SortedMap<Integer, Integer>> gtfo = timeline.getChannelColorMap();
         for(Integer i: newAddresses) {
             gtfo.putIfAbsent(i, new ConcurrentSkipListMap<>());
         }
@@ -1672,7 +1672,7 @@ public class TimelineController implements Initializable {
         gridpaneLight.getChildren().clear();
         gridpaneWater.getChildren().clear();
         initializeTimelines();
-        timeline.getGtfoMap().clear();
+        timeline.getChannelColorMap().clear();
     }
     public Timeline getTimeline() {
         return timeline;

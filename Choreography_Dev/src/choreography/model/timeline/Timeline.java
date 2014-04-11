@@ -52,7 +52,7 @@ public class Timeline {
         waterTimeline.putIfAbsent(0, new ArrayList<>());
     }
     
-    public SortedMap<Integer, SortedMap<Integer, Integer>> getGtfoMap() {
+    public SortedMap<Integer, SortedMap<Integer, Integer>> getChannelColorMap() {
         return channelColorMap;
     }
     
@@ -216,7 +216,7 @@ public class Timeline {
             srcTimeline.put(i, newFcw);
         }
     }
-    private void startAndEndPoints(SortedMap<Integer, SortedMap<Integer, Integer>> channelArray) {
+    private void startAndEndPoints(SortedMap<Integer, SortedMap<Integer, Integer>> channelMap) {
         
         for(Integer timeIndex: lightTimeline.keySet()) {
             SortedMap<Integer, Integer> newMap = new ConcurrentSkipListMap<>();
@@ -236,12 +236,12 @@ public class Timeline {
                 if(color == 0) {
 //                    setLightFcwWithRange(newMap, start, timeIndex, f);
                 }
-                if(channelArray.containsKey(f.getAddr())) {
-                    channelArray.get(f.getAddr()).put(timeIndex, color);
+                if(channelMap.containsKey(f.getAddr())) {
+                    channelMap.get(f.getAddr()).put(timeIndex, color);
                     start = timeIndex;
                 } else {
                     newMap.put(timeIndex, color);
-                    channelArray.putIfAbsent(f.getAddr(), newMap);  
+                    channelMap.putIfAbsent(f.getAddr(), newMap);  
                     start = timeIndex;
                 }
             }
