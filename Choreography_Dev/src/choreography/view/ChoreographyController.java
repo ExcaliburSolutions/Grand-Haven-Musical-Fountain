@@ -239,7 +239,7 @@ public class ChoreographyController implements Initializable {
                             Dialogs.create().message("You've loaded a legacy file. "
                                             + "Currently, they are read-only.").showWarning();
                             
-                            killFeaturesOnLegacy();
+//                            killFeaturesOnLegacy();
                         }
                         SpecialoperationsController.getInstance().initializeSweepSpeedSelectors();
                     } catch (IOException ex) {

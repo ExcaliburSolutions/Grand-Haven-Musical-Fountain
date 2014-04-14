@@ -15,70 +15,80 @@ public enum CannonEnum {
     /**
      *
      */
-    RING1, 
+    RING1 ("RING1"), 
 
     /**
      *
      */
-    RING2, 
+    RING2 ("RING2"), 
 
     /**
      *
      */
-    RING3, 
+    RING3 ("RING3"), 
 
     /**
      *
      */
-    RING4, 
+    RING4 ("RING4"), 
 
     /**
      *
      */
-    RING5, 
+    RING5 ("RING5"), 
 
     /**
      *
      */
-    CANDELABRA, 
+    CANDELABRA ("CANDELABRA"), 
 
     /**
      *
      */
-    MULTI, 
+    MULTI ("MULTI"), 
 
     /**
      *
      */
-    SWEEP, 
+    SWEEP ("SWEEP"), 
 
     /**
      *
      */
-    FTCURT,
+    FTCURT ("FTCURT"),
 
     /**
      *
      */
-    BKCURT,
+    BKCURT ("BKCURT"),
 
     /**
      *
      */
-    BAZOOKA,
+    BAZOOKA ("BAZOOKA"),
 
     /**
      *
      */
-    PEACOCK,
+    PEACOCK ("PEACOCK"),
 
     /**
      *
      */
-    SPOUT,
+    SPOUT ("SPOUT"),
 
     /**
      *
      */
-    BKFTCURT
+    BKFTCURT ("BKFTCURT");
+    
+    private final String name;
+    
+    private CannonEnum(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
 }

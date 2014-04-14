@@ -108,6 +108,13 @@ public class LagTimeTable {
             return 0;
         }
         double lagTime = 1.0; 
+        if(cannon.contains("VOICE")) {
+            for(LagTime lt: delays) {
+                if(lt.getDelayName().equalsIgnoreCase(cannon)) {
+                    return lt.getDelayTime();
+                }
+            }
+        }
         for(LagTime lt: delays) {
             if(lt.getDelayName().equalsIgnoreCase(cannon)) {
                 lagTime = lt.getDelayTime();

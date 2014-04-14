@@ -1139,7 +1139,7 @@ public class FountainSimController implements Initializable {
     }
 	
     public void updateColors(int colNum){
-        TimelineController.getInstance().getTimeline().getGtfoMap();
+        TimelineController.getInstance().getTimeline().getChannelColorMap();
         //lookup colors for for all existing channels at given time...
 
         //update the sim objects to those colors

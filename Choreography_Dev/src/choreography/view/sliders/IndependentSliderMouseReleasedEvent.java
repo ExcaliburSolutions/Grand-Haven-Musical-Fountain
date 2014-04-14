@@ -48,6 +48,7 @@ import choreography.model.fcw.FCW;
 import choreography.view.ChoreographyController;
 import choreography.view.music.MusicPaneController;
 import choreography.model.timeline.Timeline;
+import choreography.view.sim.FountainSimController;
 import choreography.view.timeline.TimelineController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -73,12 +74,15 @@ public class IndependentSliderMouseReleasedEvent implements EventHandler<MouseEv
 
     @Override
     public void handle(MouseEvent event) {
-        ChoreographyController.getInstance().stopSliderTimer();
-        ChoreographyController.getInstance().stopTimelineTimer();
-        String[] actions = new String[]{Integer.toString(icscl.getLastNumber())};
+//        ChoreographyController.getInstance().stopSliderTimer();
+//        ChoreographyController.getInstance().stopTimelineTimer();
+        String[] actions = new String[]{Integer.toString(icscl.getLastNumber()), cannonType.name()};
+        System.out.println(cannonType);
         FCW f = FCWLib.getInstance().getFCW(cannonType.name(), actions);
+        System.out.println(f.toString());
         TimelineController.getInstance().getTimeline().setWaterFcwAtPoint(
                 MusicPaneController.getInstance().getTenthsTime(), f);
+        FountainSimController.getInstance().acceptFcw(f);
     }
 }
  

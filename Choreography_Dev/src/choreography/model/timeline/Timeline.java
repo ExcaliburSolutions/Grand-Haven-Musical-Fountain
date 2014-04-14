@@ -208,6 +208,11 @@ public class Timeline {
 //    private void collapseLightAndWaterMaps() {
     private void insertIntoTimeline(SortedMap<Integer, ArrayList<FCW>> srcTimeline, Integer i, FCW f){
         if(srcTimeline.containsKey(i)) {
+            for(FCW currentF: srcTimeline.get(i)) {
+                if(currentF.equals(f)) {
+                    
+                }
+            }
             srcTimeline.get(i).add(f);
         }
         else {
@@ -320,14 +325,23 @@ public class Timeline {
         if(timeline.containsKey(pointInTime)) {
             for(FCW f: timeline.get(pointInTime)) {
                 if(f.getAddr() == query.getAddr()) {
+                    
                     String[] fActions = FCWLib.getInstance().reverseLookupData(f);
                     String[] queryActions = FCWLib.getInstance().reverseLookupData(query);
                     for(String fAction:fActions) {
                         for(String queryAction: queryActions) {
                             if(fAction.equals(queryAction) && !FCWLib.getInstance().isLevel(fAction)) {
-                                result = true;
-                                break;
+//                                query.setData(query.getData() + f.getData());
+                                return true;
                             }
+//                            else if(!fAction.equals(queryAction) && !FCWLib.getInstance().isLevel(fAction)) {
+//                                if(f.getData() > query.getData()) {
+//                                    query.setData(f.getData() - query.getData());
+//                                }
+//                                else {
+//                                    query.setData(f.getData() + query.getData());
+//                                }
+//                            }
                         }
                     }
                     if(f.getAddr() == 54) {
@@ -346,7 +360,7 @@ public class Timeline {
     
     public void collapseTimelines() {
         ConcurrentSkipListMap<Integer, ArrayList<FCW>> result = new ConcurrentSkipListMap<>();
-        timeline.clear();
+//        timeline.clear();
         insertFcwsIntoTimeline(lightTimeline);
         insertFcwsIntoTimeline(waterTimeline);
         timeline = result;

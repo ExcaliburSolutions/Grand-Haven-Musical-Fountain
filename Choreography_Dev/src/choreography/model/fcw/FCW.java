@@ -79,4 +79,23 @@ public class FCW {
         String[] actions = FCWLib.getInstance().reverseLookupData(this);
         return name + "=" + Arrays.toString(actions);
     }
+    
+    @Override
+    public synchronized boolean equals(Object o) {
+        if(o instanceof FCW) {
+            FCW obj = (FCW)o;
+            if(obj.getData() == data && obj.getAddr() == addr) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + this.addr;
+        hash = 43 * hash + this.data;
+        return hash;
+    }
 }
